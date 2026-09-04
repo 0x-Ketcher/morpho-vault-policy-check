@@ -1,0 +1,15 @@
+{
+  "chainByFile": {
+    "Ethereum": 1, "Base": 8453, "Robinhood": 4663, "Arbitrum": 42161, "Optimism": 10, "Avalanche": 43114,
+    "BSC": 56, "Gnosis": 100, "Unichain": 130, "WorldChain": 480, "XLayer": 196, "Plume": 98866
+  },
+  "registries": [
+    { "prime": "Grove", "repo": "grove-labs/grove-address-registry", "branch": "master", "dir": "src" },
+    { "prime": "Spark", "repo": "sparkdotfi/spark-address-registry", "branch": "master", "dir": "src", "skipFiles": ["SparkLend.sol"] },
+    { "prime": "Osero", "repo": "osero-io/osero-address-registry", "branch": "main", "dir": "src" },
+    { "prime": "Skybase", "repo": "skybase-foundation/skybase-address-registry", "branch": "master", "dir": "src" },
+    { "prime": "Keel", "repo": "ElodinLTD/keel-address-registry", "branch": "master", "dir": "src" }
+  ],
+  "atlas": { "repo": "sky-ecosystem/next-gen-atlas", "branch": "main", "contentDir": "content", "rendered": "https://sky-atlas.io" },
+  "primeArticles": { "A.6.1.1.1": "Spark", "A.6.1.1.2": "Grove", "A.6.1.1.3": "Keel", "A.6.1.1.4": "Skybase", "A.6.1.1.5": "Obex", "A.6.1.1.6": "Pattern", "A.6.1.1.7": "Osero", "A.6.1.1.8": "Launch Agent 7", "A.6.1.2.1": "OEA Amatsu", "A.6.1.2.2": "OEA Ozone", "A.6.1.2.3": "Core Council Executor Agent 1" }
+}

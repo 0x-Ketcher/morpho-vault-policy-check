@@ -1,0 +1,89 @@
+import type { CheckDef } from "./helpers.ts";
+import { pick, result, worst, fmtDays, fmtUsd, fmtUnits, describe, short } from "./helpers.ts";
+import type { Status, Citation } from "../types.ts";
+
+export const c09Timelocks: CheckDef = {
+  id: "C9", title: "Timelocks",
+  evaluate: (ctx) => {
+    const p = ctx.policy.timelocks;
+    if (ctx.b.version === "v1.1") {
+      const tl = pick(ctx, "timelock()", (s) => s.timelockV1 ?? 0, (v) => fmtDays(v));
+      return result("C9", "Timelocks", `V2 per-function minimums do not apply to MetaMorpho v1.1, which has one vault-wide timelock. ${p.source}`, "INFO", `v1.1 vault-wide timelock: ${fmtDays(tl.value)} (no per-function policy minimum for v1.1; reported for context).`, [tl]);
+    }
+    const picks = p.vault.map((f) => pick(ctx, f.label, (s) => (s.timelocks[f.function] ? { seconds: s.timelocks[f.function].seconds, abdicated: s.timelocks[f.function].abdicated } : null), (v) => (v ? `${fmtDays(v.seconds)}${v.abdicated ? " (abdicated)" : ""}` : "n/a")));
+    const statuses: Status[] = []; const details: string[] = [];
+    p.vault.forEach((f, i) => {
+      const v = picks[i].value; const min = (f.minDays ?? 0) * 86400;
+      if (!v) { details.push(`${f.label}: not readable`); return; }
+      const ok = v.seconds >= min || (f.abdicationSatisfies && v.abdicated);
+      statuses.push(ok ? "PASS" : p.severityBelowMinimum);
+      details.push(`${f.label}: ${fmtDays(v.seconds)}${v.abdicated ? ", abdicated" : ""} (>= ${f.minDays}d required${f.abdicationSatisfies ? " or abdicated" : ""}) ${ok ? "ok" : "BELOW MINIMUM"}`);
+    });
+    for (const f of p.informational) { const v = (ctx.a ?? ctx.b).timelocks[f.function]; if (v) details.push(`${f.label}: ${fmtDays(v.seconds)} (informational)`); }
+    // adapters: on-chain only
+    const src = ctx.a ?? ctx.b;
+    for (const ad of src.adapters) {
+      if (!ad.timelocks || Object.keys(ad.timelocks).length === 0) { details.push(`adapter ${short(ad.address)}: adapter timelocks not readable by this method`); continue; }
+      for (const f of p.adapter) {
+        const s = ad.timelocks[f.function]; if (s === undefined) continue;
+        const abd = ad.abdicated?.[f.function] ?? false; const min = (f.minDays ?? 0) * 86400;
+        const ok = s >= min || (f.abdicationSatisfies && abd);
+        statuses.push(ok ? "PASS" : p.severityBelowMinimum);
+        details.push(`adapter ${short(ad.address)} ${f.label}: ${fmtDays(s)}${abd ? ", abdicated" : ""} (>= ${f.minDays}d required) ${ok ? "ok" : "BELOW MINIMUM"} [on-chain only]`);
+      }
+    }
+    const status = statuses.length ? worst(statuses) : "NA";
+    const below = details.filter((d) => d.includes("BELOW MINIMUM")).map((d) => d.replace(/:\s[^:]*$/, "").replace(/\s*\(>=.*$/, "").replace(/:\s*\d.*$/, ""));
+    const summary = status === "PASS" ? `All ${statuses.length} checked timelocks meet the policy minimums.` : below.length ? `${below.length} timelock(s) below the policy minimum: ${below.join(", ")}.` : "No timelocks readable.";
+    return result("C9", "Timelocks", `Minimums per function (vault and adapter), abdication accepted where the policy says so. Below minimum = ${p.severityBelowMinimum}. ${p.source}`, status, summary, picks, details);
+  },
+};
+
+export const c10Oracle: CheckDef = {
+  id: "C10", title: "Oracles",
+  evaluate: (ctx) => {
+    const oracles = pick(ctx, "market oracles", (s) => s.markets.filter((m) => m.collateralToken).map((m) => ({ id: m.id, oracle: m.oracle })).sort((x, y) => x.id.localeCompare(y.id)), (v) => v.map((x) => `${x.id.slice(0, 10)}…: ${x.oracle ?? "none"}`).join("; "));
+    const details = ctx.b.markets.filter((m) => m.collateralToken).map((m) => `${m.collateralSymbol ?? short(m.collateralToken!)}/${m.loanSymbol ?? ctx.b.asset.symbol ?? "?"} ${(m.lltv * 100).toFixed(1)}%: oracle ${m.oracle ?? "none"}${m.oracleType ? ` (${m.oracleType} per Morpho API)` : ""}${m.irm ? `, IRM ${short(m.irm)}` : ""}`);
+    return result("C10", "Oracles", `${ctx.policy.oracle.source} Reported for information until BA finalises the oracle criteria.`, ctx.policy.oracle.status, details.length ? `${details.length} collateral market(s) with oracles reported; interim single-source Chainlink is acceptable per the policy snapshot.` : "No collateral markets.", [oracles], details);
+  },
+};
+
+export const c11Fees: CheckDef = {
+  id: "C11", title: "Fees",
+  evaluate: (ctx) => {
+    const v1 = ctx.b.version === "v1.1";
+    const fees = pick(ctx, "fees", (s) => (v1 ? { fee: s.fees.feeV1 ?? null, recipient: s.fees.feeRecipientV1 ?? null } : { performance: s.fees.performanceFee ?? null, management: s.fees.managementFee ?? null, perfRecipient: s.fees.performanceFeeRecipient ?? null, mgmtRecipient: s.fees.managementFeeRecipient ?? null }), (v) => JSON.stringify(v), { tolerance: (a, b) => JSON.stringify(a) === JSON.stringify(b) });
+    const src = ctx.a ?? ctx.b; const citations: Citation[] = []; const details: string[] = [];
+    const who = (a?: string | null) => { if (!a) return "none"; const att = ctx.labels.attribute(a, ctx.b.chainId); citations.push(...att.citations); return `${a} (${describe(att)})`; };
+    if (v1) details.push(`fee: ${((src.fees.feeV1 ?? 0) * 100).toFixed(2)}% to ${who(src.fees.feeRecipientV1)}`, `skim recipient: ${who(src.fees.skimRecipient)}`);
+    else details.push(`performance fee: ${((src.fees.performanceFee ?? 0) * 100).toFixed(2)}% to ${who(src.fees.performanceFeeRecipient)}`, `management fee: ${((src.fees.managementFee ?? 0) * 100).toFixed(2)}% to ${who(src.fees.managementFeeRecipient)}`);
+    return result("C11", "Fees", `${ctx.policy.fees.source} Reported for information.`, ctx.policy.fees.status, details.join("; "), [fees], details, citations);
+  },
+};
+
+export const c12Exposure: CheckDef = {
+  id: "C12", title: "Sky exposure and Liquidity Layer onboarding",
+  evaluate: (ctx) => {
+    const dec = ctx.b.asset.decimals, sym = ctx.b.asset.symbol;
+    const positions = pick(ctx, "Prime ALM proxy positions (asset units)", (s) => s.exposure.map((e) => ({ prime: e.prime, proxy: e.almProxy.toLowerCase(), assets: e.assets })).sort((x, y) => x.proxy.localeCompare(y.proxy)), (v) => v.map((e) => `${e.prime} ${short(e.proxy)}: ${fmtUnits(e.assets, dec, sym)}`).join("; ") || "none", {
+      tolerance: (a, b) => a.length === b.length && a.every((x, i) => { const y = b[i]; const xa = Number(x.assets), ya = Number(y.assets); return x.proxy === y.proxy && (Math.abs(xa - ya) <= Math.max(1, 0.005 * Math.max(xa, ya))); }),
+    });
+    const details: string[] = []; const citations: Citation[] = [];
+    const src = ctx.a ?? ctx.b;
+    let total = 0;
+    for (const e of src.exposure) {
+      const usd = e.assetsUsd ?? ctx.b.exposure.find((x) => x.almProxy.toLowerCase() === e.almProxy.toLowerCase())?.assetsUsd;
+      if (usd) total += usd;
+      const att = ctx.labels.attribute(e.almProxy, ctx.b.chainId); citations.push(...att.citations);
+      let line = `${e.prime} ${e.almProxyLabel} ${e.almProxy}: ${fmtUnits(e.assets, dec, sym)}${usd !== undefined ? ` (${fmtUsd(usd)})` : ""}`;
+      if (e.rateLimits) {
+        const d = e.rateLimits.deposit;
+        const perDay = d && dec !== undefined ? fmtUnits((BigInt(d.slope) * 86400n).toString(), dec, sym) : "n/a";
+        line += e.rateLimits.onboarded ? `; Liquidity Layer: onboarded (deposit limit max ${fmtUnits(d?.maxAmount, dec, sym)}, ${perDay}/day; ${e.rateLimits.label} ${short(e.rateLimits.contract)}) [on-chain only]` : `; Liquidity Layer: not onboarded (no deposit rate-limit key on ${e.rateLimits.label} ${short(e.rateLimits.contract)}) [on-chain only]`;
+      } else line += "; Liquidity Layer: rate limits not read by this method";
+      details.push(line);
+    }
+    const summary = src.exposure.length === 0 ? "No Prime ALM proxy labeled for this chain; exposure not computed." : total > 0 ? `Sky exposure ${fmtUsd(total)} across ${src.exposure.filter((e) => e.assets !== "0").length} Prime position(s). ${src.exposure.some((e) => e.rateLimits?.onboarded) ? "Onboarded on the Liquidity Layer." : "Not onboarded on the Liquidity Layer."}` : `No Sky position. ${src.exposure.some((e) => e.rateLimits?.onboarded) ? "Onboarded on the Liquidity Layer (rate-limit key present)." : "Not onboarded on the Liquidity Layer."}`;
+    return result("C12", "Sky exposure and Liquidity Layer onboarding", `${ctx.policy.exposure.source} Position = ALM proxy shares converted to assets; onboarding = LIMIT_4626_DEPOSIT rate-limit key for this vault on the Prime's RateLimits contract.`, ctx.policy.exposure.status, summary, [positions], details, citations);
+  },
+};

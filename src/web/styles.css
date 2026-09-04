@@ -1,0 +1,65 @@
+:root { --bg: #f6f7f9; --card: #ffffff; --ink: #1c2128; --muted: #5f6b7a; --line: #e3e7ec; --pass: #1f8a4c; --warn: #b7791f; --fail: #c53030; --info: #4a5568; --na: #8a94a6; --accent: #2b4c7e; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+.page { max-width: 1100px; margin: 0 auto; padding: 24px 20px 48px; }
+header h1 { margin: 0 0 6px; font-size: 24px; }
+header .sub { margin: 0 0 18px; color: var(--muted); max-width: 900px; }
+a { color: var(--accent); }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.small { font-size: 12px; }
+.muted { color: var(--muted); }
+.input { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px; margin-bottom: 18px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
+.row:last-child { margin-bottom: 0; }
+input, select, button { font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); }
+input { flex: 1 1 380px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+select { flex: 0 1 auto; max-width: 100%; }
+button { background: var(--accent); color: #fff; border-color: var(--accent); cursor: pointer; }
+button:disabled { opacity: .5; cursor: default; }
+button.ghost { background: #fff; color: var(--accent); }
+.settings { border-top: 1px solid var(--line); margin-top: 10px; padding-top: 10px; }
+.settings label { display: block; }
+.settings input { width: 100%; margin-top: 4px; }
+.fresh { margin: 10px 0 0; font-size: 12px; color: var(--muted); }
+.fresh.warn { color: var(--warn); }
+.log { list-style: none; padding: 0; margin: 0 0 16px; color: var(--muted); }
+.error { background: #fff5f5; border: 1px solid #fed7d7; color: var(--fail); border-radius: 8px; padding: 10px 12px; margin-bottom: 16px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.vault { margin-bottom: 14px; }
+.vault-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.vault h2 { margin: 0; font-size: 20px; }
+.vault p { margin: 4px 0; }
+.actions { margin-top: 10px; display: flex; gap: 8px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); gap: 12px; }
+.check { border-left: 4px solid var(--na); }
+.check.PASS { border-left-color: var(--pass); }
+.check.WARN { border-left-color: var(--warn); }
+.check.FAIL { border-left-color: var(--fail); }
+.check.INFO { border-left-color: var(--info); }
+.check-head { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.check-head h3 { margin: 0; font-size: 15px; flex: 1; }
+.badge { display: inline-block; min-width: 46px; text-align: center; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; color: #fff; background: var(--na); }
+.badge.big { font-size: 14px; padding: 6px 12px; }
+.badge.PASS { background: var(--pass); }
+.badge.WARN { background: var(--warn); }
+.badge.FAIL { background: var(--fail); }
+.badge.INFO { background: var(--info); }
+.tags { display: flex; gap: 6px; }
+.tag { font-size: 11px; padding: 2px 7px; border-radius: 999px; background: #eef1f5; color: var(--muted); }
+.tag.ok { background: #e6f4ec; color: var(--pass); }
+.tag.disc { background: #fff1e6; color: #b45309; font-weight: 600; }
+.summary { margin: 8px 0 0; }
+.body { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 10px; }
+.req { color: var(--muted); font-size: 13px; }
+table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+th, td { text-align: left; vertical-align: top; padding: 5px 6px; border-bottom: 1px solid var(--line); }
+th { font-size: 12px; color: var(--muted); font-weight: 600; }
+td.mono { word-break: break-all; }
+.disc-box { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 8px 10px; margin: 8px 0; }
+.disc-box ul { margin: 6px 0 0; padding-left: 18px; }
+.details { padding-left: 18px; margin: 8px 0; }
+.details li.nested { list-style: circle; margin-left: 16px; color: var(--muted); }
+.cites ul { margin: 4px 0 0; padding-left: 18px; }
+.notes { margin-top: 14px; }
+footer { margin-top: 28px; }
+@media (max-width: 700px) { .cards { grid-template-columns: 1fr; } }

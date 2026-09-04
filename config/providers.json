@@ -1,0 +1,114 @@
+{
+  "morphoApi": "https://blue-api.morpho.org/graphql",
+  "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+  "safeConfigService": "https://safe-config.safe.global/api/v1/chains/",
+  "safeTxService": {
+    "1": "https://api.safe.global/tx-service/eth",
+    "8453": "https://api.safe.global/tx-service/base",
+    "4663": "https://api.safe.global/tx-service/robinhood",
+    "42161": "https://api.safe.global/tx-service/arb1",
+    "10": "https://api.safe.global/tx-service/oeth",
+    "137": "https://api.safe.global/tx-service/pol",
+    "130": "https://api.safe.global/tx-service/unichain"
+  },
+  "etherscan": {
+    "api": "https://api.etherscan.io/v2/api",
+    "chainlist": "https://api.etherscan.io/v2/chainlist",
+    "note": "Requires an API key. Used only as a third, fallback provider by the CLI, CI and the server-side proxy. Not available on Robinhood Chain (4663), Tempo (4217) or Arc (5042)."
+  },
+  "chains": {
+    "1": {
+      "name": "Ethereum",
+      "rpc": [
+        "https://ethereum-rpc.publicnode.com",
+        {
+          "url": "https://1rpc.io/eth",
+          "batch": false
+        }
+      ],
+      "explorer": "https://etherscan.io",
+      "blockscout": "https://eth.blockscout.com",
+      "verified": "2026-09-04: publicnode and 1RPC answer browser requests and eth_call at a pinned block; 1RPC rejects JSON-RPC batches, so batching is off for it; Merkle rate-limits real usage (429) and Cloudflare returned internal errors, both dropped",
+      "pinLag": 2
+    },
+    "8453": {
+      "name": "Base",
+      "rpc": [
+        "https://base-rpc.publicnode.com",
+        "https://mainnet.base.org"
+      ],
+      "explorer": "https://basescan.org",
+      "blockscout": "https://base.blockscout.com",
+      "verified": "2026-09-04: both endpoints answer browser requests, batches and Multicall3",
+      "pinLag": 5
+    },
+    "4663": {
+      "name": "Robinhood Chain",
+      "rpc": [
+        "https://robinhood-rpc.publicnode.com",
+        "https://rpc.mainnet.chain.robinhood.com"
+      ],
+      "explorer": "https://robinhoodchain.blockscout.com",
+      "blockscout": null,
+      "verified": "2026-09-04: both endpoints answer browser requests, batches and Multicall3; the Blockscout explorer sits behind a bot challenge and is not usable as an API; the official node lags publicnode by a few blocks, hence pinLag 20",
+      "pinLag": 20
+    },
+    "42161": {
+      "name": "Arbitrum One",
+      "rpc": [
+        "https://arbitrum-one-rpc.publicnode.com"
+      ],
+      "explorer": "https://arbiscan.io",
+      "blockscout": "https://arbitrum.blockscout.com",
+      "verified": null
+    },
+    "10": {
+      "name": "OP Mainnet",
+      "rpc": [
+        "https://optimism-rpc.publicnode.com"
+      ],
+      "explorer": "https://optimistic.etherscan.io",
+      "blockscout": "https://optimism.blockscout.com",
+      "verified": null
+    },
+    "137": {
+      "name": "Polygon",
+      "rpc": [
+        "https://polygon-bor-rpc.publicnode.com"
+      ],
+      "explorer": "https://polygonscan.com",
+      "blockscout": "https://polygon.blockscout.com",
+      "verified": null
+    },
+    "130": {
+      "name": "Unichain",
+      "rpc": [
+        "https://unichain-rpc.publicnode.com"
+      ],
+      "explorer": "https://uniscan.xyz",
+      "blockscout": "https://unichain.blockscout.com",
+      "verified": null
+    }
+  },
+  "morphoChains": {
+    "note": "Chains indexed by the Morpho API on 2026-09-04. Vaults on chains without an 'rpc' entry above are identified via the API and the chain check, but on-chain reads are unavailable and every card shows 'single source'.",
+    "ids": [
+      1,
+      10,
+      130,
+      137,
+      143,
+      480,
+      988,
+      999,
+      4217,
+      4663,
+      5042,
+      8453,
+      42161,
+      747474
+    ]
+  },
+  "pinLagNote": "pinLag = how many blocks behind the latest block every read is pinned, so that a second provider that lags slightly still has the state. Ethereum 2 (~24 s), Base 5 (~10 s), Robinhood 20 (~5 s).",
+  "rpcEntryNote": "An rpc entry is a URL, or { url, batch: false } for nodes that reject JSON-RPC batch requests. The first healthy entry is the primary; the next one replays every batch at the same block for comparison; later ones are failover."
+}

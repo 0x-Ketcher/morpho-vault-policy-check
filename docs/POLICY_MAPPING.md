@@ -1,0 +1,24 @@
+# Policy mapping and open interpretation questions
+
+For BA Labs. Maps each line of the "Morpho Vaults v2 Eligibility Criteria" document (snapshot 2026-09-01, last changed 2026-08-31) to a check, and lists the interpretation calls the tool makes. Each call is a config value or a documented rule; nothing here is hidden in code.
+
+| Policy line | Check | Interpretation in the tool | Confidence |
+|---|---|---|---|
+| Owner = Prime SubProxy | C5 | On Ethereum the SubProxy; on Base and Robinhood the Prime's governance executor, since the registries and the Atlas label those as the Prime's governance arm there. An n-of-n Safe that includes the governance address is WARN (veto, not control). | High for Ethereum; the executor reading for other chains should be confirmed |
+| Curator = 2/2 msig between OEA and external msig | C6 | Threshold 2 of 2 owners, one owner labeled as an external curator by Morpho's curator registry, the other the OEA. A Prime- or OEA-only Safe (for example the Spark 3/5) is WARN, not FAIL. | Open question 1: does the 2/2 rule apply to Prime-self-curated vaults? |
+| Allocator = Prime Agent / external curator EOA / multisig | C8 | Reported, never graded. | High |
+| Sentinel = OEA with a separate set of signers; the only mandatory sentinel | C7 | At least one sentinel that is a Safe, attributed to the OEA, whose leaf signers do not intersect the curator Safe's leaf signers. Prime-owned and monitoring sentinels are optional extras. | Open question 2: is a single-EOA OEA co-signer on the curator Safe acceptable, and is a re-roled v1.1 vault (SubProxy owner, OEA Guardian with separate signers) acceptable instead of Vault V2? |
+| v1.1 vaults | C1, C7, C9 | A v1.1 vault is not a gap by itself; its Guardian is judged as the sentinel seat; per-function timelocks do not apply. | Medium |
+| Accepted collateral and max LLTV | C4 | Address allow-list per chain; ETH means WETH, stETH means wstETH or stETH. A market counts when it has an allocation of at least one whole unit or a non-zero cap. Not accepted with an allocation is FAIL; cap-only is WARN. | High; cbETH and spUSDG proposed for approval on 2026-09-02, not applied |
+| Loan assets | C3 | Address allow-list per chain: USDC, USDT, PYUSD, RLUSD, USDG. | High |
+| Accepted chains | C2 | Ethereum, Base, Robinhood. Any other chain is FAIL with the policy's own wording (risk review and separate request). | High |
+| Timelock minimums per function, vault and adapter | C9 | Selectors derived from the Vault V2 and adapter function signatures; "7d/Abdicated" accepted as abdicated for the four gates and the adapter registry. Below minimum is FAIL. | Open question 3: severity of a timelock below minimum (FAIL assumed). The snapshot lists "Set send assets gate 7d" without "/Abdicated"; treated like the other gates. |
+| Oracle criteria, interim single-source Chainlink | C10 | Reported only. | Pending BA |
+| Fees TBD | C11 | Reported only. | Pending BA |
+| Deadline and 100% CRR on non-compliant allocations | C12 | Exposure and Liquidity Layer onboarding shown as context so a reader sees what a verdict means in money; not graded. | n/a |
+
+## What public sources can and cannot prove
+
+Structure is provable: Safe version, threshold, owner set, signer disjointness, timelocks, caps, LLTVs. Prime-side and curator-side identity is provable from the registries, the Atlas and Morpho's curator registry. OEA identity is not: on 2026-09-04 no public source labels the OEA sentinel Safes or the OEA co-signers. The tool grades those seats WARN with the exact reason, and an unlabeled Safe that shares a signer with a publicly labeled Safe is attributed "by signer overlap", which can lower a verdict but never raise it to PASS.
+
+Recommendation to turn the OEA seats green from a public source: list the OEA Safe addresses per chain in the Atlas Ozone OEA article (A.6.1.2.2) or in a Soter-published address registry in the same format as the Prime registries. The label sync would pick either up automatically.

@@ -1,0 +1,144 @@
+{
+  "note": "Quick-pick list. Seeded from the Sep 2026 review fixtures; the label sync appends every vault constant found in the Prime registries. Not an exposure list.",
+  "vaults": [
+    {
+      "name": "steakUSDC - Steakhouse Prime USDC (shared public vault)",
+      "chainId": 8453,
+      "address": "0xbeef0e0834849aCC03f0089F01f4F1Eeb06873C9",
+      "prime": "Grove"
+    },
+    {
+      "name": "sparkUSDC - Spark USDC Vault (v1.1)",
+      "chainId": 8453,
+      "address": "0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A",
+      "prime": "Spark"
+    },
+    {
+      "name": "grove-bbqUSDC - Grove x Steakhouse USDC High Yield (v1.1)",
+      "chainId": 8453,
+      "address": "0xBeEf2d50B428675a1921bC6bBF4bfb9D8cF1461A",
+      "prime": "Grove"
+    },
+    {
+      "name": "sparkUSDTbc - Spark Blue Chip USDT Vault",
+      "chainId": 1,
+      "address": "0xb0c424116172B55CbB6dD3136F5989F7959e5B91",
+      "prime": "Spark"
+    },
+    {
+      "name": "grove-bbqUSDC - Grove x Steakhouse USDC (Ethereum V2)",
+      "chainId": 1,
+      "address": "0xBeefF08dF54897e7544aB01d0e86f013DA354111",
+      "prime": "Grove"
+    },
+    {
+      "name": "sparkUSDCbc - Spark Blue Chip USDC Vault (v1.1)",
+      "chainId": 1,
+      "address": "0x56A76b428244a50513ec81e225a293d128fd581D",
+      "prime": "Spark"
+    },
+    {
+      "name": "groveUSDG - Grove x Steakhouse USDG (Robinhood)",
+      "chainId": 4663,
+      "address": "0xBEEff039907422219Fb367e525954DDC092854d9",
+      "prime": "Grove"
+    },
+    {
+      "name": "grove-bbqAUSD - Grove x Steakhouse High Yield AUSD (v1.1, wound down)",
+      "chainId": 1,
+      "address": "0xbeEffff0629438aD198c47F80d66FA4Be5C0caF6",
+      "prime": "Grove"
+    },
+    {
+      "name": "grove-bbqAUSD V2 successor",
+      "chainId": 1,
+      "address": "0xBEEfF0d672ab7F5018dFB614c93981045D4aA98a",
+      "prime": "Grove"
+    },
+    {
+      "name": "grove-steakUSDG - Grove x Steakhouse USDG (Ethereum, target-state template)",
+      "chainId": 1,
+      "address": "0xbeef05061FE51eA482BD1b68041353490b3a5934",
+      "prime": "Grove"
+    },
+    {
+      "name": "grove-steakUSDC - Grove x Steakhouse USDC (Base, deployment A)",
+      "chainId": 8453,
+      "address": "0xbeef0786756810478b88982DE00F3CD7fdB8e7c7",
+      "prime": "Grove"
+    },
+    {
+      "name": "grove-steakUSDC - Grove x Steakhouse USDC (Base, deployment B)",
+      "chainId": 8453,
+      "address": "0xbeef0Eb37DdB8f88BDf167c498c6429676fF7947",
+      "prime": "Grove"
+    },
+    {
+      "name": "sxsRLUSD - Sentora x Spark RLUSD (deployment A)",
+      "chainId": 1,
+      "address": "0x13179C1551F7364370295c3D4BDD6Ce794Af5A8d",
+      "prime": "Spark"
+    },
+    {
+      "name": "sxsRLUSD - Sentora x Spark RLUSD (deployment B)",
+      "chainId": 1,
+      "address": "0x661eBF3f18d6Ed9a1adA581b1285cC90071798cB",
+      "prime": "Spark"
+    },
+    {
+      "name": "sxsRLUSD - Sentora x Spark RLUSD (deployment C)",
+      "chainId": 1,
+      "address": "0xFC8C624B6080a0a780583799f2A862DE936F6E22",
+      "prime": "Spark"
+    },
+    {
+      "name": "Grove registry: GROVE_X_STEAKHOUSE_USDC_MORPHO_VAULT",
+      "chainId": 1,
+      "address": "0xBEEf2B5FD3D94469b7782aeBe6364E6e6FB1B709",
+      "prime": "Grove",
+      "source": "grove-labs/grove-address-registry src/Ethereum.sol L191"
+    },
+    {
+      "name": "Grove registry: GROVE_X_STEAKHOUSE_RLUSD_V2_MORPHO_VAULT",
+      "chainId": 1,
+      "address": "0xBeEff4fD39F8e48b6a6e475445D650cb11e9599F",
+      "prime": "Grove",
+      "source": "grove-labs/grove-address-registry src/Ethereum.sol L194"
+    },
+    {
+      "name": "Grove registry: STEAKHOUSE_PYUSD_MORPHO_VAULT",
+      "chainId": 1,
+      "address": "0xd8A6511979D9C5D387c819E9F8ED9F3a5C6c5379",
+      "prime": "Grove",
+      "source": "grove-labs/grove-address-registry src/Ethereum.sol L196"
+    },
+    {
+      "name": "Grove registry: SENTORA_PYUSD_MAIN_V2_MORPHO_VAULT",
+      "chainId": 1,
+      "address": "0xb576765fB15505433aF24FEe2c0325895C559FB2",
+      "prime": "Grove",
+      "source": "grove-labs/grove-address-registry src/Ethereum.sol L198"
+    },
+    {
+      "name": "Grove registry: SENTORA_RLUSD_MAIN_V2_MORPHO_VAULT",
+      "chainId": 1,
+      "address": "0x6dC58a0FdfC8D694e571DC59B9A52EEEa780E6bf",
+      "prime": "Grove",
+      "source": "grove-labs/grove-address-registry src/Ethereum.sol L199"
+    },
+    {
+      "name": "Spark registry: MORPHO_VAULT_DAI_1",
+      "chainId": 1,
+      "address": "0x73e65DBD630f90604062f6E02fAb9138e713edD9",
+      "prime": "Spark",
+      "source": "sparkdotfi/spark-address-registry src/Ethereum.sol L152"
+    },
+    {
+      "name": "Spark registry: MORPHO_VAULT_USDS",
+      "chainId": 1,
+      "address": "0xe41a0583334f0dc4E023Acd0bFef3667F6FE0597",
+      "prime": "Spark",
+      "source": "sparkdotfi/spark-address-registry src/Ethereum.sol L153"
+    }
+  ]
+}

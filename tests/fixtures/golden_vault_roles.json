@@ -1,0 +1,708 @@
+{
+ "_source": "reference/golden_vault_roles_2026-09-01.json from the Sep 1 2026 compliance review, with the Sep 2 corrections applied. 'controller' text is the reviewers' attribution at the time and is NOT a public attestation; the tool only relies on public labels.",
+ "groups": [
+  {
+   "vault_name": "steakUSDC \u2014 Steakhouse Prime USDC",
+   "version_note": "(shared public Steakhouse vault) \u00b7 Morpho Vault V2",
+   "prime": "Grove",
+   "addresses": [
+    "0xbeef0e0834849aCC03f0089F01f4F1Eeb06873C9"
+   ],
+   "chain": "Base",
+   "loan_asset": "USDC",
+   "loan_asset_gap": "None \u2014 accepted loan asset",
+   "sky_exposure_usd_2026_09_01": 205028967,
+   "collateral": [
+    {
+     "asset": "cbBTC",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted, 86% max tier"
+    },
+    {
+     "asset": "WETH",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted (ETH)"
+    },
+    {
+     "asset": "cbETH",
+     "lltv": "77% and 86%",
+     "gap": "Major \u2014 cbETH is not on the accepted collateral list (~$2.4M of vault) \u2192 flag to BA to compute CRR"
+    },
+    {
+     "asset": "wstETH",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted (stETH)"
+    }
+   ],
+   "roles": [
+    {
+     "role": "Owner",
+     "addresses": [
+      "0x639bfA26472906Ccd40513408284a8aD292bC5D6"
+     ],
+     "controller": "Steakhouse owner-contract, controlled by Steakhouse ops Safe 5/9",
+     "gap": "Major \u2014 external party owns the vault"
+    },
+    {
+     "role": "Curator",
+     "addresses": [
+      "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+     ],
+     "controller": "Steakhouse curator Safe 2/6 (Base); no OEA signer",
+     "gap": "Major \u2014 Steakhouse alone, not a 2/2 with OEA"
+    },
+    {
+     "role": "Allocator",
+     "addresses": [
+      "0x0000aeB716a0DF7A9A1AAd119b772644Bc089dA8",
+      "0x1be9b8C406120B2c2b8990d0522cD226A3D60e36",
+      "0xfeed46c11F57B7126a773EeC6ae9cA7aE1C03C9a"
+     ],
+     "controller": "Steakhouse allocator Safe 1/6\nSteakhouse bot contract\nSteakhouse bot EOA",
+     "gap": "None \u2014 curator EOA/msig allowed"
+    },
+    {
+     "role": "Sentinel",
+     "addresses": [
+      "0x6Da40f9731bB9a2712e865F50EeD8a5ABf259ceb"
+     ],
+     "controller": "Steakhouse-side contract (not a Safe); only sentinel",
+     "gap": "Major \u2014 mandatory OEA sentinel missing"
+    }
+   ],
+   "next_step_2026_09_01": "ROLES \u2192 Grove/Steakhouse: shared public vault, so Grove cannot re-role it \u2014 the $205M must move. Two new Grove-owned 'Grove x Steakhouse USDC' V2s were deployed on Base on Aug 31 with the Proposal #11 roles (see their row); confirm they are the migration vehicle, which deployment is canonical, and the timeline vs end-Sept (not in the Aug 27 or Sep 10 Grove spells). ASSETS \u2192 flag cbETH/USDC (77% and 86%) to BA for CRR. Also: V2 timelocks below policy (caps/addAdapter 3d vs 7d, setIsAllocator 0d vs 3d)."
+  },
+  {
+   "vault_name": "sparkUSDC \u2014 Spark USDC Vault",
+   "version_note": "MetaMorpho v1.1 (no Sentinel role)",
+   "prime": "Spark",
+   "addresses": [
+    "0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A"
+   ],
+   "chain": "Base",
+   "loan_asset": "USDC",
+   "loan_asset_gap": "None \u2014 accepted loan asset",
+   "sky_exposure_usd_2026_09_01": 283307337,
+   "collateral": [
+    {
+     "asset": "cbBTC",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted; 100% of vault in this market"
+    },
+    {
+     "asset": "WETH",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted; cap only, $0 allocated"
+    }
+   ],
+   "roles": [
+    {
+     "role": "Owner",
+     "addresses": [
+      "0xF93B7122450A50AF3e5A76E1d546e95Ac1d0F579"
+     ],
+     "controller": "Spark Executor (Base) = Spark SubProxy's governance arm",
+     "gap": "None"
+    },
+    {
+     "role": "Curator",
+     "addresses": [
+      "0x0f963A8A8c01042B69054e787E5763ABbB0646A3"
+     ],
+     "controller": "Spark Morpho Curator Safe 3/5; OEA (Soter Labs) signers since the 2026-04-24 signer swap; the Atlas Spark article labels it 'Curator: Soter Labs'",
+     "gap": "Minor \u2014 Prime self-curated 3/5, not the 2/2 structure; confirm with BA whether 2/2 applies"
+    },
+    {
+     "role": "Allocator",
+     "addresses": [
+      "0x92d7B06e5844e67174AE9E86bdCb06428482DDF9"
+     ],
+     "controller": "Spark ALM Proxy Freezable (Base) \u2014 Prime agent",
+     "gap": "None"
+    },
+    {
+     "role": "Guardian (v1.1)",
+     "addresses": [
+      "0xf5748bBeFa17505b2F7222B23ae11584932C908B"
+     ],
+     "controller": "Spark Morpho Guardian Safe 3/5 (Phoenix Labs x4 + Endgame Edge x1 since 2026-04-24; the Atlas still says 'Spark Foundation'); veto-only",
+     "gap": "Major \u2014 no OEA; v1.1 cannot add a Sentinel \u2192 Vault V2 migration needed"
+    }
+   ],
+   "next_step_2026_09_01": "ROLES / VERSION \u2192 Spark: BA understands Spark plans to migrate to the target setup; the exposure table says unwind by Sep 30 \u2014 confirm which path. Spark is 98% of the vault and all of it sits in one cbBTC/USDC market, so exit speed depends on that market's liquidity; start early (position went $0 \u2192 $283M during August). ASSETS \u2192 nothing to flag."
+  },
+  {
+   "vault_name": "grove-bbqUSDC \u2014 Grove x Steakhouse USDC High Yield (Base)",
+   "version_note": "MetaMorpho v1.1 (no Sentinel role)",
+   "prime": "Grove",
+   "addresses": [
+    "0xBeEf2d50B428675a1921bC6bBF4bfb9D8cF1461A"
+   ],
+   "chain": "Base",
+   "loan_asset": "USDC",
+   "loan_asset_gap": "None \u2014 accepted loan asset",
+   "sky_exposure_usd_2026_09_01": 78282784,
+   "collateral": [
+    {
+     "asset": "WETH",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted (ETH)"
+    },
+    {
+     "asset": "cbBTC",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted"
+    },
+    {
+     "asset": "cbETH",
+     "lltv": "77% and 86%",
+     "gap": "Major \u2014 cbETH not on the accepted list ($2.6M at 77% + $1.7M at 86%) \u2192 flag to BA for CRR"
+    },
+    {
+     "asset": "wstETH",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted (stETH)"
+    }
+   ],
+   "roles": [
+    {
+     "role": "Owner",
+     "addresses": [
+      "0x0A0e559bc3b0950a7e448F0d4894db195b9cf8DD"
+     ],
+     "controller": "Steakhouse ops Safe 5/9 (Base)",
+     "gap": "Major \u2014 external party owns the vault"
+    },
+    {
+     "role": "Curator",
+     "addresses": [
+      "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+     ],
+     "controller": "Steakhouse curator Safe 2/6 (Base)",
+     "gap": "Major \u2014 Steakhouse alone"
+    },
+    {
+     "role": "Allocator",
+     "addresses": [
+      "0x0000aeB716a0DF7A9A1AAd119b772644Bc089dA8",
+      "0x08bbBAD7a91827b5c2eB1efe1a8C6E17c12b1b00",
+      "0xA090dD1a701408Df1d4d0B85b716c87565f90467",
+      "0xfeed46c11F57B7126a773EeC6ae9cA7aE1C03C9a"
+     ],
+     "controller": "Steakhouse allocator Safe 1/6\nSteakhouse bot contract\nSteakhouse allocation contract\nSteakhouse bot EOA",
+     "gap": "None \u2014 curator EOA/msig allowed"
+    },
+    {
+     "role": "Guardian (v1.1)",
+     "addresses": [
+      "0x491EDFB0B8b608044e227225C715981a30F3A44E"
+     ],
+     "controller": "Grove Executor (Base) \u2014 Grove governance, revoke-only; not OEA",
+     "gap": "Major \u2014 no OEA; v1.1 has no Sentinel role \u2192 Vault V2 needed"
+    }
+   ],
+   "next_step_2026_09_01": "ROLES / VERSION \u2192 Grove/Steakhouse: Grove is 100% of this vault, so migrate it to the new Grove-owned 'Grove x Steakhouse USDC' V2 on Base (Aug 31) or wind down. Position grew $10M \u2192 $88M in late Jul/Aug (now $78M). ASSETS \u2192 flag cbETH/USDC 77% and 86% to BA. (The syrupUSDC / LBTC notes in the exposure table belong to the OLD Ethereum v1.1 vault 0xBEEf2B5F\u2026B709, now $11 \u2014 not this one.)"
+  },
+  {
+   "vault_name": "sparkUSDTbc \u2014 Spark Blue Chip USDT Vault",
+   "version_note": "Morpho Vault V2",
+   "prime": "Spark",
+   "addresses": [
+    "0xb0c424116172B55CbB6dD3136F5989F7959e5B91"
+   ],
+   "chain": "Ethereum",
+   "loan_asset": "USDT",
+   "loan_asset_gap": "None \u2014 accepted loan asset",
+   "sky_exposure_usd_2026_09_01": 31364562,
+   "collateral": [
+    {
+     "asset": "WBTC",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted"
+    },
+    {
+     "asset": "wstETH",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted (stETH)"
+    },
+    {
+     "asset": "sUSDS",
+     "lltv": 0.965,
+     "gap": "None \u2014 accepted; same setup as the SkyBase sUSDS/USDT market in the policy"
+    },
+    {
+     "asset": "cbBTC",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted; cap only, ~$0 allocated"
+    }
+   ],
+   "roles": [
+    {
+     "role": "Owner",
+     "addresses": [
+      "0x3300f198988e4C9C63F75dF86De36421f06af8c4"
+     ],
+     "controller": "Spark SubProxy",
+     "gap": "None"
+    },
+    {
+     "role": "Curator",
+     "addresses": [
+      "0x0f963A8A8c01042B69054e787E5763ABbB0646A3"
+     ],
+     "controller": "Spark Morpho Curator Safe 3/5; OEA (Soter Labs) signers since the 2026-04-24 signer swap; the Atlas Spark article labels it 'Curator: Soter Labs'",
+     "gap": "Minor \u2014 Prime self-curated 3/5, not the 2/2 structure"
+    },
+    {
+     "role": "Allocator",
+     "addresses": [
+      "0xe5c6318456a7Cb6f74f93B4eee4616dB5fcef699"
+     ],
+     "controller": "Spark ALM Proxy Freezable (Eth) \u2014 Prime agent",
+     "gap": "None"
+    },
+    {
+     "role": "Sentinel",
+     "addresses": [
+      "0xf5748bBeFa17505b2F7222B23ae11584932C908B"
+     ],
+     "controller": "Spark Morpho Guardian Safe 3/5 (Phoenix Labs x4 + Endgame Edge x1 since 2026-04-24; the Atlas still says 'Spark Foundation') \u2014 Prime-owned sentinel",
+     "gap": "Major \u2014 mandatory OEA sentinel missing"
+    }
+   ],
+   "next_step_2026_09_01": "ROLES \u2192 Spark: cheapest fix in the set \u2014 already a V2 with 10-day timelocks and the SubProxy as owner. Add an OEA sentinel (setIsSentinel has no timelock) and move the curator to a 2/2. The exposure table says unwind by Sep 30 \u2014 confirm whether Spark prefers the config change. ASSETS \u2192 nothing to flag. (10% performance fee to Spark ALM proxy; fees are TBD in the policy.)"
+  },
+  {
+   "vault_name": "grove-bbqUSDC \u2014 Grove x Steakhouse USDC (Ethereum)",
+   "version_note": "Morpho Vault V2",
+   "prime": "Grove",
+   "addresses": [
+    "0xBeefF08dF54897e7544aB01d0e86f013DA354111"
+   ],
+   "chain": "Ethereum",
+   "loan_asset": "USDC",
+   "loan_asset_gap": "None \u2014 accepted loan asset",
+   "sky_exposure_usd_2026_09_01": 4010538,
+   "collateral": [
+    {
+     "asset": "WBTC",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted (2 markets, different oracles)"
+    },
+    {
+     "asset": "wstETH",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted (2 markets)"
+    },
+    {
+     "asset": "cbBTC",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted"
+    }
+   ],
+   "roles": [
+    {
+     "role": "Owner",
+     "addresses": [
+      "0xD700038b3f8d2F1a8193F35d7dD25c02e7155427"
+     ],
+     "controller": "2/2 Safe: Steakhouse ops Safe \u00d7 Grove SubProxy",
+     "gap": "Minor \u2014 Grove has a veto but not sole control; policy wants the SubProxy alone"
+    },
+    {
+     "role": "Curator",
+     "addresses": [
+      "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+     ],
+     "controller": "Steakhouse curator Safe 2/7 (Eth)",
+     "gap": "Major \u2014 Steakhouse alone"
+    },
+    {
+     "role": "Allocator",
+     "addresses": [
+      "0x0000aeB716a0DF7A9A1AAd119b772644Bc089dA8",
+      "0xaaD84c80b013c34D70E54fB343D0C2f309F635E7",
+      "0xfeed46c11F57B7126a773EeC6ae9cA7aE1C03C9a"
+     ],
+     "controller": "Steakhouse allocator Safe 1/7\nSteakhouse bot contract\nSteakhouse bot EOA",
+     "gap": "None \u2014 curator EOA/msig allowed"
+    },
+    {
+     "role": "Sentinel",
+     "addresses": [
+      "0x1369f7b2b38c76B6478c0f0E66D94923421891Ba"
+     ],
+     "controller": "Grove SubProxy \u2014 Prime-owned sentinel (optional)",
+     "gap": "Major \u2014 mandatory OEA sentinel missing"
+    }
+   ],
+   "next_step_2026_09_01": "ROLES \u2192 Grove/Steakhouse: Grove is 100% of the vault, so a role realignment works instead of a migration \u2014 owner \u2192 Grove SubProxy, curator \u2192 the 2/2 Safe 0x622E\u2026 already used on the new vaults, add OEA sentinel 0xB597\u2026, and raise the 0-day timelocks (setIsAllocator, fees, force-deallocate penalty). Steakhouse deployed this exact pattern for Grove on Aug 17 (grove-steakUSDG). ASSETS \u2192 nothing to flag; the syrupUSDC / LBTC follow-up is closed (those caps were on the old v1.1 vault, not this V2)."
+  },
+  {
+   "vault_name": "sparkUSDCbc \u2014 Spark Blue Chip USDC Vault",
+   "version_note": "MetaMorpho v1.1 (no Sentinel role)",
+   "prime": "Spark (exposure table also lists Osero)",
+   "addresses": [
+    "0x56A76b428244a50513ec81e225a293d128fd581D"
+   ],
+   "chain": "Ethereum",
+   "loan_asset": "USDC",
+   "loan_asset_gap": "None \u2014 accepted loan asset",
+   "sky_exposure_usd_2026_09_01": 771015,
+   "collateral": [
+    {
+     "asset": "wstETH",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted (stETH)"
+    },
+    {
+     "asset": "cbBTC",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted"
+    }
+   ],
+   "roles": [
+    {
+     "role": "Owner",
+     "addresses": [
+      "0x3300f198988e4C9C63F75dF86De36421f06af8c4"
+     ],
+     "controller": "Spark SubProxy",
+     "gap": "None"
+    },
+    {
+     "role": "Curator",
+     "addresses": [
+      "0x0f963A8A8c01042B69054e787E5763ABbB0646A3"
+     ],
+     "controller": "Spark Morpho Curator Safe 3/5; OEA (Soter Labs) signers since the 2026-04-24 signer swap; the Atlas Spark article labels it 'Curator: Soter Labs'",
+     "gap": "Minor \u2014 Prime self-curated 3/5, not the 2/2 structure"
+    },
+    {
+     "role": "Allocator",
+     "addresses": [
+      "0xe5c6318456a7Cb6f74f93B4eee4616dB5fcef699"
+     ],
+     "controller": "Spark ALM Proxy Freezable (Eth) \u2014 Prime agent",
+     "gap": "None"
+    },
+    {
+     "role": "Guardian (v1.1)",
+     "addresses": [
+      "0xf5748bBeFa17505b2F7222B23ae11584932C908B"
+     ],
+     "controller": "Spark Morpho Guardian Safe 3/5 (Phoenix Labs x4 + Endgame Edge x1 since 2026-04-24; the Atlas still says 'Spark Foundation'); veto-only",
+     "gap": "Major \u2014 no OEA; v1.1 \u2192 Vault V2 or unwind"
+    }
+   ],
+   "next_step_2026_09_01": "ROLES / VERSION \u2192 Spark: same v1.1 pattern as sparkUSDC. Position already unwinding ($6.9M Aug 25 \u2192 $2.2M Aug 31 \u2192 $0.77M today) \u2014 confirm it completes before Sep 30. An empty successor deployment exists (0xfeaC08ff\u20265F26; curator/guardian = zero address). Osero: its ALM proxy (0x6d370e35\u20268CB884) holds no Morpho position; the 2nd-largest holder is an unidentified 3/5 Safe 0xD7512a4c\u20260daC ($226K) \u2014 confirm with Osero/Spark. ASSETS \u2192 nothing to flag."
+  },
+  {
+   "vault_name": "groveUSDG \u2014 Grove x Steakhouse USDG (Robinhood)",
+   "version_note": "Morpho Vault V2",
+   "prime": "Grove",
+   "addresses": [
+    "0xBEEff039907422219Fb367e525954DDC092854d9"
+   ],
+   "chain": "Robinhood Chain",
+   "loan_asset": "USDG",
+   "loan_asset_gap": "None \u2014 accepted loan asset",
+   "sky_exposure_usd_2026_09_01": 99989,
+   "collateral": [
+    {
+     "asset": "spUSDG",
+     "lltv": 0.915,
+     "gap": "Minor - spUSDG is not on the accepted collateral list in the BA doc; cap is 1T USDG (effectively unlimited), $0 allocated. spUSDG/USDG was approved for Grove on 2026-07-16 (BA CRR 3% -> 0.65%, max exposure 100M); the SFF cycle of 2026-09-02 proposed adding it to the accepted list."
+    }
+   ],
+   "roles": [
+    {
+     "role": "Owner",
+     "addresses": [
+      "0x261a3b7A37904B45e57aE14206314ccF4BBCf2b1"
+     ],
+     "controller": "Steakhouse owner-contract (also owns Ethena x Steakhouse USDG); NOT Grove's Robinhood executor 0x5ff9\u20269296",
+     "gap": "Major \u2014 external party owns the vault"
+    },
+    {
+     "role": "Curator",
+     "addresses": [
+      "0x9023FBD6A08C666491A2d1648737E400cF42D2Fb"
+     ],
+     "controller": "Steakhouse curator Safe 3/7 (Robinhood)",
+     "gap": "Major \u2014 Steakhouse alone"
+    },
+    {
+     "role": "Allocator",
+     "addresses": [
+      "0x5642BCd50fC751fF2d04f155423e4D0E25C2a744",
+      "0x69DD1f11da2d97b88B1f61F21724aFB681B52717",
+      "0xD7D73414Bd9255f86fb5a170c2571EC602757E81",
+      "0xfeed46c11F57B7126a773EeC6ae9cA7aE1C03C9a"
+     ],
+     "controller": "Steakhouse allocator Safe 1/7\nSteakhouse allocation contract\nSteakhouse bot contract\nSteakhouse bot EOA",
+     "gap": "None \u2014 curator EOA/msig allowed"
+    },
+    {
+     "role": "Sentinel",
+     "addresses": [
+      "0x261a3b7A37904B45e57aE14206314ccF4BBCf2b1",
+      "0x59C85fe4385403e93877e48e5521f2F02B150359"
+     ],
+     "controller": "Steakhouse owner-contract\n3/5 Safe whose signers overlap the Spark Morpho Guardian Safe (Spark-Foundation-side; unconfirmed)",
+     "gap": "Major \u2014 no confirmed OEA sentinel"
+    }
+   ],
+   "next_step_2026_09_01": "ROLES \u2192 Grove/Steakhouse: small position ($100K, all idle) \u2014 re-role to the Proposal #11 pattern (owner \u2192 Grove Robinhood executor, 2/2 curator with OEA, OEA sentinel) or exit. No Spark Robinhood ALM position found in this vault today. ASSETS \u2192 the only market cap is spUSDG/USDG 91.5%; flag to BA before anything is allocated."
+  },
+  {
+   "vault_name": "grove-bbqAUSD \u2014 Grove x Steakhouse High Yield AUSD",
+   "version_note": "MetaMorpho v1.1 (+ V2 successor 0xBEEfF0d6\u2026A98a)",
+   "prime": "Grove",
+   "addresses": [
+    "0xbeEffff0629438aD198c47F80d66FA4Be5C0caF6"
+   ],
+   "chain": "Ethereum",
+   "loan_asset": "AUSD",
+   "loan_asset_gap": "n/a \u2014 AUSD is not an accepted loan asset, but exposure is $0",
+   "sky_exposure_usd_2026_09_01": 0,
+   "collateral": [
+    {
+     "asset": "sUSDS (V2)",
+     "lltv": 0.945,
+     "gap": "n/a \u2014 third-party funds only"
+    },
+    {
+     "asset": "syrupUSDC (V2 cap)",
+     "lltv": 0.915,
+     "gap": "n/a \u2014 not accepted collateral; cap only"
+    },
+    {
+     "asset": "weETH (V2 cap)",
+     "lltv": 0.86,
+     "gap": "n/a \u2014 not accepted collateral; cap only"
+    }
+   ],
+   "roles": [
+    {
+     "role": "Owner",
+     "addresses": [
+      "0x0A0e559bc3b0950a7e448F0d4894db195b9cf8DD"
+     ],
+     "controller": "Steakhouse ops Safe 5/10 (V2 successor: 2/2 Steakhouse \u00d7 Grove SubProxy)",
+     "gap": "n/a \u2014 no exposure, not graded"
+    },
+    {
+     "role": "Curator",
+     "addresses": [
+      "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+     ],
+     "controller": "Steakhouse curator Safe 2/7",
+     "gap": "n/a"
+    },
+    {
+     "role": "Allocator",
+     "addresses": [
+      "0x0000aeB716a0DF7A9A1AAd119b772644Bc089dA8",
+      "0xaaD84c80b013c34D70E54fB343D0C2f309F635E7",
+      "0xfeed46c11F57B7126a773EeC6ae9cA7aE1C03C9a"
+     ],
+     "controller": "Steakhouse allocator Safe / bot contract / bot EOA",
+     "gap": "n/a"
+    },
+    {
+     "role": "Guardian (v1.1)",
+     "addresses": [
+      "0x1369f7b2b38c76B6478c0f0E66D94923421891Ba"
+     ],
+     "controller": "Grove SubProxy (guardian on v1.1, sentinel on the V2 successor)",
+     "gap": "n/a"
+    }
+   ],
+   "next_step_2026_09_01": "No action \u2014 wind-down complete. FYI: the V2 successor still carries syrupUSDC 91.5%, sUSDS 94.5% and weETH 86% caps and an AUSD loan asset, all outside policy \u2014 do not re-enter without a BA review.",
+   "note_2026_09_02": "Deleted from the live sheet on Sep 2. Grove's AUSD exposure had been in the V2 successor 0xBEEfF0d672ab7F5018dFB614c93981045D4aA98a (onboarded 2026-04-24, unwound Aug 2026), not in this v1.1 vault."
+  },
+  {
+   "vault_name": "grove-steakUSDG \u2014 Grove x Steakhouse USDG (Ethereum)",
+   "version_note": "Morpho Vault V2 \u00b7 target-state template \u00b7 Sep 10 Grove spell onboards it",
+   "prime": "Grove",
+   "addresses": [
+    "0xbeef05061FE51eA482BD1b68041353490b3a5934"
+   ],
+   "chain": "Ethereum",
+   "loan_asset": "USDG",
+   "loan_asset_gap": "None \u2014 accepted loan asset",
+   "sky_exposure_usd_2026_09_01": 0,
+   "collateral": [
+    {
+     "asset": "WBTC",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted; cap 50M, $0 allocated"
+    },
+    {
+     "asset": "cbBTC",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted; cap 50M, $0 allocated"
+    }
+   ],
+   "roles": [
+    {
+     "role": "Owner",
+     "addresses": [
+      "0x1369f7b2b38c76B6478c0f0E66D94923421891Ba"
+     ],
+     "controller": "Grove SubProxy",
+     "gap": "None"
+    },
+    {
+     "role": "Curator",
+     "addresses": [
+      "0x622E19d6903BD4507cfc70b31d5B99535114C0FC"
+     ],
+     "controller": "2/2 Safe: Steakhouse curator Safe \u00d7 EOA 0xbCC126c3\u20266aB3 (OEA single key per the Sep 2 review; not labeled in any public source)",
+     "gap": "Minor \u2014 structure matches, but the co-signer is a single EOA, not an OEA multisig \u2014 confirm"
+    },
+    {
+     "role": "Allocator",
+     "addresses": [
+      "0x0000aeB716a0DF7A9A1AAd119b772644Bc089dA8",
+      "0xaaD84c80b013c34D70E54fB343D0C2f309F635E7",
+      "0xfeed46c11F57B7126a773EeC6ae9cA7aE1C03C9a"
+     ],
+     "controller": "Steakhouse allocator Safe 1/7\nSteakhouse bot contract\nSteakhouse bot EOA",
+     "gap": "None"
+    },
+    {
+     "role": "Sentinel",
+     "addresses": [
+      "0xB597026150552bB3F6092aC685A2241C5FA77Ed0"
+     ],
+     "controller": "2/3 Safe with fresh signers (disjoint from Steakhouse and from known OEA Safes); same address on Base \u2014 OEA-controlled per the Sep 2 review; not labeled in any public source",
+     "gap": "Minor \u2014 OEA-shaped, signer identities unconfirmed"
+    }
+   ],
+   "next_step_2026_09_01": "ROLES \u2192 GovOps/OEA (internal): Proposal #11 pattern implemented, timelocks at policy minimums (7d/3d). Before the Sep 10 spell (50M/day deposit limit): (1) confirm who holds EOA 0xbCC126c3\u20266aB3 and whether BA accepts an EOA rather than an OEA multisig as co-signer; (2) confirm the three sentinel signers are OEA keys. ASSETS \u2192 nothing to flag. Two earlier Steakhouse-owned templates with the same name exist (0xbeef06DB\u2026, 0xbeef0819\u2026) \u2014 not the one being onboarded."
+  },
+  {
+   "vault_name": "grove-steakUSDC \u2014 Grove x Steakhouse USDC (Base) \u00b7 NEW",
+   "version_note": "Morpho Vault V2 \u00b7 two identical deployments Aug 31, 2026",
+   "prime": "Grove",
+   "addresses": [
+    "0xbeef0786756810478b88982DE00F3CD7fdB8e7c7",
+    "0xbeef0Eb37DdB8f88BDf167c498c6429676fF7947"
+   ],
+   "chain": "Base",
+   "loan_asset": "USDC",
+   "loan_asset_gap": "None \u2014 accepted loan asset",
+   "sky_exposure_usd_2026_09_01": 0,
+   "collateral": [
+    {
+     "asset": "cbBTC",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted; cap 200M, $0 allocated"
+    },
+    {
+     "asset": "WETH",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted (ETH); cap 50M, $0 allocated"
+    }
+   ],
+   "roles": [
+    {
+     "role": "Owner",
+     "addresses": [
+      "0x491EDFB0B8b608044e227225C715981a30F3A44E"
+     ],
+     "controller": "Grove Executor (Base) \u2014 Grove governance arm",
+     "gap": "None"
+    },
+    {
+     "role": "Curator",
+     "addresses": [
+      "0x622E19d6903BD4507cfc70b31d5B99535114C0FC"
+     ],
+     "controller": "2/2 Safe: Steakhouse curator Safe \u00d7 EOA 0xbCC126c3\u20266aB3 (OEA single key per the Sep 2 review)",
+     "gap": "Minor \u2014 co-signer is an EOA; confirm it is OEA"
+    },
+    {
+     "role": "Allocator",
+     "addresses": [
+      "0x0000aeB716a0DF7A9A1AAd119b772644Bc089dA8",
+      "0x1be9b8C406120B2c2b8990d0522cD226A3D60e36",
+      "0xfeed46c11F57B7126a773EeC6ae9cA7aE1C03C9a"
+     ],
+     "controller": "Steakhouse allocator Safe 1/6\nSteakhouse bot contract\nSteakhouse bot EOA",
+     "gap": "None"
+    },
+    {
+     "role": "Sentinel",
+     "addresses": [
+      "0xB597026150552bB3F6092aC685A2241C5FA77Ed0"
+     ],
+     "controller": "2/3 Safe \u2014 same address and signers as on Ethereum; OEA-controlled per the Sep 2 review; not labeled in any public source",
+     "gap": "Minor \u2014 signer identities unconfirmed"
+    }
+   ],
+   "next_step_2026_09_01": "ROLES \u2192 Grove/Steakhouse + GovOps: same Proposal #11 pattern as the USDG template; likely the migration vehicle for the $205M steakUSDC and $78M grove-bbqUSDC Base positions. Confirm which deployment is canonical, onboard it via a Grove spell (rate limits + max exchange rate), and run the same two identity confirmations. ASSETS \u2192 nothing to flag."
+  },
+  {
+   "vault_name": "sxsRLUSD \u2014 Sentora x Spark RLUSD \u00b7 NEW",
+   "version_note": "Morpho Vault V2 \u00b7 three deployments Aug 31\u2013Sep 1 \u00b7 Sep 10 Spark spell onboards one",
+   "prime": "Spark",
+   "addresses": [
+    "0x13179C1551F7364370295c3D4BDD6Ce794Af5A8d",
+    "0x661eBF3f18d6Ed9a1adA581b1285cC90071798cB",
+    "0xFC8C624B6080a0a780583799f2A862DE936F6E22"
+   ],
+   "chain": "Ethereum",
+   "loan_asset": "RLUSD",
+   "loan_asset_gap": "None \u2014 accepted loan asset",
+   "sky_exposure_usd_2026_09_01": 0,
+   "collateral": [
+    {
+     "asset": "WBTC",
+     "lltv": 0.86,
+     "gap": "None \u2014 accepted; cap 250M RLUSD (25M on the $2 test deployment)"
+    }
+   ],
+   "roles": [
+    {
+     "role": "Owner",
+     "addresses": [
+      "0x3300f198988e4C9C63F75dF86De36421f06af8c4"
+     ],
+     "controller": "Spark SubProxy",
+     "gap": "None"
+    },
+    {
+     "role": "Curator",
+     "addresses": [
+      "0xff070333654aaE76A0A77465E4F0fd101C57c03F"
+     ],
+     "controller": "2/2 Safe: Sentora Safe 1/1 \u00d7 1/2 Safe 0xab571021\u202638eb (OEA 1/2 per the Sep 2 review; not labeled in any public source)",
+     "gap": "Minor \u2014 2/2 structure present; OEA participation unconfirmed"
+    },
+    {
+     "role": "Allocator",
+     "addresses": [
+      "0x9e396dE3312D373b87F9BD8763fb48184b42aac0",
+      "0xC4Ba4e822C420452fe2BAB93211208D3CcBd79D3"
+     ],
+     "controller": "Sentora curator/allocator Safe 1/1\nSentora bot EOA",
+     "gap": "None \u2014 curator EOA/msig allowed"
+    },
+    {
+     "role": "Sentinel",
+     "addresses": [
+      "0x9e396dE3312D373b87F9BD8763fb48184b42aac0",
+      "0xb5bFd4883256089Dc58D962b80ab7068e71E7c80",
+      "0xf5748bBeFa17505b2F7222B23ae11584932C908B"
+     ],
+     "controller": "Sentora Safe 1/1\n2/3 Safe: OEA (Soter Labs) Morpho sentinel, created 2026-08-27; not labeled in any public source\nSpark Morpho Guardian Safe 3/5",
+     "gap": "Minor \u2014 Prime-side and curator sentinels only; no confirmed OEA sentinel"
+    }
+   ],
+   "next_step_2026_09_01": "ROLES \u2192 Spark + GovOps before Sep 10: confirm whether the 1/2 Safe 0xab571021\u202638eb is OEA (if not, the 2/2 requirement is not met), whether an OEA sentinel will be added, and which of the three deployments the spell onboards (0x661eBF3f\u2026 has weaker timelocks: addAdapter/caps 3d, setIsAllocator 0d). ASSETS \u2192 nothing to flag. (10% performance fee to Sentora; fees TBD in policy.)"
+  }
+ ]
+}

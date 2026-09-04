@@ -1,0 +1,11 @@
+node_modules/
+dist/
+dist-server/
+.env
+.env.*
+!.env.example
+tmp/
+config/local-labels.json
+*.log
+.DS_Store
+.claude/
