@@ -3,9 +3,10 @@ import { pick, result, describe, attributeSafe, leafSigners, isPrimeGovernance, 
 import type { Status, Citation, SafeInfo } from "../types.ts";
 
 const safeOf = (ctx: CheckContext, addr: string): SafeInfo | undefined => (ctx.a ?? ctx.b).safes[addr.toLowerCase()];
-const safeShape = (s?: SafeInfo) => (!s ? "unknown" : !s.isContract ? "EOA" : !s.isSafe ? "contract (not a Safe)" : `Safe ${s.threshold}/${s.owners?.length}${s.version ? ` v${s.version}` : ""}`);
+const safeShape = (s?: SafeInfo) => (!s ? "unknown" : s.unavailable ? "structure unavailable from this method" : !s.isContract ? "EOA" : !s.isSafe ? "contract (not a Safe)" : `Safe ${s.threshold}/${s.owners?.length}${s.version ? ` v${s.version}` : ""}`);
+/** structure per method; a method that could not read it (service down) yields undefined, which counts as single-source, not as a disagreement */
 const safePick = (ctx: CheckContext, label: string, addr: string) =>
-  pick(ctx, `${label} Safe structure`, (s) => { const x = s.safes[addr.toLowerCase()]; return x ? { isSafe: x.isSafe, threshold: x.threshold ?? null, owners: (x.owners ?? []).map((o) => o.toLowerCase()).sort() } : null; }, (v) => (v ? (v.isSafe ? `${v.threshold}/${v.owners.length}: ${v.owners.map(short).join(", ")}` : "not a Safe") : "n/a"));
+  pick(ctx, `${label} Safe structure`, (s) => { const x = s.safes[addr.toLowerCase()]; if (!x || x.unavailable) return undefined; return { isSafe: x.isSafe, threshold: x.threshold ?? null, owners: (x.owners ?? []).map((o) => o.toLowerCase()).sort() }; }, (v) => (v ? (v.isSafe ? `${v.threshold}/${v.owners.length}: ${v.owners.map(short).join(", ")}` : "not a Safe") : "unavailable"));
 
 export const c05Owner: CheckDef = {
   id: "C5", title: "Owner",

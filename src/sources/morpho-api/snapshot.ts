@@ -44,7 +44,7 @@ async function safeLevel(safeBase: string | undefined, addrs: Address[], notes: 
   const out: Record<string, SafeInfo> = {};
   for (const a of addrs) {
     const r = await fetchSafe(safeBase, a);
-    if (r === "unavailable") { out[a.toLowerCase()] = { address: a, isContract: false, isSafe: false, source: "safe-service" }; if (!notes.includes("Safe Transaction Service unavailable for this chain")) notes.push("Safe Transaction Service unavailable for this chain"); continue; }
+    if (r === "unavailable") { out[a.toLowerCase()] = { address: a, isContract: false, isSafe: false, unavailable: true, source: "safe-service" }; if (!notes.includes("Safe Transaction Service unavailable for this chain; Safe structure is on-chain only in this run")) notes.push("Safe Transaction Service unavailable for this chain; Safe structure is on-chain only in this run"); continue; }
     if (r === null) { out[a.toLowerCase()] = { address: a, isContract: false, isSafe: false, source: "safe-service" }; continue; }
     out[a.toLowerCase()] = { address: a, isContract: true, isSafe: true, owners: r.owners.map((o) => getAddress(o)), threshold: r.threshold, version: r.version, source: "safe-service" };
   }

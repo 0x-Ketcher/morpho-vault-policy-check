@@ -1,0 +1,1004 @@
+{
+ "name": "sparkUSDTbc",
+ "recordedAt": "2026-09-04T23:51:54.267Z",
+ "providers": {
+  "chainId": 1,
+  "block": 25907356,
+  "blockTimestamp": 1788565871,
+  "primary": "https://ethereum-rpc.publicnode.com",
+  "secondary": "https://1rpc.io/eth",
+  "secondaryStatus": "agree",
+  "disagreements": [],
+  "calls": 137
+ },
+ "snapshotA": {
+  "source": "onchain",
+  "address": "0xb0c424116172B55CbB6dD3136F5989F7959e5B91",
+  "chainId": 1,
+  "version": "v2",
+  "asset": {
+   "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+   "symbol": "USDT",
+   "decimals": 6
+  },
+  "owner": "0x3300f198988e4C9C63F75dF86De36421f06af8c4",
+  "curator": "0x0f963A8A8c01042B69054e787E5763ABbB0646A3",
+  "guardian": null,
+  "sentinels": [
+   "0xf5748bBeFa17505b2F7222B23ae11584932C908B"
+  ],
+  "allocators": [
+   "0xe5c6318456a7Cb6f74f93B4eee4616dB5fcef699"
+  ],
+  "adapters": [
+   {
+    "address": "0xEF4cB7e87f212F128f0b24cf35861E52B3C78A6a",
+    "markets": [
+     "0x3274643db77a064abd3bc851de77556a4ad2e2f502f4f0c80845fa8f909ecf0b",
+     "0xe7e9694b754c4d4f7e21faf7223f6fa71abaeb10296a4c43a54a7977149687d2",
+     "0xa921ef34e2fc7a27ccc50ae7e4b154e16c9799d3387076c421423ef52ac4df99",
+     "0x45671fb8d5dea1c4fbca0b8548ad742f6643300eeb8dbd34ad64a658b2b05bca"
+    ],
+    "timelocks": {
+     "abdicate(bytes4)": 0,
+     "burnShares(bytes32)": 259200,
+     "increaseTimelock(bytes4,uint256)": 0,
+     "setSkimRecipient(address)": 0
+    },
+    "abdicated": {
+     "abdicate(bytes4)": false,
+     "burnShares(bytes32)": false,
+     "increaseTimelock(bytes4,uint256)": false,
+     "setSkimRecipient(address)": false
+    },
+    "skimRecipient": "0x0000000000000000000000000000000000000000",
+    "parentVault": "0xb0c424116172B55CbB6dD3136F5989F7959e5B91",
+    "morpho": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
+    "forceDeallocatePenalty": "0",
+    "type": "MorphoMarketV1"
+   }
+  ],
+  "markets": [
+   {
+    "id": "0x3274643db77a064abd3bc851de77556a4ad2e2f502f4f0c80845fa8f909ecf0b",
+    "loanToken": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+    "collateralToken": "0xa3931d71877C0E7a3148CB7Eb4463524FEc27fbD",
+    "oracle": "0x0C426d174FC88B7A25d59945Ab2F7274Bf7B4C79",
+    "irm": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "lltv": 0.965,
+    "supplyAssets": "4519",
+    "supplyAssetsUsd": 0.0045201601598205314,
+    "cap": {
+     "absolute": "340282366920938463463374607431768211455",
+     "relative": "1000000000000000000"
+    },
+    "allocation": "4518",
+    "adapter": "0xEF4cB7e87f212F128f0b24cf35861E52B3C78A6a",
+    "morphoBlue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
+    "collateralSymbol": "sUSDS",
+    "loanSymbol": "USDT"
+   },
+   {
+    "id": "0xe7e9694b754c4d4f7e21faf7223f6fa71abaeb10296a4c43a54a7977149687d2",
+    "loanToken": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+    "collateralToken": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0",
+    "oracle": "0x95DB30fAb9A3754e42423000DF27732CB2396992",
+    "irm": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "lltv": 0.86,
+    "supplyAssets": "1394711",
+    "supplyAssetsUsd": 1.3950690632138645,
+    "cap": {
+     "absolute": "250000000000000",
+     "relative": "1000000000000000000"
+    },
+    "allocation": "1394310",
+    "adapter": "0xEF4cB7e87f212F128f0b24cf35861E52B3C78A6a",
+    "morphoBlue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
+    "collateralSymbol": "wstETH",
+    "loanSymbol": "USDT"
+   },
+   {
+    "id": "0xa921ef34e2fc7a27ccc50ae7e4b154e16c9799d3387076c421423ef52ac4df99",
+    "loanToken": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+    "collateralToken": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+    "oracle": "0x008bF4B1cDA0cc9f0e882E0697f036667652E1ef",
+    "irm": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "lltv": 0.86,
+    "supplyAssets": "276761242413",
+    "supplyAssetsUsd": 276832.2951400034,
+    "cap": {
+     "absolute": "100000000000000",
+     "relative": "1000000000000000000"
+    },
+    "allocation": "276732045199",
+    "adapter": "0xEF4cB7e87f212F128f0b24cf35861E52B3C78A6a",
+    "morphoBlue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
+    "collateralSymbol": "WBTC",
+    "loanSymbol": "USDT"
+   },
+   {
+    "id": "0x45671fb8d5dea1c4fbca0b8548ad742f6643300eeb8dbd34ad64a658b2b05bca",
+    "loanToken": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+    "collateralToken": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
+    "oracle": "0x0E053750DFA4E809E5f7b119832C799c2aA138ac",
+    "irm": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "lltv": 0.86,
+    "supplyAssets": "8385",
+    "supplyAssetsUsd": 0.008387152675391715,
+    "cap": {
+     "absolute": "250000000000000",
+     "relative": "1000000000000000000"
+    },
+    "allocation": "8384",
+    "adapter": "0xEF4cB7e87f212F128f0b24cf35861E52B3C78A6a",
+    "morphoBlue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
+    "collateralSymbol": "cbBTC",
+    "loanSymbol": "USDT"
+   }
+  ],
+  "timelocks": {
+   "abdicate(bytes4)": {
+    "selector": "0xb2e32848",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "addAdapter(address)": {
+    "selector": "0x60d54d41",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "removeAdapter(address)": {
+    "selector": "0x585cd34b",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "increaseAbsoluteCap(bytes,uint256)": {
+    "selector": "0xf6f98fd5",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "increaseRelativeCap(bytes,uint256)": {
+    "selector": "0x2438525b",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "setIsAllocator(address,bool)": {
+    "selector": "0xb192a84a",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "increaseTimelock(bytes4,uint256)": {
+    "selector": "0x47966291",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "setPerformanceFee(uint256)": {
+    "selector": "0x70897b23",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "setManagementFee(uint256)": {
+    "selector": "0xfe56e232",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "setPerformanceFeeRecipient(address)": {
+    "selector": "0x6a5f1aa2",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "setManagementFeeRecipient(address)": {
+    "selector": "0x9faae464",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "setForceDeallocatePenalty(address,uint256)": {
+    "selector": "0x3e9d2ac7",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "setReceiveSharesGate(address)": {
+    "selector": "0x2cb19f98",
+    "seconds": 0,
+    "abdicated": true
+   },
+   "setSendSharesGate(address)": {
+    "selector": "0xc21ad028",
+    "seconds": 0,
+    "abdicated": true
+   },
+   "setReceiveAssetsGate(address)": {
+    "selector": "0x04dbf0ce",
+    "seconds": 0,
+    "abdicated": true
+   },
+   "setSendAssetsGate(address)": {
+    "selector": "0x871c979c",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "setAdapterRegistry(address)": {
+    "selector": "0x5b34b823",
+    "seconds": 0,
+    "abdicated": true
+   },
+   "setMaxRate(uint256)": {
+    "selector": "0xaa4abe7f",
+    "seconds": 0,
+    "abdicated": false
+   }
+  },
+  "fees": {
+   "performanceFee": 0.1,
+   "managementFee": 0,
+   "performanceFeeRecipient": "0x1601843c5E9bC251A3272907010AFa41Fa18347E",
+   "managementFeeRecipient": "0x1601843c5E9bC251A3272907010AFa41Fa18347E"
+  },
+  "exposure": [
+   {
+    "prime": "Grove",
+    "almProxy": "0x491EDFB0B8b608044e227225C715981a30F3A44E",
+    "almProxyLabel": "ALM_PROXY",
+    "shares": "0",
+    "assets": "0",
+    "assetsUsd": 0,
+    "rateLimits": {
+     "contract": "0x5F5cfCB8a463868E37Ab27B5eFF3ba02112dF19a",
+     "label": "ALM_RATE_LIMITS",
+     "depositKey": "0xaea4556c0424234b8879297d0650e546704500f4fbe07c1027dcda0529f22587",
+     "deposit": {
+      "maxAmount": "0",
+      "slope": "0",
+      "lastAmount": "0",
+      "lastUpdated": 0
+     },
+     "withdrawKey": "0x43d68dcf0b2fdb6a64bb4163b0ee9eac40c52b2f1eb6a94af37827ade050a347",
+     "withdraw": {
+      "maxAmount": "0",
+      "slope": "0",
+      "lastAmount": "0",
+      "lastUpdated": 0
+     },
+     "onboarded": false
+    }
+   },
+   {
+    "prime": "Spark",
+    "almProxy": "0x1601843c5E9bC251A3272907010AFa41Fa18347E",
+    "almProxyLabel": "ALM_PROXY",
+    "shares": "5031533644215672372",
+    "assets": "5096086",
+    "assetsUsd": 5.097394314719888,
+    "rateLimits": {
+     "contract": "0x7A5FD5cf045e010e62147F065cEAe59e5344b188",
+     "label": "ALM_RATE_LIMITS",
+     "depositKey": "0xaea4556c0424234b8879297d0650e546704500f4fbe07c1027dcda0529f22587",
+     "deposit": {
+      "maxAmount": "100000000000000",
+      "slope": "11574074074",
+      "lastAmount": "100000000000000",
+      "lastUpdated": 1788343787
+     },
+     "withdrawKey": "0x43d68dcf0b2fdb6a64bb4163b0ee9eac40c52b2f1eb6a94af37827ade050a347",
+     "withdraw": {
+      "maxAmount": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "slope": "0",
+      "lastAmount": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "lastUpdated": 1778508095
+     },
+     "onboarded": true
+    }
+   },
+   {
+    "prime": "Spark",
+    "almProxy": "0xe5c6318456a7Cb6f74f93B4eee4616dB5fcef699",
+    "almProxyLabel": "ALM_PROXY_FREEZABLE",
+    "shares": "0",
+    "assets": "0",
+    "assetsUsd": 0,
+    "rateLimits": {
+     "contract": "0x7A5FD5cf045e010e62147F065cEAe59e5344b188",
+     "label": "ALM_RATE_LIMITS",
+     "depositKey": "0xaea4556c0424234b8879297d0650e546704500f4fbe07c1027dcda0529f22587",
+     "deposit": {
+      "maxAmount": "100000000000000",
+      "slope": "11574074074",
+      "lastAmount": "100000000000000",
+      "lastUpdated": 1788343787
+     },
+     "withdrawKey": "0x43d68dcf0b2fdb6a64bb4163b0ee9eac40c52b2f1eb6a94af37827ade050a347",
+     "withdraw": {
+      "maxAmount": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "slope": "0",
+      "lastAmount": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "lastUpdated": 1778508095
+     },
+     "onboarded": true
+    }
+   },
+   {
+    "prime": "Keel",
+    "almProxy": "0xa5139956eC99aE2e51eA39d0b57C42B6D8db0758",
+    "almProxyLabel": "ALM_PROXY",
+    "shares": "0",
+    "assets": "0",
+    "assetsUsd": 0,
+    "rateLimits": {
+     "contract": "0x65E7B39e508944F7C4278d3e4580f84Eb20b26a7",
+     "label": "ALM_RATE_LIMITS",
+     "depositKey": "0xaea4556c0424234b8879297d0650e546704500f4fbe07c1027dcda0529f22587",
+     "deposit": {
+      "maxAmount": "0",
+      "slope": "0",
+      "lastAmount": "0",
+      "lastUpdated": 0
+     },
+     "withdrawKey": "0x43d68dcf0b2fdb6a64bb4163b0ee9eac40c52b2f1eb6a94af37827ade050a347",
+     "withdraw": {
+      "maxAmount": "0",
+      "slope": "0",
+      "lastAmount": "0",
+      "lastUpdated": 0
+     },
+     "onboarded": false
+    }
+   }
+  ],
+  "safes": {
+   "0xba638112360d6ba325329e3881d61bf926a36811": {
+    "address": "0xba638112360d6bA325329e3881d61Bf926A36811",
+    "isContract": false,
+    "isSafe": false,
+    "source": "onchain"
+   },
+   "0x5a2e65bc3b383f04136b0a9d190db82e72e7deac": {
+    "address": "0x5a2e65bc3B383f04136b0A9D190dB82e72E7dEaC",
+    "isContract": false,
+    "isSafe": false,
+    "source": "onchain"
+   },
+   "0x1cae4d7efdd34d6c4d54d365c3583a62d8041ea8": {
+    "address": "0x1CaE4D7eFDD34D6C4d54D365C3583a62D8041EA8",
+    "isContract": false,
+    "isSafe": false,
+    "source": "onchain"
+   },
+   "0xdc473772ed710e36853a7c278754ddbe9bec76be": {
+    "address": "0xDC473772ed710E36853A7C278754ddbE9Bec76bE",
+    "isContract": false,
+    "isSafe": false,
+    "source": "onchain"
+   },
+   "0x7de4bb4fc0e55b7beeae238dbe665f8475451f63": {
+    "address": "0x7De4BB4Fc0E55b7beeAe238Dbe665f8475451F63",
+    "isContract": false,
+    "isSafe": false,
+    "source": "onchain"
+   },
+   "0x5a48f8aafa78e129c930a9d6a236434e4ea02655": {
+    "address": "0x5A48f8AAFa78e129C930A9d6A236434E4ea02655",
+    "isContract": false,
+    "isSafe": false,
+    "source": "onchain"
+   },
+   "0x72f37072c359eddb5f058655db3cc327c209bd87": {
+    "address": "0x72F37072C359EDdb5F058655DB3CC327C209BD87",
+    "isContract": false,
+    "isSafe": false,
+    "source": "onchain"
+   },
+   "0xf01d0a6f78180c4c9583a848192dd2f250ef4b8f": {
+    "address": "0xf01D0A6F78180C4c9583a848192DD2F250ef4b8f",
+    "isContract": false,
+    "isSafe": false,
+    "source": "onchain"
+   },
+   "0x52a8305f29f85bec5fa6ee78b87ddd2218d8e12e": {
+    "address": "0x52A8305f29f85bEc5fa6eE78B87Ddd2218d8E12E",
+    "isContract": false,
+    "isSafe": false,
+    "source": "onchain"
+   },
+   "0x3126c94c032a1d9be9294cf5be2da99255b00cc8": {
+    "address": "0x3126c94C032A1D9Be9294cF5be2da99255b00cc8",
+    "isContract": false,
+    "isSafe": false,
+    "source": "onchain"
+   },
+   "0x3300f198988e4c9c63f75df86de36421f06af8c4": {
+    "address": "0x3300f198988e4C9C63F75dF86De36421f06af8c4",
+    "isContract": true,
+    "isSafe": false,
+    "source": "onchain"
+   },
+   "0x0f963a8a8c01042b69054e787e5763abbb0646a3": {
+    "address": "0x0f963A8A8c01042B69054e787E5763ABbB0646A3",
+    "isContract": true,
+    "isSafe": true,
+    "owners": [
+     "0xba638112360d6bA325329e3881d61Bf926A36811",
+     "0x5a2e65bc3B383f04136b0A9D190dB82e72E7dEaC",
+     "0x1CaE4D7eFDD34D6C4d54D365C3583a62D8041EA8",
+     "0xDC473772ed710E36853A7C278754ddbE9Bec76bE",
+     "0x7De4BB4Fc0E55b7beeAe238Dbe665f8475451F63"
+    ],
+    "threshold": 3,
+    "version": "1.4.1",
+    "source": "onchain",
+    "ownerSafes": {
+     "0xba638112360d6ba325329e3881d61bf926a36811": {
+      "address": "0xba638112360d6bA325329e3881d61Bf926A36811",
+      "isContract": false,
+      "isSafe": false,
+      "source": "onchain"
+     },
+     "0x5a2e65bc3b383f04136b0a9d190db82e72e7deac": {
+      "address": "0x5a2e65bc3B383f04136b0A9D190dB82e72E7dEaC",
+      "isContract": false,
+      "isSafe": false,
+      "source": "onchain"
+     },
+     "0x1cae4d7efdd34d6c4d54d365c3583a62d8041ea8": {
+      "address": "0x1CaE4D7eFDD34D6C4d54D365C3583a62D8041EA8",
+      "isContract": false,
+      "isSafe": false,
+      "source": "onchain"
+     },
+     "0xdc473772ed710e36853a7c278754ddbe9bec76be": {
+      "address": "0xDC473772ed710E36853A7C278754ddbE9Bec76bE",
+      "isContract": false,
+      "isSafe": false,
+      "source": "onchain"
+     },
+     "0x7de4bb4fc0e55b7beeae238dbe665f8475451f63": {
+      "address": "0x7De4BB4Fc0E55b7beeAe238Dbe665f8475451F63",
+      "isContract": false,
+      "isSafe": false,
+      "source": "onchain"
+     }
+    }
+   },
+   "0xf5748bbefa17505b2f7222b23ae11584932c908b": {
+    "address": "0xf5748bBeFa17505b2F7222B23ae11584932C908B",
+    "isContract": true,
+    "isSafe": true,
+    "owners": [
+     "0x5A48f8AAFa78e129C930A9d6A236434E4ea02655",
+     "0x72F37072C359EDdb5F058655DB3CC327C209BD87",
+     "0xf01D0A6F78180C4c9583a848192DD2F250ef4b8f",
+     "0x52A8305f29f85bEc5fa6eE78B87Ddd2218d8E12E",
+     "0x3126c94C032A1D9Be9294cF5be2da99255b00cc8"
+    ],
+    "threshold": 3,
+    "version": "1.4.1",
+    "source": "onchain",
+    "ownerSafes": {
+     "0x5a48f8aafa78e129c930a9d6a236434e4ea02655": {
+      "address": "0x5A48f8AAFa78e129C930A9d6A236434E4ea02655",
+      "isContract": false,
+      "isSafe": false,
+      "source": "onchain"
+     },
+     "0x72f37072c359eddb5f058655db3cc327c209bd87": {
+      "address": "0x72F37072C359EDdb5F058655DB3CC327C209BD87",
+      "isContract": false,
+      "isSafe": false,
+      "source": "onchain"
+     },
+     "0xf01d0a6f78180c4c9583a848192dd2f250ef4b8f": {
+      "address": "0xf01D0A6F78180C4c9583a848192DD2F250ef4b8f",
+      "isContract": false,
+      "isSafe": false,
+      "source": "onchain"
+     },
+     "0x52a8305f29f85bec5fa6ee78b87ddd2218d8e12e": {
+      "address": "0x52A8305f29f85bEc5fa6eE78B87Ddd2218d8E12E",
+      "isContract": false,
+      "isSafe": false,
+      "source": "onchain"
+     },
+     "0x3126c94c032a1d9be9294cf5be2da99255b00cc8": {
+      "address": "0x3126c94C032A1D9Be9294cF5be2da99255b00cc8",
+      "isContract": false,
+      "isSafe": false,
+      "source": "onchain"
+     }
+    }
+   },
+   "0xe5c6318456a7cb6f74f93b4eee4616db5fcef699": {
+    "address": "0xe5c6318456a7Cb6f74f93B4eee4616dB5fcef699",
+    "isContract": true,
+    "isSafe": false,
+    "source": "onchain"
+   }
+  },
+  "meta": {
+   "block": 25907356,
+   "blockTimestamp": 1788565871,
+   "fetchedAt": "2026-09-04T23:51:44.457Z",
+   "providers": [
+    "https://ethereum-rpc.publicnode.com",
+    "https://1rpc.io/eth",
+    "etherscan"
+   ],
+   "notes": []
+  },
+  "name": "Spark Blue Chip USDT Vault",
+  "symbol": "sparkUSDTbc",
+  "totalAssets": "276763698210",
+  "adapterRegistry": "0x3696c5eAe4a7Ffd04Ea163564571E9CD8Ed9364e",
+  "adapterRegistryAbdicated": true,
+  "gates": {
+   "receiveSharesGate": {
+    "address": "0x0000000000000000000000000000000000000000",
+    "abdicated": true
+   },
+   "sendSharesGate": {
+    "address": "0x0000000000000000000000000000000000000000",
+    "abdicated": true
+   },
+   "receiveAssetsGate": {
+    "address": "0x0000000000000000000000000000000000000000",
+    "abdicated": true
+   },
+   "sendAssetsGate": {
+    "address": "0x0000000000000000000000000000000000000000",
+    "abdicated": false
+   }
+  },
+  "factory": "0xA1D94F746dEfa1928926b84fB2596c06926C0405",
+  "factoryVerified": true
+ },
+ "snapshotB": {
+  "source": "api",
+  "address": "0xb0c424116172B55CbB6dD3136F5989F7959e5B91",
+  "chainId": 1,
+  "version": "v2",
+  "asset": {
+   "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+   "symbol": "USDT",
+   "decimals": 6
+  },
+  "owner": "0x3300f198988e4C9C63F75dF86De36421f06af8c4",
+  "curator": "0x0f963A8A8c01042B69054e787E5763ABbB0646A3",
+  "guardian": null,
+  "sentinels": [
+   "0xf5748bBeFa17505b2F7222B23ae11584932C908B"
+  ],
+  "allocators": [
+   "0xe5c6318456a7Cb6f74f93B4eee4616dB5fcef699"
+  ],
+  "adapters": [
+   {
+    "address": "0xEF4cB7e87f212F128f0b24cf35861E52B3C78A6a",
+    "type": "MorphoMarketV1",
+    "markets": [
+     "0xa921ef34e2fc7a27ccc50ae7e4b154e16c9799d3387076c421423ef52ac4df99",
+     "0x3274643db77a064abd3bc851de77556a4ad2e2f502f4f0c80845fa8f909ecf0b",
+     "0x45671fb8d5dea1c4fbca0b8548ad742f6643300eeb8dbd34ad64a658b2b05bca",
+     "0xe7e9694b754c4d4f7e21faf7223f6fa71abaeb10296a4c43a54a7977149687d2"
+    ],
+    "assetsUsd": 276834.7371347741,
+    "forceDeallocatePenalty": "0"
+   }
+  ],
+  "markets": [
+   {
+    "id": "0xa921ef34e2fc7a27ccc50ae7e4b154e16c9799d3387076c421423ef52ac4df99",
+    "loanToken": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+    "collateralToken": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+    "oracle": "0x008bF4B1cDA0cc9f0e882E0697f036667652E1ef",
+    "irm": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "lltv": 0.86,
+    "collateralSymbol": "WBTC",
+    "loanSymbol": "USDT",
+    "supplyAssets": "276762276160",
+    "supplyAssetsUsd": 276833.32915239653,
+    "cap": {
+     "absolute": "100000000000000",
+     "relative": "1000000000000000000"
+    },
+    "allocation": "276762276160",
+    "adapter": "0xEF4cB7e87f212F128f0b24cf35861E52B3C78A6a",
+    "oracleType": "ChainlinkOracle",
+    "morphoBlue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb"
+   },
+   {
+    "id": "0x3274643db77a064abd3bc851de77556a4ad2e2f502f4f0c80845fa8f909ecf0b",
+    "loanToken": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+    "collateralToken": "0xa3931d71877C0E7a3148CB7Eb4463524FEc27fbD",
+    "oracle": "0x0C426d174FC88B7A25d59945Ab2F7274Bf7B4C79",
+    "irm": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "lltv": 0.965,
+    "collateralSymbol": "sUSDS",
+    "loanSymbol": "USDT",
+    "supplyAssets": "4519",
+    "supplyAssetsUsd": 0.0045201601598205314,
+    "cap": {
+     "absolute": "340282366920938463463374607431768211455",
+     "relative": "1000000000000000000"
+    },
+    "allocation": "4519",
+    "adapter": "0xEF4cB7e87f212F128f0b24cf35861E52B3C78A6a",
+    "oracleType": "ChainlinkOracleV2",
+    "morphoBlue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb"
+   },
+   {
+    "id": "0x45671fb8d5dea1c4fbca0b8548ad742f6643300eeb8dbd34ad64a658b2b05bca",
+    "loanToken": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+    "collateralToken": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
+    "oracle": "0x0E053750DFA4E809E5f7b119832C799c2aA138ac",
+    "irm": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "lltv": 0.86,
+    "collateralSymbol": "cbBTC",
+    "loanSymbol": "USDT",
+    "supplyAssets": "8386",
+    "supplyAssetsUsd": 0.00838815293212104,
+    "cap": {
+     "absolute": "250000000000000",
+     "relative": "1000000000000000000"
+    },
+    "allocation": "8386",
+    "adapter": "0xEF4cB7e87f212F128f0b24cf35861E52B3C78A6a",
+    "oracleType": "ChainlinkOracleV2",
+    "morphoBlue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb"
+   },
+   {
+    "id": "0xe7e9694b754c4d4f7e21faf7223f6fa71abaeb10296a4c43a54a7977149687d2",
+    "loanToken": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+    "collateralToken": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0",
+    "oracle": "0x95DB30fAb9A3754e42423000DF27732CB2396992",
+    "irm": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "lltv": 0.86,
+    "collateralSymbol": "wstETH",
+    "loanSymbol": "USDT",
+    "supplyAssets": "1394716",
+    "supplyAssetsUsd": 1.3950740644975113,
+    "cap": {
+     "absolute": "250000000000000",
+     "relative": "1000000000000000000"
+    },
+    "allocation": "1394716",
+    "adapter": "0xEF4cB7e87f212F128f0b24cf35861E52B3C78A6a",
+    "oracleType": "ChainlinkOracle",
+    "morphoBlue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb"
+   }
+  ],
+  "timelocks": {
+   "setIsAllocator(address,bool)": {
+    "selector": "0xb192a84a",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "setReceiveSharesGate(address)": {
+    "selector": "0x2cb19f98",
+    "seconds": 0,
+    "abdicated": true
+   },
+   "setSendSharesGate(address)": {
+    "selector": "0xc21ad028",
+    "seconds": 0,
+    "abdicated": true
+   },
+   "setReceiveAssetsGate(address)": {
+    "selector": "0x04dbf0ce",
+    "seconds": 0,
+    "abdicated": true
+   },
+   "setSendAssetsGate(address)": {
+    "selector": "0x871c979c",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "setAdapterRegistry(address)": {
+    "selector": "0x5b34b823",
+    "seconds": 0,
+    "abdicated": true
+   },
+   "addAdapter(address)": {
+    "selector": "0x60d54d41",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "removeAdapter(address)": {
+    "selector": "0x585cd34b",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "increaseTimelock(bytes4,uint256)": {
+    "selector": "0x47966291",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "decreaseTimelock[0x5c1a1a4f]": {
+    "selector": "0x5c1a1a4f",
+    "seconds": 0,
+    "abdicated": false
+   },
+   "setPerformanceFee(uint256)": {
+    "selector": "0x70897b23",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "setManagementFee(uint256)": {
+    "selector": "0xfe56e232",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "setPerformanceFeeRecipient(address)": {
+    "selector": "0x6a5f1aa2",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "setManagementFeeRecipient(address)": {
+    "selector": "0x9faae464",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "increaseAbsoluteCap(bytes,uint256)": {
+    "selector": "0xf6f98fd5",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "increaseRelativeCap(bytes,uint256)": {
+    "selector": "0x2438525b",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "setForceDeallocatePenalty(address,uint256)": {
+    "selector": "0x3e9d2ac7",
+    "seconds": 864000,
+    "abdicated": false
+   },
+   "abdicate(bytes4)": {
+    "selector": "0xb2e32848",
+    "seconds": 864000,
+    "abdicated": false
+   }
+  },
+  "fees": {
+   "performanceFee": 0.1,
+   "managementFee": 0,
+   "performanceFeeRecipient": "0x1601843c5E9bC251A3272907010AFa41Fa18347E",
+   "managementFeeRecipient": "0x1601843c5E9bC251A3272907010AFa41Fa18347E"
+  },
+  "exposure": [
+   {
+    "prime": "Grove",
+    "almProxy": "0x491EDFB0B8b608044e227225C715981a30F3A44E",
+    "almProxyLabel": "ALM_PROXY",
+    "shares": "0",
+    "assets": "0",
+    "assetsUsd": 0
+   },
+   {
+    "prime": "Spark",
+    "almProxy": "0x1601843c5E9bC251A3272907010AFa41Fa18347E",
+    "almProxyLabel": "ALM_PROXY",
+    "shares": "5031533644215672372",
+    "assets": 5096086,
+    "assetsUsd": 5.097394314719889
+   },
+   {
+    "prime": "Spark",
+    "almProxy": "0xe5c6318456a7Cb6f74f93B4eee4616dB5fcef699",
+    "almProxyLabel": "ALM_PROXY_FREEZABLE",
+    "shares": "0",
+    "assets": "0",
+    "assetsUsd": 0
+   },
+   {
+    "prime": "Keel",
+    "almProxy": "0xa5139956eC99aE2e51eA39d0b57C42B6D8db0758",
+    "almProxyLabel": "ALM_PROXY",
+    "shares": "0",
+    "assets": "0",
+    "assetsUsd": 0
+   }
+  ],
+  "safes": {
+   "0xba638112360d6ba325329e3881d61bf926a36811": {
+    "address": "0xba638112360d6bA325329e3881d61Bf926A36811",
+    "isContract": false,
+    "isSafe": false,
+    "source": "safe-service"
+   },
+   "0x5a2e65bc3b383f04136b0a9d190db82e72e7deac": {
+    "address": "0x5a2e65bc3B383f04136b0A9D190dB82e72E7dEaC",
+    "isContract": false,
+    "isSafe": false,
+    "source": "safe-service"
+   },
+   "0x1cae4d7efdd34d6c4d54d365c3583a62d8041ea8": {
+    "address": "0x1CaE4D7eFDD34D6C4d54D365C3583a62D8041EA8",
+    "isContract": false,
+    "isSafe": false,
+    "source": "safe-service"
+   },
+   "0xdc473772ed710e36853a7c278754ddbe9bec76be": {
+    "address": "0xDC473772ed710E36853A7C278754ddbE9Bec76bE",
+    "isContract": false,
+    "isSafe": false,
+    "source": "safe-service"
+   },
+   "0x7de4bb4fc0e55b7beeae238dbe665f8475451f63": {
+    "address": "0x7De4BB4Fc0E55b7beeAe238Dbe665f8475451F63",
+    "isContract": false,
+    "isSafe": false,
+    "source": "safe-service"
+   },
+   "0x5a48f8aafa78e129c930a9d6a236434e4ea02655": {
+    "address": "0x5A48f8AAFa78e129C930A9d6A236434E4ea02655",
+    "isContract": false,
+    "isSafe": false,
+    "source": "safe-service"
+   },
+   "0x72f37072c359eddb5f058655db3cc327c209bd87": {
+    "address": "0x72F37072C359EDdb5F058655DB3CC327C209BD87",
+    "isContract": false,
+    "isSafe": false,
+    "source": "safe-service"
+   },
+   "0xf01d0a6f78180c4c9583a848192dd2f250ef4b8f": {
+    "address": "0xf01D0A6F78180C4c9583a848192DD2F250ef4b8f",
+    "isContract": false,
+    "isSafe": false,
+    "source": "safe-service"
+   },
+   "0x52a8305f29f85bec5fa6ee78b87ddd2218d8e12e": {
+    "address": "0x52A8305f29f85bEc5fa6eE78B87Ddd2218d8E12E",
+    "isContract": false,
+    "isSafe": false,
+    "source": "safe-service"
+   },
+   "0x3126c94c032a1d9be9294cf5be2da99255b00cc8": {
+    "address": "0x3126c94C032A1D9Be9294cF5be2da99255b00cc8",
+    "isContract": false,
+    "isSafe": false,
+    "source": "safe-service"
+   },
+   "0x3300f198988e4c9c63f75df86de36421f06af8c4": {
+    "address": "0x3300f198988e4C9C63F75dF86De36421f06af8c4",
+    "isContract": false,
+    "isSafe": false,
+    "source": "safe-service"
+   },
+   "0x0f963a8a8c01042b69054e787e5763abbb0646a3": {
+    "address": "0x0f963A8A8c01042B69054e787E5763ABbB0646A3",
+    "isContract": true,
+    "isSafe": true,
+    "owners": [
+     "0xba638112360d6bA325329e3881d61Bf926A36811",
+     "0x5a2e65bc3B383f04136b0A9D190dB82e72E7dEaC",
+     "0x1CaE4D7eFDD34D6C4d54D365C3583a62D8041EA8",
+     "0xDC473772ed710E36853A7C278754ddbE9Bec76bE",
+     "0x7De4BB4Fc0E55b7beeAe238Dbe665f8475451F63"
+    ],
+    "threshold": 3,
+    "version": "1.4.1",
+    "source": "safe-service",
+    "ownerSafes": {
+     "0xba638112360d6ba325329e3881d61bf926a36811": {
+      "address": "0xba638112360d6bA325329e3881d61Bf926A36811",
+      "isContract": false,
+      "isSafe": false,
+      "source": "safe-service"
+     },
+     "0x5a2e65bc3b383f04136b0a9d190db82e72e7deac": {
+      "address": "0x5a2e65bc3B383f04136b0A9D190dB82e72E7dEaC",
+      "isContract": false,
+      "isSafe": false,
+      "source": "safe-service"
+     },
+     "0x1cae4d7efdd34d6c4d54d365c3583a62d8041ea8": {
+      "address": "0x1CaE4D7eFDD34D6C4d54D365C3583a62D8041EA8",
+      "isContract": false,
+      "isSafe": false,
+      "source": "safe-service"
+     },
+     "0xdc473772ed710e36853a7c278754ddbe9bec76be": {
+      "address": "0xDC473772ed710E36853A7C278754ddbE9Bec76bE",
+      "isContract": false,
+      "isSafe": false,
+      "source": "safe-service"
+     },
+     "0x7de4bb4fc0e55b7beeae238dbe665f8475451f63": {
+      "address": "0x7De4BB4Fc0E55b7beeAe238Dbe665f8475451F63",
+      "isContract": false,
+      "isSafe": false,
+      "source": "safe-service"
+     }
+    }
+   },
+   "0xf5748bbefa17505b2f7222b23ae11584932c908b": {
+    "address": "0xf5748bBeFa17505b2F7222B23ae11584932C908B",
+    "isContract": true,
+    "isSafe": true,
+    "owners": [
+     "0x5A48f8AAFa78e129C930A9d6A236434E4ea02655",
+     "0x72F37072C359EDdb5F058655DB3CC327C209BD87",
+     "0xf01D0A6F78180C4c9583a848192DD2F250ef4b8f",
+     "0x52A8305f29f85bEc5fa6eE78B87Ddd2218d8E12E",
+     "0x3126c94C032A1D9Be9294cF5be2da99255b00cc8"
+    ],
+    "threshold": 3,
+    "version": "1.4.1",
+    "source": "safe-service",
+    "ownerSafes": {
+     "0x5a48f8aafa78e129c930a9d6a236434e4ea02655": {
+      "address": "0x5A48f8AAFa78e129C930A9d6A236434E4ea02655",
+      "isContract": false,
+      "isSafe": false,
+      "source": "safe-service"
+     },
+     "0x72f37072c359eddb5f058655db3cc327c209bd87": {
+      "address": "0x72F37072C359EDdb5F058655DB3CC327C209BD87",
+      "isContract": false,
+      "isSafe": false,
+      "source": "safe-service"
+     },
+     "0xf01d0a6f78180c4c9583a848192dd2f250ef4b8f": {
+      "address": "0xf01D0A6F78180C4c9583a848192DD2F250ef4b8f",
+      "isContract": false,
+      "isSafe": false,
+      "source": "safe-service"
+     },
+     "0x52a8305f29f85bec5fa6ee78b87ddd2218d8e12e": {
+      "address": "0x52A8305f29f85bEc5fa6eE78B87Ddd2218d8E12E",
+      "isContract": false,
+      "isSafe": false,
+      "source": "safe-service"
+     },
+     "0x3126c94c032a1d9be9294cf5be2da99255b00cc8": {
+      "address": "0x3126c94C032A1D9Be9294cF5be2da99255b00cc8",
+      "isContract": false,
+      "isSafe": false,
+      "source": "safe-service"
+     }
+    }
+   },
+   "0xe5c6318456a7cb6f74f93b4eee4616db5fcef699": {
+    "address": "0xe5c6318456a7Cb6f74f93B4eee4616dB5fcef699",
+    "isContract": false,
+    "isSafe": false,
+    "source": "safe-service"
+   }
+  },
+  "meta": {
+   "fetchedAt": "2026-09-04T23:51:34.964Z",
+   "providers": [
+    "https://blue-api.morpho.org/graphql"
+   ],
+   "notes": [
+    "The Morpho API only indexes vaults deployed by the official factories, so being listed here counts as the API-side factory confirmation.",
+    "Adapter-level timelocks have no Morpho API field; they are on-chain only.",
+    "Rate limits (Liquidity Layer onboarding) have no Morpho API equivalent; that value is on-chain only."
+   ]
+  },
+  "name": "Spark Blue Chip USDT Vault",
+  "symbol": "sparkUSDTbc",
+  "factory": "0xA1D94F746dEfa1928926b84fB2596c06926C0405",
+  "factoryVerified": true,
+  "gates": {
+   "receiveSharesGate": {
+    "address": "0x0000000000000000000000000000000000000000",
+    "abdicated": true
+   },
+   "sendSharesGate": {
+    "address": "0x0000000000000000000000000000000000000000",
+    "abdicated": true
+   },
+   "receiveAssetsGate": {
+    "address": "0x0000000000000000000000000000000000000000",
+    "abdicated": true
+   },
+   "sendAssetsGate": {
+    "address": "0x0000000000000000000000000000000000000000",
+    "abdicated": false
+   }
+  },
+  "totalAssets": "276763683781",
+  "totalAssetsUsd": 276834.7371347741,
+  "idleAssetsUsd": 0
+ }
+}

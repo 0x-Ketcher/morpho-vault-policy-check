@@ -16,6 +16,8 @@ export interface SafeInfo {
   owners?: Address[];
   /** One level of nesting: owners that are Safes themselves. */
   ownerSafes?: Record<string, SafeInfo>;
+  /** true when this method could not read the structure at all (service down); not the same as "not a Safe" */
+  unavailable?: boolean;
   source: Method;
 }
 
