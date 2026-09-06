@@ -2,9 +2,9 @@
 
 Generated from `labels/*.json` by `npm run gen:docs`. Every row cites the public source it came from.
 
-Registries read at: grove-labs/grove-address-registry@5c7340f6, sparkdotfi/spark-address-registry@ecea29bd, osero-io/osero-address-registry@62d5fe15, skybase-foundation/skybase-address-registry@2c43f2e3, ElodinLTD/keel-address-registry@5871e2b7 (2026-09-05)
+Registries read at: grove-labs/grove-address-registry@5c7340f6, sparkdotfi/spark-address-registry@ecea29bd, osero-io/osero-address-registry@62d5fe15, skybase-foundation/skybase-address-registry@2c43f2e3, ElodinLTD/keel-address-registry@5871e2b7 (2026-09-06)
 Atlas read at: sky-ecosystem/next-gen-atlas@6f45abbe; 18 files, 647 address mentions
-Morpho curator registry: 44 curators, read 2026-09-05
+Morpho curator registry: 44 curators, read 2026-09-06
 
 ## Ethereum (1)
 
