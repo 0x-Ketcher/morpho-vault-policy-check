@@ -14,9 +14,18 @@
   "chains": {
     "source": "Policy section 'Accepted chains': Ethereum, Base, Robinhood (higher CRR for non-mainnet chain risk). Others: risk review + separate request.",
     "accepted": [
-      { "id": 1, "name": "Ethereum" },
-      { "id": 8453, "name": "Base" },
-      { "id": 4663, "name": "Robinhood Chain" }
+      {
+        "id": 1,
+        "name": "Ethereum"
+      },
+      {
+        "id": 8453,
+        "name": "Base"
+      },
+      {
+        "id": 4663,
+        "name": "Robinhood Chain"
+      }
     ],
     "severityWhenNotAccepted": "FAIL"
   },
@@ -25,17 +34,45 @@
     "severityWhenNotAccepted": "FAIL",
     "accepted": {
       "1": [
-        { "symbol": "USDC", "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", "verified": "Spark registry Ethereum.sol USDC; Morpho API asset of sparkUSDCbc" },
-        { "symbol": "USDT", "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7", "verified": "Spark registry Ethereum.sol USDT; Morpho API asset of sparkUSDTbc" },
-        { "symbol": "PYUSD", "address": "0x6c3ea9036406852006290770BEdFcAbA0e23A0e8", "verified": "Spark registry Ethereum.sol PYUSD" },
-        { "symbol": "RLUSD", "address": "0x8292Bb45bf1Ee4d140127049757C2E0fF06317eD", "verified": "Spark registry Ethereum.sol RLUSD; Morpho API asset of the Sentora x Spark RLUSD vaults" },
-        { "symbol": "USDG", "address": "0xe343167631d89B6Ffc58B88d6b7fB0228795491D", "verified": "Spark registry Ethereum.sol USDG; Morpho API asset of grove-steakUSDG" }
+        {
+          "symbol": "USDC",
+          "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+          "verified": "Spark registry Ethereum.sol USDC; Morpho API asset of sparkUSDCbc"
+        },
+        {
+          "symbol": "USDT",
+          "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+          "verified": "Spark registry Ethereum.sol USDT; Morpho API asset of sparkUSDTbc"
+        },
+        {
+          "symbol": "PYUSD",
+          "address": "0x6c3ea9036406852006290770BEdFcAbA0e23A0e8",
+          "verified": "Spark registry Ethereum.sol PYUSD"
+        },
+        {
+          "symbol": "RLUSD",
+          "address": "0x8292Bb45bf1Ee4d140127049757C2E0fF06317eD",
+          "verified": "Spark registry Ethereum.sol RLUSD; Morpho API asset of the Sentora x Spark RLUSD vaults"
+        },
+        {
+          "symbol": "USDG",
+          "address": "0xe343167631d89B6Ffc58B88d6b7fB0228795491D",
+          "verified": "Spark registry Ethereum.sol USDG; Morpho API asset of grove-steakUSDG"
+        }
       ],
       "8453": [
-        { "symbol": "USDC", "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", "verified": "Spark and Grove registries Base.sol USDC; Morpho API asset of the Base vaults" }
+        {
+          "symbol": "USDC",
+          "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "verified": "Spark and Grove registries Base.sol USDC; Morpho API asset of the Base vaults"
+        }
       ],
       "4663": [
-        { "symbol": "USDG", "address": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168", "verified": "Spark and Grove registries Robinhood.sol USDG; Morpho API asset of groveUSDG" }
+        {
+          "symbol": "USDG",
+          "address": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "verified": "Spark and Grove registries Robinhood.sol USDG; Morpho API asset of groveUSDG"
+        }
       ]
     }
   },
@@ -50,22 +87,89 @@
     },
     "accepted": {
       "1": [
-        { "symbol": "WETH", "policyName": "ETH", "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "maxLltv": 0.86, "verified": "Spark registry Ethereum.sol WETH" },
-        { "symbol": "cbBTC", "policyName": "cbBTC", "address": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf", "maxLltv": 0.86, "verified": "Spark registry Ethereum.sol CBBTC; Morpho API market data" },
-        { "symbol": "wstETH", "policyName": "stETH", "address": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0", "maxLltv": 0.86, "verified": "Spark registry Ethereum.sol WSTETH; Morpho API market data" },
-        { "symbol": "stETH", "policyName": "stETH", "address": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84", "maxLltv": 0.86, "verified": "well-known Lido stETH address; verify on explorer before relying on it" },
-        { "symbol": "WBTC", "policyName": "WBTC", "address": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599", "maxLltv": 0.86, "verified": "Spark registry Ethereum.sol WBTC; Morpho API market data" },
-        { "symbol": "sUSDS", "policyName": "sUSDS", "address": "0xa3931d71877C0E7a3148CB7Eb4463524FEc27fbD", "maxLltv": 0.965, "verified": "Spark registry Ethereum.sol SUSDS; Morpho API market data" }
+        {
+          "symbol": "WETH",
+          "policyName": "ETH",
+          "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+          "maxLltv": 0.86,
+          "verified": "Spark registry Ethereum.sol WETH"
+        },
+        {
+          "symbol": "cbBTC",
+          "policyName": "cbBTC",
+          "address": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
+          "maxLltv": 0.86,
+          "verified": "Spark registry Ethereum.sol CBBTC; Morpho API market data"
+        },
+        {
+          "symbol": "wstETH",
+          "policyName": "stETH",
+          "address": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0",
+          "maxLltv": 0.86,
+          "verified": "Spark registry Ethereum.sol WSTETH; Morpho API market data"
+        },
+        {
+          "symbol": "stETH",
+          "policyName": "stETH",
+          "address": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84",
+          "maxLltv": 0.86,
+          "verified": "well-known Lido stETH address; verify on explorer before relying on it"
+        },
+        {
+          "symbol": "WBTC",
+          "policyName": "WBTC",
+          "address": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+          "maxLltv": 0.86,
+          "verified": "Spark registry Ethereum.sol WBTC; Morpho API market data"
+        },
+        {
+          "symbol": "sUSDS",
+          "policyName": "sUSDS",
+          "address": "0xa3931d71877C0E7a3148CB7Eb4463524FEc27fbD",
+          "maxLltv": 0.965,
+          "verified": "Spark registry Ethereum.sol SUSDS; Morpho API market data"
+        }
       ],
       "8453": [
-        { "symbol": "WETH", "policyName": "ETH", "address": "0x4200000000000000000000000000000000000006", "maxLltv": 0.86, "verified": "Spark registry Base.sol WETH; Morpho API market data" },
-        { "symbol": "cbBTC", "policyName": "cbBTC", "address": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf", "maxLltv": 0.86, "verified": "Spark registry Base.sol CBBTC; Morpho API market data" },
-        { "symbol": "wstETH", "policyName": "stETH", "address": "0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452", "maxLltv": 0.86, "verified": "Morpho API market data (steakUSDC Base); cross-check on explorer" },
-        { "symbol": "sUSDS", "policyName": "sUSDS", "address": "0x5875eEE11Cf8398102FdAd704C9E96607675467a", "maxLltv": 0.965, "verified": "Spark and Grove registries Base.sol SUSDS" }
+        {
+          "symbol": "WETH",
+          "policyName": "ETH",
+          "address": "0x4200000000000000000000000000000000000006",
+          "maxLltv": 0.86,
+          "verified": "Spark registry Base.sol WETH; Morpho API market data"
+        },
+        {
+          "symbol": "cbBTC",
+          "policyName": "cbBTC",
+          "address": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
+          "maxLltv": 0.86,
+          "verified": "Spark registry Base.sol CBBTC; Morpho API market data"
+        },
+        {
+          "symbol": "wstETH",
+          "policyName": "stETH",
+          "address": "0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452",
+          "maxLltv": 0.86,
+          "verified": "Morpho API market data (steakUSDC Base); cross-check on explorer"
+        },
+        {
+          "symbol": "sUSDS",
+          "policyName": "sUSDS",
+          "address": "0x5875eEE11Cf8398102FdAd704C9E96607675467a",
+          "maxLltv": 0.965,
+          "verified": "Spark and Grove registries Base.sol SUSDS"
+        }
       ],
       "4663": []
     },
-    "knownNotAccepted": ["cbETH", "spUSDG", "syrupUSDC", "weETH", "LBTC", "AUSD"]
+    "knownNotAccepted": [
+      "cbETH",
+      "spUSDG",
+      "syrupUSDC",
+      "weETH",
+      "LBTC",
+      "AUSD"
+    ]
   },
   "roles": {
     "source": "Policy section 'Morpho Vault v2 Setup - Proposal #11: Prime governance Owner with govops & external party as Curator'.",
@@ -78,32 +182,125 @@
     "source": "Policy section 'Accepted timelocks per function (v2)' and 'Adapter timelocks (added Aug 31)'. Minimums; 'or abdicated' where the policy says '7d/Abdicated'.",
     "severityBelowMinimum": "FAIL",
     "vault": [
-      { "function": "abdicate(bytes4)", "label": "Abdicate", "minDays": 7 },
-      { "function": "addAdapter(address)", "label": "Add adapter", "minDays": 7 },
-      { "function": "removeAdapter(address)", "label": "Remove adapter", "minDays": 7 },
-      { "function": "increaseAbsoluteCap(bytes,uint256)", "label": "Increase absolute cap", "minDays": 7 },
-      { "function": "increaseRelativeCap(bytes,uint256)", "label": "Increase relative cap", "minDays": 7 },
-      { "function": "setIsAllocator(address,bool)", "label": "Add/Remove allocator", "minDays": 3 },
-      { "function": "increaseTimelock(bytes4,uint256)", "label": "Increase timelock duration", "minDays": 7 },
-      { "function": "setPerformanceFee(uint256)", "label": "Set performance fee", "minDays": 3 },
-      { "function": "setManagementFee(uint256)", "label": "Set management fee", "minDays": 3 },
-      { "function": "setPerformanceFeeRecipient(address)", "label": "Set performance fee recipient", "minDays": 3 },
-      { "function": "setManagementFeeRecipient(address)", "label": "Set management fee recipient", "minDays": 3 },
-      { "function": "setForceDeallocatePenalty(address,uint256)", "label": "Set force deallocate penalty", "minDays": 7 },
-      { "function": "setReceiveSharesGate(address)", "label": "Set receive shares gate", "minDays": 7, "abdicationSatisfies": true },
-      { "function": "setSendSharesGate(address)", "label": "Set send shares gate", "minDays": 7, "abdicationSatisfies": true },
-      { "function": "setReceiveAssetsGate(address)", "label": "Set receive assets gate", "minDays": 7, "abdicationSatisfies": true },
-      { "function": "setSendAssetsGate(address)", "label": "Set send assets gate", "minDays": 7, "abdicationSatisfies": true, "note": "The policy snapshot lists 7d without '/Abdicated' for this gate; treated like the other gates, to confirm with BA." },
-      { "function": "setAdapterRegistry(address)", "label": "Set adapter registry", "minDays": 7, "abdicationSatisfies": true }
+      {
+        "function": "abdicate(bytes4)",
+        "label": "Abdicate",
+        "minDays": 7
+      },
+      {
+        "function": "addAdapter(address)",
+        "label": "Add adapter",
+        "minDays": 7
+      },
+      {
+        "function": "removeAdapter(address)",
+        "label": "Remove adapter",
+        "minDays": 7
+      },
+      {
+        "function": "increaseAbsoluteCap(bytes,uint256)",
+        "label": "Increase absolute cap",
+        "minDays": 7
+      },
+      {
+        "function": "increaseRelativeCap(bytes,uint256)",
+        "label": "Increase relative cap",
+        "minDays": 7
+      },
+      {
+        "function": "setIsAllocator(address,bool)",
+        "label": "Add/Remove allocator",
+        "minDays": 3
+      },
+      {
+        "function": "increaseTimelock(bytes4,uint256)",
+        "label": "Increase timelock duration",
+        "minDays": 7
+      },
+      {
+        "function": "setPerformanceFee(uint256)",
+        "label": "Set performance fee",
+        "minDays": 3
+      },
+      {
+        "function": "setManagementFee(uint256)",
+        "label": "Set management fee",
+        "minDays": 3
+      },
+      {
+        "function": "setPerformanceFeeRecipient(address)",
+        "label": "Set performance fee recipient",
+        "minDays": 3
+      },
+      {
+        "function": "setManagementFeeRecipient(address)",
+        "label": "Set management fee recipient",
+        "minDays": 3
+      },
+      {
+        "function": "setForceDeallocatePenalty(address,uint256)",
+        "label": "Set force deallocate penalty",
+        "minDays": 7
+      },
+      {
+        "function": "setReceiveSharesGate(address)",
+        "label": "Set receive shares gate",
+        "minDays": 7,
+        "abdicationSatisfies": true
+      },
+      {
+        "function": "setSendSharesGate(address)",
+        "label": "Set send shares gate",
+        "minDays": 7,
+        "abdicationSatisfies": true
+      },
+      {
+        "function": "setReceiveAssetsGate(address)",
+        "label": "Set receive assets gate",
+        "minDays": 7,
+        "abdicationSatisfies": true
+      },
+      {
+        "function": "setSendAssetsGate(address)",
+        "label": "Set send assets gate",
+        "minDays": 7,
+        "abdicationSatisfies": true,
+        "note": "The policy snapshot lists 7d without '/Abdicated' for this gate; treated like the other gates, to confirm with BA."
+      },
+      {
+        "function": "setAdapterRegistry(address)",
+        "label": "Set adapter registry",
+        "minDays": 7,
+        "abdicationSatisfies": true
+      }
     ],
     "adapter": [
-      { "function": "abdicate(bytes4)", "label": "Adapter: Abdicate", "minDays": 7 },
-      { "function": "burnShares(bytes32)", "label": "Adapter: Burn shares", "minDays": 3 },
-      { "function": "increaseTimelock(bytes4,uint256)", "label": "Adapter: Increase timelock", "minDays": 7 },
-      { "function": "setSkimRecipient(address)", "label": "Adapter: Skim recipient", "minDays": 3 }
+      {
+        "function": "abdicate(bytes4)",
+        "label": "Adapter: Abdicate",
+        "minDays": 7
+      },
+      {
+        "function": "burnShares(bytes32)",
+        "label": "Adapter: Burn shares",
+        "minDays": 3
+      },
+      {
+        "function": "increaseTimelock(bytes4,uint256)",
+        "label": "Adapter: Increase timelock",
+        "minDays": 7
+      },
+      {
+        "function": "setSkimRecipient(address)",
+        "label": "Adapter: Skim recipient",
+        "minDays": 3
+      }
     ],
     "informational": [
-      { "function": "setMaxRate(uint256)", "label": "Set max rate (no policy minimum)" }
+      {
+        "function": "setMaxRate(uint256)",
+        "label": "Set max rate (no policy minimum)"
+      }
     ],
     "note": "Owner functions (setOwner, setCurator, setIsSentinel, setName, setSymbol) and every 'decrease' function are immediate by Vault V2 design and have no timelock to check."
   },
@@ -111,14 +308,65 @@
     "source": "Policy section 'Collateral pricing / oracle': >= 3 sources (median of 3, average of 2, credible fallback if 1). INTERIM: single-source Chainlink acceptable for major collateral.",
     "status": "INFO"
   },
-  "fees": { "source": "Policy section 'Fees: TBD'.", "status": "INFO" },
-  "exposure": { "source": "Context, not a policy criterion. After the deadline (about end of September 2026) all non-compliant Morpho allocations receive 100% CRR.", "status": "INFO" },
+  "fees": {
+    "source": "Policy section 'Fees: TBD'.",
+    "status": "INFO"
+  },
+  "exposure": {
+    "source": "Context, not a policy criterion. After the deadline (about end of September 2026) all non-compliant Morpho allocations receive 100% CRR.",
+    "status": "INFO"
+  },
   "oea": {
-    "entities": ["Soter Labs", "Soter", "Operational Executor Agent", "Ozone"],
+    "entities": [
+      "Soter Labs",
+      "Soter",
+      "Operational Executor Agent",
+      "Ozone"
+    ],
     "note": "No public source labels an OEA Safe address on 2026-09-04. The Atlas Ozone OEA article (A.6.1.2.2) is the recommended place to publish them so this check can turn PASS from a public source."
   },
   "primes": {
-    "names": ["Grove", "Spark", "Osero", "Skybase", "Keel"],
-    "curatorRegistryAliases": { "SparkDAO": "Spark", "Sky Money": "Skybase", "Grove": "Grove" }
+    "names": [
+      "Grove",
+      "Spark",
+      "Osero",
+      "Skybase",
+      "Keel"
+    ],
+    "curatorRegistryAliases": {
+      "SparkDAO": "Spark",
+      "Sky Money": "Skybase",
+      "Grove": "Grove"
+    }
+  },
+  "irm": {
+    "source": "Policy table 'Accepted Collateral and Market Parameters', IRM column: 'Morpho Adaptive Curve IRM' on every accepted row. Footnote: the IRM criterion applies to Morpho Blue v1 markets only; Markets V2 (Midnight) set rates through makers and takers and have no IRM.",
+    "severity": {
+      "notAcceptedWithAllocation": "FAIL",
+      "notAcceptedCapOnly": "WARN"
+    },
+    "accepted": {
+      "1": [
+        {
+          "name": "Morpho Adaptive Curve IRM",
+          "address": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+          "verified": "Spark registry Ethereum.sol MORPHO_DEFAULT_IRM; the only IRM on all 79 collateral markets of the 16 Ethereum vaults checked on 2026-09-08; Morpho Blue isIrmEnabled = true"
+        }
+      ],
+      "8453": [
+        {
+          "name": "Morpho Adaptive Curve IRM",
+          "address": "0x46415998764C29aB2a25CbeA6254146D50D22687",
+          "verified": "Spark registry Base.sol MORPHO_DEFAULT_IRM; the only IRM on all 16 collateral markets of the 5 Base vaults checked on 2026-09-08; Morpho Blue isIrmEnabled = true"
+        }
+      ],
+      "4663": [
+        {
+          "name": "Morpho Adaptive Curve IRM",
+          "address": "0x2BD3d5965B26B51814AC95127B2b80dD6CcC0fa1",
+          "verified": "No registry publishes it for Robinhood. Morpho API irmAddress of every groveUSDG market; Morpho Blue on Robinhood (0x9D53d5E3bd5E8d4Cbfa6DB1ca238AEA02E651010, per the adapter's morpho() and the API) reports isIrmEnabled = true. Bytecode differs in size from the Ethereum deployment, so a bytecode comparison is inconclusive; a registry entry or Morpho's deployment list should confirm this is the Adaptive Curve IRM."
+        }
+      ]
+    }
   }
 }

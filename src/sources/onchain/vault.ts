@@ -213,10 +213,17 @@ async function readV2(reader: OnchainReader, vault: Address, hints: OnchainHints
     });
   }
   if (pairs.length && pairs.some(({ adapter, id }) => !capIdOf(adapter.address, id))) notes.push("Some market cap ids could not be derived from the adapter (ids() did not answer); caps for those markets are API-only.");
-  // Stage 6: collateral symbols
+  // Stage 6: collateral symbols and whether Morpho Blue has each market's IRM enabled
   const collaterals = [...new Set(markets.map((m) => m.collateralToken).filter((x): x is Address => !!x))];
-  const r6 = await reader.read(collaterals.map((t) => c(`sym:${t}`, "symbol", [], t, ERC20)));
-  for (const m of markets) if (m.collateralToken && r6[`sym:${m.collateralToken}`]?.ok) m.collateralSymbol = r6[`sym:${m.collateralToken}`].value as string;
+  const irmPairs = [...new Map(markets.filter((m) => m.irm && m.morphoBlue).map((m) => [`${m.morphoBlue}:${m.irm}`, { blue: m.morphoBlue!, irm: m.irm! }])).values()];
+  const r6 = await reader.read([
+    ...collaterals.map((t) => c(`sym:${t}`, "symbol", [], t, ERC20)),
+    ...irmPairs.map(({ blue, irm }) => c(`irm:${blue}:${irm}`, "isIrmEnabled", [irm], blue, BLUE)),
+  ]);
+  for (const m of markets) {
+    if (m.collateralToken && r6[`sym:${m.collateralToken}`]?.ok) m.collateralSymbol = r6[`sym:${m.collateralToken}`].value as string;
+    if (m.irm && m.morphoBlue && r6[`irm:${m.morphoBlue}:${m.irm}`]?.ok) m.irmEnabled = r6[`irm:${m.morphoBlue}:${m.irm}`].value as boolean;
+  }
   for (const m of markets) m.loanSymbol = m.loanToken.toLowerCase() === snap.asset.address.toLowerCase() ? snap.asset.symbol : undefined;
   snap.markets = markets;
   if (hints.assetPriceUsd === undefined) notes.push("USD values need an asset price; none was provided to the on-chain reader, so USD columns come from the API side only.");
@@ -280,8 +287,15 @@ async function readV1(reader: OnchainReader, vault: Address, hints: OnchainHints
     });
   }
   const collaterals = [...new Set(markets.map((m) => m.collateralToken).filter((x): x is Address => !!x))];
-  const r4 = await reader.read(collaterals.map((t) => c(`sym:${t}`, "symbol", [], t, ERC20)));
-  for (const m of markets) if (m.collateralToken && r4[`sym:${m.collateralToken}`]?.ok) m.collateralSymbol = r4[`sym:${m.collateralToken}`].value as string;
+  const irms = [...new Set(markets.map((m) => m.irm).filter((x): x is Address => !!x))];
+  const r4 = await reader.read([
+    ...collaterals.map((t) => c(`sym:${t}`, "symbol", [], t, ERC20)),
+    ...irms.map((irm) => c(`irm:${irm}`, "isIrmEnabled", [irm], blue, BLUE)),
+  ]);
+  for (const m of markets) {
+    if (m.collateralToken && r4[`sym:${m.collateralToken}`]?.ok) m.collateralSymbol = r4[`sym:${m.collateralToken}`].value as string;
+    if (m.irm && r4[`irm:${m.irm}`]?.ok) m.irmEnabled = r4[`irm:${m.irm}`].value as boolean;
+  }
   snap.markets = markets;
 }
 

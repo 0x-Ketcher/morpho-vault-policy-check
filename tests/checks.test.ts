@@ -19,6 +19,8 @@ const A = {
   eoa3: "0x3333333333333333333333333333333333333333" as Address,
   eoa4: "0x4444444444444444444444444444444444444444" as Address,
   usdc: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48" as Address,
+  irm: "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC" as Address,
+  otherIrm: "0x9999999999999999999999999999999999999999" as Address,
   weth: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2" as Address,
   cbeth: "0x2Ae3F1Ec7F1F5012CFEab0185bfc7aa3cf0DEc22" as Address,
 };
@@ -39,7 +41,7 @@ function snap(over: Partial<VaultSnapshot> = {}, source: "onchain" | "api" = "on
   return {
     source, address: "0xbeef05061FE51eA482BD1b68041353490b3a5934", chainId: 1, version: "v2", name: "test", symbol: "T", factoryVerified: true,
     asset: { address: A.usdc, symbol: "USDC", decimals: 6 }, owner: A.subproxy, curator: A.twoOfTwo, guardian: null, sentinels: [A.oeaSafe], allocators: [A.alm],
-    adapters: [], markets: [{ id: "0x01", loanToken: A.usdc, collateralToken: A.weth, oracle: "0x0000000000000000000000000000000000000001", irm: null, lltv: 0.86, collateralSymbol: "WETH", supplyAssets: "5000000000", cap: { absolute: "1000000000000" }, allocation: "5000000000" }],
+    adapters: [], markets: [{ id: "0x01", loanToken: A.usdc, collateralToken: A.weth, oracle: "0x0000000000000000000000000000000000000001", irm: A.irm, irmEnabled: true, lltv: 0.86, collateralSymbol: "WETH", supplyAssets: "5000000000", cap: { absolute: "1000000000000" }, allocation: "5000000000" }],
     timelocks: Object.fromEntries(policy.timelocks.vault.map((f) => [f.function, { selector: "0x00000000", seconds: (f.minDays ?? 0) * 86400, abdicated: false }])),
     fees: { performanceFee: 0.1, managementFee: 0 }, exposure: [], meta: { block: 100, fetchedAt: "2026-09-04T00:00:00Z", notes: [] },
     safes: {
@@ -84,6 +86,17 @@ describe("C4 collateral and LLTV", () => {
     expect(status("C4", { markets: [m({ collateralToken: A.eoa2, collateralSymbol: "WETH" })] })).toBe("WARN");
   });
   it("is n/a for an idle vault", () => { expect(status("C4", { markets: [] })).toBe("NA"); });
+  it("requires the accepted interest rate model", () => {
+    expect(status("C4", { markets: [m({ irm: A.otherIrm })] })).toBe("FAIL");
+    expect(status("C4", { markets: [m({ irm: A.otherIrm, allocation: "0", supplyAssets: "0" })] })).toBe("WARN");
+    expect(run("C4", { markets: [m({ irm: A.otherIrm })] }).details[0]).toContain("NOT the accepted");
+  });
+  it("does not grade the IRM of a market that has none, and flags an accepted IRM that Morpho Blue reports disabled", () => {
+    const r = run("C4", { markets: [m({ irm: null })] });
+    expect(r.status).toBe("PASS");
+    expect(r.details[0]).toContain("IRM criterion n/a");
+    expect(status("C4", { markets: [m({ irmEnabled: false })] })).toBe("FAIL");
+  });
 });
 
 describe("C5 owner", () => {

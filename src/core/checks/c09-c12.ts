@@ -43,7 +43,7 @@ export const c10Oracle: CheckDef = {
   id: "C10", title: "Oracles",
   evaluate: (ctx) => {
     const oracles = pick(ctx, "market oracles", (s) => s.markets.filter((m) => m.collateralToken).map((m) => ({ id: m.id, oracle: m.oracle })).sort((x, y) => x.id.localeCompare(y.id)), (v) => v.map((x) => `${x.id.slice(0, 10)}…: ${x.oracle ?? "none"}`).join("; "));
-    const details = ctx.b.markets.filter((m) => m.collateralToken).map((m) => `${m.collateralSymbol ?? short(m.collateralToken!)}/${m.loanSymbol ?? ctx.b.asset.symbol ?? "?"} ${(m.lltv * 100).toFixed(1)}%: oracle ${m.oracle ?? "none"}${m.oracleType ? ` (${m.oracleType} per Morpho API)` : ""}${m.irm ? `, IRM ${short(m.irm)}` : ""}`);
+    const details = ctx.b.markets.filter((m) => m.collateralToken).map((m) => `${m.collateralSymbol ?? short(m.collateralToken!)}/${m.loanSymbol ?? ctx.b.asset.symbol ?? "?"} ${(m.lltv * 100).toFixed(1)}%: oracle ${m.oracle ?? "none"}${m.oracleType ? ` (${m.oracleType} per Morpho API)` : ""}`);
     return result("C10", "Oracles", `${ctx.policy.oracle.source} Reported for information until BA finalises the oracle criteria.`, ctx.policy.oracle.status, details.length ? `${details.length} collateral market(s) with oracles reported; interim single-source Chainlink is acceptable per the policy snapshot.` : "No collateral markets.", [oracles], details);
   },
 };

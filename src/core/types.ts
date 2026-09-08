@@ -38,6 +38,8 @@ export interface MarketInfo {
   allocation?: string;
   adapter?: Address;
   oracleType?: string;
+  /** Morpho Blue isIrmEnabled(irm); on-chain only */
+  irmEnabled?: boolean;
   morphoBlue?: Address;
 }
 

@@ -13,6 +13,7 @@ export interface PolicyConfig {
     accepted: Record<string, AcceptedAsset[]>;
     knownNotAccepted: string[];
   };
+  irm: { source: string; severity: { notAcceptedWithAllocation: Status; notAcceptedCapOnly: Status }; accepted: Record<string, { name: string; address: string; verified?: string }[]> };
   roles: { source: string; owner: string; curator: string; sentinel: string; allocator: string };
   timelocks: { source: string; severityBelowMinimum: Status; vault: TimelockFn[]; adapter: TimelockFn[]; informational: TimelockFn[]; note: string };
   oracle: { source: string; status: Status };

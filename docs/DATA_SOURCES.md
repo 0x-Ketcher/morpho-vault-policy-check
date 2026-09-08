@@ -45,6 +45,8 @@ Change rate measured on 2026-09-04: the Atlas had 33 commits on `main` since 202
 
 ## Known gaps
 
+- The accepted interest rate model is registry-published for Ethereum and Base (Spark registry `MORPHO_DEFAULT_IRM`) but not for Robinhood. There the reference address (`0x2BD3d5965B26B51814AC95127B2b80dD6CcC0fa1`) comes from the Morpho API market data, and Morpho Blue on Robinhood (`0x9D53d5E3bd5E8d4Cbfa6DB1ca238AEA02E651010`, read from the adapter's `morpho()`) reports it enabled. The deployed bytecode differs in size from the Ethereum contract, so a bytecode comparison does not settle it; a registry entry would.
+
 - No public source labels an OEA Safe address. The OEA seat therefore grades WARN at best. Publishing the OEA Safes in the Atlas Ozone article (A.6.1.2.2) or a Soter-published registry would turn it PASS.
 - The Atlas labels the Spark Morpho guardian Safe as "Spark Foundation"; the registry only calls it MORPHO_GUARDIAN_MULTISIG. Neither says who the signers are. The tool shows both citations and the signer set and leaves the judgment to the reader.
 - The Grove registry commit pinned in the original hand-off was superseded; the sync pins whatever the branch head is when it runs and records it.

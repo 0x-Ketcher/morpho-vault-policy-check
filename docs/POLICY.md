@@ -18,7 +18,7 @@ Snapshot: 2026-09-01; policy last changed: 2026-08-31
 | C1 | Vault version and factory | Report only: Vault V2 or MetaMorpho v1.1; factory deployment confirmed | FAIL only if the factory denies the vault | Proposal #11 setup |
 | C2 | Chain | Ethereum (1), Base (8453), Robinhood Chain (4663) | FAIL | Policy section 'Accepted chains': Ethereum, Base, Robinhood (higher CRR for non-mainnet chain risk). Others: risk review + separate request. |
 | C3 | Loan asset | address allow-list per chain (below) | FAIL | Policy section 'Loan assets': per Atlas cash stablecoins USDC, USDT, pyUSD; also historically approved for Morpho: RLUSD, USDG. Any other loan asset: risk review + separate request. |
-| C4 | Collateral and LLTV | accepted collateral within max LLTV for every market with an allocation or a cap | not accepted with allocation FAIL; cap-only WARN; LLTV above max FAIL/WARN; symbol match but unknown address WARN | Policy section 'Accepted Collateral and Market Parameters' (LLTV = maximum, lower tiers acceptable): ETH 86%, cbBTC 86%, stETH 86%, WBTC 86%, sUSDS 96.5%. |
+| C4 | Collateral, LLTV and IRM | accepted collateral within max LLTV, and the accepted interest rate model, for every market with an allocation or a cap | not accepted with allocation FAIL; cap-only WARN; LLTV above max FAIL/WARN; symbol match but unknown address WARN; wrong IRM FAIL/WARN | Policy section 'Accepted Collateral and Market Parameters' (LLTV = maximum, lower tiers acceptable): ETH 86%, cbBTC 86%, stETH 86%, WBTC 86%, sUSDS 96.5%. Policy table 'Accepted Collateral and Market Parameters', IRM column: 'Morpho Adaptive Curve IRM' on every accepted row. Footnote: the IRM criterion applies to Morpho Blue v1 markets only; Markets V2 (Midnight) set rates through makers and takers and have no IRM. |
 | C5 | Owner | Owner = Prime SubProxy (Ethereum) or the Prime's governance executor (Base, Robinhood). An n-of-n Safe that includes the Prime governance address = WARN. Anything else = FAIL. | FAIL / WARN as stated | Policy section 'Morpho Vault v2 Setup - Proposal #11: Prime governance Owner with govops & external party as Curator'. |
 | C6 | Curator | Curator = 2/2 Safe between the OEA and the external curator's Safe. Prime- or OEA-only Safe (e.g. a 3/5) = WARN (policy call open: does the 2/2 rule apply to Prime-self-curated vaults). External-only = FAIL. | FAIL / WARN as stated | Policy section 'Morpho Vault v2 Setup - Proposal #11: Prime governance Owner with govops & external party as Curator'. |
 | C7 | Sentinel / Guardian | At least one Sentinel that is an OEA Safe with a set of signers disjoint from the curator Safe's signers. OEA (separate signers) is the ONLY mandatory sentinel; extra sentinels are optional. No sentinel, or only Prime-side / curator-side sentinels = FAIL. OEA-shaped Safe that no public source labels = WARN. On MetaMorpho v1.1 the Guardian is the sentinel-equivalent seat. | FAIL / WARN as stated | Policy section 'Morpho Vault v2 Setup - Proposal #11: Prime governance Owner with govops & external party as Curator'. |
@@ -56,6 +56,16 @@ Snapshot: 2026-09-01; policy last changed: 2026-08-31
 | Base | sUSDS | sUSDS | 96.5% | 0x5875eEE11Cf8398102FdAd704C9E96607675467a | Spark and Grove registries Base.sol SUSDS |
 
 Known non-accepted collateral seen in Sky-related vaults: cbETH, spUSDG, syrupUSDC, weETH, LBTC, AUSD.
+
+## Accepted interest rate model
+
+Policy table 'Accepted Collateral and Market Parameters', IRM column: 'Morpho Adaptive Curve IRM' on every accepted row. Footnote: the IRM criterion applies to Morpho Blue v1 markets only; Markets V2 (Midnight) set rates through makers and takers and have no IRM.
+
+| Chain | Name | Address | Verified via |
+|---|---|---|---|
+| Ethereum | Morpho Adaptive Curve IRM | 0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC | Spark registry Ethereum.sol MORPHO_DEFAULT_IRM; the only IRM on all 79 collateral markets of the 16 Ethereum vaults checked on 2026-09-08; Morpho Blue isIrmEnabled = true |
+| Robinhood Chain | Morpho Adaptive Curve IRM | 0x2BD3d5965B26B51814AC95127B2b80dD6CcC0fa1 | No registry publishes it for Robinhood. Morpho API irmAddress of every groveUSDG market; Morpho Blue on Robinhood (0x9D53d5E3bd5E8d4Cbfa6DB1ca238AEA02E651010, per the adapter's morpho() and the API) reports isIrmEnabled = true. Bytecode differs in size from the Ethereum deployment, so a bytecode comparison is inconclusive; a registry entry or Morpho's deployment list should confirm this is the Adaptive Curve IRM. |
+| Base | Morpho Adaptive Curve IRM | 0x46415998764C29aB2a25CbeA6254146D50D22687 | Spark registry Base.sol MORPHO_DEFAULT_IRM; the only IRM on all 16 collateral markets of the 5 Base vaults checked on 2026-09-08; Morpho Blue isIrmEnabled = true |
 
 ## Timelock minimums (Vault V2)
 
