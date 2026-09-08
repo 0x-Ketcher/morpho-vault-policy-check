@@ -412,7 +412,7 @@
     {
      "asset": "spUSDG",
      "lltv": 0.915,
-     "gap": "Minor - spUSDG is not on the accepted collateral list in the BA doc; cap is 1T USDG (effectively unlimited), $0 allocated. spUSDG/USDG was approved for Grove on 2026-07-16 (BA CRR 3% -> 0.65%, max exposure 100M); the SFF cycle of 2026-09-02 proposed adding it to the accepted list."
+     "gap": "Minor - spUSDG is not on the accepted collateral list in the BA eligibility document; cap is 1T USDG (effectively unlimited), $0 allocated. Separately, BA Labs assessed the spUSDG/USDG market for Grove's Robinhood vault in the July 2026 spell cycle (forum thread 28024, reply of 2026-07-06: CRR 3% falling to 0.65% over four weeks, max exposure 100M); that is a per-vault capital assessment, not an amendment of the collateral table. The SFF cycle of 2026-09-02 proposed adding spUSDG to the accepted list."
     }
    ],
    "roles": [

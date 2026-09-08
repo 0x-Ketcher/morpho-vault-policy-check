@@ -128,10 +128,10 @@
    "expect": {
     "C5": "PASS",
     "C6": "WARN",
-    "C7": "WARN",
+    "C7": "FAIL",
     "C4": "PASS"
    },
-   "note": "sentinel 0xb5bF\u2026 is attributed to the OEA only by a shared signer with the Spark curator Safe (which the Atlas labels 'Soter Labs'); inference reaches WARN, a direct public label would turn it PASS"
+   "note": "OEA sentinel 0xb5bF\u2026 attributed only by a shared signer with the Spark curator Safe (WARN), and the Sentora Safe, a signer of the curator 2/2, also holds a sentinel seat: curator-side sentinel = FAIL under the rule adopted 2026-09-08"
   },
   {
    "name": "sxsRLUSD B (weaker timelocks)",
@@ -153,10 +153,10 @@
    "expect": {
     "C5": "PASS",
     "C6": "WARN",
-    "C7": "WARN",
+    "C7": "FAIL",
     "C4": "PASS"
    },
-   "note": "sentinel 0xb5bF\u2026 is attributed to the OEA only by a shared signer with the Spark curator Safe (which the Atlas labels 'Soter Labs'); inference reaches WARN, a direct public label would turn it PASS"
+   "note": "OEA sentinel 0xb5bF\u2026 attributed only by a shared signer with the Spark curator Safe (WARN), and the Sentora Safe, a signer of the curator 2/2, also holds a sentinel seat: curator-side sentinel = FAIL under the rule adopted 2026-09-08"
   }
  ]
 }

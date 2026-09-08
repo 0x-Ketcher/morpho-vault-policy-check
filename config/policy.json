@@ -175,8 +175,13 @@
     "source": "Policy section 'Morpho Vault v2 Setup - Proposal #11: Prime governance Owner with govops & external party as Curator'.",
     "owner": "Owner = Prime SubProxy (Ethereum) or the Prime's governance executor (Base, Robinhood). An n-of-n Safe that includes the Prime governance address = WARN. Anything else = FAIL.",
     "curator": "Curator = 2/2 Safe between the OEA and the external curator's Safe. Prime- or OEA-only Safe (e.g. a 3/5) = WARN (policy call open: does the 2/2 rule apply to Prime-self-curated vaults). External-only = FAIL.",
-    "sentinel": "At least one Sentinel that is an OEA Safe with a set of signers disjoint from the curator Safe's signers. OEA (separate signers) is the ONLY mandatory sentinel; extra sentinels are optional. No sentinel, or only Prime-side / curator-side sentinels = FAIL. OEA-shaped Safe that no public source labels = WARN. On MetaMorpho v1.1 the Guardian is the sentinel-equivalent seat.",
-    "allocator": "Allocator = Prime agent (ALM proxy) / external curator EOA / multisig. Informational."
+    "sentinel": "Exactly one sentinel is mandatory: an OEA Safe with a set of signers disjoint from the curator Safe's signers. The curator address, any signer of the curator Safe and any address attributed to the external curator may not hold a sentinel seat. Every additional sentinel must be a Prime-owned multisig or a monitoring solution; an address that no public source attributes is reported as a possible monitoring solution and graded WARN until labeled. No sentinel, or no OEA sentinel = FAIL. OEA-shaped Safe that no public source labels = WARN. On MetaMorpho v1.1 the Guardian is the sentinel-equivalent seat and the same rules apply.",
+    "allocator": "Allocator = Prime agent (ALM proxy) / external curator EOA / multisig. Informational.",
+    "sentinelSeverity": {
+      "curatorSide": "FAIL",
+      "unattributedExtra": "WARN",
+      "note": "curatorSide: the curator itself, a signer of the curator Safe, the external curator, or a Safe sharing signers with the curator Safe holds a sentinel seat. unattributedExtra: a sentinel that is neither OEA nor Prime-owned and that no public source attributes (a monitoring solution would look like this until labeled)."
+    }
   },
   "timelocks": {
     "source": "Policy section 'Accepted timelocks per function (v2)' and 'Adapter timelocks (added Aug 31)'. Minimums; 'or abdicated' where the policy says '7d/Abdicated'.",

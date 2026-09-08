@@ -1,5 +1,5 @@
 import type { CheckDef, CheckContext } from "./helpers.ts";
-import { pick, result, describe, attributeSafe, leafSigners, isPrimeGovernance, short, ZERO } from "./helpers.ts";
+import { pick, result, worst, describe, attributeSafe, leafSigners, isPrimeGovernance, short, ZERO } from "./helpers.ts";
 import type { Status, Citation, SafeInfo } from "../types.ts";
 
 const safeOf = (ctx: CheckContext, addr: string): SafeInfo | undefined => (ctx.a ?? ctx.b).safes[addr.toLowerCase()];
@@ -84,39 +84,50 @@ export const c07Sentinel: CheckDef = {
   evaluate: (ctx) => {
     const v1 = ctx.b.version === "v1.1";
     const seat = v1 ? "guardian" : "sentinel";
+    const sev = ctx.policy.roles.sentinelSeverity ?? { curatorSide: "FAIL" as Status, unattributedExtra: "WARN" as Status };
     const list = pick(ctx, v1 ? "guardian()" : "sentinels", (s) => (v1 ? [s.guardian ?? ZERO].filter((x) => x !== ZERO) : s.sentinels).map((x) => x.toLowerCase()).sort(), (v) => (v.length ? v.join(", ") : "none"));
     const structures = list.value.map((s) => safePick(ctx, `${seat} ${short(s)}`, s));
-    const curatorSafe = safeOf(ctx, (ctx.a ?? ctx.b).curator);
+    const src = ctx.a ?? ctx.b;
+    const curatorAddr = src.curator.toLowerCase();
+    const curatorSafe = safeOf(ctx, curatorAddr);
+    const curatorOwners = new Set((curatorSafe?.owners ?? []).map((o) => o.toLowerCase()));
     const curatorSigners = leafSigners(curatorSafe);
     const citations: Citation[] = []; const details: string[] = [];
-    const verdicts: { addr: string; status: Status; why: string }[] = [];
+    type Kind = "oea" | "oea-candidate" | "prime-extra" | "curator-side" | "unattributed-extra";
+    const rows: { addr: string; kind: Kind; status: Status | null; why: string }[] = [];
     for (const s of list.value) {
       const safe = safeOf(ctx, s);
       const att = attributeSafe(ctx, s, safe);
       citations.push(...att.citations);
-      const mine = leafSigners(safe);
-      const shared = [...mine].filter((x) => curatorSigners.has(x));
       const shape = safeShape(safe);
-      let st: Status, why: string;
-      if (!safe?.isSafe) { st = "FAIL"; why = `${shape}, not an OEA Safe`; }
-      else if (att.side === "oea" && shared.length === 0 && !att.via) { st = "PASS"; why = `OEA Safe (${att.entity}, labeled directly), ${shape}, signers disjoint from the curator's`; }
-      else if (att.side === "oea" && shared.length === 0) { st = "WARN"; why = `${shape} attributed to the OEA (${att.entity}) only ${att.via}; signers disjoint from the curator's; a direct public label is needed for PASS`; }
-      else if (att.side === "oea") { st = "WARN"; why = `OEA Safe (${att.entity}${att.via ? `, ${att.via}` : ""}), ${shape}, but shares ${shared.length} signer(s) with the curator Safe; policy requires a separate signer set`; }
-      else if (att.side === "prime") { st = "FAIL"; why = `${att.entity ?? att.prime}-side Safe (${att.via ?? "labeled directly"}), ${shape}; Prime-owned sentinels are optional, not the mandatory OEA seat`; }
-      else if (att.side === "external") { st = "FAIL"; why = `curator-side Safe (${att.entity}${att.via ? `, ${att.via}` : ""}), ${shape}`; }
-      else if (shared.length > 0) { st = "FAIL"; why = `unlabeled ${shape} sharing ${shared.length} signer(s) with the curator Safe`; }
-      else { st = "WARN"; why = `${shape} with signers disjoint from the curator's and from every labeled Safe: OEA-shaped, identity not publicly attested`; }
-      verdicts.push({ addr: s, status: st, why });
-      details.push(`${seat} ${s}: ${why}`);
+      const shared = [...leafSigners(safe)].filter((x) => curatorSigners.has(x));
+      const label = att.entity ? `${att.entity}${att.via ? `, ${att.via}` : ""}` : "unlabeled";
+      let row: { addr: string; kind: Kind; status: Status | null; why: string };
+      if (s === curatorAddr) row = { addr: s, kind: "curator-side", status: sev.curatorSide, why: `is the curator address itself (${shape}); the curator may not hold a ${seat} seat` };
+      else if (curatorOwners.has(s)) row = { addr: s, kind: "curator-side", status: sev.curatorSide, why: `is a signer of the curator Safe (${label}, ${shape}); the curator's signers may not hold a ${seat} seat` };
+      else if (att.side === "external") row = { addr: s, kind: "curator-side", status: sev.curatorSide, why: `is the external curator's address (${label}, ${shape}); the external curator may not hold a ${seat} seat` };
+      else if (safe?.isSafe && att.side !== "oea" && shared.length > 0) row = { addr: s, kind: "curator-side", status: sev.curatorSide, why: `${shape} sharing ${shared.length} signer(s) with the curator Safe (${label}); curator-side control of a ${seat} seat` };
+      else if (safe?.isSafe && att.side === "oea" && !att.via && shared.length === 0) row = { addr: s, kind: "oea", status: "PASS", why: `OEA Safe (${label}), ${shape}, signers disjoint from the curator's` };
+      else if (safe?.isSafe && att.side === "oea" && shared.length === 0) row = { addr: s, kind: "oea-candidate", status: "WARN", why: `${shape} attributed to the OEA (${label}); signers disjoint from the curator's; a direct public label is needed for PASS` };
+      else if (safe?.isSafe && att.side === "oea") row = { addr: s, kind: "oea-candidate", status: "WARN", why: `OEA Safe (${label}), ${shape}, but shares ${shared.length} signer(s) with the curator Safe; the policy requires a separate signer set` };
+      else if (att.side === "prime") row = { addr: s, kind: "prime-extra", status: null, why: `Prime-owned (${label}), ${shape}; allowed as an additional ${seat}` };
+      else if (safe?.isSafe) row = { addr: s, kind: "oea-candidate", status: "WARN", why: `${shape} with signers disjoint from the curator's and from every labeled Safe: OEA-shaped, identity not publicly attested` };
+      else row = { addr: s, kind: "unattributed-extra", status: sev.unattributedExtra, why: `${shape} that no public source attributes; acceptable only as a monitoring solution, which needs a public label` };
+      rows.push(row);
+      details.push(`${seat} ${s}: ${row.why}`);
       for (const o of safe?.owners ?? []) details.push(`  signer ${o}: ${describe(ctx.labels.attribute(o, ctx.b.chainId))}`);
     }
-    const best = verdicts.length ? verdicts.slice().sort((x, y) => ["PASS", "WARN", "FAIL"].indexOf(x.status) - ["PASS", "WARN", "FAIL"].indexOf(y.status))[0] : undefined;
-    const status: Status = !best ? "FAIL" : best.status;
-    const summary = !best ? `No ${seat} set. ${v1 ? "A v1.1 vault needs its Guardian to be an OEA Safe, or a migration to Vault V2." : "The OEA sentinel is the only mandatory sentinel."}`
-      : status === "PASS" ? `An OEA sentinel with separate signers is in place (${short(best.addr)}).`
-      : status === "WARN" ? `Best candidate ${short(best.addr)}: ${best.why}.`
-      : `No OEA ${seat}: ${verdicts.map((v) => `${short(v.addr)} is ${v.why}`).join("; ")}.`;
-    return result("C7", "Sentinel / Guardian", ctx.policy.roles.sentinel, status, summary, [list, ...structures], details, citations);
+    // mandatory condition: one OEA seat with separate signers
+    const oea = rows.filter((r) => r.kind === "oea"), candidates = rows.filter((r) => r.kind === "oea-candidate");
+    const mandatory: Status = oea.length ? "PASS" : candidates.length ? "WARN" : "FAIL";
+    const violations = rows.filter((r) => r.kind === "curator-side"), extras = rows.filter((r) => r.kind === "unattributed-extra"), primes = rows.filter((r) => r.kind === "prime-extra");
+    const status = worst([mandatory, ...violations.map((r) => r.status!), ...extras.map((r) => r.status!)]);
+    const parts: string[] = [];
+    parts.push(rows.length === 0 ? `No ${seat} set; the OEA ${seat} is mandatory.` : mandatory === "PASS" ? `OEA ${seat} with separate signers in place (${short(oea[0].addr)}).` : mandatory === "WARN" ? `OEA ${seat} not publicly attested: ${candidates.map((r) => `${short(r.addr)} ${r.why}`).join("; ")}.` : `No OEA ${seat}.`);
+    if (violations.length) parts.push(`Curator-side ${seat}${violations.length > 1 ? "s" : ""}: ${violations.map((r) => `${short(r.addr)} ${r.why}`).join("; ")}.`);
+    if (extras.length) parts.push(`Unattributed ${seat}${extras.length > 1 ? "s" : ""}: ${extras.map((r) => short(r.addr)).join(", ")} (possible monitoring solution, needs a public label).`);
+    if (primes.length) parts.push(`Prime-owned ${seat}${primes.length > 1 ? "s" : ""} ${primes.map((r) => short(r.addr)).join(", ")}: allowed as extras.`);
+    return result("C7", "Sentinel / Guardian", ctx.policy.roles.sentinel, status, parts.join(" "), [list, ...structures], details, citations);
   },
 };
 
