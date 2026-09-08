@@ -36,7 +36,7 @@ button.ghost { background: #fff; color: var(--accent); }
 .vault h2 { margin: 0; font-size: 20px; }
 .vault p { margin: 4px 0; }
 .actions { margin-top: 10px; display: flex; gap: 8px; }
-.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); gap: 12px; }
+.cards { display: grid; grid-template-columns: 1fr; gap: 12px; } /* one check per row at every width */
 .check { border-left: 4px solid var(--na); }
 .check.PASS { border-left-color: var(--pass); }
 .check.WARN { border-left-color: var(--warn); }
@@ -68,7 +68,7 @@ td.mono { word-break: break-all; }
 .cites ul { margin: 4px 0 0; padding-left: 18px; }
 .notes { margin-top: 14px; }
 footer { margin-top: 28px; }
-@media (max-width: 700px) { .cards { grid-template-columns: 1fr; } }
+
 
 /* redesign 2026-09-08 */
 .facts { margin: 2px 0 8px; color: var(--muted); }
