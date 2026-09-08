@@ -3,7 +3,7 @@ import { pick, result, worst, describe, attributeSafe, leafSigners, isPrimeGover
 import type { Status, Citation, SafeInfo } from "../types.ts";
 
 const safeOf = (ctx: CheckContext, addr: string): SafeInfo | undefined => (ctx.a ?? ctx.b).safes[addr.toLowerCase()];
-const safeShape = (s?: SafeInfo) => (!s ? "unknown" : s.unavailable ? "structure unavailable from this method" : !s.isContract ? "EOA" : !s.isSafe ? "contract (not a Safe)" : `Safe ${s.threshold}/${s.owners?.length}${s.version ? ` v${s.version}` : ""}`);
+const safeShape = (s?: SafeInfo) => (!s ? "unknown" : s.unavailable ? "structure unavailable from this method" : !s.isContract ? "EOA" : !s.isSafe ? "contract, not a Safe" : `Safe ${s.threshold}/${s.owners?.length}`);
 /** structure per method; a method that could not read it (service down) yields undefined, which counts as single-source, not as a disagreement */
 const safePick = (ctx: CheckContext, label: string, addr: string) =>
   pick(ctx, `${label} Safe structure`, (s) => { const x = s.safes[addr.toLowerCase()]; if (!x || x.unavailable) return undefined; return { isSafe: x.isSafe, threshold: x.threshold ?? null, owners: (x.owners ?? []).map((o) => o.toLowerCase()).sort() }; }, (v) => (v ? (v.isSafe ? `${v.threshold}/${v.owners.length}: ${v.owners.map(short).join(", ")}` : "not a Safe") : "unavailable"));
@@ -29,7 +29,7 @@ export const c05Owner: CheckDef = {
       else { status = "FAIL"; summary = `Owner is a ${safe.threshold}/${owners.length} Safe with no Prime governance signer${att.entity ? ` (${att.entity})` : ""}: an external party owns the vault.`; }
     }
     else if (att.side === "prime") { status = "WARN"; summary = `Owner is a ${att.prime} address (${att.roles.join(", ")}) but not the governance SubProxy or executor.`; }
-    else { status = "FAIL"; summary = `Owner is ${att.entity ? att.entity : "not publicly attributable"} (${safeShape(safe)}): an external party owns the vault.`; }
+    else { status = "FAIL"; summary = `Owner is ${att.entity ? att.entity : "an address no public source attributes"}, a ${safeShape(safe)}: an external party owns the vault.`; }
     return result("C5", "Owner", ctx.policy.roles.owner, status, summary, [owner, structure], details, citations);
   },
 };
@@ -70,8 +70,8 @@ export const c06Curator: CheckDef = {
         else { status = "WARN"; summary = `Curator Safe ${safe.threshold}/${owners.length} mixes external (${E.length}), Prime (${P.length}), OEA (${O.length}) and unlabeled (${U.length}) signers; structure differs from the 2/2 model.`; }
       } else {
         // every signer unlabeled: fall back to what public sources say about the Safe itself
-        if (self.cls === "external") { status = "FAIL"; summary = `Curator is ${self.att.entity}'s own ${safeShape(safe)} (${self.att.via ?? "labeled directly"}); external party alone, no OEA co-signer.`; }
-        else if (self.cls === "oea" || self.cls === "prime") { status = "WARN"; summary = `Curator is a ${safeShape(safe)} controlled by ${self.cls === "oea" ? `the OEA (${self.att.entity}${self.att.prime ? `; also listed as ${self.att.prime}'s curator multisig` : ""})` : self.att.entity ?? "the Prime"} (${self.att.via ?? "labeled directly"}), self-curated rather than the 2/2 with an external curator; policy call open.`; }
+        if (self.cls === "external") { status = "FAIL"; summary = `Curator is ${self.att.entity}'s own ${safeShape(safe)}${self.att.via ? ` (${self.att.via})` : ""}: the external party alone, no OEA co-signer.`; }
+        else if (self.cls === "oea" || self.cls === "prime") { status = "WARN"; summary = `Curator is a ${safeShape(safe)} controlled by ${self.cls === "oea" ? `the OEA, ${self.att.entity}${self.att.prime ? `, also listed as ${self.att.prime}'s curator multisig` : ""}` : self.att.entity ?? "the Prime"}${self.att.via ? ` (${self.att.via})` : ""}: self-curated rather than the 2/2 with an external curator; policy call open.`; }
         else { status = "FAIL"; summary = `Curator is a ${safeShape(safe)} that no public source attributes and whose signers are all unlabeled; no attested OEA or Prime participation.`; }
       }
     }

@@ -19,6 +19,7 @@ export interface PolicyConfig {
   oracle: { source: string; status: Status };
   fees: { source: string; status: Status };
   exposure: { source: string; status: Status };
+  checkRules?: Record<string, string>;
   oea: { entities: string[]; note: string };
   primes: { names: string[]; curatorRegistryAliases: Record<string, string> };
 }

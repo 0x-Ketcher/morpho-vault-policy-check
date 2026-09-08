@@ -4,7 +4,7 @@
  * accepts requests from the page's own origin only, and rate-limits per client address.
  */
 import express, { type Request, type Response } from "express";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.cwd();
@@ -37,6 +37,12 @@ const app = express();
 app.disable("x-powered-by");
 
 app.get("/api/health", (_req, res) => { res.json({ ok: true, etherscan: !!KEY, limitPerMinute: LIMIT }); });
+
+// the methodology page: README plus the checks and sources documents, served as plain text from the repository itself
+app.get("/methodology", (_req, res) => {
+  const parts = ["README.md", "docs/CHECKS.md", "docs/DATA_SOURCES.md", "docs/POLICY_MAPPING.md"].filter((f) => existsSync(join(root, f))).map((f) => `# ${f}\n\n${readFileSync(join(root, f), "utf8")}`);
+  res.type("text/plain; charset=utf-8").send(parts.join("\n\n\n"));
+});
 
 app.get("/api/etherscan", async (req: Request, res: Response) => {
   if (!KEY) { res.status(503).json({ error: "Etherscan fallback is not configured on this server" }); return; }

@@ -69,3 +69,33 @@ td.mono { word-break: break-all; }
 .notes { margin-top: 14px; }
 footer { margin-top: 28px; }
 @media (max-width: 700px) { .cards { grid-template-columns: 1fr; } }
+
+/* redesign 2026-09-08 */
+.facts { margin: 2px 0 8px; color: var(--muted); }
+.bubble { display: inline-block; vertical-align: middle; margin-left: 6px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); background: #eef1f5; color: var(--muted); font-size: 12px; font-weight: 600; }
+.summary-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin: 6px 0 4px; }
+.counts { display: flex; gap: 6px; flex-wrap: wrap; }
+.chips { display: flex; gap: 4px; flex-wrap: wrap; }
+.chip { display: inline-block; min-width: 30px; text-align: center; padding: 2px 6px; border-radius: 6px; font-size: 11px; font-weight: 600; color: #fff; background: var(--na); text-decoration: none; }
+.chip.PASS { background: var(--pass); } .chip.WARN { background: var(--warn); } .chip.FAIL { background: var(--fail); } .chip.INFO { background: var(--info); }
+.run { margin-top: 6px; }
+.run summary { cursor: pointer; }
+.run ul { margin: 6px 0 0; padding-left: 18px; }
+.section { margin: 18px 0 8px; font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.cards.context .card { padding: 10px 14px; }
+.cards.context .check-head h3 { font-size: 14px; }
+.cards.context .summary { font-size: 13px; color: var(--muted); }
+.rule { margin: 0 0 8px; font-size: 13px; }
+.evidence { list-style: none; padding: 0; margin: 6px 0; }
+.evidence li { margin: 2px 0; word-break: break-all; }
+.details > li { margin: 4px 0; }
+.signers summary { cursor: pointer; }
+.signers ul { margin: 4px 0 0; padding-left: 16px; word-break: break-all; }
+.cites { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.cite { font-size: 11px; padding: 2px 8px; border-radius: 999px; background: #eef1f5; color: var(--ink); text-decoration: none; border: 1px solid var(--line); }
+.cite.registry { background: #e8eef8; } .cite.atlas { background: #ece8f8; } .cite.morpho-curators { background: #e6f4ec; } .cite.safe-owners { background: #fff1e6; } .cite.nonpublic { background: #fff5f5; border-color: #fed7d7; }
+.stale { margin: 10px 0 0; padding: 8px 10px; border-radius: 8px; background: #fff7ed; border: 1px solid #fed7aa; color: #b45309; font-size: 12px; }
+.log { color: var(--muted); margin: 0 0 12px; }
+.foot { margin-top: 24px; text-align: right; font-size: 12px; }
+.vault h2 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.cid { color: var(--muted); font-weight: 500; font-size: 12px; margin-right: 4px; }

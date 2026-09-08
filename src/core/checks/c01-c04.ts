@@ -1,5 +1,5 @@
 import type { CheckDef } from "./helpers.ts";
-import { pick, result, worst, fmtUnits, fmtUsd, ZERO } from "./helpers.ts";
+import { pick, result, worst, fmtUnits, fmtUsd, short, ZERO } from "./helpers.ts";
 import type { MarketInfo, Status } from "../types.ts";
 
 export const c01Version: CheckDef = {
@@ -66,29 +66,30 @@ export const c04Collateral: CheckDef = {
     const irmVerdict = (m: MarketInfo, live: boolean): [Status | null, string] => {
       if (!m.irm) return [null, "no IRM (not a Morpho Blue v1 market), IRM criterion n/a"];
       const hit = acceptedIrms.find((x) => x.address.toLowerCase() === m.irm!.toLowerCase());
-      const enabled = m.irmEnabled === undefined ? "" : m.irmEnabled ? ", enabled in Morpho Blue" : ", but Morpho Blue reports it DISABLED";
-      if (hit) return [m.irmEnabled === false ? (live ? irmSev.notAcceptedWithAllocation : irmSev.notAcceptedCapOnly) : "PASS", `IRM ${hit.name}${enabled}`];
-      if (acceptedIrms.length === 0) return [live ? irmSev.notAcceptedWithAllocation : irmSev.notAcceptedCapOnly, `IRM ${m.irm}: no accepted IRM configured for this chain${enabled}`];
-      return [live ? irmSev.notAcceptedWithAllocation : irmSev.notAcceptedCapOnly, `IRM ${m.irm} is NOT the accepted ${acceptedIrms[0].name}${enabled}`];
+      const disabled = m.irmEnabled === false ? ", but Morpho Blue reports it disabled" : "";
+      if (hit) return [m.irmEnabled === false ? (live ? irmSev.notAcceptedWithAllocation : irmSev.notAcceptedCapOnly) : "PASS", `IRM ok${disabled}`];
+      if (acceptedIrms.length === 0) return [live ? irmSev.notAcceptedWithAllocation : irmSev.notAcceptedCapOnly, `IRM ${m.irm}: no accepted IRM configured for this chain${disabled}`];
+      return [live ? irmSev.notAcceptedWithAllocation : irmSev.notAcceptedCapOnly, `IRM ${m.irm} is NOT the accepted ${acceptedIrms[0].name}${disabled}`];
     };
     for (const m of src.markets) {
       if (!m.collateralToken) { details.push(`${m.id.slice(0, 10)}…: idle market (no collateral), n/a`); continue; }
       const live = isLive(m, dec), capped = hasCap(m);
       if (!live && !capped) { details.push(`${m.collateralSymbol ?? m.collateralToken}: no allocation and no cap, n/a`); continue; }
-      const amt = `${fmtUnits(m.allocation ?? m.supplyAssets, src.asset.decimals, src.asset.symbol)}${m.supplyAssetsUsd !== undefined ? ` (${fmtUsd(m.supplyAssetsUsd)})` : ""}`;
-      const state = live ? `allocated ${amt}` : `cap only, nothing allocated${BigInt(m.allocation ?? m.supplyAssets ?? "0") > 0n ? " (dust remains)" : ""}`;
+      const amt = m.supplyAssetsUsd !== undefined ? fmtUsd(m.supplyAssetsUsd) : fmtUnits(m.allocation ?? m.supplyAssets, src.asset.decimals, src.asset.symbol);
+      const state = live ? `${amt} allocated` : `cap only, nothing allocated${BigInt(m.allocation ?? m.supplyAssets ?? "0") > 0n ? ", dust remains" : ""}`;
       const byAddr = accepted.find((x) => x.address.toLowerCase() === m.collateralToken!.toLowerCase());
       const bySym = accepted.find((x) => [x.symbol, x.policyName, ...(x.aliases ?? [])].filter(Boolean).some((s) => s!.toLowerCase() === (m.collateralSymbol ?? "").toLowerCase()));
       const lltvPct = `${(m.lltv * 100).toFixed(1)}%`;
       const [irmStatus, irmText] = irmVerdict(m, live);
       let collStatus: Status, line: string;
+      const pair = `${m.collateralSymbol ?? short(m.collateralToken!)}/${src.asset.symbol ?? "?"} ${lltvPct}`;
       if (byAddr) {
-        if (m.lltv <= (byAddr.maxLltv ?? 0) + 1e-9) { collStatus = "PASS"; line = `${byAddr.symbol}/${src.asset.symbol ?? "?"} ${lltvPct} (<= ${((byAddr.maxLltv ?? 0) * 100).toFixed(1)}% max): accepted, ${state}`; }
-        else { collStatus = live ? sev.lltvAboveMaxWithAllocation : sev.lltvAboveMaxCapOnly; line = `${byAddr.symbol}/${src.asset.symbol ?? "?"} ${lltvPct} (> ${((byAddr.maxLltv ?? 0) * 100).toFixed(1)}% max): LLTV above the policy maximum, ${state}`; }
-      } else if (bySym) { collStatus = sev.symbolMatchesAddressUnknown; line = `${m.collateralSymbol} ${lltvPct}: symbol matches accepted ${bySym.policyName ?? bySym.symbol} but the token address ${m.collateralToken} is not on the allow-list for this chain; verify on the explorer, ${state}`; }
-      else { collStatus = live ? sev.notAcceptedWithAllocation : sev.notAcceptedCapOnly; line = `${m.collateralSymbol ?? m.collateralToken} ${lltvPct}: NOT an accepted collateral, ${state}${live ? " -> flag to BA for CRR" : " -> flag to BA before any allocation"}`; }
+        if (m.lltv <= (byAddr.maxLltv ?? 0) + 1e-9) { collStatus = "PASS"; line = `${pair}: accepted (max ${((byAddr.maxLltv ?? 0) * 100).toFixed(1)}%), ${state}`; }
+        else { collStatus = live ? sev.lltvAboveMaxWithAllocation : sev.lltvAboveMaxCapOnly; line = `${pair}: LLTV above the ${((byAddr.maxLltv ?? 0) * 100).toFixed(1)}% maximum, ${state}`; }
+      } else if (bySym) { collStatus = sev.symbolMatchesAddressUnknown; line = `${pair}: symbol matches accepted ${bySym.policyName ?? bySym.symbol} but the token address is not on the allow-list for this chain, verify on the explorer; ${state}`; }
+      else { collStatus = live ? sev.notAcceptedWithAllocation : sev.notAcceptedCapOnly; line = `${pair}: NOT an accepted collateral, ${state}, ${live ? "flag to BA for CRR" : "flag to BA before any allocation"}`; }
       statuses.push(worst([collStatus, ...(irmStatus ? [irmStatus] : [])]));
-      details.push(`${line}; ${irmText}${irmStatus && irmStatus !== "PASS" ? " -> flag to BA" : ""}`);
+      details.push(`${line}; ${irmText}${irmStatus && irmStatus !== "PASS" ? ", flag to BA" : ""}`);
     }
     const status = statuses.length ? worst(statuses) : "NA";
     const summary = statuses.length === 0 ? "No market with an allocation or a cap; nothing to grade (idle vault)."

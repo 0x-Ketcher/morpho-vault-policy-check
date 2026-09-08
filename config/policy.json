@@ -378,5 +378,20 @@
         }
       ]
     }
+  },
+  "checkRules": {
+    "note": "One-line rule per check shown on the page, reusing the BA document's own words. The full requirement text stays in each check result and in docs/POLICY.md.",
+    "C1": "Vault V2, or MetaMorpho v1.1; deployed by the official factory",
+    "C2": "Accepted chains: Ethereum, Base, Robinhood",
+    "C3": "Loan assets: USDC, USDT, pyUSD, RLUSD, USDG",
+    "C4": "Collateral: ETH, cbBTC, stETH, WBTC at <= 86% LLTV; sUSDS <= 96.5%; Morpho Adaptive Curve IRM",
+    "C5": "Owner = Prime SubProxy",
+    "C6": "Curator = 2/2 msig between OEA and external msig",
+    "C7": "Sentinel = OEA with separate set of signers (mandatory); extras: monitoring solution and/or prime-owned msig",
+    "C8": "Allocator = Prime Agent / external curator EOA / multisig",
+    "C9": "Timelock minimums per function: 7d, 3d for allocator and fees; adapters included",
+    "C10": "Oracle: >= 3 sources; interim single-source Chainlink acceptable",
+    "C11": "Fees: TBD",
+    "C12": "Context: after the deadline, non-compliant allocations receive 100% CRR"
   }
 }

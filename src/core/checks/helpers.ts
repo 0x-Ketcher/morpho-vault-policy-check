@@ -66,10 +66,18 @@ export const fmtUnits = (raw: string | undefined, decimals?: number, symbol?: st
   return symbol ? `${s} ${symbol}` : s;
 };
 
+const ROLE_WORDS: Record<string, string> = {
+  subproxy: "governance SubProxy", executor: "governance executor", almProxy: "ALM proxy", almRateLimits: "rate limits", almController: "ALM controller",
+  morphoCurator: "curator multisig", morphoGuardian: "guardian multisig", morphoVault: "vault", multisig: "multisig", oeaOperator: "OEA operator", curatorRegistry: "external curator",
+};
+const SOURCE_WORDS: Record<string, string> = { registry: "Prime registry", atlas: "Atlas", "morpho-curators": "Morpho curator registry", "safe-owners": "signer overlap", local: "non-public label" };
+
+/** Plain-words attribution for prose: entity, role in words, source name. The exact citations are rendered separately. */
 export function describe(att: Attribution): string {
-  const who = att.entity ?? (att.side === "unknown" ? "unlabeled" : att.side);
-  const via = att.citations[0] ? ` [${att.citations[0].source}: ${att.citations[0].ref}]` : "";
-  return `${who}${att.roles.length ? ` (${att.roles.join(", ")})` : ""}${via}`;
+  if (att.side === "unknown" && !att.entity) return "unlabeled";
+  const roles = att.roles.map((r) => ROLE_WORDS[r]).filter((x, i, a) => x && a.indexOf(x) === i).slice(0, 2);
+  const src = att.citations[0] ? SOURCE_WORDS[att.citations[0].source] ?? att.citations[0].source : undefined;
+  return `${att.entity ?? att.side}${roles.length ? `, ${roles.join(" and ")}` : ""}${src ? ` per ${src}` : ""}`;
 }
 
 /** Leaf signer set of a Safe: EOA owners plus, for owner Safes, their owners (one level). */

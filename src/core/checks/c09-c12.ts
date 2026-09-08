@@ -11,30 +11,30 @@ export const c09Timelocks: CheckDef = {
       return result("C9", "Timelocks", `V2 per-function minimums do not apply to MetaMorpho v1.1, which has one vault-wide timelock. ${p.source}`, "INFO", `v1.1 vault-wide timelock: ${fmtDays(tl.value)} (no per-function policy minimum for v1.1; reported for context).`, [tl]);
     }
     const picks = p.vault.map((f) => pick(ctx, f.label, (s) => (s.timelocks[f.function] ? { seconds: s.timelocks[f.function].seconds, abdicated: s.timelocks[f.function].abdicated } : null), (v) => (v ? `${fmtDays(v.seconds)}${v.abdicated ? " (abdicated)" : ""}` : "n/a")));
-    const statuses: Status[] = []; const details: string[] = [];
+    const statuses: Status[] = []; const failing: string[] = []; const passing: string[] = []; const unread: string[] = [];
     p.vault.forEach((f, i) => {
       const v = picks[i].value; const min = (f.minDays ?? 0) * 86400;
-      if (!v) { details.push(`${f.label}: not readable`); return; }
+      if (!v) { unread.push(`${f.label}: not readable`); return; }
       const ok = v.seconds >= min || (f.abdicationSatisfies && v.abdicated);
       statuses.push(ok ? "PASS" : p.severityBelowMinimum);
-      details.push(`${f.label}: ${fmtDays(v.seconds)}${v.abdicated ? ", abdicated" : ""} (>= ${f.minDays}d required${f.abdicationSatisfies ? " or abdicated" : ""}) ${ok ? "ok" : "BELOW MINIMUM"}`);
+      (ok ? passing : failing).push(`${f.label}: ${fmtDays(v.seconds)}${v.abdicated ? ", abdicated" : ""} (minimum ${f.minDays}d${f.abdicationSatisfies ? " or abdicated" : ""})`);
     });
-    for (const f of p.informational) { const v = (ctx.a ?? ctx.b).timelocks[f.function]; if (v) details.push(`${f.label}: ${fmtDays(v.seconds)} (informational)`); }
+    for (const f of p.informational) { const v = (ctx.a ?? ctx.b).timelocks[f.function]; if (v) passing.push(`${f.label}: ${fmtDays(v.seconds)}`); }
     // adapters: on-chain only
     const src = ctx.a ?? ctx.b;
     for (const ad of src.adapters) {
-      if (!ad.timelocks || Object.keys(ad.timelocks).length === 0) { details.push(`adapter ${short(ad.address)}: adapter timelocks not readable by this method`); continue; }
+      if (!ad.timelocks || Object.keys(ad.timelocks).length === 0) { unread.push(`adapter ${short(ad.address)}: adapter timelocks not readable by this method`); continue; }
       for (const f of p.adapter) {
         const s = ad.timelocks[f.function]; if (s === undefined) continue;
         const abd = ad.abdicated?.[f.function] ?? false; const min = (f.minDays ?? 0) * 86400;
         const ok = s >= min || (f.abdicationSatisfies && abd);
         statuses.push(ok ? "PASS" : p.severityBelowMinimum);
-        details.push(`adapter ${short(ad.address)} ${f.label}: ${fmtDays(s)}${abd ? ", abdicated" : ""} (>= ${f.minDays}d required) ${ok ? "ok" : "BELOW MINIMUM"} [on-chain only]`);
+        (ok ? passing : failing).push(`${f.label.replace(/^Adapter: /, "")} on adapter ${short(ad.address)}: ${fmtDays(s)}${abd ? ", abdicated" : ""} (minimum ${f.minDays}d), on-chain only`);
       }
     }
     const status = statuses.length ? worst(statuses) : "NA";
-    const below = details.filter((d) => d.includes("BELOW MINIMUM")).map((d) => d.replace(/:\s[^:]*$/, "").replace(/\s*\(>=.*$/, "").replace(/:\s*\d.*$/, ""));
-    const summary = status === "PASS" ? `All ${statuses.length} checked timelocks meet the policy minimums.` : below.length ? `${below.length} timelock(s) below the policy minimum: ${below.join(", ")}.` : "No timelocks readable.";
+    const details = [...(failing.length ? [`${failing.length} below the minimum:`, ...failing.map((l) => `  ${l}`)] : []), ...(passing.length ? [`${passing.length} at or above the minimum`, ...passing.map((l) => `  ${l}`)] : []), ...unread];
+    const summary = status === "PASS" ? `All ${statuses.length} checked timelocks meet the policy minimums.` : failing.length ? `${failing.length} of ${statuses.length} timelocks below the policy minimum.` : "No timelocks readable.";
     return result("C9", "Timelocks", `Minimums per function (vault and adapter), abdication accepted where the policy says so. Below minimum = ${p.severityBelowMinimum}. ${p.source}`, status, summary, picks, details);
   },
 };
