@@ -4,6 +4,7 @@ import type { CheckContext } from "../src/core/checks/index.ts";
 import { LabelBook } from "../src/sources/labels/index.ts";
 import { loadPolicy } from "../src/node/load.ts";
 import type { VaultSnapshot, SafeInfo, Address, Status } from "../src/core/types.ts";
+import { normalizeAddress } from "../src/pipeline.ts";
 
 const policy = loadPolicy();
 const A = {
@@ -195,5 +196,20 @@ describe("discrepancies", () => {
   it("marks single-source values when there is no on-chain snapshot", () => {
     const r = CHECKS.find((c) => c.id === "C5")!.evaluate({ policy, labels, a: null, b: snap({}, "api"), chainName: "Ethereum" });
     expect(r.singleSource).toBe(true);
+  });
+});
+
+describe("address input", () => {
+  const want = "0xbeef05061FE51eA482BD1b68041353490b3a5934";
+  it("accepts lowercase, uppercase, a wrong checksum and surrounding whitespace, returning the checksummed form", () => {
+    expect(normalizeAddress("0xbeef05061fe51ea482bd1b68041353490b3a5934")).toBe(want);
+    expect(normalizeAddress("0xBEEF05061FE51EA482BD1B68041353490B3A5934")).toBe(want);
+    expect(normalizeAddress("0xBeef05061FE51eA482BD1b68041353490b3a5934")).toBe(want);
+    expect(normalizeAddress("  0xbeef05061fe51ea482bd1b68041353490b3a5934\n")).toBe(want);
+  });
+  it("rejects anything that is not 0x plus 40 hex characters", () => {
+    expect(() => normalizeAddress("0xbeef")).toThrow("not an EVM address");
+    expect(() => normalizeAddress("beef05061fe51ea482bd1b68041353490b3a5934")).toThrow("not an EVM address");
+    expect(() => normalizeAddress("")).toThrow("not an EVM address");
   });
 });

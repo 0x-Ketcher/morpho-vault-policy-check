@@ -1,4 +1,4 @@
-import { getAddress, isAddress } from "viem";
+import { getAddress } from "viem";
 import type { Address, Report } from "./core/types.ts";
 import type { PolicyConfig, ProvidersConfig } from "./core/policy.ts";
 import { LabelBook } from "./sources/labels/index.ts";
@@ -22,6 +22,17 @@ export interface Deps {
 
 export const ETHERSCAN_MORPHO_CHAINS = [1, 8453, 10, 130, 137, 143, 480, 988, 999, 42161, 747474];
 
+/**
+ * Accepts any spelling of an address (lowercase, uppercase, mixed case with or without a valid checksum,
+ * surrounding whitespace) and returns the EIP-55 checksummed form. Only the 40 hex characters matter for
+ * identity; the checksum is a display convention, so a bad one is normalised rather than rejected.
+ */
+export function normalizeAddress(input: string): Address {
+  const t = input.trim();
+  if (!/^0x[0-9a-fA-F]{40}$/.test(t)) throw new Error(`not an EVM address: ${t || "(empty)"} (expected 0x followed by 40 hex characters)`);
+  return getAddress(t.toLowerCase());
+}
+
 export function makeReader(deps: Deps, chainId: number): OnchainReader | null {
   const cfg = deps.providers.chains[String(chainId)];
   const endpoints: Endpoint[] = (cfg?.rpc ?? []).map(httpEndpoint);
@@ -31,14 +42,12 @@ export function makeReader(deps: Deps, chainId: number): OnchainReader | null {
 }
 
 export async function findCandidates(deps: Deps, address: string): Promise<FoundVault[]> {
-  if (!isAddress(address)) throw new Error(`not an EVM address: ${address}`);
-  return deps.api.findVault(getAddress(address));
+  return deps.api.findVault(normalizeAddress(address));
 }
 
 export async function checkVault(deps: Deps, address: string, chainId?: number): Promise<Report> {
   const log = deps.log ?? (() => {});
-  if (!isAddress(address)) throw new Error(`not an EVM address: ${address}`);
-  const vault = getAddress(address) as Address;
+  const vault = normalizeAddress(address);
 
   log("Looking the address up on every chain the Morpho API indexes...");
   let found = await deps.api.findVault(vault);
