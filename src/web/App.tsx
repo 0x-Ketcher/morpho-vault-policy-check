@@ -192,17 +192,22 @@ function Details({ lines }: { lines: string[] }) {
   }
   return (
     <ul className="details">
-      {groups.map((g, i) => (
-        <li key={i}>
-          {g.head}
-          {g.signers.length > 0 && (
-            <details className="signers" open={!g.signers[0].startsWith("signer ") && !/at or above/.test(g.head)}>
-              <summary className="muted small">{g.signers[0].startsWith("signer ") ? `${g.signers.length} signer${g.signers.length > 1 ? "s" : ""}, ${g.signers.filter((s) => !/unlabeled/.test(s)).length} publicly labeled` : `${g.signers.length} item${g.signers.length > 1 ? "s" : ""}`}</summary>
-              <ul className="small mono">{g.signers.map((s, j) => <li key={j}>{s.replace(/^signer /, "")}</li>)}</ul>
-            </details>
-          )}
-        </li>
-      ))}
+      {groups.map((g, i) => {
+        const isSigners = g.signers[0]?.startsWith("signer ");
+        const isHeader = g.head.endsWith(":"); // a header line: its items are shown directly
+        return (
+          <li key={i}>
+            {g.head}
+            {g.signers.length > 0 && isHeader && <ul className="small sub">{g.signers.map((s, j) => <li key={j}>{s}</li>)}</ul>}
+            {g.signers.length > 0 && !isHeader && (
+              <details className="signers">
+                <summary className="muted small">{isSigners ? `${g.signers.length} signer${g.signers.length > 1 ? "s" : ""}, ${g.signers.filter((s) => !/unlabeled/.test(s)).length} publicly labeled` : `show ${g.signers.length}`}</summary>
+                <ul className={`small sub ${isSigners ? "mono" : ""}`}>{g.signers.map((s, j) => <li key={j}>{s.replace(/^signer /, "")}</li>)}</ul>
+              </details>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 }

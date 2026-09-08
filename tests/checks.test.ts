@@ -160,7 +160,7 @@ describe("C7 sentinel", () => {
     const withContract = { ...s.safes, [A.unlabeled.toLowerCase()]: { address: A.unlabeled, isContract: true, isSafe: false, source: "onchain" as const } };
     const r2 = run("C7", { sentinels: [A.oeaSafe, A.unlabeled], safes: withContract });
     expect(r2.status).toBe("WARN");
-    expect(r2.summary).toContain("monitoring solution");
+    expect(r2.details.join(" ")).toContain("monitoring solution");
   });
   it("allows a Prime-owned extra", () => { expect(status("C7", { sentinels: [A.oeaSafe, A.subproxy] })).toBe("PASS"); });
   it("uses the guardian on v1.1", () => {

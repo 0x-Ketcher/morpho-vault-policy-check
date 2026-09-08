@@ -124,9 +124,9 @@ export const c07Sentinel: CheckDef = {
     const status = worst([mandatory, ...violations.map((r) => r.status!), ...extras.map((r) => r.status!)]);
     const parts: string[] = [];
     parts.push(rows.length === 0 ? `No ${seat} set; the OEA ${seat} is mandatory.` : mandatory === "PASS" ? `OEA ${seat} with separate signers in place (${short(oea[0].addr)}).` : mandatory === "WARN" ? `OEA ${seat} not publicly attested: ${candidates.map((r) => `${short(r.addr)} ${r.why}`).join("; ")}.` : `No OEA ${seat}.`);
-    if (violations.length) parts.push(`Curator in a ${seat} seat: ${violations.map((r) => `${short(r.addr)} ${r.why}`).join("; ")}.`);
-    if (extras.length) parts.push(`Third-party ${seat}${extras.length > 1 ? "s" : ""}: ${extras.map((r) => `${short(r.addr)} ${r.why}`).join("; ")}.`);
-    if (primes.length) parts.push(`Prime-owned ${seat}${primes.length > 1 ? "s" : ""} ${primes.map((r) => short(r.addr)).join(", ")}: allowed as extras.`);
+    if (violations.length) parts.push(`Curator in a ${seat} seat: ${violations.map((r) => short(r.addr)).join(", ")}.`);
+    if (extras.length) parts.push(`Third-party ${seat}${extras.length > 1 ? "s" : ""} ${extras.map((r) => short(r.addr)).join(", ")}: open question for BA, see below.`);
+    if (primes.length) parts.push(`Prime-owned ${seat}${primes.length > 1 ? "s" : ""} ${primes.map((r) => short(r.addr)).join(", ")}: allowed.`);
     return result("C7", "Sentinel / Guardian", ctx.policy.roles.sentinel, status, parts.join(" "), [list, ...structures], details, citations);
   },
 };
