@@ -54,7 +54,7 @@ export const c11Fees: CheckDef = {
     const v1 = ctx.b.version === "v1.1";
     const fees = pick(ctx, "fees", (s) => (v1 ? { fee: s.fees.feeV1 ?? null, recipient: s.fees.feeRecipientV1 ?? null } : { performance: s.fees.performanceFee ?? null, management: s.fees.managementFee ?? null, perfRecipient: s.fees.performanceFeeRecipient ?? null, mgmtRecipient: s.fees.managementFeeRecipient ?? null }), (v) => JSON.stringify(v), { tolerance: (a, b) => JSON.stringify(a) === JSON.stringify(b) });
     const src = ctx.a ?? ctx.b; const citations: Citation[] = []; const details: string[] = [];
-    const who = (a?: string | null) => { if (!a) return "none"; const att = ctx.labels.attribute(a, ctx.b.chainId); citations.push(...att.citations); return `${a} (${describe(att)})`; };
+    const who = (a?: string | null) => { if (!a || /^0x0{40}$/.test(a)) return "none"; const att = ctx.labels.attribute(a, ctx.b.chainId); citations.push(...att.citations); return `${a} (${describe(att)})`; };
     if (v1) details.push(`fee: ${((src.fees.feeV1 ?? 0) * 100).toFixed(2)}% to ${who(src.fees.feeRecipientV1)}`, `skim recipient: ${who(src.fees.skimRecipient)}`);
     else details.push(`performance fee: ${((src.fees.performanceFee ?? 0) * 100).toFixed(2)}% to ${who(src.fees.performanceFeeRecipient)}`, `management fee: ${((src.fees.managementFee ?? 0) * 100).toFixed(2)}% to ${who(src.fees.managementFeeRecipient)}`);
     return result("C11", "Fees", `${ctx.policy.fees.source} Reported for information.`, ctx.policy.fees.status, details.join("; "), [fees], details, citations);
@@ -83,7 +83,11 @@ export const c12Exposure: CheckDef = {
       } else line += "; Liquidity Layer: rate limits not read by this method";
       details.push(line);
     }
-    const summary = src.exposure.length === 0 ? "No Prime ALM proxy labeled for this chain; exposure not computed." : total > 0 ? `Sky exposure ${fmtUsd(total)} across ${src.exposure.filter((e) => e.assets !== "0").length} Prime position(s). ${src.exposure.some((e) => e.rateLimits?.onboarded) ? "Onboarded on the Liquidity Layer." : "Not onboarded on the Liquidity Layer."}` : `No Sky position. ${src.exposure.some((e) => e.rateLimits?.onboarded) ? "Onboarded on the Liquidity Layer (rate-limit key present)." : "Not onboarded on the Liquidity Layer."}`;
+    const onboarded = src.exposure.some((e) => e.rateLimits?.onboarded);
+    const ll = onboarded ? "Onboarded on the Liquidity Layer." : "Not onboarded on the Liquidity Layer.";
+    const summary = src.exposure.length === 0 ? "No Prime ALM proxy labeled for this chain; exposure not computed."
+      : total >= 1 ? `Sky exposure ${fmtUsd(total)} across ${src.exposure.filter((e) => e.assets !== "0").length} Prime position${src.exposure.filter((e) => e.assets !== "0").length > 1 ? "s" : ""}. ${ll}`
+      : total > 0 ? `No meaningful Sky position (dust, ${fmtUsd(total)}). ${ll}` : `No Sky position. ${ll}`;
     return result("C12", "Sky exposure and Liquidity Layer onboarding", `${ctx.policy.exposure.source} Position = ALM proxy shares converted to assets; onboarding = LIMIT_4626_DEPOSIT rate-limit key for this vault on the Prime's RateLimits contract.`, ctx.policy.exposure.status, summary, [positions], details, citations);
   },
 };

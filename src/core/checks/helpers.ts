@@ -76,7 +76,8 @@ const SOURCE_WORDS: Record<string, string> = { registry: "Prime registry", atlas
 export function describe(att: Attribution): string {
   if (att.side === "unknown" && !att.entity) return "unlabeled";
   const roles = att.roles.map((r) => ROLE_WORDS[r]).filter((x, i, a) => x && a.indexOf(x) === i).slice(0, 2);
-  const src = att.citations[0] ? SOURCE_WORDS[att.citations[0].source] ?? att.citations[0].source : undefined;
+  const first = att.citations.find((c) => c.source !== "safe-owners") ?? att.citations[0];
+  const src = first && first.source !== "safe-owners" ? SOURCE_WORDS[first.source] ?? first.source : undefined;
   return `${att.entity ?? att.side}${roles.length ? `, ${roles.join(" and ")}` : ""}${src ? ` per ${src}` : ""}`;
 }
 
@@ -110,13 +111,13 @@ export function attributeSafe(ctx: CheckContext, address: string, safe: SafeInfo
     if (att.side === "unknown") continue;
     const rank = (s: Side) => (s === "oea" ? 3 : s === "prime" ? 2 : 1);
     if (!best || rank(att.side) > rank(best.side) || (rank(att.side) === rank(best.side) && shared > best.shared)) {
-      best = { side: att.side, label: `${e.label ?? short(e.address)} on chain ${e.chainId}`, shared, entity: att.entity, prime: att.prime };
+      best = { side: att.side, label: `${att.entity ?? short(e.address)}'s Safe ${short(e.address)}${e.chainId !== chainId ? ` on chain ${e.chainId}` : ""}`, shared, entity: att.entity, prime: att.prime };
     }
   }
   if (!best) return direct;
   return {
     ...direct, side: best.side, entity: direct.entity ?? best.entity, prime: direct.prime ?? best.prime,
-    via: `by signer overlap: ${best.shared} shared signer(s) with ${best.label}`,
+    via: `by signer overlap, ${best.shared} shared signer${best.shared > 1 ? "s" : ""} with ${best.label}`,
     citations: [...direct.citations, { source: "safe-owners", entity: best.entity, ref: `signer overlap (${best.shared}) with labeled Safe ${best.label}` }],
   };
 }
