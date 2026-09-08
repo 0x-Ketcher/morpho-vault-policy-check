@@ -160,7 +160,7 @@ function Card({ c, compact = false }: { c: CheckResult; compact?: boolean }) {
       <p className="summary">{c.summary}</p>
       {open && (
         <div className="body">
-          {rule && <p className="rule"><span className="muted">BA:</span> {rule}</p>}
+          {rule && <p className="rule"><span className="rule-label">Criteria</span> {rule}</p>}
           <EvidenceBlock evidence={c.evidence} discrepancy={c.discrepancy} />
           {c.discrepancies.length > 0 && <div className="disc-box"><b>Methods disagree</b>, not auto-resolved; the verdict uses the on-chain value:<ul>{c.discrepancies.map((d, i) => <li key={i} className="mono small">{d}</li>)}</ul></div>}
           <Details lines={c.details} />

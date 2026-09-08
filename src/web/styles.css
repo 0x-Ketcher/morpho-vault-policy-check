@@ -100,3 +100,4 @@ footer { margin-top: 28px; }
 .vault h2 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .cid { color: var(--muted); font-weight: 500; font-size: 12px; margin-right: 4px; }
 .sub { margin: 4px 0 0; padding-left: 16px; word-break: break-all; }
+.rule-label { display: inline-block; margin-right: 6px; padding: 1px 6px; border-radius: 4px; background: #eef1f5; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; vertical-align: middle; }

@@ -87,9 +87,9 @@ export const c04Collateral: CheckDef = {
         if (m.lltv <= (byAddr.maxLltv ?? 0) + 1e-9) { collStatus = "PASS"; line = `${pair}: accepted (max ${((byAddr.maxLltv ?? 0) * 100).toFixed(1)}%), ${state}`; }
         else { collStatus = live ? sev.lltvAboveMaxWithAllocation : sev.lltvAboveMaxCapOnly; line = `${pair}: LLTV above the ${((byAddr.maxLltv ?? 0) * 100).toFixed(1)}% maximum, ${state}`; }
       } else if (bySym) { collStatus = sev.symbolMatchesAddressUnknown; line = `${pair}: symbol matches accepted ${bySym.policyName ?? bySym.symbol} but the token address is not on the allow-list for this chain, verify on the explorer; ${state}`; }
-      else { collStatus = live ? sev.notAcceptedWithAllocation : sev.notAcceptedCapOnly; line = `${pair}: NOT an accepted collateral, ${state}, ${live ? "flag to BA for CRR" : "flag to BA before any allocation"}`; }
+      else { collStatus = live ? sev.notAcceptedWithAllocation : sev.notAcceptedCapOnly; line = `${pair}: NOT an accepted collateral, ${state}, ${live ? "flag for CRR review" : "flag for review before any allocation"}`; }
       statuses.push(worst([collStatus, ...(irmStatus ? [irmStatus] : [])]));
-      details.push(`${line}; ${irmText}${irmStatus && irmStatus !== "PASS" ? ", flag to BA" : ""}`);
+      details.push(`${line}; ${irmText}${irmStatus && irmStatus !== "PASS" ? ", flag for review" : ""}`);
     }
     const status = statuses.length ? worst(statuses) : "NA";
     const summary = statuses.length === 0 ? "No market with an allocation or a cap; nothing to grade (idle vault)."

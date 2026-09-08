@@ -155,7 +155,7 @@ describe("C6 sentinel", () => {
     const r = run("C6", { sentinels: [A.oeaSafe, A.steak] });
     expect(r.status).toBe("WARN");
     expect(r.summary).toContain("Third-party sentinel");
-    expect(r.summary).toContain("open question for BA");
+    expect(r.summary).toContain("open policy question");
     const s = snap();
     const withContract = { ...s.safes, [A.unlabeled.toLowerCase()]: { address: A.unlabeled, isContract: true, isSafe: false, source: "onchain" as const } };
     const r2 = run("C6", { sentinels: [A.oeaSafe, A.unlabeled], safes: withContract });
