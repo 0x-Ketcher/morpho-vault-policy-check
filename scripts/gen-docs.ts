@@ -20,6 +20,7 @@ function policyDoc(): string {
   const L: string[] = [];
   L.push("# Policy table", "", "Generated from `config/policy.json` by `npm run gen:docs`. Do not edit by hand; edit the JSON and regenerate.", "");
   L.push(`Policy: ${policy.meta.policy}`, `Source: ${policy.meta.policyUrl}`, `Snapshot: ${policy.meta.snapshotDate}; policy last changed: ${policy.meta.policyLastChanged}`, "");
+  if (policy.meta.deadline) L.push(`Deadline: ${policy.meta.deadline.text}: ${policy.meta.deadline.date}. ${policy.meta.deadline.consequence} Source: ${policy.meta.deadline.source}`, "");
   for (const n of policy.meta.notes) L.push(`- ${n}`);
   L.push("", "## Checks", "", "| # | Check | Rule | Severity when violated | Policy source |", "|---|---|---|---|---|");
   L.push(`| C1 | Vault version and factory | Report only: Vault V2 or MetaMorpho v1.1; factory deployment confirmed | FAIL only if the factory denies the vault | Proposal #11 setup |`);

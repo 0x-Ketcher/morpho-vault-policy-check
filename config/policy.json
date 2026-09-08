@@ -9,7 +9,13 @@
       "The increase-timelock minimum was raised from 3 days to 7 days on 2026-08-31.",
       "An Atlas edit 'Morpho Vault Curation Framework' is expected to become the canonical policy text. When it lands, update this file and cite the article number in every 'source' field.",
       "The SFF prioritisation cycle of 2026-09-02 proposed adding cbETH and spUSDG to the accepted collateral list. Not applied here until approved."
-    ]
+    ],
+    "deadline": {
+      "date": "2026-09-30",
+      "text": "Deadline to resolve non-compliant vaults",
+      "consequence": "After the deadline, all non-compliant Morpho vault allocations receive 100% CRR.",
+      "source": "Policy section 'Deadlines': Core Council, all current exposure migrated to compliant vaults or existing vaults upgraded within about six weeks from 2026-08-17, end of September 2026 as the latest date."
+    }
   },
   "chains": {
     "source": "Policy section 'Accepted chains': Ethereum, Base, Robinhood (higher CRR for non-mainnet chain risk). Others: risk review + separate request.",

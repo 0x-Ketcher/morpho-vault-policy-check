@@ -6,6 +6,8 @@ Policy: BA Labs - Morpho Vaults v2 Eligibility Criteria
 Source: https://docs.google.com/document/d/1cUoOPQaY9BeE_b9W9peEx8fXSesfPyZQ1FlOOacstw8
 Snapshot: 2026-09-01; policy last changed: 2026-08-31
 
+Deadline: Deadline to resolve non-compliant vaults: 2026-09-30. After the deadline, all non-compliant Morpho vault allocations receive 100% CRR. Source: Policy section 'Deadlines': Core Council, all current exposure migrated to compliant vaults or existing vaults upgraded within about six weeks from 2026-08-17, end of September 2026 as the latest date.
+
 - Adapter timelocks were added to the policy on 2026-08-31.
 - The increase-timelock minimum was raised from 3 days to 7 days on 2026-08-31.
 - An Atlas edit 'Morpho Vault Curation Framework' is expected to become the canonical policy text. When it lands, update this file and cite the article number in every 'source' field.

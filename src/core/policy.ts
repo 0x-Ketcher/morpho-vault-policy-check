@@ -4,7 +4,7 @@ export interface AcceptedAsset { symbol: string; address: string; policyName?: s
 export interface TimelockFn { function: string; label: string; minDays?: number; abdicationSatisfies?: boolean; note?: string }
 
 export interface PolicyConfig {
-  meta: { policy: string; policyUrl: string; snapshotDate: string; policyLastChanged: string; notes: string[] };
+  meta: { policy: string; policyUrl: string; snapshotDate: string; policyLastChanged: string; notes: string[]; deadline?: { date: string; text: string; consequence: string; source: string } };
   chains: { source: string; accepted: { id: number; name: string }[]; severityWhenNotAccepted: Status };
   loanAssets: { source: string; severityWhenNotAccepted: Status; accepted: Record<string, AcceptedAsset[]> };
   collateral: {

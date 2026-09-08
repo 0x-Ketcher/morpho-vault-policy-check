@@ -3,9 +3,10 @@ import { fmtUsd } from "./checks/helpers.ts";
 
 const badge = (s: string) => ({ PASS: "PASS", WARN: "WARN", FAIL: "FAIL", NA: "n/a", INFO: "INFO" })[s] ?? s;
 
-export function renderMarkdown(r: Report): string {
+export function renderMarkdown(r: Report, deadline?: { date: string; text: string; consequence: string }): string {
   const L: string[] = [];
   L.push(`# ${r.vault.name ?? r.vault.address} - policy check`, "");
+  if (deadline) L.push(`> ${deadline.text}: ${deadline.date}. ${deadline.consequence}`, "");
   L.push(`| | |`, `|---|---|`, `| Vault | ${r.vault.address} |`, `| Chain | ${r.vault.chainName} (${r.vault.chainId}) |`, `| Version | ${r.vault.version} |`, `| Asset | ${r.vault.asset ?? "?"} |`, `| Total assets | ${fmtUsd(r.vault.totalAssetsUsd)} |`, `| Worst graded status | ${badge(r.worst)} |`, `| Generated | ${r.generatedAt} |`);
   L.push(`| On-chain | block ${r.providers.block}${r.providers.blockTimestamp ? ` (${new Date(r.providers.blockTimestamp * 1000).toISOString()})` : ""} via ${r.providers.primary}; second provider: ${r.providers.secondary ?? "none"} (${r.providers.secondaryStatus}); ${r.providers.calls} reads |`);
   if (r.providers.disagreements.length) L.push(`| Provider notes | ${r.providers.disagreements.join("; ")} |`);

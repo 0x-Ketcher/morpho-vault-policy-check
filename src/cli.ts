@@ -29,7 +29,7 @@ const save = (r: Report, out: string) => {
   mkdirSync(out, { recursive: true });
   const base = join(out, `${r.vault.chainId}-${r.vault.address.toLowerCase()}`);
   writeFileSync(`${base}.json`, JSON.stringify(r, (_k, v) => (typeof v === "bigint" ? v.toString() : v), 2));
-  writeFileSync(`${base}.md`, renderMarkdown(r));
+  writeFileSync(`${base}.md`, renderMarkdown(r, loadPolicy().meta.deadline));
   return base;
 };
 

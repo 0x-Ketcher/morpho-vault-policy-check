@@ -63,7 +63,10 @@ export function App() {
   return (
     <div className="page">
       <header>
-        <h1>Morpho vault policy check</h1>
+        <div className="header-row">
+          <h1>Morpho vault policy check</h1>
+          {policy.meta.deadline && <Deadline d={policy.meta.deadline} />}
+        </div>
         <p className="sub">Checks a Morpho vault against the <a href={policy.meta.policyUrl} target="_blank" rel="noreferrer">BA Labs Morpho Vaults v2 eligibility criteria</a>, twice: once from chain state through public nodes, once through the Morpho API. Labels come from public sources only: the Prime address registries, the Atlas and Morpho's curator registry. Disagreements between methods are shown, never resolved.</p>
       </header>
 
@@ -115,7 +118,7 @@ export function App() {
             {report.providers.disagreements.length > 0 && <details><summary className="muted">provider notes ({report.providers.disagreements.length})</summary><ul className="small">{report.providers.disagreements.map((d, i) => <li key={i}>{d}</li>)}</ul></details>}
             <div className="actions">
               <button className="ghost" onClick={() => download(`${report.vault.chainId}-${report.vault.address}.json`, JSON.stringify(report, null, 2), "application/json")}>download JSON</button>
-              <button className="ghost" onClick={() => download(`${report.vault.chainId}-${report.vault.address}.md`, renderMarkdown(report), "text/markdown")}>download Markdown</button>
+              <button className="ghost" onClick={() => download(`${report.vault.chainId}-${report.vault.address}.md`, renderMarkdown(report, policy.meta.deadline), "text/markdown")}>download Markdown</button>
             </div>
           </div>
           <div className="cards">{report.checks.map((c) => <Card key={c.id} c={c} />)}</div>
@@ -132,6 +135,19 @@ export function App() {
       <footer className="muted small">
         Policy snapshot {policy.meta.snapshotDate} (doc last changed {policy.meta.policyLastChanged}). Sources: {providers.morphoApi}, public JSON-RPC nodes, Safe Transaction Service, Prime address registries and the Atlas on GitHub. Nothing here is a legal or financial determination; it is a structural check with citations.
       </footer>
+    </div>
+  );
+}
+
+function Deadline({ d }: { d: { date: string; text: string; consequence: string; source: string } }) {
+  const due = new Date(`${d.date}T23:59:59Z`);
+  const days = Math.ceil((due.getTime() - Date.now()) / 86_400_000);
+  const when = due.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+  const left = days > 1 ? `${days} days left` : days === 1 ? "1 day left" : days === 0 ? "today" : `passed ${-days} day${days === -1 ? "" : "s"} ago`;
+  return (
+    <div className={`deadline ${days < 0 ? "passed" : days <= 14 ? "soon" : ""}`} title={`${d.consequence} Source: ${d.source}`}>
+      <span className="deadline-label">{d.text}</span>
+      <span className="deadline-date">{when} · {left}</span>
     </div>
   );
 }
