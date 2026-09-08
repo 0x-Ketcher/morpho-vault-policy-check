@@ -174,9 +174,11 @@ describe("C9 timelocks", () => {
     const t = { ...snap().timelocks, "addAdapter(address)": { selector: "0x00000000" as const, seconds: 3 * 86400, abdicated: false } };
     expect(status("C9", { timelocks: t })).toBe("FAIL");
   });
-  it("accepts an abdicated gate", () => {
+  it("accepts an abdicated gate where the policy says '/Abdicated', not for the send assets gate", () => {
     const t = { ...snap().timelocks, "setSendSharesGate(address)": { selector: "0x00000000" as const, seconds: 0, abdicated: true } };
     expect(status("C9", { timelocks: t })).toBe("PASS");
+    const u = { ...snap().timelocks, "setSendAssetsGate(address)": { selector: "0x00000000" as const, seconds: 0, abdicated: true } };
+    expect(status("C9", { timelocks: u })).toBe("FAIL");
   });
   it("fails a 0-day adapter timelock", () => {
     expect(status("C9", { adapters: [{ address: A.eoa1, markets: [], timelocks: { "abdicate(bytes4)": 0, "burnShares(bytes32)": 3 * 86400, "increaseTimelock(bytes4,uint256)": 7 * 86400, "setSkimRecipient(address)": 3 * 86400 }, abdicated: {} }] })).toBe("FAIL");

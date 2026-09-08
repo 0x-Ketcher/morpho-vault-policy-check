@@ -269,8 +269,7 @@
         "function": "setSendAssetsGate(address)",
         "label": "Set send assets gate",
         "minDays": 7,
-        "abdicationSatisfies": true,
-        "note": "The policy snapshot lists 7d without '/Abdicated' for this gate; treated like the other gates, to confirm with BA."
+        "note": "The policy lists this gate as 7d only, without '/Abdicated', unlike the other three gates; read literally, so abdication does not satisfy it. Every V2 vault checked on 2026-09-08 keeps this gate under a live timelock and abdicates the other three."
       },
       {
         "function": "setAdapterRegistry(address)",

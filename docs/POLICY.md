@@ -86,7 +86,7 @@ Policy table 'Accepted Collateral and Market Parameters', IRM column: 'Morpho Ad
 | vault | `setReceiveSharesGate(address)` | Set receive shares gate | 7d | yes |  |
 | vault | `setSendSharesGate(address)` | Set send shares gate | 7d | yes |  |
 | vault | `setReceiveAssetsGate(address)` | Set receive assets gate | 7d | yes |  |
-| vault | `setSendAssetsGate(address)` | Set send assets gate | 7d | yes | The policy snapshot lists 7d without '/Abdicated' for this gate; treated like the other gates, to confirm with BA. |
+| vault | `setSendAssetsGate(address)` | Set send assets gate | 7d | no | The policy lists this gate as 7d only, without '/Abdicated', unlike the other three gates; read literally, so abdication does not satisfy it. Every V2 vault checked on 2026-09-08 keeps this gate under a live timelock and abdicates the other three. |
 | vault | `setAdapterRegistry(address)` | Set adapter registry | 7d | yes |  |
 | adapter | `abdicate(bytes4)` | Adapter: Abdicate | 7d | no |  |
 | adapter | `burnShares(bytes32)` | Adapter: Burn shares | 3d | no |  |
