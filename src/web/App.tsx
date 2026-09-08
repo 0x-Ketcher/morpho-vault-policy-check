@@ -8,7 +8,7 @@ import { fmtUsd } from "../core/checks/helpers.ts";
 import type { Report, CheckResult, Status, Citation, Evidence } from "../core/types.ts";
 
 const STATUS_LABEL: Record<Status, string> = { PASS: "PASS", WARN: "WARN", FAIL: "FAIL", NA: "n/a", INFO: "info" };
-const GRADED = ["C2", "C3", "C4", "C5", "C6", "C7", "C9"];
+const GRADED = ["C1", "C2", "C3", "C4", "C5", "C6", "C7"];
 const METHODOLOGY = "/methodology"; // served by the server from the repository's own documentation
 const utc = (iso: string) => iso.replace("T", " ").slice(0, 16) + " UTC";
 
@@ -110,7 +110,7 @@ export function App() {
 }
 
 function Result({ r, onExport }: { r: Report; onExport: () => void }) {
-  const counts = (["FAIL", "WARN", "PASS", "INFO"] as Status[]).map((s) => ({ s, n: r.checks.filter((c) => c.status === s).length })).filter((x) => x.n > 0);
+  const counts = (["FAIL", "WARN", "PASS"] as Status[]).map((s) => ({ s, n: r.checks.filter((c) => c.status === s).length })).filter((x) => x.n > 0);
   const graded = r.checks.filter((c) => GRADED.includes(c.id));
   const context = r.checks.filter((c) => !GRADED.includes(c.id));
   const checkedAt = r.snapshotB.meta.fetchedAt;
@@ -124,7 +124,6 @@ function Result({ r, onExport }: { r: Report; onExport: () => void }) {
         <p className="facts">{r.vault.chainName} · {r.vault.asset ?? "?"} · TVL {fmtUsd(r.vault.totalAssetsUsd)}</p>
         <div className="summary-row">
           <div className="counts">{counts.map((x) => <span key={x.s} className={`badge ${x.s}`}>{x.n} {STATUS_LABEL[x.s]}</span>)}</div>
-          <div className="chips">{r.checks.map((c) => <a key={c.id} href={`#${c.id}`} className={`chip ${c.status}`} title={`${c.title}: ${STATUS_LABEL[c.status]}`}>{c.id}</a>)}</div>
         </div>
         <details className="run">
           <summary className="muted small">Checked {utc(checkedAt)} · run details</summary>

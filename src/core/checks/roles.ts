@@ -9,7 +9,7 @@ const safePick = (ctx: CheckContext, label: string, addr: string) =>
   pick(ctx, `${label} Safe structure`, (s) => { const x = s.safes[addr.toLowerCase()]; if (!x || x.unavailable) return undefined; return { isSafe: x.isSafe, threshold: x.threshold ?? null, owners: (x.owners ?? []).map((o) => o.toLowerCase()).sort() }; }, (v) => (v ? (v.isSafe ? `${v.threshold}/${v.owners.length}: ${v.owners.map(short).join(", ")}` : "not a Safe") : "unavailable"));
 
 export const c05Owner: CheckDef = {
-  id: "C5", title: "Owner",
+  id: "C4", title: "Owner",
   evaluate: (ctx) => {
     const owner = pick(ctx, "owner()", (s) => s.owner, (v) => v);
     const structure = safePick(ctx, "owner", owner.value);
@@ -30,7 +30,7 @@ export const c05Owner: CheckDef = {
     }
     else if (att.side === "prime") { status = "WARN"; summary = `Owner is a ${att.prime} address (${att.roles.join(", ")}) but not the governance SubProxy or executor.`; }
     else { status = "FAIL"; summary = `Owner is ${att.entity ? att.entity : "an address no public source attributes"}, a ${safeShape(safe)}: an external party owns the vault.`; }
-    return result("C5", "Owner", ctx.policy.roles.owner, status, summary, [owner, structure], details, citations);
+    return result("C4", "Owner", ctx.policy.roles.owner, status, summary, [owner, structure], details, citations);
   },
 };
 
@@ -41,7 +41,7 @@ function classOf(ctx: CheckContext, addr: string): { cls: Class; att: ReturnType
 }
 
 export const c06Curator: CheckDef = {
-  id: "C6", title: "Curator",
+  id: "C5", title: "Curator",
   evaluate: (ctx) => {
     const curator = pick(ctx, "curator()", (s) => s.curator, (v) => v);
     const structure = safePick(ctx, "curator", curator.value);
@@ -75,12 +75,12 @@ export const c06Curator: CheckDef = {
         else { status = "FAIL"; summary = `Curator is a ${safeShape(safe)} that no public source attributes and whose signers are all unlabeled; no attested OEA or Prime participation.`; }
       }
     }
-    return result("C6", "Curator", ctx.policy.roles.curator, status, summary, [curator, structure], details, citations);
+    return result("C5", "Curator", ctx.policy.roles.curator, status, summary, [curator, structure], details, citations);
   },
 };
 
 export const c07Sentinel: CheckDef = {
-  id: "C7", title: "Sentinel / Guardian",
+  id: "C6", title: "Sentinel / Guardian",
   evaluate: (ctx) => {
     const v1 = ctx.b.version === "v1.1";
     const seat = v1 ? "guardian" : "sentinel";
@@ -127,12 +127,12 @@ export const c07Sentinel: CheckDef = {
     if (violations.length) parts.push(`Curator in a ${seat} seat: ${violations.map((r) => short(r.addr)).join(", ")}.`);
     if (extras.length) parts.push(`Third-party ${seat}${extras.length > 1 ? "s" : ""} ${extras.map((r) => short(r.addr)).join(", ")}: open question for BA, see below.`);
     if (primes.length) parts.push(`Prime-owned ${seat}${primes.length > 1 ? "s" : ""} ${primes.map((r) => short(r.addr)).join(", ")}: allowed.`);
-    return result("C7", "Sentinel / Guardian", ctx.policy.roles.sentinel, status, parts.join(" "), [list, ...structures], details, citations);
+    return result("C6", "Sentinel / Guardian", ctx.policy.roles.sentinel, status, parts.join(" "), [list, ...structures], details, citations);
   },
 };
 
 export const c08Allocators: CheckDef = {
-  id: "C8", title: "Allocators",
+  id: "C9", title: "Allocators",
   evaluate: (ctx) => {
     const list = pick(ctx, "allocators", (s) => s.allocators.map((x) => x.toLowerCase()).sort(), (v) => (v.length ? v.join(", ") : "none"));
     const citations: Citation[] = []; const details: string[] = [];
@@ -142,6 +142,6 @@ export const c08Allocators: CheckDef = {
       details.push(`${a}: ${safeShape(safeOf(ctx, a))}; ${describe(att)}${att.via ? ` ${att.via}` : ""}`);
     }
     const summary = list.value.length === 0 ? "No allocators set." : `${list.value.length} allocator(s): ${details.map((d) => d.split(";")[1]?.trim() ?? "").join("; ")}`;
-    return result("C8", "Allocators", ctx.policy.roles.allocator, "INFO", summary, [list], details, citations);
+    return result("C9", "Allocators", ctx.policy.roles.allocator, "INFO", summary, [list], details, citations);
   },
 };

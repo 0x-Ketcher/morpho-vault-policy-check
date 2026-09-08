@@ -59,142 +59,142 @@ const ctx = (a: Partial<VaultSnapshot>, b: Partial<VaultSnapshot> = a): CheckCon
 const run = (id: string, a: Partial<VaultSnapshot>, b?: Partial<VaultSnapshot>) => CHECKS.find((c) => c.id === id)!.evaluate(ctx(a, b));
 const status = (id: string, a: Partial<VaultSnapshot>, b?: Partial<VaultSnapshot>): Status => run(id, a, b).status;
 
-describe("C2 chain", () => {
+describe("C1 chain", () => {
   it("accepts the three chains and fails others", () => {
-    expect(status("C2", {})).toBe("PASS");
-    expect(status("C2", { chainId: 42161 })).toBe("FAIL");
+    expect(status("C1", {})).toBe("PASS");
+    expect(status("C1", { chainId: 42161 })).toBe("FAIL");
   });
 });
 
-describe("C3 loan asset", () => {
+describe("C2 loan asset", () => {
   it("matches by address, not by symbol", () => {
-    expect(status("C3", {})).toBe("PASS");
-    expect(status("C3", { asset: { address: A.eoa1, symbol: "USDC", decimals: 6 } })).toBe("FAIL");
-    expect(status("C3", { asset: { address: A.eoa1, symbol: "FOO", decimals: 18 } })).toBe("FAIL");
+    expect(status("C2", {})).toBe("PASS");
+    expect(status("C2", { asset: { address: A.eoa1, symbol: "USDC", decimals: 6 } })).toBe("FAIL");
+    expect(status("C2", { asset: { address: A.eoa1, symbol: "FOO", decimals: 18 } })).toBe("FAIL");
   });
 });
 
-describe("C4 collateral and LLTV", () => {
+describe("C3 collateral and LLTV", () => {
   const m = (over: Partial<VaultSnapshot["markets"][0]>) => ({ ...snap().markets[0], ...over });
-  it("passes accepted collateral within the maximum", () => { expect(status("C4", {})).toBe("PASS"); });
+  it("passes accepted collateral within the maximum", () => { expect(status("C3", {})).toBe("PASS"); });
   it("fails non-accepted collateral with an allocation, warns when cap-only", () => {
-    expect(status("C4", { markets: [m({ collateralToken: A.cbeth, collateralSymbol: "cbETH" })] })).toBe("FAIL");
-    expect(status("C4", { markets: [m({ collateralToken: A.cbeth, collateralSymbol: "cbETH", allocation: "0", supplyAssets: "0" })] })).toBe("WARN");
+    expect(status("C3", { markets: [m({ collateralToken: A.cbeth, collateralSymbol: "cbETH" })] })).toBe("FAIL");
+    expect(status("C3", { markets: [m({ collateralToken: A.cbeth, collateralSymbol: "cbETH", allocation: "0", supplyAssets: "0" })] })).toBe("WARN");
   });
-  it("treats dust below one unit as cap-only", () => { expect(status("C4", { markets: [m({ collateralToken: A.cbeth, collateralSymbol: "cbETH", allocation: "999999", supplyAssets: "999999" })] })).toBe("WARN"); });
+  it("treats dust below one unit as cap-only", () => { expect(status("C3", { markets: [m({ collateralToken: A.cbeth, collateralSymbol: "cbETH", allocation: "999999", supplyAssets: "999999" })] })).toBe("WARN"); });
   it("fails an LLTV above the maximum and warns on a symbol match with an unknown address", () => {
-    expect(status("C4", { markets: [m({ lltv: 0.915 })] })).toBe("FAIL");
-    expect(status("C4", { markets: [m({ collateralToken: A.eoa2, collateralSymbol: "WETH" })] })).toBe("WARN");
+    expect(status("C3", { markets: [m({ lltv: 0.915 })] })).toBe("FAIL");
+    expect(status("C3", { markets: [m({ collateralToken: A.eoa2, collateralSymbol: "WETH" })] })).toBe("WARN");
   });
-  it("is n/a for an idle vault", () => { expect(status("C4", { markets: [] })).toBe("NA"); });
+  it("is n/a for an idle vault", () => { expect(status("C3", { markets: [] })).toBe("NA"); });
   it("requires the accepted interest rate model", () => {
-    expect(status("C4", { markets: [m({ irm: A.otherIrm })] })).toBe("FAIL");
-    expect(status("C4", { markets: [m({ irm: A.otherIrm, allocation: "0", supplyAssets: "0" })] })).toBe("WARN");
-    expect(run("C4", { markets: [m({ irm: A.otherIrm })] }).details[0]).toContain("NOT the accepted");
+    expect(status("C3", { markets: [m({ irm: A.otherIrm })] })).toBe("FAIL");
+    expect(status("C3", { markets: [m({ irm: A.otherIrm, allocation: "0", supplyAssets: "0" })] })).toBe("WARN");
+    expect(run("C3", { markets: [m({ irm: A.otherIrm })] }).details[0]).toContain("NOT the accepted");
   });
   it("does not grade the IRM of a market that has none, and flags an accepted IRM that Morpho Blue reports disabled", () => {
-    const r = run("C4", { markets: [m({ irm: null })] });
+    const r = run("C3", { markets: [m({ irm: null })] });
     expect(r.status).toBe("PASS");
     expect(r.details[0]).toContain("IRM criterion n/a");
-    expect(status("C4", { markets: [m({ irmEnabled: false })] })).toBe("FAIL");
+    expect(status("C3", { markets: [m({ irmEnabled: false })] })).toBe("FAIL");
   });
 });
 
-describe("C5 owner", () => {
+describe("C4 owner", () => {
   it("passes Prime governance, warns on an n-of-n Safe with governance, fails the rest", () => {
-    expect(status("C5", {})).toBe("PASS");
+    expect(status("C4", {})).toBe("PASS");
     const s = snap();
     const veto = { ...s.safes, [A.unlabeled.toLowerCase()]: safe(A.unlabeled, 2, [A.steak, A.subproxy]) };
-    expect(status("C5", { owner: A.unlabeled, safes: veto })).toBe("WARN");
+    expect(status("C4", { owner: A.unlabeled, safes: veto })).toBe("WARN");
     const noVeto = { ...s.safes, [A.unlabeled.toLowerCase()]: safe(A.unlabeled, 2, [A.steak, A.subproxy, A.eoa1]) };
-    expect(status("C5", { owner: A.unlabeled, safes: noVeto })).toBe("FAIL");
-    expect(status("C5", { owner: A.steak })).toBe("FAIL");
+    expect(status("C4", { owner: A.unlabeled, safes: noVeto })).toBe("FAIL");
+    expect(status("C4", { owner: A.steak })).toBe("FAIL");
   });
 });
 
-describe("C6 curator", () => {
+describe("C5 curator", () => {
   it("passes a 2/2 of external curator and directly labeled OEA", () => {
     const s = snap();
     const two = { ...s.safes, [A.twoOfTwo.toLowerCase()]: safe(A.twoOfTwo, 2, [A.steak, A.oeaSafe], { [A.steak.toLowerCase()]: s.safes[A.steak.toLowerCase()], [A.oeaSafe.toLowerCase()]: s.safes[A.oeaSafe.toLowerCase()] }) };
-    expect(status("C6", { safes: two })).toBe("PASS");
+    expect(status("C5", { safes: two })).toBe("PASS");
   });
-  it("warns when the co-signer is unlabeled", () => { expect(status("C6", {})).toBe("WARN"); });
-  it("fails an external curator Safe on its own", () => { expect(status("C6", { curator: A.steak })).toBe("FAIL"); });
+  it("warns when the co-signer is unlabeled", () => { expect(status("C5", {})).toBe("WARN"); });
+  it("fails an external curator Safe on its own", () => { expect(status("C5", { curator: A.steak })).toBe("FAIL"); });
   it("warns on a Prime-labeled self-curated Safe, fails an unattributable one", () => {
     const s = snap();
     const withSpark = { ...s.safes, [A.sparkCur.toLowerCase()]: safe(A.sparkCur, 3, [A.eoa1, A.eoa2, A.eoa3, A.eoa4, "0x5555555555555555555555555555555555555555" as Address]) };
-    expect(status("C6", { curator: A.sparkCur, safes: withSpark })).toBe("WARN");
+    expect(status("C5", { curator: A.sparkCur, safes: withSpark })).toBe("WARN");
     const unknown = { ...s.safes, [A.unlabeled.toLowerCase()]: safe(A.unlabeled, 3, [A.eoa1, A.eoa2, A.eoa3]) };
-    expect(status("C6", { curator: A.unlabeled, safes: unknown })).toBe("FAIL");
+    expect(status("C5", { curator: A.unlabeled, safes: unknown })).toBe("FAIL");
   });
 });
 
-describe("C7 sentinel", () => {
-  it("passes a directly labeled OEA Safe with disjoint signers", () => { expect(status("C7", {})).toBe("PASS"); });
+describe("C6 sentinel", () => {
+  it("passes a directly labeled OEA Safe with disjoint signers", () => { expect(status("C6", {})).toBe("PASS"); });
   it("warns when the OEA Safe shares a signer with the curator Safe", () => {
     const s = snap();
     const shared = { ...s.safes, [A.oeaSafe.toLowerCase()]: safe(A.oeaSafe, 2, [A.eoa1, A.eoa4]) }; // eoa1 also signs the curator Safe
-    expect(status("C7", { safes: shared })).toBe("WARN");
+    expect(status("C6", { safes: shared })).toBe("WARN");
   });
   it("fails Prime-side, curator-side and missing sentinels", () => {
-    expect(status("C7", { sentinels: [A.subproxy] })).toBe("FAIL");
-    expect(status("C7", { sentinels: [A.steak] })).toBe("FAIL");
-    expect(status("C7", { sentinels: [] })).toBe("FAIL");
+    expect(status("C6", { sentinels: [A.subproxy] })).toBe("FAIL");
+    expect(status("C6", { sentinels: [A.steak] })).toBe("FAIL");
+    expect(status("C6", { sentinels: [] })).toBe("FAIL");
   });
   it("warns on an unlabeled OEA-shaped Safe", () => {
     const s = snap();
     const u = { ...s.safes, [A.unlabeled.toLowerCase()]: safe(A.unlabeled, 2, [A.eoa4, "0x6666666666666666666666666666666666666666" as Address]) };
-    expect(status("C7", { sentinels: [A.unlabeled], safes: u })).toBe("WARN");
+    expect(status("C6", { sentinels: [A.unlabeled], safes: u })).toBe("WARN");
   });
   it("fails when the curator address itself holds a sentinel seat, even with an OEA sentinel present", () => {
-    const r = run("C7", { sentinels: [A.oeaSafe, A.twoOfTwo] });
+    const r = run("C6", { sentinels: [A.oeaSafe, A.twoOfTwo] });
     expect(r.status).toBe("FAIL");
     expect(r.summary).toContain("Curator in a sentinel seat");
   });
   it("warns on a third party in an extra seat: the external curator's Safe, or an unattributed contract", () => {
-    const r = run("C7", { sentinels: [A.oeaSafe, A.steak] });
+    const r = run("C6", { sentinels: [A.oeaSafe, A.steak] });
     expect(r.status).toBe("WARN");
     expect(r.summary).toContain("Third-party sentinel");
     expect(r.summary).toContain("open question for BA");
     const s = snap();
     const withContract = { ...s.safes, [A.unlabeled.toLowerCase()]: { address: A.unlabeled, isContract: true, isSafe: false, source: "onchain" as const } };
-    const r2 = run("C7", { sentinels: [A.oeaSafe, A.unlabeled], safes: withContract });
+    const r2 = run("C6", { sentinels: [A.oeaSafe, A.unlabeled], safes: withContract });
     expect(r2.status).toBe("WARN");
     expect(r2.details.join(" ")).toContain("monitoring solution");
   });
-  it("allows a Prime-owned extra", () => { expect(status("C7", { sentinels: [A.oeaSafe, A.subproxy] })).toBe("PASS"); });
+  it("allows a Prime-owned extra", () => { expect(status("C6", { sentinels: [A.oeaSafe, A.subproxy] })).toBe("PASS"); });
   it("uses the guardian on v1.1", () => {
-    expect(status("C7", { version: "v1.1", sentinels: [], guardian: A.oeaSafe })).toBe("PASS");
-    expect(status("C7", { version: "v1.1", sentinels: [], guardian: A.subproxy })).toBe("FAIL");
+    expect(status("C6", { version: "v1.1", sentinels: [], guardian: A.oeaSafe })).toBe("PASS");
+    expect(status("C6", { version: "v1.1", sentinels: [], guardian: A.subproxy })).toBe("FAIL");
   });
 });
 
-describe("C9 timelocks", () => {
+describe("C7 timelocks", () => {
   it("passes at the minimums and fails one below", () => {
-    expect(status("C9", {})).toBe("PASS");
+    expect(status("C7", {})).toBe("PASS");
     const t = { ...snap().timelocks, "addAdapter(address)": { selector: "0x00000000" as const, seconds: 3 * 86400, abdicated: false } };
-    expect(status("C9", { timelocks: t })).toBe("FAIL");
+    expect(status("C7", { timelocks: t })).toBe("FAIL");
   });
   it("accepts an abdicated gate where the policy says '/Abdicated', not for the send assets gate", () => {
     const t = { ...snap().timelocks, "setSendSharesGate(address)": { selector: "0x00000000" as const, seconds: 0, abdicated: true } };
-    expect(status("C9", { timelocks: t })).toBe("PASS");
+    expect(status("C7", { timelocks: t })).toBe("PASS");
     const u = { ...snap().timelocks, "setSendAssetsGate(address)": { selector: "0x00000000" as const, seconds: 0, abdicated: true } };
-    expect(status("C9", { timelocks: u })).toBe("FAIL");
+    expect(status("C7", { timelocks: u })).toBe("FAIL");
   });
   it("fails a 0-day adapter timelock", () => {
-    expect(status("C9", { adapters: [{ address: A.eoa1, markets: [], timelocks: { "abdicate(bytes4)": 0, "burnShares(bytes32)": 3 * 86400, "increaseTimelock(bytes4,uint256)": 7 * 86400, "setSkimRecipient(address)": 3 * 86400 }, abdicated: {} }] })).toBe("FAIL");
+    expect(status("C7", { adapters: [{ address: A.eoa1, markets: [], timelocks: { "abdicate(bytes4)": 0, "burnShares(bytes32)": 3 * 86400, "increaseTimelock(bytes4,uint256)": 7 * 86400, "setSkimRecipient(address)": 3 * 86400 }, abdicated: {} }] })).toBe("FAIL");
   });
 });
 
 describe("discrepancies", () => {
   it("flags a value that differs between the two methods and keeps the on-chain verdict", () => {
-    const r = run("C5", {}, { owner: A.steak });
+    const r = run("C4", {}, { owner: A.steak });
     expect(r.status).toBe("PASS");
     expect(r.discrepancy).toBe(true);
     expect(r.discrepancies[0]).toContain("onchain");
   });
   it("marks single-source values when there is no on-chain snapshot", () => {
-    const r = CHECKS.find((c) => c.id === "C5")!.evaluate({ policy, labels, a: null, b: snap({}, "api"), chainName: "Ethereum" });
+    const r = CHECKS.find((c) => c.id === "C4")!.evaluate({ policy, labels, a: null, b: snap({}, "api"), chainName: "Ethereum" });
     expect(r.singleSource).toBe(true);
   });
 });

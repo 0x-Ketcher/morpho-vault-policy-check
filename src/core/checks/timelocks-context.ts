@@ -3,12 +3,12 @@ import { pick, result, worst, fmtDays, fmtUsd, fmtUnits, describe, short } from 
 import type { Status, Citation } from "../types.ts";
 
 export const c09Timelocks: CheckDef = {
-  id: "C9", title: "Timelocks",
+  id: "C7", title: "Timelocks",
   evaluate: (ctx) => {
     const p = ctx.policy.timelocks;
     if (ctx.b.version === "v1.1") {
       const tl = pick(ctx, "timelock()", (s) => s.timelockV1 ?? 0, (v) => fmtDays(v));
-      return result("C9", "Timelocks", `V2 per-function minimums do not apply to MetaMorpho v1.1, which has one vault-wide timelock. ${p.source}`, "INFO", `v1.1 vault-wide timelock: ${fmtDays(tl.value)} (no per-function policy minimum for v1.1; reported for context).`, [tl]);
+      return result("C7", "Timelocks", `V2 per-function minimums do not apply to MetaMorpho v1.1, which has one vault-wide timelock. ${p.source}`, "INFO", `v1.1 vault-wide timelock: ${fmtDays(tl.value)} (no per-function policy minimum for v1.1; reported for context).`, [tl]);
     }
     const picks = p.vault.map((f) => pick(ctx, f.label, (s) => (s.timelocks[f.function] ? { seconds: s.timelocks[f.function].seconds, abdicated: s.timelocks[f.function].abdicated } : null), (v) => (v ? `${fmtDays(v.seconds)}${v.abdicated ? " (abdicated)" : ""}` : "n/a")));
     const statuses: Status[] = []; const failing: string[] = []; const passing: string[] = []; const unread: string[] = [];
@@ -35,7 +35,7 @@ export const c09Timelocks: CheckDef = {
     const status = statuses.length ? worst(statuses) : "NA";
     const details = [...(failing.length ? [`${failing.length} below the minimum:`, ...failing.map((l) => `  ${l}`)] : []), ...(passing.length ? [`${passing.length} at or above the minimum`, ...passing.map((l) => `  ${l}`)] : []), ...unread];
     const summary = status === "PASS" ? `All ${statuses.length} checked timelocks meet the policy minimums.` : failing.length ? `${failing.length} of ${statuses.length} timelocks below the policy minimum.` : "No timelocks readable.";
-    return result("C9", "Timelocks", `Minimums per function (vault and adapter), abdication accepted where the policy says so. Below minimum = ${p.severityBelowMinimum}. ${p.source}`, status, summary, picks, details);
+    return result("C7", "Timelocks", `Minimums per function (vault and adapter), abdication accepted where the policy says so. Below minimum = ${p.severityBelowMinimum}. ${p.source}`, status, summary, picks, details);
   },
 };
 

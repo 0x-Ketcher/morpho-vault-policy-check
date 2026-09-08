@@ -3,7 +3,7 @@ import { pick, result, worst, fmtUnits, fmtUsd, short, ZERO } from "./helpers.ts
 import type { MarketInfo, Status } from "../types.ts";
 
 export const c01Version: CheckDef = {
-  id: "C1", title: "Vault version and factory",
+  id: "C8", title: "Vault version and factory",
   evaluate: (ctx) => {
     const version = pick(ctx, "version", (s) => s.version, (v) => v);
     const factory = pick(ctx, "factory verification", (s) => ({ factory: s.factory ?? null, verified: s.factoryVerified ?? null }), (v) => `${v.verified === true ? "deployed by factory" : v.verified === false ? "NOT deployed by factory" : "not checked"} ${v.factory ?? ""}`.trim(), { tolerance: (a, b) => a.verified === b.verified });
@@ -13,12 +13,12 @@ export const c01Version: CheckDef = {
     const summary = onchainSaysNo
       ? "The official factory does not recognise this address as a vault it deployed."
       : `${version.value === "v2" ? "Morpho Vault V2" : "MetaMorpho v1.1"}. ${version.value === "v1.1" ? "v1.1 is not a gap by itself; its Guardian is the sentinel-equivalent seat and V2-only checks are reported as n/a." : "All V2 checks apply."}`;
-    return result("C1", "Vault version and factory", "Report only: Vault V2 or MetaMorpho v1.1, confirmed as a factory deployment by the factory contract (on-chain) and by being indexed (API).", status, summary, [version, factory, name]);
+    return result("C8", "Vault version and factory", "Report only: Vault V2 or MetaMorpho v1.1, confirmed as a factory deployment by the factory contract (on-chain) and by being indexed (API).", status, summary, [version, factory, name]);
   },
 };
 
 export const c02Chain: CheckDef = {
-  id: "C2", title: "Chain",
+  id: "C1", title: "Chain",
   evaluate: (ctx) => {
     const chain = pick(ctx, "chain id", (s) => s.chainId, (v) => String(v));
     const accepted = ctx.policy.chains.accepted.find((c) => c.id === chain.value);
@@ -26,12 +26,12 @@ export const c02Chain: CheckDef = {
     const summary = accepted
       ? `${accepted.name} (${chain.value}) is an accepted chain.`
       : `Chain ${chain.value}${ctx.chainName ? ` (${ctx.chainName})` : ""} is not an accepted chain. The policy requires a risk review and a separate request for any other chain.`;
-    return result("C2", "Chain", `Accepted chains: ${ctx.policy.chains.accepted.map((c) => `${c.name} (${c.id})`).join(", ")}. Source: ${ctx.policy.chains.source}`, status, summary, [chain]);
+    return result("C1", "Chain", `Accepted chains: ${ctx.policy.chains.accepted.map((c) => `${c.name} (${c.id})`).join(", ")}. Source: ${ctx.policy.chains.source}`, status, summary, [chain]);
   },
 };
 
 export const c03LoanAsset: CheckDef = {
-  id: "C3", title: "Loan asset",
+  id: "C2", title: "Loan asset",
   evaluate: (ctx) => {
     const asset = pick(ctx, "asset()", (s) => s.asset.address, (v) => v);
     const symbol = pick(ctx, "asset symbol", (s) => s.asset.symbol ?? "?", (v) => v);
@@ -43,7 +43,7 @@ export const c03LoanAsset: CheckDef = {
     else if (bySymbol) { status = ctx.policy.loanAssets.severityWhenNotAccepted; summary = `Symbol ${symbol.value} matches an accepted asset but the address ${asset.value} is not the allow-listed one (${bySymbol.address}). Treat as not accepted until verified.`; }
     else if (list.length === 0) { status = ctx.policy.loanAssets.severityWhenNotAccepted; summary = `No accepted loan assets are configured for chain ${ctx.b.chainId}; ${symbol.value} at ${asset.value} cannot be accepted.`; }
     else { status = ctx.policy.loanAssets.severityWhenNotAccepted; summary = `${symbol.value} (${asset.value}) is not an accepted loan asset. Accepted on this chain: ${list.map((x) => x.symbol).join(", ")}.`; }
-    return result("C3", "Loan asset", `Accepted loan assets: USDC, USDT, PYUSD, RLUSD, USDG (address allow-list per chain in config/policy.json). Source: ${ctx.policy.loanAssets.source}`, status, summary, [asset, symbol], byAddr ? [`Allow-list entry verified via: ${byAddr.verified ?? "n/a"}`] : []);
+    return result("C2", "Loan asset", `Accepted loan assets: USDC, USDT, PYUSD, RLUSD, USDG (address allow-list per chain in config/policy.json). Source: ${ctx.policy.loanAssets.source}`, status, summary, [asset, symbol], byAddr ? [`Allow-list entry verified via: ${byAddr.verified ?? "n/a"}`] : []);
   },
 };
 
@@ -52,7 +52,7 @@ const isLive = (m: MarketInfo, decimals?: number) => BigInt(m.allocation ?? m.su
 const hasCap = (m: MarketInfo) => BigInt(m.cap.absolute ?? m.cap.supplyCap ?? "0") > 0n;
 
 export const c04Collateral: CheckDef = {
-  id: "C4", title: "Collateral, LLTV and IRM",
+  id: "C3", title: "Collateral, LLTV and IRM",
   evaluate: (ctx) => {
     const dec = ctx.b.asset.decimals;
     const key = (m: MarketInfo) => ({ id: m.id, collateral: m.collateralToken, lltv: m.lltv, irm: m.irm, live: isLive(m, dec), capped: hasCap(m) });
@@ -95,7 +95,7 @@ export const c04Collateral: CheckDef = {
     const summary = statuses.length === 0 ? "No market with an allocation or a cap; nothing to grade (idle vault)."
       : status === "PASS" ? `All ${statuses.length} live or capped markets use accepted collateral within the LLTV maximums and the accepted interest rate model.`
       : `${statuses.filter((s) => s === "FAIL").length} FAIL, ${statuses.filter((s) => s === "WARN").length} WARN across ${statuses.length} live or capped markets.`;
-    return result("C4", "Collateral, LLTV and IRM", `Every market with an allocation or a cap must use accepted collateral (ETH/WETH, cbBTC, stETH/wstETH, WBTC at <= 86%; sUSDS at <= 96.5%) and the Morpho Adaptive Curve IRM for its chain. Not accepted with allocation = ${sev.notAcceptedWithAllocation}; cap-only = ${sev.notAcceptedCapOnly}; same severities for a wrong IRM. Sources: ${ctx.policy.collateral.source} ${ctx.policy.irm?.source ?? ""}`, status, summary, [markets], details);
+    return result("C3", "Collateral, LLTV and IRM", `Every market with an allocation or a cap must use accepted collateral (ETH/WETH, cbBTC, stETH/wstETH, WBTC at <= 86%; sUSDS at <= 96.5%) and the Morpho Adaptive Curve IRM for its chain. Not accepted with allocation = ${sev.notAcceptedWithAllocation}; cap-only = ${sev.notAcceptedCapOnly}; same severities for a wrong IRM. Sources: ${ctx.policy.collateral.source} ${ctx.policy.irm?.source ?? ""}`, status, summary, [markets], details);
   },
 };
 

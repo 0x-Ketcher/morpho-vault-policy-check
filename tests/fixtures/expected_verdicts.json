@@ -1,16 +1,16 @@
 {
- "_source": "Handoff section 7 'Expected verdicts from the Sep 1 review'. Statuses: PASS/WARN/FAIL. Only the checks the review graded are listed. C9 expectations were re-baselined on 2026-09-04 with the adapter-timelock rule (added to the policy on 2026-08-31, after the Sep 1 review): sparkUSDTbc has 10-day vault timelocks but 0-day adapter timelocks for abdicate, increaseTimelock and skimRecipient, so it is FAIL under the current policy.",
+ "_source": "Handoff section 7 'Expected verdicts from the Sep 1 review'. Statuses: PASS/WARN/FAIL. Only the checks the review graded are listed. C7 expectations were re-baselined on 2026-09-04 with the adapter-timelock rule (added to the policy on 2026-08-31, after the Sep 1 review): sparkUSDTbc has 10-day vault timelocks but 0-day adapter timelocks for abdicate, increaseTimelock and skimRecipient, so it is FAIL under the current policy.",
  "vaults": [
   {
    "name": "steakUSDC Base",
    "chainId": 8453,
    "address": "0xbeef0e0834849aCC03f0089F01f4F1Eeb06873C9",
    "expect": {
+    "C4": "FAIL",
     "C5": "FAIL",
     "C6": "FAIL",
-    "C7": "FAIL",
-    "C4": "FAIL",
-    "C9": "FAIL"
+    "C3": "FAIL",
+    "C7": "FAIL"
    }
   },
   {
@@ -18,10 +18,10 @@
    "chainId": 8453,
    "address": "0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A",
    "expect": {
-    "C5": "PASS",
-    "C6": "WARN",
-    "C7": "FAIL",
-    "C4": "PASS"
+    "C4": "PASS",
+    "C5": "WARN",
+    "C6": "FAIL",
+    "C3": "PASS"
    }
   },
   {
@@ -29,10 +29,10 @@
    "chainId": 8453,
    "address": "0xBeEf2d50B428675a1921bC6bBF4bfb9D8cF1461A",
    "expect": {
+    "C4": "FAIL",
     "C5": "FAIL",
     "C6": "FAIL",
-    "C7": "FAIL",
-    "C4": "FAIL"
+    "C3": "FAIL"
    }
   },
   {
@@ -40,11 +40,11 @@
    "chainId": 1,
    "address": "0xb0c424116172B55CbB6dD3136F5989F7959e5B91",
    "expect": {
-    "C5": "PASS",
-    "C6": "WARN",
-    "C7": "FAIL",
     "C4": "PASS",
-    "C9": "FAIL"
+    "C5": "WARN",
+    "C6": "FAIL",
+    "C3": "PASS",
+    "C7": "FAIL"
    },
    "note": "vault-level timelocks 10d (PASS on Sep 1); adapter timelocks 0d under the Aug 31 rule -> FAIL"
   },
@@ -53,11 +53,11 @@
    "chainId": 1,
    "address": "0xBeefF08dF54897e7544aB01d0e86f013DA354111",
    "expect": {
-    "C5": "WARN",
+    "C4": "WARN",
+    "C5": "FAIL",
     "C6": "FAIL",
-    "C7": "FAIL",
-    "C4": "PASS",
-    "C9": "FAIL"
+    "C3": "PASS",
+    "C7": "FAIL"
    }
   },
   {
@@ -65,10 +65,10 @@
    "chainId": 1,
    "address": "0x56A76b428244a50513ec81e225a293d128fd581D",
    "expect": {
-    "C5": "PASS",
-    "C6": "WARN",
-    "C7": "FAIL",
-    "C4": "PASS"
+    "C4": "PASS",
+    "C5": "WARN",
+    "C6": "FAIL",
+    "C3": "PASS"
    }
   },
   {
@@ -76,10 +76,10 @@
    "chainId": 4663,
    "address": "0xBEEff039907422219Fb367e525954DDC092854d9",
    "expect": {
+    "C4": "FAIL",
     "C5": "FAIL",
     "C6": "FAIL",
-    "C7": "FAIL",
-    "C4": "WARN"
+    "C3": "WARN"
    }
   },
   {
@@ -87,13 +87,13 @@
    "chainId": 1,
    "address": "0xbeef05061FE51eA482BD1b68041353490b3a5934",
    "expect": {
-    "C5": "PASS",
-    "C6": "WARN",
-    "C7": "WARN",
     "C4": "PASS",
-    "C9": "PASS",
+    "C5": "WARN",
+    "C6": "WARN",
     "C3": "PASS",
-    "C2": "PASS"
+    "C7": "PASS",
+    "C2": "PASS",
+    "C1": "PASS"
    }
   },
   {
@@ -101,11 +101,11 @@
    "chainId": 8453,
    "address": "0xbeef0786756810478b88982DE00F3CD7fdB8e7c7",
    "expect": {
-    "C5": "PASS",
-    "C6": "WARN",
-    "C7": "WARN",
     "C4": "PASS",
-    "C9": "PASS"
+    "C5": "WARN",
+    "C6": "WARN",
+    "C3": "PASS",
+    "C7": "PASS"
    }
   },
   {
@@ -113,11 +113,11 @@
    "chainId": 8453,
    "address": "0xbeef0Eb37DdB8f88BDf167c498c6429676fF7947",
    "expect": {
-    "C5": "PASS",
-    "C6": "WARN",
-    "C7": "WARN",
     "C4": "PASS",
-    "C9": "FAIL"
+    "C5": "WARN",
+    "C6": "WARN",
+    "C3": "PASS",
+    "C7": "FAIL"
    },
    "note": "deployment B has 0-day adapter timelocks (abdicate, increaseTimelock, skimRecipient); deployment A does not"
   },
@@ -126,10 +126,10 @@
    "chainId": 1,
    "address": "0x13179C1551F7364370295c3D4BDD6Ce794Af5A8d",
    "expect": {
-    "C5": "PASS",
+    "C4": "PASS",
+    "C5": "WARN",
     "C6": "WARN",
-    "C7": "WARN",
-    "C4": "PASS"
+    "C3": "PASS"
    },
    "note": "OEA sentinel 0xb5bF\u2026 attributed only by a shared signer with the Spark curator Safe (WARN); the Sentora Safe, a signer of the curator 2/2, also holds a seat: third party in an extra seat = WARN pending BA (rule adopted 2026-09-08)"
   },
@@ -138,11 +138,11 @@
    "chainId": 1,
    "address": "0x661eBF3f18d6Ed9a1adA581b1285cC90071798cB",
    "expect": {
-    "C5": "PASS",
-    "C6": "WARN",
-    "C7": "FAIL",
     "C4": "PASS",
-    "C9": "FAIL"
+    "C5": "WARN",
+    "C6": "FAIL",
+    "C3": "PASS",
+    "C7": "FAIL"
    },
    "note": "weaker timelocks (addAdapter/caps 3d, setIsAllocator 0d) and no OEA sentinel: sentinels are the Sentora Safe and a non-Safe contract"
   },
@@ -151,10 +151,10 @@
    "chainId": 1,
    "address": "0xFC8C624B6080a0a780583799f2A862DE936F6E22",
    "expect": {
-    "C5": "PASS",
+    "C4": "PASS",
+    "C5": "WARN",
     "C6": "WARN",
-    "C7": "WARN",
-    "C4": "PASS"
+    "C3": "PASS"
    },
    "note": "OEA sentinel 0xb5bF\u2026 attributed only by a shared signer with the Spark curator Safe (WARN); the Sentora Safe, a signer of the curator 2/2, also holds a seat: third party in an extra seat = WARN pending BA (rule adopted 2026-09-08)"
   }
