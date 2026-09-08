@@ -145,22 +145,23 @@ describe("C7 sentinel", () => {
     const u = { ...s.safes, [A.unlabeled.toLowerCase()]: safe(A.unlabeled, 2, [A.eoa4, "0x6666666666666666666666666666666666666666" as Address]) };
     expect(status("C7", { sentinels: [A.unlabeled], safes: u })).toBe("WARN");
   });
-  it("fails a curator-side sentinel even when an OEA sentinel is present", () => {
-    // the external curator's Safe (a signer of the curator 2/2) also holds a sentinel seat
-    const r = run("C7", { sentinels: [A.oeaSafe, A.steak] });
+  it("fails when the curator address itself holds a sentinel seat, even with an OEA sentinel present", () => {
+    const r = run("C7", { sentinels: [A.oeaSafe, A.twoOfTwo] });
     expect(r.status).toBe("FAIL");
-    expect(r.summary).toContain("Curator-side");
-    // the curator address itself as sentinel
-    expect(status("C7", { sentinels: [A.oeaSafe, A.twoOfTwo] })).toBe("FAIL");
+    expect(r.summary).toContain("Curator in a sentinel seat");
   });
-  it("allows a Prime-owned extra and warns on an unattributed non-Safe extra", () => {
-    expect(status("C7", { sentinels: [A.oeaSafe, A.subproxy] })).toBe("PASS");
+  it("warns on a third party in an extra seat: the external curator's Safe, or an unattributed contract", () => {
+    const r = run("C7", { sentinels: [A.oeaSafe, A.steak] });
+    expect(r.status).toBe("WARN");
+    expect(r.summary).toContain("Third-party sentinel");
+    expect(r.summary).toContain("open question for BA");
     const s = snap();
     const withContract = { ...s.safes, [A.unlabeled.toLowerCase()]: { address: A.unlabeled, isContract: true, isSafe: false, source: "onchain" as const } };
-    const r = run("C7", { sentinels: [A.oeaSafe, A.unlabeled], safes: withContract });
-    expect(r.status).toBe("WARN");
-    expect(r.summary).toContain("monitoring solution");
+    const r2 = run("C7", { sentinels: [A.oeaSafe, A.unlabeled], safes: withContract });
+    expect(r2.status).toBe("WARN");
+    expect(r2.summary).toContain("monitoring solution");
   });
+  it("allows a Prime-owned extra", () => { expect(status("C7", { sentinels: [A.oeaSafe, A.subproxy] })).toBe("PASS"); });
   it("uses the guardian on v1.1", () => {
     expect(status("C7", { version: "v1.1", sentinels: [], guardian: A.oeaSafe })).toBe("PASS");
     expect(status("C7", { version: "v1.1", sentinels: [], guardian: A.subproxy })).toBe("FAIL");
