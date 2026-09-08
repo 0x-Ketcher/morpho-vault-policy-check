@@ -174,7 +174,7 @@ function Card({ c, compact = false }: { c: CheckResult; compact?: boolean }) {
 function CheckTable({ t }: { t: CheckTableData }) {
   const cell = (x: CheckCell, i: number) => {
     if (typeof x === "string") return <td key={i}>{x}</td>;
-    return <td key={i} className={`${x.mono ? "mono " : ""}${x.muted ? "muted " : ""}small`}>{x.status ? <span className={`badge ${x.status}`}>{x.text}</span> : x.text}</td>;
+    return <td key={i} className={`${x.mono ? "mono " : ""}${x.muted ? "muted " : ""}small`}>{x.status ? <span className={`cell ${x.status}`}>{x.text}</span> : x.text}</td>;
   };
   return (
     <div className="tablewrap"><table className="findings"><thead><tr>{t.columns.map((c) => <th key={c}>{c}</th>)}</tr></thead><tbody>
