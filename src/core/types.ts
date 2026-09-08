@@ -157,11 +157,16 @@ export interface Evidence {
   source?: string;
 }
 
+export type CheckCell = string | { text: string; status?: Status; mono?: boolean; muted?: boolean };
+/** Optional tabular view of a check's findings; the page renders it instead of the detail lines when present. */
+export interface CheckTable { columns: string[]; rows: CheckCell[][] }
+
 export interface CheckResult {
   id: string;
   title: string;
   requirement: string;
   status: Status;
+  table?: CheckTable;
   /** true when the two methods disagree on a value this check depends on */
   discrepancy: boolean;
   discrepancies: string[];

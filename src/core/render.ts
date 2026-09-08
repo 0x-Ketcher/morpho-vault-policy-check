@@ -29,7 +29,10 @@ function renderCheck(c: CheckResult): string[] {
     L.push("");
   }
   if (c.discrepancies.length) L.push("Discrepancies (not auto-resolved; on-chain takes precedence for the verdict, a human decides):", ...c.discrepancies.map((d) => `- ${d}`), "");
-  if (c.details.length) L.push("Details:", ...c.details.map((d) => `- ${d}`), "");
+  if (c.table) {
+    const txt = (x: string | { text: string }) => (typeof x === "string" ? x : x.text).replace(/\|/g, "/");
+    L.push(`| ${c.table.columns.join(" | ")} |`, `|${c.table.columns.map(() => "---").join("|")}|`, ...c.table.rows.map((r) => `| ${r.map(txt).join(" | ")} |`), "");
+  } else if (c.details.length) L.push("Details:", ...c.details.map((d) => `- ${d}`), "");
   if (c.citations.length) L.push("Label sources:", ...c.citations.map((x) => `- ${x.source}: ${x.ref}${x.entity ? ` -> ${x.entity}` : ""}${x.url ? ` (${x.url})` : ""}${x.nonPublic ? " [NON-PUBLIC]" : ""}`), "");
   return L;
 }

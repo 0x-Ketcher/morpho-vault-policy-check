@@ -101,3 +101,9 @@ footer { margin-top: 28px; }
 .cid { color: var(--muted); font-weight: 500; font-size: 12px; margin-right: 4px; }
 .sub { margin: 4px 0 0; padding-left: 16px; word-break: break-all; }
 .rule-label { display: inline-block; margin-right: 6px; padding: 1px 6px; border-radius: 4px; background: #eef1f5; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; vertical-align: middle; }
+.tablewrap { overflow-x: auto; margin: 6px 0 4px; }
+.findings { width: 100%; font-size: 13px; }
+.findings th { white-space: nowrap; }
+.findings td { white-space: nowrap; }
+.findings td:first-child { font-weight: 600; }
+.findings .badge { min-width: 0; padding: 1px 7px; font-size: 11px; }

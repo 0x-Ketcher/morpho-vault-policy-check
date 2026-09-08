@@ -5,7 +5,7 @@ import { MorphoApi } from "../sources/morpho-api/client.ts";
 import { checkVault, findCandidates, ETHERSCAN_MORPHO_CHAINS, type Deps } from "../pipeline.ts";
 import { renderMarkdown } from "../core/render.ts";
 import { fmtUsd } from "../core/checks/helpers.ts";
-import type { Report, CheckResult, Status, Citation, Evidence } from "../core/types.ts";
+import type { Report, CheckResult, Status, Citation, Evidence, CheckTable as CheckTableData, CheckCell } from "../core/types.ts";
 
 const STATUS_LABEL: Record<Status, string> = { PASS: "PASS", WARN: "WARN", FAIL: "FAIL", NA: "n/a", INFO: "info" };
 const GRADED = ["C1", "C2", "C3", "C4", "C5", "C6", "C7"];
@@ -163,11 +163,23 @@ function Card({ c, compact = false }: { c: CheckResult; compact?: boolean }) {
           {rule && <p className="rule"><span className="rule-label">Criteria</span> {rule}</p>}
           <EvidenceBlock evidence={c.evidence} discrepancy={c.discrepancy} />
           {c.discrepancies.length > 0 && <div className="disc-box"><b>Methods disagree</b>, not auto-resolved; the verdict uses the on-chain value:<ul>{c.discrepancies.map((d, i) => <li key={i} className="mono small">{d}</li>)}</ul></div>}
-          <Details lines={c.details} />
+          {c.table ? <CheckTable t={c.table} /> : <Details lines={c.details} />}
           {c.citations.length > 0 && <div className="cites">{c.citations.map((x, i) => <Chip key={i} x={x} />)}</div>}
         </div>
       )}
     </div>
+  );
+}
+
+function CheckTable({ t }: { t: CheckTableData }) {
+  const cell = (x: CheckCell, i: number) => {
+    if (typeof x === "string") return <td key={i}>{x}</td>;
+    return <td key={i} className={`${x.mono ? "mono " : ""}${x.muted ? "muted " : ""}small`}>{x.status ? <span className={`badge ${x.status}`}>{x.text}</span> : x.text}</td>;
+  };
+  return (
+    <div className="tablewrap"><table className="findings"><thead><tr>{t.columns.map((c) => <th key={c}>{c}</th>)}</tr></thead><tbody>
+      {t.rows.map((r, i) => <tr key={i}>{r.map(cell)}</tr>)}
+    </tbody></table></div>
   );
 }
 

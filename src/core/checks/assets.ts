@@ -1,6 +1,6 @@
 import type { CheckDef } from "./helpers.ts";
 import { pick, result, worst, fmtUnits, fmtUsd, short, ZERO } from "./helpers.ts";
-import type { MarketInfo, Status } from "../types.ts";
+import type { MarketInfo, Status, CheckCell } from "../types.ts";
 
 export const c01Version: CheckDef = {
   id: "C8", title: "Vault version and factory",
@@ -61,7 +61,7 @@ export const c04Collateral: CheckDef = {
     const accepted = ctx.policy.collateral.accepted[String(ctx.b.chainId)] ?? [];
     const acceptedIrms = ctx.policy.irm?.accepted[String(ctx.b.chainId)] ?? [];
     const sev = ctx.policy.collateral.severity, irmSev = ctx.policy.irm?.severity ?? { notAcceptedWithAllocation: "FAIL" as Status, notAcceptedCapOnly: "WARN" as Status };
-    const statuses: Status[] = []; const details: string[] = [];
+    const statuses: Status[] = []; const details: string[] = []; const rows: CheckCell[][] = [];
     /** IRM condition for one market: [status or null when not graded, text] */
     const irmVerdict = (m: MarketInfo, live: boolean): [Status | null, string] => {
       if (!m.irm) return [null, "no IRM (not a Morpho Blue v1 market), IRM criterion n/a"];
@@ -82,20 +82,34 @@ export const c04Collateral: CheckDef = {
       const lltvPct = `${(m.lltv * 100).toFixed(1)}%`;
       const [irmStatus, irmText] = irmVerdict(m, live);
       let collStatus: Status, line: string;
-      const pair = `${m.collateralSymbol ?? short(m.collateralToken!)}/${src.asset.symbol ?? "?"} ${lltvPct}`;
+      const name = m.collateralSymbol ?? short(m.collateralToken!);
+      const pair = `${name}/${src.asset.symbol ?? "?"} ${lltvPct}`;
+      const maxPct = (x?: number) => `${((x ?? 0) * 100).toFixed(1)}%`;
+      let acceptedCell: string, max: string;
       if (byAddr) {
-        if (m.lltv <= (byAddr.maxLltv ?? 0) + 1e-9) { collStatus = "PASS"; line = `${pair}: accepted (max ${((byAddr.maxLltv ?? 0) * 100).toFixed(1)}%), ${state}`; }
-        else { collStatus = live ? sev.lltvAboveMaxWithAllocation : sev.lltvAboveMaxCapOnly; line = `${pair}: LLTV above the ${((byAddr.maxLltv ?? 0) * 100).toFixed(1)}% maximum, ${state}`; }
-      } else if (bySym) { collStatus = sev.symbolMatchesAddressUnknown; line = `${pair}: symbol matches accepted ${bySym.policyName ?? bySym.symbol} but the token address is not on the allow-list for this chain, verify on the explorer; ${state}`; }
-      else { collStatus = live ? sev.notAcceptedWithAllocation : sev.notAcceptedCapOnly; line = `${pair}: NOT an accepted collateral, ${state}, ${live ? "flag for CRR review" : "flag for review before any allocation"}`; }
-      statuses.push(worst([collStatus, ...(irmStatus ? [irmStatus] : [])]));
+        max = maxPct(byAddr.maxLltv);
+        if (m.lltv <= (byAddr.maxLltv ?? 0) + 1e-9) { collStatus = "PASS"; acceptedCell = "yes"; line = `${pair}: accepted (max ${max}), ${state}`; }
+        else { collStatus = live ? sev.lltvAboveMaxWithAllocation : sev.lltvAboveMaxCapOnly; acceptedCell = "LLTV above max"; line = `${pair}: LLTV above the ${max} maximum, ${state}`; }
+      } else if (bySym) { collStatus = sev.symbolMatchesAddressUnknown; max = maxPct(bySym.maxLltv); acceptedCell = "symbol only, address not on the list"; line = `${pair}: symbol matches accepted ${bySym.policyName ?? bySym.symbol} but the token address is not on the allow-list for this chain, verify on the explorer; ${state}`; }
+      else { collStatus = live ? sev.notAcceptedWithAllocation : sev.notAcceptedCapOnly; max = "none"; acceptedCell = "no"; line = `${pair}: NOT an accepted collateral, ${state}, ${live ? "flag for CRR review" : "flag for review before any allocation"}`; }
+      const rowStatus = worst([collStatus, ...(irmStatus ? [irmStatus] : [])]);
+      statuses.push(rowStatus);
       details.push(`${line}; ${irmText}${irmStatus && irmStatus !== "PASS" ? ", flag for review" : ""}`);
+      const irmCell = !m.irm ? "n/a" : irmStatus === "PASS" ? "ok" : irmText.replace(/^IRM /, "");
+      rows.push([
+        { text: name, mono: false }, lltvPct, max,
+        live ? amt : { text: BigInt(m.allocation ?? m.supplyAssets ?? "0") > 0n ? "cap only, dust" : "cap only", muted: true },
+        { text: acceptedCell, status: collStatus === "PASS" ? undefined : collStatus },
+        { text: irmCell, status: irmStatus && irmStatus !== "PASS" ? irmStatus : undefined },
+        { text: rowStatus, status: rowStatus },
+      ]);
     }
     const status = statuses.length ? worst(statuses) : "NA";
     const summary = statuses.length === 0 ? "No market with an allocation or a cap; nothing to grade (idle vault)."
       : status === "PASS" ? `All ${statuses.length} live or capped markets use accepted collateral within the LLTV maximums and the accepted interest rate model.`
       : `${statuses.filter((s) => s === "FAIL").length} FAIL, ${statuses.filter((s) => s === "WARN").length} WARN across ${statuses.length} live or capped markets.`;
-    return result("C3", "Collateral, LLTV and IRM", `Every market with an allocation or a cap must use accepted collateral (ETH/WETH, cbBTC, stETH/wstETH, WBTC at <= 86%; sUSDS at <= 96.5%) and the Morpho Adaptive Curve IRM for its chain. Not accepted with allocation = ${sev.notAcceptedWithAllocation}; cap-only = ${sev.notAcceptedCapOnly}; same severities for a wrong IRM. Sources: ${ctx.policy.collateral.source} ${ctx.policy.irm?.source ?? ""}`, status, summary, [markets], details);
+    const table = rows.length ? { columns: ["Collateral", "LLTV", "Max LLTV", "Allocated", "Accepted", "IRM", "Result"], rows } : undefined;
+    return result("C3", "Collateral, LLTV and IRM", `Every market with an allocation or a cap must use accepted collateral (ETH/WETH, cbBTC, stETH/wstETH, WBTC at <= 86%; sUSDS at <= 96.5%) and the Morpho Adaptive Curve IRM for its chain. Not accepted with allocation = ${sev.notAcceptedWithAllocation}; cap-only = ${sev.notAcceptedCapOnly}; same severities for a wrong IRM. Sources: ${ctx.policy.collateral.source} ${ctx.policy.irm?.source ?? ""}`, status, summary, [markets], details, [], { table });
   },
 };
 
