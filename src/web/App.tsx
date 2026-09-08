@@ -93,7 +93,7 @@ export function App() {
         )}
         {freshness && (
           <p className={`fresh ${behind.length ? "warn" : ""}`}>
-            Labels read at {String(labels.meta().registry && (labels.meta().registry as { generatedAt: string }).generatedAt).slice(0, 10)}. {behind.length ? `${behind.length} source repo(s) have moved since: ${behind.map((b) => b.repo.split("/")[1]).join(", ")}. A newer label table may be waiting for review.` : freshness.every((f) => f.behind === false) ? "Every source repo is at the commit the labels were read from." : "Freshness of some sources could not be checked (GitHub API limit)."}
+            Label tables last changed {String(labels.meta().registry && (labels.meta().registry as { generatedAt: string }).generatedAt).slice(0, 10)}; sources checked now. {behind.length ? `${behind.length} source repo(s) have moved since: ${behind.map((b) => b.repo.split("/")[1]).join(", ")}. A newer label table may be waiting for review.` : freshness.every((f) => f.behind === false) ? "Every source repo is at the commit the labels were read from." : "Freshness of some sources could not be checked (GitHub API limit)."}
           </p>
         )}
       </section>

@@ -39,7 +39,7 @@ Precedence when sources disagree on a label: registry over Atlas (the Atlas lags
 
 ## Keeping the tables fresh
 
-`scripts/sync-labels.ts` asks GitHub for the head commit of each source repo, re-reads the files, and writes `labels/*.json` only when something changed. It exits 0 (nothing), 10 (only the pinned commits moved) or 20 (a label changed). The daily workflow commits a pin-only bump directly and opens a pull request for a label change. The page compares the pinned commits with the current heads at load time and shows a banner when a source has moved.
+`scripts/sync-labels.ts` asks GitHub for the head commit of each source repo, re-reads the files, and writes `labels/*.json` only when something changed; the run timestamp alone is not a change, so a quiet day leaves the repository untouched. It exits 0 (nothing), 10 (only the pinned commits moved) or 20 (a label changed). The daily workflow commits a pin-only bump directly and opens a pull request for a label change. The page compares the pinned commits with the current heads at load time and shows a banner when a source has moved.
 
 Change rate measured on 2026-09-04: the Atlas had 33 commits on `main` since 2026-08-05, but only 2 address lines changed in the Spark article and 2 in the Grove article over three weeks; the registries had 6 (Spark) and 2 (Grove) commits. Expect one to three pull requests a month.
 

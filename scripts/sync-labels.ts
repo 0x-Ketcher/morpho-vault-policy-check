@@ -83,7 +83,9 @@ function writeIfChanged(rel: string, data: { meta: unknown; entries: unknown[] }
     try {
       const prev = JSON.parse(prevText) as { meta: unknown; entries: unknown[] };
       const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
-      level = same(prev.entries, data.entries) ? (same(prev.meta, data.meta) ? 0 : 10) : 20;
+      // the run timestamp is not a change; only the source commits, counts and notes are
+      const stripTime = (m: unknown) => { const { generatedAt: _g, ...rest } = (m ?? {}) as Record<string, unknown>; return rest; };
+      level = same(prev.entries, data.entries) ? (same(stripTime(prev.meta), stripTime(data.meta)) ? 0 : 10) : 20;
     } catch { level = 20; }
   }
   if (!check && level > 0) writeFileSync(p(rel), next);
