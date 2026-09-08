@@ -56,7 +56,21 @@ export const c04Collateral: CheckDef = {
   evaluate: (ctx) => {
     const dec = ctx.b.asset.decimals;
     const key = (m: MarketInfo) => ({ id: m.id, collateral: m.collateralToken, lltv: m.lltv, irm: m.irm, live: isLive(m, dec), capped: hasCap(m) });
-    const markets = pick(ctx, "markets (id, collateral, lltv, irm, allocated, capped)", (s) => s.markets.map(key).sort((x, y) => x.id.localeCompare(y.id)), (v) => v.map((m) => `${m.id.slice(0, 10)}… ${m.collateral ? m.collateral.slice(0, 8) : "idle"} ${(m.lltv * 100).toFixed(1)}% irm ${m.irm ? m.irm.slice(0, 8) : "none"} ${m.live ? "allocated" : m.capped ? "cap-only" : "empty"}`).join("; "));
+    const markets = pick(ctx, "markets (id, collateral, lltv, irm, allocated, capped)", (s) => s.markets.filter((m) => m.collateralToken).map(key).sort((x, y) => x.id.localeCompare(y.id)), (v) => v.map((m) => `${m.id.slice(0, 10)}… ${m.collateral ? m.collateral.slice(0, 8) : "idle"} ${(m.lltv * 100).toFixed(1)}% irm ${m.irm ? m.irm.slice(0, 8) : "none"} ${m.live ? "allocated" : m.capped ? "cap-only" : "empty"}`).join("; "));
+    // precise per-market differences for the disagreement box
+    const diffs: string[] = [];
+    if (markets.discrepancy && markets.a) {
+      const A = new Map(markets.a.map((m) => [m.id, m])), B = new Map(markets.b.map((m) => [m.id, m]));
+      for (const [id, a] of A) {
+        const b = B.get(id);
+        if (!b) { diffs.push(`market ${id.slice(0, 10)}… is known on-chain but not by the API`); continue; }
+        for (const f of ["collateral", "lltv", "irm", "live", "capped"] as const) {
+          const av = String(a[f]), bv = String(b[f]);
+          if (av !== bv) diffs.push(`market ${id.slice(0, 10)}… ${f}: on-chain ${av} vs API ${bv}`);
+        }
+      }
+      for (const id of B.keys()) if (!A.has(id)) diffs.push(`market ${id.slice(0, 10)}… is known by the API but not on-chain`);
+    }
     const src = ctx.a ?? ctx.b;
     const accepted = ctx.policy.collateral.accepted[String(ctx.b.chainId)] ?? [];
     const acceptedIrms = ctx.policy.irm?.accepted[String(ctx.b.chainId)] ?? [];
@@ -117,7 +131,7 @@ export const c04Collateral: CheckDef = {
       : status === "PASS" ? `All ${statuses.length} live or capped markets use accepted collateral within the LLTV maximums and the accepted interest rate model.`
       : `${statuses.filter((s) => s === "FAIL").length} FAIL, ${statuses.filter((s) => s === "WARN").length} WARN across ${statuses.length} live or capped markets.`;
     const table = rows.length ? { columns: ["Collateral", "Accepted", "LLTV", "LLTV limit", "Allocated", "IRM", "Result"], rows } : undefined;
-    return result("C3", "Collateral, LLTV and IRM", `Every market with an allocation or a cap must use accepted collateral (ETH/WETH, cbBTC, stETH/wstETH, WBTC at <= 86%; sUSDS at <= 96.5%) and the Morpho Adaptive Curve IRM for its chain. Not accepted with allocation = ${sev.notAcceptedWithAllocation}; cap-only = ${sev.notAcceptedCapOnly}; same severities for a wrong IRM. Sources: ${ctx.policy.collateral.source} ${ctx.policy.irm?.source ?? ""}`, status, summary, [markets], details, [], { table });
+    return result("C3", "Collateral, LLTV and IRM", `Every market with an allocation or a cap must use accepted collateral (ETH/WETH, cbBTC, stETH/wstETH, WBTC at <= 86%; sUSDS at <= 96.5%) and the Morpho Adaptive Curve IRM for its chain. Not accepted with allocation = ${sev.notAcceptedWithAllocation}; cap-only = ${sev.notAcceptedCapOnly}; same severities for a wrong IRM. Sources: ${ctx.policy.collateral.source} ${ctx.policy.irm?.source ?? ""}`, status, summary, [markets], details, [], { table, ...(diffs.length ? { discrepancies: diffs } : {}) });
   },
 };
 

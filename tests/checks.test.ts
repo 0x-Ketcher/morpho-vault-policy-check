@@ -87,6 +87,17 @@ describe("C3 collateral and LLTV", () => {
     expect(status("C3", { markets: [m({ collateralToken: A.eoa2, collateralSymbol: "WETH" })] })).toBe("WARN");
   });
   it("is n/a for an idle vault", () => { expect(status("C3", { markets: [] })).toBe("NA"); });
+  it("ignores idle markets in the two-method comparison", () => {
+    const idleA = { ...snap().markets[0], id: "0x02" as const, collateralToken: null, irm: null, allocation: "0", supplyAssets: "0", cap: {} };
+    const idleB = { ...idleA, irm: "0x0000000000000000000000000000000000000000" as Address };
+    const r = run("C3", { markets: [snap().markets[0], idleA] }, { markets: [snap().markets[0], idleB] });
+    expect(r.discrepancy).toBe(false);
+  });
+  it("lists per-market differences when the methods disagree", () => {
+    const r = run("C3", { markets: [m({ lltv: 0.86 })] }, { markets: [m({ lltv: 0.77 })] });
+    expect(r.discrepancy).toBe(true);
+    expect(r.discrepancies[0]).toContain("lltv: on-chain 0.86 vs API 0.77");
+  });
   it("requires the accepted interest rate model", () => {
     expect(status("C3", { markets: [m({ irm: A.otherIrm })] })).toBe("FAIL");
     expect(status("C3", { markets: [m({ irm: A.otherIrm, allocation: "0", supplyAssets: "0" })] })).toBe("WARN");

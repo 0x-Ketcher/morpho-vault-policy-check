@@ -94,7 +94,7 @@ async function fillV2(api: MorphoApi, vault: Address, chainId: number, snap: Vau
     if (ad && !ad.markets.includes(id)) ad.markets.push(id);
     markets.push({
       id, loanToken: addr(mp?.loanToken ?? m?.loanAsset?.address), collateralToken: mp?.collateralToken && mp.collateralToken !== ZERO ? getAddress(mp.collateralToken) : m?.collateralAsset?.address ? getAddress(m.collateralAsset.address) : null,
-      oracle: mp?.oracle && mp.oracle !== ZERO ? getAddress(mp.oracle) : m?.oracle?.address ? getAddress(m.oracle.address) : null, irm: mp?.irm ? getAddress(mp.irm) : m?.irmAddress ? getAddress(m.irmAddress) : null,
+      oracle: mp?.oracle && mp.oracle !== ZERO ? getAddress(mp.oracle) : m?.oracle?.address ? getAddress(m.oracle.address) : null, irm: nonZero(mp?.irm ?? m?.irmAddress),
       lltv: Number(mp?.lltv ?? m?.lltv ?? 0) / 1e18, collateralSymbol: m?.collateralAsset?.symbol, loanSymbol: m?.loanAsset?.symbol,
       supplyAssets: alloc.toString(), supplyAssetsUsd: price !== undefined ? (Number(alloc) / 10 ** dec) * price : undefined,
       cap: { absolute: item.absoluteCap != null ? String(item.absoluteCap) : undefined, relative: item.relativeCap != null ? String(item.relativeCap) : undefined },
@@ -123,7 +123,7 @@ async function fillV1(api: MorphoApi, vault: Address, chainId: number, snap: Vau
     const m = al.market;
     markets.push({
       id: m.marketId as Hex, loanToken: addr(m.loanAsset?.address), collateralToken: m.collateralAsset?.address ? getAddress(m.collateralAsset.address) : null,
-      oracle: m.oracle?.address ? getAddress(m.oracle.address) : null, irm: m.irmAddress ? getAddress(m.irmAddress) : null, lltv: Number(m.lltv ?? 0) / 1e18,
+      oracle: m.oracle?.address ? getAddress(m.oracle.address) : null, irm: nonZero(m.irmAddress), lltv: Number(m.lltv ?? 0) / 1e18,
       collateralSymbol: m.collateralAsset?.symbol, loanSymbol: m.loanAsset?.symbol, supplyAssets: String(al.supplyAssets ?? "0"), supplyAssetsUsd: num(al.supplyAssetsUsd),
       cap: { supplyCap: al.supplyCap != null ? String(al.supplyCap) : undefined, supplyCapUsd: num(al.supplyCapUsd), enabled: al.supplyCap != null && String(al.supplyCap) !== "0" }, oracleType: m.oracle?.type,
       morphoBlue: m.morphoBlue?.address ? getAddress(m.morphoBlue.address) : undefined,
@@ -134,5 +134,6 @@ async function fillV1(api: MorphoApi, vault: Address, chainId: number, snap: Vau
 }
 
 const addr = (a: string | null | undefined): Address => (a ? getAddress(a) : ZERO);
+const nonZero = (a: string | null | undefined): Address | null => (a && a.toLowerCase() !== ZERO ? getAddress(a) : null);
 const opt = (a: string | null | undefined): Address | undefined => (a ? getAddress(a) : undefined);
 const num = (x: unknown): number | undefined => (x === null || x === undefined ? undefined : Number(x));
