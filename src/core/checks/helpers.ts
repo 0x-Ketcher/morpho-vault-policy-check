@@ -58,7 +58,7 @@ export function dedupeCitations(c: Citation[]): Citation[] {
 
 export const fmtAddr = (a: string | null | undefined) => (a ? a : "none");
 export const fmtDays = (secs: number) => (secs % 86400 === 0 ? `${secs / 86400}d` : secs >= 3600 ? `${(secs / 86400).toFixed(2)}d` : `${secs}s`);
-export const fmtUsd = (x?: number) => (x === undefined || Number.isNaN(x) ? "n/a" : x >= 1e6 ? `$${(x / 1e6).toFixed(2)}M` : x >= 1e3 ? `$${(x / 1e3).toFixed(1)}K` : `$${x.toFixed(2)}`);
+export const fmtUsd = (x?: number) => (x === undefined || Number.isNaN(x) ? "n/a" : x >= 1e9 ? `$${(x / 1e9).toFixed(2)}B` : x >= 1e6 ? `$${(x / 1e6).toFixed(2)}M` : x >= 1e3 ? `$${(x / 1e3).toFixed(1)}K` : x < 1 ? "$0" : `$${x.toFixed(2)}`);
 export const fmtUnits = (raw: string | undefined, decimals?: number, symbol?: string) => {
   if (raw === undefined) return "n/a";
   if (decimals === undefined) return raw;
