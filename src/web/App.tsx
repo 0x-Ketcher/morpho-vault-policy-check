@@ -152,7 +152,7 @@ function Card({ c, compact = false }: { c: CheckResult; compact?: boolean }) {
           {!c.table && <EvidenceBlock evidence={c.evidence} discrepancy={c.discrepancy} />}
           {c.discrepancies.length > 0 && <div className="disc-box"><b>Methods disagree</b>, not auto-resolved; the verdict uses the on-chain value:<ul>{c.discrepancies.map((d, i) => <li key={i} className="mono small">{d}</li>)}</ul></div>}
           {c.table ? <CheckTable t={c.table} /> : <Details lines={c.details} />}
-          {c.citations.length > 0 && <div className="cites">{c.citations.map((x, i) => <Chip key={i} x={x} />)}</div>}
+          {c.citations.length > 0 && <div className="cites">{groupCitations(c.citations).map((g, i) => <Chip key={i} g={g} />)}</div>}
         </div>
       )}
     </div>
@@ -215,15 +215,37 @@ function Details({ lines }: { lines: string[] }) {
   );
 }
 
-function Chip({ x }: { x: Citation }) {
-  const constant = /\s([A-Z][A-Z0-9_]+)(?:\s\(chain \d+\))?$/.exec(x.ref)?.[1];
-  const text = x.source === "registry" ? `${x.entity ?? "registry"} registry${constant ? ` · ${constant}` : ""}`
-    : x.source === "atlas" ? (/Atlas (A[\d.]+)/.exec(x.ref)?.[0] ?? "Atlas")
-    : x.source === "morpho-curators" ? `Morpho curators · ${x.entity ?? ""}`
-    : x.source === "safe-owners" ? `signer overlap${x.entity ? ` · ${x.entity}` : ""}`
-    : `non-public · ${x.entity ?? ""}`;
-  const cls = `cite ${x.source}${x.nonPublic ? " nonpublic" : ""}`;
-  return x.url ? <a className={cls} href={x.url} target="_blank" rel="noreferrer" title={x.ref}>{text}</a> : <span className={cls} title={x.ref}>{text}</span>;
+type ChipGroup = { text: string; title: string; url?: string; cls: string };
+
+/**
+ * One chip per source, not one per citation. The same registry constant appears in several files (one per chain) and
+ * the same Atlas article mentions an address in many sections; a reader needs the source once, with the details in the
+ * tooltip, not a wall of near-identical chips.
+ */
+function groupCitations(cites: Citation[]): ChipGroup[] {
+  const groups = new Map<string, ChipGroup & { refs: string[]; n: number }>();
+  for (const x of cites) {
+    let key: string, text: string;
+    if (x.source === "registry") {
+      const constant = /\s([A-Z][A-Z0-9_]+)(?:\s\(chain \d+\))?$/.exec(x.ref)?.[1];
+      text = `${x.entity ?? "registry"} registry${constant ? ` · ${constant}` : ""}`; key = `registry|${text}`;
+    } else if (x.source === "atlas") {
+      // the article is the file the section lives in, taken from the citation's own link: content/A.6.1.1.1 - Spark.md
+      const file = x.url ? decodeURIComponent(x.url.split("/content/")[1] ?? "").replace(/\.md.*$/, "") : "";
+      const article = file || (/Atlas (A(?:\.\d+){0,4})/.exec(x.ref)?.[1] ?? "Atlas");
+      text = `Atlas ${article}`; key = `atlas|${article}`;
+    } else if (x.source === "morpho-curators") { text = `Morpho curators · ${x.entity ?? ""}`; key = `curators|${text}`; }
+    else if (x.source === "safe-owners") { text = `signer overlap${x.entity ? ` · ${x.entity}` : ""}`; key = `safe|${text}`; }
+    else { text = `non-public · ${x.entity ?? ""}`; key = `local|${text}`; }
+    const g = groups.get(key);
+    if (g) { g.refs.push(x.ref); g.n++; g.url ??= x.url; }
+    else groups.set(key, { text, title: "", url: x.url, cls: `cite ${x.source}${x.nonPublic ? " nonpublic" : ""}`, refs: [x.ref], n: 1 });
+  }
+  return [...groups.values()].map((g) => ({ text: g.n > 1 && g.cls.includes("atlas") ? `${g.text} · ${g.n} sections` : g.text, title: g.refs.join("\n"), url: g.url, cls: g.cls }));
+}
+
+function Chip({ g }: { g: ChipGroup }) {
+  return g.url ? <a className={g.cls} href={g.url} target="_blank" rel="noreferrer" title={g.title}>{g.text}</a> : <span className={g.cls} title={g.title}>{g.text}</span>;
 }
 
 const statusWord = (s: string) => ({ "pending spell": "pending spell", "no position": "no position" })[s] ?? "";
