@@ -243,8 +243,8 @@ function VaultPicker({ groups, disabled, onPick }: { groups: { prime: string; ex
   useEffect(() => {
     if (!open) return;
     const close = (e: MouseEvent | KeyboardEvent) => { if (e instanceof KeyboardEvent ? e.key === "Escape" : !(e.target as HTMLElement).closest(".vpick")) setOpen(false); };
-    document.addEventListener("mousedown", close); document.addEventListener("keydown", close);
-    return () => { document.removeEventListener("mousedown", close); document.removeEventListener("keydown", close); };
+    const t = setTimeout(() => { document.addEventListener("click", close); document.addEventListener("keydown", close); }, 0);
+    return () => { clearTimeout(t); document.removeEventListener("click", close); document.removeEventListener("keydown", close); };
   }, [open]);
   const nums = (exposure: number, tvl: number) => `${exposure >= 1 ? fmtUsd(exposure) : "$0"} / ${tvl < 1 ? "empty" : fmtUsd(tvl)}`;
   return (
