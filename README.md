@@ -91,7 +91,9 @@ The scrub test fails if any personal name from `SCRUB_TERMS` (a regex kept out o
 
 ## Deployment
 
-Railway: `railway.json` builds with `npm ci && npm run build` and starts `npm start`; set `ETHERSCAN_API_KEY` as a Railway variable to enable the proxy. Health check at `/api/health`. Any Node host works the same way.
+Production: https://morpho-vault-policy-check-production.up.railway.app (Railway, SoterLabs workspace, service `morpho-vault-policy-check`, deploys from `main` on push).
+
+Railway: `railway.json` sets the build command to `npm run build` only, because Railway's builder installs dependencies itself in a cache mount and a second `npm ci` fails with EBUSY. Start command `npm start`, health check `/api/health`. `ETHERSCAN_API_KEY` is set as a service variable so the proxy route works; without it the page runs keyless. Any Node host works the same way.
 
 ## Conventions
 
