@@ -71,7 +71,7 @@ export async function checkVault(deps: Deps, address: string, chainId?: number):
   const reader = makeReader(deps, f.chainId);
   let a = null, providerReport;
   if (reader) {
-    log(`Reading chain state via ${reader.urls[0]}${reader.urls[1] ? ` and ${reader.urls[1]}` : ""}...`);
+    log(`Reading chain state via ${reader.urls[0]}${reader.urls.length > 1 ? ` (failover on standby: ${reader.urls.slice(1).join(", ")})` : ""}...`);
     try {
       const cid = await reader.chainIdOfPrimary();
       if (cid !== f.chainId) throw new Error(`provider answers for chain ${cid}, expected ${f.chainId}`);
