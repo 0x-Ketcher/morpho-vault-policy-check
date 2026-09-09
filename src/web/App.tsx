@@ -85,14 +85,7 @@ export function App() {
           <button type="submit" disabled={running || !address}>{running ? "Checking…" : "Check vault"}</button>
         </form>
         <div className="row">
-          <select value="" className="picker" onChange={(e) => { const v = groups.flatMap((g) => g.vaults).find((x) => `${x.chainId}:${x.address}` === e.target.value); if (v) { setAddress(v.address); setChain(String(v.chainId)); void run(v.address, String(v.chainId)); } }}>
-            <option value="">or pick a Sky vault…</option>
-            {groups.map((g) => (
-              <optgroup key={g.prime} label={`${g.prime} · exposure ${fmtUsd(g.exposureUsd)} / TVL ${fmtUsd(g.vaults.reduce((t, v) => t + v.tvlUsd, 0))}`}>
-                {g.vaults.map((v) => <option key={`${v.chainId}:${v.address}`} value={`${v.chainId}:${v.address}`}>{pickerLabel(v)}</option>)}
-              </optgroup>
-            ))}
-          </select>
+          <VaultPicker groups={groups} disabled={running} onPick={(v) => { setAddress(v.address); setChain(String(v.chainId)); void run(v.address, String(v.chainId)); }} />
           <button className="ghost" onClick={() => setShowSettings((s) => !s)}>settings</button>
         </div>
         {showSettings && (
@@ -244,12 +237,36 @@ function Chip({ x }: { x: Citation }) {
   return x.url ? <a className={cls} href={x.url} target="_blank" rel="noreferrer" title={x.ref}>{text}</a> : <span className={cls} title={x.ref}>{text}</span>;
 }
 
-/** "name · chain · $exposure / $TVL", the same shape the group heading spells out; "empty" for a vault holding nothing. */
-function pickerLabel(v: SkyVault): string {
-  const tvl = v.tvlUsd < 1 ? "empty" : fmtUsd(v.tvlUsd);
-  const nums = `${v.exposureUsd >= 1 ? fmtUsd(v.exposureUsd) : "$0"} / ${tvl}`;
-  const dup = v.name.includes("Sentora x Spark") || v.status === "governed, empty" ? ` · ${v.address.slice(-4)}` : "";
-  return `${v.name} · ${v.chain.replace(" Chain", "")} · ${nums}${dup}`;
+/** Grouped vault list with the exposure / TVL figures as their own coloured column. A native select cannot colour part of an option. */
+function VaultPicker({ groups, disabled, onPick }: { groups: { prime: string; exposureUsd: number; vaults: SkyVault[] }[]; disabled: boolean; onPick: (v: SkyVault) => void }) {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    if (!open) return;
+    const close = (e: MouseEvent | KeyboardEvent) => { if (e instanceof KeyboardEvent ? e.key === "Escape" : !(e.target as HTMLElement).closest(".vpick")) setOpen(false); };
+    document.addEventListener("mousedown", close); document.addEventListener("keydown", close);
+    return () => { document.removeEventListener("mousedown", close); document.removeEventListener("keydown", close); };
+  }, [open]);
+  const nums = (exposure: number, tvl: number) => `${exposure >= 1 ? fmtUsd(exposure) : "$0"} / ${tvl < 1 ? "empty" : fmtUsd(tvl)}`;
+  return (
+    <div className="vpick">
+      <button type="button" className="ghost" disabled={disabled} onClick={() => setOpen((o) => !o)} aria-haspopup="listbox" aria-expanded={open}>pick a Sky vault ▾</button>
+      {open && (
+        <div className="vpick-panel" role="listbox">
+          {groups.map((g) => (
+            <div key={g.prime} className="vpick-group">
+              <div className="vpick-head"><span>{g.prime}</span><span className="nums">exposure {fmtUsd(g.exposureUsd)} / TVL {fmtUsd(g.vaults.reduce((t, v) => t + v.tvlUsd, 0))}</span></div>
+              {g.vaults.map((v) => (
+                <button type="button" key={`${v.chainId}:${v.address}`} className="vpick-row" role="option" onClick={() => { setOpen(false); onPick(v); }}>
+                  <span className="vpick-name">{v.name} <span className="muted">· {v.chain.replace(" Chain", "")}{v.name.includes("Sentora x Spark") || v.status === "governed, empty" ? ` · ${v.address.slice(-4)}` : ""}</span></span>
+                  <span className="nums">{nums(v.exposureUsd, v.tvlUsd)}</span>
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 function Deadline({ d }: { d: { date: string; text: string; consequence: string; source: string } }) {

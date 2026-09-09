@@ -112,4 +112,14 @@ footer { margin-top: 28px; }
 .cell.WARN { background: #fff4e0; color: #8a5a00; border-color: #f3d9a4; }
 .cell.FAIL { background: #fdeaea; color: #9b2c2c; border-color: #f5c2c2; }
 .cell.NA, .cell.INFO { background: #f0f2f5; color: #6b7280; border-color: #e3e7ec; }
-.picker { max-width: 100%; }
+/* vault picker: a grouped list where the exposure / TVL figures are their own coloured column */
+.vpick { position: relative; flex: 1 1 320px; }
+.vpick > button { width: 100%; text-align: left; }
+.vpick-panel { position: absolute; z-index: 20; top: calc(100% + 4px); left: 0; right: 0; max-height: 60vh; overflow-y: auto; background: var(--card); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 8px 24px rgba(28, 33, 40, .12); padding: 6px 0; }
+.vpick-group + .vpick-group { border-top: 1px solid var(--line); margin-top: 4px; padding-top: 4px; }
+.vpick-head { display: flex; justify-content: space-between; gap: 12px; padding: 6px 12px 4px; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.vpick-row { display: flex; justify-content: space-between; gap: 12px; width: 100%; padding: 6px 12px; border: 0; border-radius: 0; background: transparent; color: var(--ink); text-align: left; font: inherit; cursor: pointer; }
+.vpick-row:hover, .vpick-row:focus-visible { background: #eef2f8; outline: none; }
+.vpick-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nums { flex: 0 0 auto; color: var(--accent); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.vpick-head .nums { text-transform: none; letter-spacing: 0; font-weight: 600; }
