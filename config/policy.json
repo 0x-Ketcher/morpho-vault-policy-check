@@ -36,7 +36,7 @@
     "severityWhenNotAccepted": "FAIL"
   },
   "loanAssets": {
-    "source": "Policy section 'Loan assets': per Atlas cash stablecoins USDC, USDT, pyUSD; also historically approved for Morpho: RLUSD, USDG. Any other loan asset: risk review + separate request.",
+    "source": "Policy section 'Loan assets': per Atlas cash stablecoins USDC, USDT, pyUSD; also historically approved for Morpho: RLUSD, USDG. Any other loan asset: risk review + separate request. USDS added 2026-09-10 by Sky GovOps decision: the criteria document names neither its inclusion nor its exclusion, no public decision excludes it, and it is the loan asset of the Spark USDS Morpho vault (curated under BA Labs review since 2025), of the sky.money Vault V2 deployments, and of the Atlas Integration Boost for USDS in Morpho (A.6.1.1.4.2.5.2.2.3). Confirmation requested from BA Labs; DAI is not added.",
     "severityWhenNotAccepted": "FAIL",
     "accepted": {
       "1": [
@@ -64,6 +64,11 @@
           "symbol": "USDG",
           "address": "0xe343167631d89B6Ffc58B88d6b7fB0228795491D",
           "verified": "Spark registry Ethereum.sol USDG; Morpho API asset of grove-steakUSDG"
+        },
+        {
+          "symbol": "USDS",
+          "address": "0xdC035D45d973E3EC169d2276DDab16f1e407384F",
+          "verified": "Spark registry Ethereum.sol USDS (also Grove, Keel and Skybase registries); Morpho API asset of the Spark USDS Vault and the sky.money USDS vaults"
         }
       ],
       "8453": [
@@ -71,6 +76,11 @@
           "symbol": "USDC",
           "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
           "verified": "Spark and Grove registries Base.sol USDC; Morpho API asset of the Base vaults"
+        },
+        {
+          "symbol": "USDS",
+          "address": "0x820C137fa70C8691f0e44Dc420a5e53c168921Dc",
+          "verified": "Spark and Grove registries Base.sol USDS"
         }
       ],
       "4663": [
@@ -80,7 +90,10 @@
           "verified": "Spark and Grove registries Robinhood.sol USDG; Morpho API asset of groveUSDG"
         }
       ]
-    }
+    },
+    "notes": [
+      "Robinhood Chain (4663): no registry publishes a USDS address there, so USDS is not listed for that chain until one does."
+    ]
   },
   "collateral": {
     "source": "Policy section 'Accepted Collateral and Market Parameters' (LLTV = maximum, lower tiers acceptable): ETH 86%, cbBTC 86%, stETH 86%, WBTC 86%, sUSDS 96.5%.",
@@ -382,7 +395,7 @@
   "checkRules": {
     "note": "One-line rule per check shown on the page, reusing the BA document's own words. The full requirement text stays in each check result and in docs/POLICY.md. Numbering: graded checks C1-C7, context C8-C12 (renumbered 2026-09-08).",
     "C1": "Accepted chains: Ethereum, Base, Robinhood",
-    "C2": "Loan assets: USDC, USDT, pyUSD, RLUSD, USDG",
+    "C2": "Loan assets: USDC, USDT, pyUSD, RLUSD, USDG; USDS added by Sky GovOps 2026-09-10, BA Labs confirmation pending",
     "C3": "Collateral: ETH, cbBTC, stETH, WBTC at <= 86% LLTV; sUSDS <= 96.5%; Morpho Adaptive Curve IRM",
     "C4": "Owner = Prime SubProxy",
     "C5": "Curator = 2/2 msig between OEA and external msig",

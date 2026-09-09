@@ -43,7 +43,8 @@ export const c03LoanAsset: CheckDef = {
     else if (bySymbol) { status = ctx.policy.loanAssets.severityWhenNotAccepted; summary = `Symbol ${symbol.value} matches an accepted asset but the address ${asset.value} is not the allow-listed one (${bySymbol.address}). Treat as not accepted until verified.`; }
     else if (list.length === 0) { status = ctx.policy.loanAssets.severityWhenNotAccepted; summary = `No accepted loan assets are configured for chain ${ctx.b.chainId}; ${symbol.value} at ${asset.value} cannot be accepted.`; }
     else { status = ctx.policy.loanAssets.severityWhenNotAccepted; summary = `${symbol.value} (${asset.value}) is not an accepted loan asset. Accepted on this chain: ${list.map((x) => x.symbol).join(", ")}.`; }
-    return result("C2", "Loan asset", `Accepted loan assets: USDC, USDT, PYUSD, RLUSD, USDG (address allow-list per chain in config/policy.json). Source: ${ctx.policy.loanAssets.source}`, status, summary, [asset, symbol], byAddr ? [`Allow-list entry verified via: ${byAddr.verified ?? "n/a"}`] : []);
+    const symbols = [...new Set(Object.values(ctx.policy.loanAssets.accepted).flat().map((x) => x.symbol))].join(", ");
+    return result("C2", "Loan asset", `Accepted loan assets: ${symbols} (address allow-list per chain in config/policy.json). Source: ${ctx.policy.loanAssets.source}`, status, summary, [asset, symbol], byAddr ? [`Allow-list entry verified via: ${byAddr.verified ?? "n/a"}`] : []);
   },
 };
 
