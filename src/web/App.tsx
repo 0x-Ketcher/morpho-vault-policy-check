@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { policy, providers, knownVaults, labels } from "./data.ts";
+import { policy, providers, skyVaults, labels, type SkyVault } from "./data.ts";
+import { refreshVaultNumbers } from "./vaults-live.ts";
 import { checkFreshness, type Freshness } from "./freshness.ts";
 import { MorphoApi } from "../sources/morpho-api/client.ts";
 import { checkVault, findCandidates, ETHERSCAN_MORPHO_CHAINS, type Deps } from "../pipeline.ts";
@@ -23,10 +24,12 @@ export function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [proxyAvailable, setProxyAvailable] = useState<boolean | null>(null);
   const [freshness, setFreshness] = useState<Freshness[] | null>(null);
+  const [groups, setGroups] = useState(skyVaults.groups);
 
   useEffect(() => {
     fetch("/api/health").then((r) => (r.ok ? r.json() : null)).then((d) => setProxyAvailable(!!d?.etherscan)).catch(() => setProxyAvailable(false));
     checkFreshness().then(setFreshness).catch(() => setFreshness(null));
+    refreshVaultNumbers(skyVaults.groups).then(setGroups).catch(() => {});
     const params = new URLSearchParams(location.search);
     const a = params.get("address"), c = params.get("chain");
     if (a) { setAddress(a); if (c) setChain(c); }
@@ -82,9 +85,13 @@ export function App() {
           <button type="submit" disabled={running || !address}>{running ? "Checking…" : "Check vault"}</button>
         </form>
         <div className="row">
-          <select value="" onChange={(e) => { const v = knownVaults.vaults.find((x) => `${x.chainId}:${x.address}` === e.target.value); if (v) { setAddress(v.address); setChain(String(v.chainId)); void run(v.address, String(v.chainId)); } }}>
-            <option value="">or pick a known Sky-related vault…</option>
-            {knownVaults.vaults.map((v) => <option key={`${v.chainId}:${v.address}`} value={`${v.chainId}:${v.address}`}>{v.name} · {providers.chains[String(v.chainId)]?.name ?? v.chainId}</option>)}
+          <select value="" className="picker" onChange={(e) => { const v = groups.flatMap((g) => g.vaults).find((x) => `${x.chainId}:${x.address}` === e.target.value); if (v) { setAddress(v.address); setChain(String(v.chainId)); void run(v.address, String(v.chainId)); } }}>
+            <option value="">or pick a Sky vault…</option>
+            {groups.map((g) => (
+              <optgroup key={g.prime} label={g.prime === "Skybase" ? "Skybase" : `${g.prime} · exposure ${fmtUsd(g.exposureUsd)}`}>
+                {g.vaults.map((v) => <option key={`${v.chainId}:${v.address}`} value={`${v.chainId}:${v.address}`}>{pickerLabel(v)}</option>)}
+              </optgroup>
+            ))}
           </select>
           <button className="ghost" onClick={() => setShowSettings((s) => !s)}>settings</button>
         </div>
@@ -235,6 +242,14 @@ function Chip({ x }: { x: Citation }) {
     : `non-public · ${x.entity ?? ""}`;
   const cls = `cite ${x.source}${x.nonPublic ? " nonpublic" : ""}`;
   return x.url ? <a className={cls} href={x.url} target="_blank" rel="noreferrer" title={x.ref}>{text}</a> : <span className={cls} title={x.ref}>{text}</span>;
+}
+
+/** "name · chain · $exposure / $TVL"; Skybase vaults carry no Prime exposure, so TVL only. */
+function pickerLabel(v: SkyVault): string {
+  const tvl = v.tvlUsd < 1 ? "empty" : fmtUsd(v.tvlUsd);
+  const nums = v.prime === "Skybase" ? `TVL ${tvl}` : v.exposureUsd >= 1 ? `${fmtUsd(v.exposureUsd)} / ${fmtUsd(v.tvlUsd)}` : `— / ${tvl}`;
+  const dup = v.name.includes("Sentora x Spark") || v.status === "governed, empty" ? ` · ${v.address.slice(-4)}` : "";
+  return `${v.name} · ${v.chain.replace(" Chain", "")} · ${nums}${dup}`;
 }
 
 function Deadline({ d }: { d: { date: string; text: string; consequence: string; source: string } }) {

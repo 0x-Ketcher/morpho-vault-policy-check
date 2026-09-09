@@ -93,23 +93,11 @@ function writeIfChanged(rel: string, data: { meta: unknown; entries: unknown[] }
   return level;
 }
 
-function updateKnownVaults(registry: RegistryEntry[]): boolean {
-  const kv = loadJson<{ note: string; vaults: { name: string; chainId: number; address: string; prime?: string; source?: string }[] }>("config/known-vaults.json");
-  let added = 0;
-  for (const e of registry.filter((x) => x.role === "morphoVault")) {
-    if (kv.vaults.some((v) => v.address.toLowerCase() === e.address.toLowerCase() && v.chainId === e.chainId)) continue;
-    kv.vaults.push({ name: `${e.prime} registry: ${e.constant}`, chainId: e.chainId, address: e.address, prime: e.prime, source: `${e.repo} ${e.file} L${e.line}` }); added++;
-  }
-  if (added && !check) writeFileSync(p("config/known-vaults.json"), JSON.stringify(kv, null, 2) + "\n");
-  console.log(`config/known-vaults.json: ${added} vault(s) added from registries`);
-  return added > 0;
-}
-
 const registry = await syncRegistries();
 const atlas = await syncAtlas();
 const curators = await syncCurators();
 const levels = [writeIfChanged("labels/registry.json", registry), writeIfChanged("labels/atlas.json", atlas), writeIfChanged("labels/curators.json", curators)];
-const level = Math.max(...levels, updateKnownVaults(registry.entries) ? 20 : 0);
+const level = Math.max(...levels);
 if (check) { if (level === 20) { console.log("labels are out of date"); process.exit(1); } process.exit(0); }
 console.log(level === 0 ? "nothing changed" : level === 10 ? "only source commits moved" : "labels changed: review the diff");
 process.exit(level);

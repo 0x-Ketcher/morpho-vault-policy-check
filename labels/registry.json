@@ -1,6 +1,6 @@
 {
  "meta": {
-  "generatedAt": "2026-09-08T11:15:56.962Z",
+  "generatedAt": "2026-09-09T20:46:18.456Z",
   "commits": {
    "grove-labs/grove-address-registry": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
    "sparkdotfi/spark-address-registry": "ecea29bd2a1546bbbf4999e486b3c04f0e10b748",
@@ -7193,7 +7193,7 @@
    "chainId": 1,
    "prime": "Osero",
    "constant": "OSERO_ALM_PROXY",
-   "role": "other",
+   "role": "almProxy",
    "file": "src/Ethereum.sol",
    "line": 14,
    "repo": "osero-io/osero-address-registry",
@@ -7205,7 +7205,7 @@
    "chainId": 1,
    "prime": "Osero",
    "constant": "OSERO_RATE_LIMITS",
-   "role": "otherRateLimits",
+   "role": "almRateLimits",
    "file": "src/Ethereum.sol",
    "line": 15,
    "repo": "osero-io/osero-address-registry",

@@ -12,7 +12,8 @@ export function loadJson<T>(rel: string): T {
 }
 export const loadPolicy = () => loadJson<PolicyConfig>("config/policy.json");
 export const loadProviders = () => loadJson<ProvidersConfig>("config/providers.json");
-export const loadKnownVaults = () => loadJson<{ vaults: { name: string; chainId: number; address: string; prime?: string }[] }>("config/known-vaults.json");
+export interface SkyVaultsFile { generatedAt: string; definition: string; count: number; groups: { prime: string; exposureUsd: number; vaults: { address: string; chainId: number; chain: string; version: string; name: string; symbol: string; prime: string; tvlUsd: number; exposureUsd: number; status: string; relations: string[]; sources: string[]; allocatable: { prime: string }[] }[] }[] }
+export const loadSkyVaults = () => loadJson<SkyVaultsFile>("config/sky-vaults.json");
 
 export function loadLabelData(): LabelData {
   const opt = <T>(rel: string): T | undefined => (existsSync(p(rel)) ? loadJson<T>(rel) : undefined);

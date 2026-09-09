@@ -112,3 +112,4 @@ footer { margin-top: 28px; }
 .cell.WARN { background: #fff4e0; color: #8a5a00; border-color: #f3d9a4; }
 .cell.FAIL { background: #fdeaea; color: #9b2c2c; border-color: #f5c2c2; }
 .cell.NA, .cell.INFO { background: #f0f2f5; color: #6b7280; border-color: #e3e7ec; }
+.picker { max-width: 100%; }

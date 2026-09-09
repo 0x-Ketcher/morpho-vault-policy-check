@@ -30,15 +30,24 @@ jobs:
           if [ "$code" != "0" ] && [ "$code" != "10" ] && [ "$code" != "20" ]; then exit "$code"; fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: rebuild the Sky vault list from rate limits, positions, registries and the Atlas
+        id: vaults
+        run: |
+          set +e
+          npm run sync:vaults
+          code=$?
+          set -e
+          echo "level=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" != "0" ] && [ "$code" != "20" ]; then exit "$code"; fi
       - name: re-read Safe owners when labels changed
-        if: steps.sync.outputs.level == '20'
+        if: steps.sync.outputs.level == '20' || steps.vaults.outputs.level == '20'
         run: npm run read:safes
         env:
           ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
       - name: regenerate the human-readable tables
         run: npm run gen:docs
       - name: commit a pin-only bump directly
-        if: steps.sync.outputs.level == '10'
+        if: steps.sync.outputs.level == '10' && steps.vaults.outputs.level != '20'
         run: |
           git config user.name "label-sync"
           git config user.email "label-sync@users.noreply.github.com"
@@ -46,7 +55,7 @@ jobs:
           git commit -m "labels: bump source commits (no label changed)" || echo "nothing to commit"
           git push
       - name: open a pull request when labels changed
-        if: steps.sync.outputs.level == '20'
+        if: steps.sync.outputs.level == '20' || steps.vaults.outputs.level == '20'
         uses: peter-evans/create-pull-request@v7
         with:
           branch: label-sync/update

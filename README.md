@@ -14,7 +14,7 @@ Live checks take about 15 seconds per vault (around 140 chain reads folded into 
 npm ci
 npm run check -- check 0xb0c424116172B55CbB6dD3136F5989F7959e5B91          # one vault, chain detected
 npm run check -- check 0xBEEff039907422219Fb367e525954DDC092854d9 --chain 4663
-npm run check -- batch                                                      # every vault in config/known-vaults.json
+npm run check -- batch                                                      # every vault in config/sky-vaults.json
 npm run check -- find 0x…                                                   # which chains know this vault
 ```
 
@@ -53,7 +53,7 @@ Structure is provable: Safe versions, thresholds, owner sets, signer disjointnes
 config/policy.json         the policy as data: chains, loan assets, collateral and max LLTV, timelock minimums, severities, role rules
 config/providers.json      RPC endpoints per chain, Morpho API, Safe service, Etherscan, pinned-block margins
 config/registries.json     which GitHub repos are label sources and how file names map to chains
-config/known-vaults.json   quick-pick list: the September 2026 review vaults plus every vault constant in the registries
+config/sky-vaults.json     generated list of Sky vaults, grouped by Prime (see docs/VAULTS.md); rebuilt by npm run sync:vaults
 labels/                    generated label tables with provenance (registry, atlas, curators, safes)
 docs/                      POLICY.md, ADDRESS_BOOK.md, SAFES.md (generated); CHECKS.md, DATA_SOURCES.md, POLICY_MAPPING.md (written)
 abi/                       verified ABIs the human-readable fragments were checked against
@@ -70,6 +70,10 @@ tests/                     unit tests on synthetic snapshots, parser tests, regr
 ## Configuration is data
 
 Change the policy in `config/policy.json` and regenerate `docs/POLICY.md` with `npm run gen:docs`. Add a chain by adding its providers to `config/providers.json` (and its accepted assets to the policy if it is accepted). Add a label source by adding the repo to `config/registries.json`. The checks read the config; nothing about the policy lives in code except the shape of a rule.
+
+## The Sky vault list
+
+`config/sky-vaults.json` is generated, not typed. `npm run sync:vaults` takes every Morpho vault on the accepted chains from the API (about 3,800), asks each Prime's RateLimits contract on-chain whether it holds a deposit rate limit for the vault (that is what lets a Prime agent allocate to it), reads each Prime ALM proxy's positions, and adds vaults owned by Prime governance, listed in a Prime registry or the Atlas, or owned and curated by Sky Money in Morpho's curator registry (Skybase's own vaults). Each entry carries its status (exposure, allocatable with no position, governed but empty, Skybase vault), the Primes that can allocate to it, and the sources. The daily sync rebuilds it; a membership change opens a pull request. The page refreshes exposure and TVL live; the file's numbers are a snapshot. Human-readable version: `docs/VAULTS.md`.
 
 ## Labels and freshness
 

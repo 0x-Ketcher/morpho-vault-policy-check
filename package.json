@@ -4,7 +4,9 @@
   "private": true,
   "description": "Proof of concept: checks a Morpho vault against the BA Labs Morpho Vaults v2 eligibility criteria, twice, from public sources only.",
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "npm run build:web && npm run build:server",
     "build:web": "vite build",
@@ -17,7 +19,8 @@
     "sync:labels": "tsx scripts/sync-labels.ts",
     "gen:docs": "tsx scripts/gen-docs.ts",
     "record:fixtures": "tsx scripts/record-fixtures.ts",
-    "read:safes": "tsx scripts/read-safes.ts"
+    "read:safes": "tsx scripts/read-safes.ts",
+    "sync:vaults": "tsx scripts/sync-vaults.ts"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",

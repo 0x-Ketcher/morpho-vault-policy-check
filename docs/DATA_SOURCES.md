@@ -35,6 +35,10 @@ How reads work: every read in a run is pinned to one block (latest minus a per-c
 
 Precedence when sources disagree on a label: registry over Atlas (the Atlas lags the registries by weeks), Atlas over registry for policy text. Every citation names its source so a reader can weigh it.
 
+## The Sky vault list
+
+Definition, in order of strength: a Prime's RateLimits contract holds a `LIMIT_4626_DEPOSIT` key for the vault, so a Prime agent can allocate to it; a Prime ALM proxy holds shares in it; a Prime governance address owns it; a Prime registry or the Atlas lists it; Sky Money, a verified entry in Morpho's curator registry, owns or curates it. The universe scanned is every vault the Morpho API indexes on the accepted chains, about 3,800 on 2026-09-09; the rate-limit question is one Multicall read per vault per Prime contract, a few seconds per chain on publicnode. RateLimits, ALM proxy and governance addresses come from the registries. Rebuilt by `scripts/sync-vaults.ts`; rendered as `docs/VAULTS.md`.
+
 ## Keeping the tables fresh
 
 `scripts/sync-labels.ts` asks GitHub for the head commit of each source repo, re-reads the files, and writes `labels/*.json` only when something changed; the run timestamp alone is not a change, so a quiet day leaves the repository untouched. It exits 0 (nothing), 10 (only the pinned commits moved) or 20 (a label changed). The daily workflow commits a pin-only bump directly and opens a pull request for a label change. The page compares the pinned commits with the current heads at load time and shows a banner when a source has moved.

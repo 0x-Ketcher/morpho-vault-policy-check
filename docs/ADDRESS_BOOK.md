@@ -2,9 +2,9 @@
 
 Generated from `labels/*.json` by `npm run gen:docs`. Every row cites the public source it came from.
 
-Registries read at: grove-labs/grove-address-registry@5c7340f6, sparkdotfi/spark-address-registry@ecea29bd, osero-io/osero-address-registry@62d5fe15, skybase-foundation/skybase-address-registry@2c43f2e3, ElodinLTD/keel-address-registry@5871e2b7 (2026-09-08)
+Registries read at: grove-labs/grove-address-registry@5c7340f6, sparkdotfi/spark-address-registry@ecea29bd, osero-io/osero-address-registry@62d5fe15, skybase-foundation/skybase-address-registry@2c43f2e3, ElodinLTD/keel-address-registry@5871e2b7 (2026-09-09)
 Atlas read at: sky-ecosystem/next-gen-atlas@6f45abbe; 18 files, 647 address mentions
-Morpho curator registry: 44 curators, read 2026-09-08
+Morpho curator registry: 44 curators, read 2026-09-09
 
 ## Ethereum (1)
 
@@ -20,7 +20,9 @@ Morpho curator registry: 44 curators, read 2026-09-08
 | 0xa5139956eC99aE2e51eA39d0b57C42B6D8db0758 | Keel | ALM_PROXY | almProxy | [src/Ethereum.sol L70](https://github.com/ElodinLTD/keel-address-registry/blob/5871e2b7db3b6c34130043498c7590b5d7560a14/src/Ethereum.sol#L70) |
 | 0x65E7B39e508944F7C4278d3e4580f84Eb20b26a7 | Keel | ALM_RATE_LIMITS | almRateLimits | [src/Ethereum.sol L71](https://github.com/ElodinLTD/keel-address-registry/blob/5871e2b7db3b6c34130043498c7590b5d7560a14/src/Ethereum.sol#L71) |
 | 0x355CD90Ecb1b409Fdf8b64c4473C3B858dA2c310 | Keel | KEEL_PROXY | subproxy | [src/Ethereum.sol L53](https://github.com/ElodinLTD/keel-address-registry/blob/5871e2b7db3b6c34130043498c7590b5d7560a14/src/Ethereum.sol#L53) |
+| 0x6d370e359e9cbd0Fd35Bb38fAF705D84238CB884 | Osero | OSERO_ALM_PROXY | almProxy | [src/Ethereum.sol L14](https://github.com/osero-io/osero-address-registry/blob/62d5fe15537d70a3a64aa5bbd853cacf6471aecb/src/Ethereum.sol#L14) |
 | 0x24fdcd3bFA5C2553e05B2f9AD0365EBC296278D3 | Osero | OSERO_PROXY | subproxy | [src/Ethereum.sol L5](https://github.com/osero-io/osero-address-registry/blob/62d5fe15537d70a3a64aa5bbd853cacf6471aecb/src/Ethereum.sol#L5) |
+| 0xE9a78f34fe497e2186f81B8c014cd93B308BC62a | Osero | OSERO_RATE_LIMITS | almRateLimits | [src/Ethereum.sol L15](https://github.com/osero-io/osero-address-registry/blob/62d5fe15537d70a3a64aa5bbd853cacf6471aecb/src/Ethereum.sol#L15) |
 | 0x08978E3700859E476201c1D7438B3427e3C81140 | Skybase | SKYBASE_PROXY | subproxy | [src/Ethereum.sol L50](https://github.com/skybase-foundation/skybase-address-registry/blob/2c43f2e375421795230e10651267fa125fe053fd/src/Ethereum.sol#L50) |
 | 0x5c46Fc65855c0C7465a1EA85EEA0B24B601502D3 | Spark | ALM_CONTROLLER | almController | [src/Ethereum.sol L26](https://github.com/sparkdotfi/spark-address-registry/blob/ecea29bd2a1546bbbf4999e486b3c04f0e10b748/src/Ethereum.sol#L26) |
 | 0x1601843c5E9bC251A3272907010AFa41Fa18347E | Spark | ALM_PROXY | almProxy | [src/Ethereum.sol L27](https://github.com/sparkdotfi/spark-address-registry/blob/ecea29bd2a1546bbbf4999e486b3c04f0e10b748/src/Ethereum.sol#L27) |
@@ -497,6 +499,7 @@ Morpho curator registry: 44 curators, read 2026-09-08
 | 0xb3CF59A5f12cA319861376C5e63Eef4790a42B44 | Clearstar | yes | - |
 | 0x75178137D3B4B9A0F771E0e149b00fB8167BA325 | Hyperithm | yes | - |
 | 0xEe7E9bb21D5589BF657b94083dB2fA349a3918C8 | Hyperithm | yes | - |
+| 0x060DB084bF41872861f175d83f3cb1B5566dfEA3 | K3 Capital | yes | - |
 | 0x0A0e559bc3b0950a7e448F0d4894db195b9cf8DD | Steakhouse Financial | yes | - |
 | 0x5D6563FB0364124c8ACa4bbbdefd2486e477dB11 | Steakhouse Financial | yes | - |
 | 0x827e86072B06674a077f592A531dcE4590aDeCdB | Steakhouse Financial | yes | - |
@@ -612,6 +615,8 @@ Morpho curator registry: 44 curators, read 2026-09-08
 
 | Address | Curator | Verified | Also in registries as |
 |---|---|---|---|
+| 0x370EC5d1809B27F1fB18e002cf79837c46F5134c | Api3 | yes | - |
+| 0x82B4a86c796d9508350D129BA150B5D625ec98A4 | Api3 | yes | - |
 | 0x337feFE49514fb901eB455A501b8Be76CDeF7660 | Steakhouse Financial | yes | - |
 | 0x9023FBD6A08C666491A2d1648737E400cF42D2Fb | Steakhouse Financial | yes | - |
 | 0xCa50D23F1c18C1Dfaff5d3cae3aa4B9dC5C8db73 | Steakhouse Financial | yes | - |
@@ -725,6 +730,7 @@ Morpho curator registry: 44 curators, read 2026-09-08
 | 0x5a4E19842e09000a582c20A4f524C26Fb48Dd4D0 | Gauntlet | yes | - |
 | 0x9E33faAE38ff641094fa68c65c2cE600b3410585 | Gauntlet | yes | - |
 | 0xCe3b5E1f18951054FA0A7e48aDb3A18A5E957F30 | Gauntlet | yes | - |
+| 0x060DB084bF41872861f175d83f3cb1B5566dfEA3 | K3 Capital | yes | - |
 | 0xB672Ea44A1EC692A9Baf851dC90a1Ee3DB25F1C4 | MEV Capital | yes | - |
 | 0x8b621804a7637b781e2BbD58e256a591F2dF7d51 | Moonwell | yes | - |
 | 0x9855475778aa3B492C14E4E12ca0d44c253C9884 | Pangolins | yes | - |

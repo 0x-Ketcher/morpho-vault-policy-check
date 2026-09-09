@@ -95,8 +95,8 @@ export function roleFromConstant(constant: string): string {
   const c = constant.toUpperCase();
   if (/^(GROVE|SPARK|OSERO|SKYBASE|KEEL|OBEX|PATTERN)_PROXY$/.test(c)) return "subproxy";
   if (/_EXECUTOR$/.test(c)) return "executor";
-  if (/^ALM_PROXY(_FREEZABLE)?$/.test(c)) return "almProxy";
-  if (/^(ALM_)?RATE_LIMITS$/.test(c)) return "almRateLimits";
+  if (/^(?:(?:GROVE|SPARK|OSERO|SKYBASE|KEEL)_)?ALM_PROXY(_FREEZABLE)?$/.test(c) || /^(GROVE|SPARK|OSERO|SKYBASE|KEEL)_ALM_PROXY$/.test(c)) return "almProxy";
+  if (/^(?:(?:GROVE|SPARK|OSERO|SKYBASE|KEEL)_)?(ALM_)?RATE_LIMITS$/.test(c)) return "almRateLimits";
   if (/RATE_LIMITS$/.test(c)) return "otherRateLimits";
   if (/^ALM_CONTROLLER/.test(c) || c === "CONTROLLER") return "almController";
   if (c === "MORPHO_CURATOR_MULTISIG") return "morphoCurator";

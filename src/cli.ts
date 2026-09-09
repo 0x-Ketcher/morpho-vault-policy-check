@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { loadPolicy, loadProviders, loadLabels, loadKnownVaults, loadEnv, p } from "./node/load.ts";
+import { loadPolicy, loadProviders, loadLabels, loadSkyVaults, loadEnv, p } from "./node/load.ts";
 import { MorphoApi } from "./sources/morpho-api/client.ts";
 import { checkVault, normalizeAddress, ETHERSCAN_MORPHO_CHAINS, type Deps } from "./pipeline.ts";
 import { renderMarkdown, renderConsole } from "./core/render.ts";
@@ -9,7 +9,7 @@ import type { Report } from "./core/types.ts";
 function usage(): never {
   console.log(`usage:
   npm run check -- check <vault address> [--chain <id>] [--out <dir>] [--quiet]
-  npm run check -- batch [--out <dir>]        # every vault in config/known-vaults.json
+  npm run check -- batch [--out <dir>]        # every vault in config/sky-vaults.json
   npm run check -- find <vault address>       # which chains the Morpho API knows it on`);
   process.exit(1);
 }
@@ -51,7 +51,7 @@ async function main() {
   } else if (cmd === "batch") {
     const d = deps();
     const rows: string[] = [];
-    for (const v of loadKnownVaults().vaults) {
+    for (const v of loadSkyVaults().groups.flatMap((g) => g.vaults)) {
       try {
         const r = await checkVault({ ...d, log: () => {} }, v.address, v.chainId);
         save(r, out);

@@ -6,7 +6,7 @@
  * `--check` exits 1 if a committed file differs from what would be generated (used by CI).
  */
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
-import { loadPolicy, loadLabels, loadJson, p } from "../src/node/load.ts";
+import { loadPolicy, loadLabels, loadJson, loadSkyVaults, p } from "../src/node/load.ts";
 import { PRIME_CONTROLLED_ROLES } from "../src/sources/labels/index.ts";
 
 const policy = loadPolicy();
@@ -107,7 +107,19 @@ function safesDoc(): string {
   return L.join("\n");
 }
 
-const outputs: [string, string][] = [["docs/POLICY.md", policyDoc()], ["docs/ADDRESS_BOOK.md", addressBook()], ["docs/SAFES.md", safesDoc()]];
+function vaultsDoc(): string {
+  const sv = loadSkyVaults();
+  const usd = (x: number) => (x >= 1e6 ? `$${(x / 1e6).toFixed(1)}M` : x >= 1e3 ? `$${(x / 1e3).toFixed(0)}K` : x > 0 ? `$${x.toFixed(0)}` : "-");
+  const L: string[] = ["# Sky vaults", "", "Generated from `config/sky-vaults.json` by `npm run gen:docs`; the list itself comes from `npm run sync:vaults`.", "", sv.definition, "", `${sv.count} vaults; snapshot of ${sv.generatedAt.slice(0, 10)} (the page refreshes exposure and TVL live).`, ""];
+  for (const g of sv.groups) {
+    L.push(`## ${g.prime}${g.prime === "Skybase" ? "" : ` (exposure ${usd(g.exposureUsd)})`}`, "", "| Vault | Chain | Version | Address | Exposure | TVL | Allocatable by | Status | Sources |", "|---|---|---|---|---|---|---|---|---|");
+    for (const v of g.vaults) L.push(`| ${esc(v.name)} (${esc(v.symbol)}) | ${v.chain} | ${v.version} | ${v.address} | ${usd(v.exposureUsd)} | ${usd(v.tvlUsd)} | ${[...new Set(v.allocatable.map((a) => a.prime))].join(", ") || "-"} | ${v.status} | ${v.sources.map(esc).join("<br>")} |`);
+    L.push("");
+  }
+  return L.join("\n");
+}
+
+const outputs: [string, string][] = [["docs/POLICY.md", policyDoc()], ["docs/ADDRESS_BOOK.md", addressBook()], ["docs/SAFES.md", safesDoc()], ["docs/VAULTS.md", vaultsDoc()]];
 let stale = false;
 for (const [rel, content] of outputs) {
   const prev = existsSync(p(rel)) ? readFileSync(p(rel), "utf8") : "";

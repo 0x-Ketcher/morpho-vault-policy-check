@@ -1,6 +1,6 @@
 {
  "meta": {
-  "generatedAt": "2026-09-08T11:16:00.585Z",
+  "generatedAt": "2026-09-09T20:46:26.436Z",
   "source": "https://blue-api.morpho.org/graphql",
   "count": 44
  },
@@ -79,6 +79,14 @@
     {
      "chainId": 1,
      "address": "0xBBE0dE9757F93e3306aDBfeBE906AB285EDD13DA"
+    },
+    {
+     "chainId": 4663,
+     "address": "0x370EC5d1809B27F1fB18e002cf79837c46F5134c"
+    },
+    {
+     "chainId": 4663,
+     "address": "0x82B4a86c796d9508350D129BA150B5D625ec98A4"
     },
     {
      "chainId": 8453,
@@ -689,7 +697,15 @@
      "address": "0xdD84A24eeddE63F10Ec3e928f1c8302A47538b6B"
     },
     {
+     "chainId": 143,
+     "address": "0x060DB084bF41872861f175d83f3cb1B5566dfEA3"
+    },
+    {
      "chainId": 999,
+     "address": "0x060DB084bF41872861f175d83f3cb1B5566dfEA3"
+    },
+    {
+     "chainId": 8453,
      "address": "0x060DB084bF41872861f175d83f3cb1B5566dfEA3"
     }
    ]
