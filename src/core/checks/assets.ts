@@ -36,16 +36,13 @@ export const c03LoanAsset: CheckDef = {
     const asset = pick(ctx, "asset()", (s) => s.asset.address, (v) => v);
     const symbol = pick(ctx, "asset symbol", (s) => s.asset.symbol ?? "?", (v) => v);
     const list = ctx.policy.loanAssets.accepted[String(ctx.b.chainId)] ?? [];
-    const byAddr = list.find((x) => x.address && x.address.toLowerCase() === asset.value.toLowerCase());
+    const byAddr = list.find((x) => x.address.toLowerCase() === asset.value.toLowerCase());
     const bySymbol = list.find((x) => x.symbol.toLowerCase() === (symbol.value ?? "").toLowerCase());
-    const named = (x: { symbol: string; address?: string }) => (x.address ? x.symbol : `${x.symbol} (accepted, address not yet published on this chain)`);
     let status: Status, summary: string;
     if (byAddr) { status = "PASS"; summary = `${byAddr.symbol} at ${asset.value} is an accepted loan asset on this chain.`; }
-    // accepted by policy on this chain, but no public source publishes the token's address here: a symbol alone can never earn a PASS
-    else if (bySymbol && !bySymbol.address) { status = "WARN"; summary = `${bySymbol.symbol} is an accepted loan asset on every accepted chain, but no public source publishes a ${bySymbol.symbol} address on ${ctx.chainName}, so the token at ${asset.value} cannot be confirmed as ${bySymbol.symbol}. Add the address to config/policy.json once a registry lists it.`; }
     else if (bySymbol) { status = ctx.policy.loanAssets.severityWhenNotAccepted; summary = `Symbol ${symbol.value} matches an accepted asset but the address ${asset.value} is not the allow-listed one (${bySymbol.address}). Treat as not accepted until verified.`; }
     else if (list.length === 0) { status = ctx.policy.loanAssets.severityWhenNotAccepted; summary = `No accepted loan assets are configured for chain ${ctx.b.chainId}; ${symbol.value} at ${asset.value} cannot be accepted.`; }
-    else { status = ctx.policy.loanAssets.severityWhenNotAccepted; summary = `${symbol.value} (${asset.value}) is not an accepted loan asset. Accepted on this chain: ${list.map(named).join(", ")}.`; }
+    else { status = ctx.policy.loanAssets.severityWhenNotAccepted; summary = `${symbol.value} (${asset.value}) is not an accepted loan asset. Accepted on this chain: ${list.map((x) => x.symbol).join(", ")}.`; }
     const symbols = [...new Set(Object.values(ctx.policy.loanAssets.accepted).flat().map((x) => x.symbol))].join(", ");
     return result("C2", "Loan asset", `Accepted loan assets: ${symbols} (address allow-list per chain in config/policy.json). Source: ${ctx.policy.loanAssets.source}`, status, summary, [asset, symbol], byAddr ? [`Allow-list entry verified via: ${byAddr.verified ?? "n/a"}`] : []);
   },
@@ -95,7 +92,7 @@ export const c04Collateral: CheckDef = {
       if (!live && !capped) { details.push(`${m.collateralSymbol ?? m.collateralToken}: no allocation and no cap, n/a`); continue; }
       const amt = m.supplyAssetsUsd !== undefined ? fmtUsd(m.supplyAssetsUsd) : fmtUnits(m.allocation ?? m.supplyAssets, src.asset.decimals, src.asset.symbol);
       const state = live ? `${amt} allocated` : `cap only, nothing allocated${BigInt(m.allocation ?? m.supplyAssets ?? "0") > 0n ? ", dust remains" : ""}`;
-      const byAddr = accepted.find((x) => x.address && x.address.toLowerCase() === m.collateralToken!.toLowerCase());
+      const byAddr = accepted.find((x) => x.address.toLowerCase() === m.collateralToken!.toLowerCase());
       const bySym = accepted.find((x) => [x.symbol, x.policyName, ...(x.aliases ?? [])].filter(Boolean).some((s) => s!.toLowerCase() === (m.collateralSymbol ?? "").toLowerCase()));
       const lltvPct = `${(m.lltv * 100).toFixed(1)}%`;
       const [irmStatus, irmText] = irmVerdict(m, live);

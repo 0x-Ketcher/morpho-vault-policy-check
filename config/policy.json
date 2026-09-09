@@ -36,7 +36,7 @@
     "severityWhenNotAccepted": "FAIL"
   },
   "loanAssets": {
-    "source": "Policy section 'Loan assets': per Atlas cash stablecoins USDC, USDT, pyUSD; also historically approved for Morpho: RLUSD, USDG. Any other loan asset: risk review + separate request. USDS added 2026-09-10 by Sky GovOps decision: the criteria document names neither its inclusion nor its exclusion, no public decision excludes it, and it is the loan asset of the Spark USDS Morpho vault (curated under BA Labs review since 2025), of the sky.money Vault V2 deployments, and of the Atlas Integration Boost for USDS in Morpho (A.6.1.1.4.2.5.2.2.3). USDS is accepted on every accepted chain; on Robinhood no address is published yet. Confirmation requested from BA Labs; DAI is not added.",
+    "source": "Policy section 'Loan assets': per Atlas cash stablecoins USDC, USDT, pyUSD; also historically approved for Morpho: RLUSD, USDG. Any other loan asset: risk review + separate request. USDS added 2026-09-10 by Sky GovOps decision: the criteria document names neither its inclusion nor its exclusion, no public decision excludes it, and it is the loan asset of the Spark USDS Morpho vault (curated under BA Labs review since 2025), of the sky.money Vault V2 deployments, and of the Atlas Integration Boost for USDS in Morpho (A.6.1.1.4.2.5.2.2.3). Confirmation requested from BA Labs; DAI is not added.",
     "severityWhenNotAccepted": "FAIL",
     "accepted": {
       "1": [
@@ -88,15 +88,11 @@
           "symbol": "USDG",
           "address": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
           "verified": "Spark and Grove registries Robinhood.sol USDG; Morpho API asset of groveUSDG"
-        },
-        {
-          "symbol": "USDS",
-          "verified": "Accepted on every accepted chain by the Sky GovOps decision of 2026-09-10. No USDS deployment on Robinhood Chain is published by a Prime registry, the Morpho API or the Atlas as of 2026-09-10, so there is no address to match: a USDS-named token here grades WARN until a registry publishes the address."
         }
       ]
     },
     "notes": [
-      "USDS is accepted on every accepted chain. Robinhood Chain (4663) has no published USDS address yet; its entry has no address and matches nothing until one is added."
+      "Robinhood Chain (4663): no registry publishes a USDS address there, so USDS is not listed for that chain until one does."
     ]
   },
   "collateral": {
@@ -399,7 +395,7 @@
   "checkRules": {
     "note": "One-line rule per check shown on the page, reusing the BA document's own words. The full requirement text stays in each check result and in docs/POLICY.md. Numbering: graded checks C1-C7, context C8-C12 (renumbered 2026-09-08).",
     "C1": "Accepted chains: Ethereum, Base, Robinhood",
-    "C2": "Loan assets: USDC, USDT, pyUSD, RLUSD, USDG; USDS on every accepted chain, added by Sky GovOps 2026-09-10, BA Labs confirmation pending",
+    "C2": "Loan assets: USDC, USDT, pyUSD, RLUSD, USDG; USDS added by Sky GovOps 2026-09-10, BA Labs confirmation pending",
     "C3": "Collateral: ETH, cbBTC, stETH, WBTC at <= 86% LLTV; sUSDS <= 96.5%; Morpho Adaptive Curve IRM",
     "C4": "Owner = Prime SubProxy",
     "C5": "Curator = 2/2 msig between OEA and external msig",
