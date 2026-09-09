@@ -88,7 +88,7 @@ export function App() {
           <select value="" className="picker" onChange={(e) => { const v = groups.flatMap((g) => g.vaults).find((x) => `${x.chainId}:${x.address}` === e.target.value); if (v) { setAddress(v.address); setChain(String(v.chainId)); void run(v.address, String(v.chainId)); } }}>
             <option value="">or pick a Sky vault…</option>
             {groups.map((g) => (
-              <optgroup key={g.prime} label={g.prime === "Skybase" ? "Skybase" : `${g.prime} · exposure ${fmtUsd(g.exposureUsd)}`}>
+              <optgroup key={g.prime} label={`${g.prime} · exposure ${fmtUsd(g.exposureUsd)} / TVL ${fmtUsd(g.vaults.reduce((t, v) => t + v.tvlUsd, 0))}`}>
                 {g.vaults.map((v) => <option key={`${v.chainId}:${v.address}`} value={`${v.chainId}:${v.address}`}>{pickerLabel(v)}</option>)}
               </optgroup>
             ))}
@@ -244,10 +244,10 @@ function Chip({ x }: { x: Citation }) {
   return x.url ? <a className={cls} href={x.url} target="_blank" rel="noreferrer" title={x.ref}>{text}</a> : <span className={cls} title={x.ref}>{text}</span>;
 }
 
-/** "name · chain · $exposure / $TVL"; Skybase vaults carry no Prime exposure, so TVL only. */
+/** "name · chain · $exposure / $TVL", the same shape the group heading spells out; "empty" for a vault holding nothing. */
 function pickerLabel(v: SkyVault): string {
   const tvl = v.tvlUsd < 1 ? "empty" : fmtUsd(v.tvlUsd);
-  const nums = v.prime === "Skybase" ? `TVL ${tvl}` : v.exposureUsd >= 1 ? `${fmtUsd(v.exposureUsd)} / ${fmtUsd(v.tvlUsd)}` : `— / ${tvl}`;
+  const nums = `${v.exposureUsd >= 1 ? fmtUsd(v.exposureUsd) : "$0"} / ${tvl}`;
   const dup = v.name.includes("Sentora x Spark") || v.status === "governed, empty" ? ` · ${v.address.slice(-4)}` : "";
   return `${v.name} · ${v.chain.replace(" Chain", "")} · ${nums}${dup}`;
 }
