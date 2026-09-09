@@ -247,6 +247,10 @@ function VaultPicker({ groups, disabled, onPick }: { groups: { prime: string; ex
     return () => { clearTimeout(t); document.removeEventListener("click", close); document.removeEventListener("keydown", close); };
   }, [open]);
   const nums = (exposure: number, tvl: number) => `${exposure >= 1 ? fmtUsd(exposure) : "$0"} / ${tvl < 1 ? "empty" : fmtUsd(tvl)}`;
+  // several deployments can share one name on one chain; only those get the last four characters of their address
+  const counts = new Map<string, number>();
+  for (const v of groups.flatMap((g) => g.vaults)) { const k = `${v.chainId}:${v.name}`; counts.set(k, (counts.get(k) ?? 0) + 1); }
+  const suffix = (v: SkyVault) => ((counts.get(`${v.chainId}:${v.name}`) ?? 0) > 1 ? ` · ${v.address.slice(-4)}` : "");
   return (
     <div className="vpick">
       <button type="button" className="ghost" disabled={disabled} onClick={() => setOpen((o) => !o)} aria-haspopup="listbox" aria-expanded={open}>pick a Sky vault ▾</button>
@@ -257,7 +261,7 @@ function VaultPicker({ groups, disabled, onPick }: { groups: { prime: string; ex
               <div className="vpick-head"><span>{g.prime}</span><span className="nums">exposure {fmtUsd(g.exposureUsd)} / TVL {fmtUsd(g.vaults.reduce((t, v) => t + v.tvlUsd, 0))}</span></div>
               {g.vaults.map((v) => (
                 <button type="button" key={`${v.chainId}:${v.address}`} className="vpick-row" role="option" onClick={() => { setOpen(false); onPick(v); }}>
-                  <span className="vpick-name">{v.name} <span className="muted">· {v.chain.replace(" Chain", "")}{v.name.includes("Sentora x Spark") || v.status === "governed, empty" ? ` · ${v.address.slice(-4)}` : ""}</span></span>
+                  <span className="vpick-name">{v.name} <span className="muted">· {v.chain.replace(" Chain", "")}{suffix(v)}</span></span>
                   <span className="nums">{nums(v.exposureUsd, v.tvlUsd)}</span>
                 </button>
               ))}
