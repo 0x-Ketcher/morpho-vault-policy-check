@@ -95,10 +95,11 @@ export function roleFromConstant(constant: string): string {
   const c = constant.toUpperCase();
   if (/^(GROVE|SPARK|OSERO|SKYBASE|KEEL|OBEX|PATTERN)_PROXY$/.test(c)) return "subproxy";
   if (/_EXECUTOR$/.test(c)) return "executor";
-  if (/^(?:(?:GROVE|SPARK|OSERO|SKYBASE|KEEL)_)?ALM_PROXY(_FREEZABLE)?$/.test(c) || /^(GROVE|SPARK|OSERO|SKYBASE|KEEL)_ALM_PROXY$/.test(c)) return "almProxy";
-  if (/^(?:(?:GROVE|SPARK|OSERO|SKYBASE|KEEL)_)?(ALM_)?RATE_LIMITS$/.test(c)) return "almRateLimits";
-  if (/RATE_LIMITS$/.test(c)) return "otherRateLimits";
-  if (/^ALM_CONTROLLER/.test(c) || c === "CONTROLLER") return "almController";
+  // Prime agents that hold allocations: ALM proxies, PAU proxies and administered agents, with or without a Prime prefix
+  if (/^(?:[A-Z]+_)?(ALM|PAU)_PROXY(_FREEZABLE)?$/.test(c) || /(?:^|_)ADMINISTERED_AGENT$/.test(c)) return "almProxy";
+  // every Prime rate-limit contract is scanned for what its agents may allocate to (ALM, PAU, or Prime-prefixed)
+  if (/RATE_LIMITS$/.test(c)) return "almRateLimits";
+  if (/(?:^|_)(ALM|PAU)_CONTROLLER$/.test(c) || /^[A-Z]+_CONTROLLER$/.test(c)) return "almController";
   if (c === "MORPHO_CURATOR_MULTISIG") return "morphoCurator";
   if (c === "MORPHO_GUARDIAN_MULTISIG") return "morphoGuardian";
   if (/MORPHO_VAULT_V2_FACTORY/.test(c)) return "morphoV2Factory";

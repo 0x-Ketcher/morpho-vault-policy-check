@@ -54,7 +54,7 @@
       ],
       "explorer": "https://arbiscan.io",
       "blockscout": "https://arbitrum.blockscout.com",
-      "verified": null
+      "verified": "2026-09-09: publicnode answers browser requests and Multicall3 is present; used for the Spark rate-limit scan"
     },
     "10": {
       "name": "OP Mainnet",
@@ -63,7 +63,7 @@
       ],
       "explorer": "https://optimistic.etherscan.io",
       "blockscout": "https://optimism.blockscout.com",
-      "verified": null
+      "verified": "2026-09-09: publicnode answers browser requests and Multicall3 is present; used for the Spark rate-limit scan"
     },
     "137": {
       "name": "Polygon",
@@ -81,7 +81,7 @@
       ],
       "explorer": "https://uniscan.xyz",
       "blockscout": "https://unichain.blockscout.com",
-      "verified": null
+      "verified": "2026-09-09: publicnode answers browser requests and Multicall3 is present; used for the Spark rate-limit scan"
     }
   },
   "morphoChains": {

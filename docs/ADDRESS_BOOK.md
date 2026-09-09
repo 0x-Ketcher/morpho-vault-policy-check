@@ -16,11 +16,17 @@ Morpho curator registry: 44 curators, read 2026-09-09
 | 0x491EDFB0B8b608044e227225C715981a30F3A44E | Grove | ALM_PROXY | almProxy | [src/Ethereum.sol L95](https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L95) |
 | 0x5F5cfCB8a463868E37Ab27B5eFF3ba02112dF19a | Grove | ALM_RATE_LIMITS | almRateLimits | [src/Ethereum.sol L96](https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L96) |
 | 0x1369f7b2b38c76B6478c0f0E66D94923421891Ba | Grove | GROVE_PROXY | subproxy | [src/Ethereum.sol L69](https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L69) |
+| 0xdBD17832df0e57b1732cE1C84c652E820e549BAa | Grove | PAU_ADMINISTERED_AGENT | almProxy | [src/Ethereum.sol L112](https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L112) |
+| 0xbf83F5974B932c7D842254042717D6A2706CE5eE | Grove | PAU_CONTROLLER | almController | [src/Ethereum.sol L109](https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L109) |
+| 0x0DcD9298e163dFD3c0B5b00F0d9093C36e40A153 | Grove | PAU_PROXY | almProxy | [src/Ethereum.sol L108](https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L108) |
+| 0xE016Ae733A77Ba77E7907aAA749394Fc5e75C0e1 | Grove | PAU_RATE_LIMITS | almRateLimits | [src/Ethereum.sol L111](https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L111) |
 | 0xEF26BDc34F35669C235345aeF24A251B1EE80EF3 | Keel | ALM_CONTROLLER | almController | [src/Ethereum.sol L69](https://github.com/ElodinLTD/keel-address-registry/blob/5871e2b7db3b6c34130043498c7590b5d7560a14/src/Ethereum.sol#L69) |
 | 0xa5139956eC99aE2e51eA39d0b57C42B6D8db0758 | Keel | ALM_PROXY | almProxy | [src/Ethereum.sol L70](https://github.com/ElodinLTD/keel-address-registry/blob/5871e2b7db3b6c34130043498c7590b5d7560a14/src/Ethereum.sol#L70) |
 | 0x65E7B39e508944F7C4278d3e4580f84Eb20b26a7 | Keel | ALM_RATE_LIMITS | almRateLimits | [src/Ethereum.sol L71](https://github.com/ElodinLTD/keel-address-registry/blob/5871e2b7db3b6c34130043498c7590b5d7560a14/src/Ethereum.sol#L71) |
 | 0x355CD90Ecb1b409Fdf8b64c4473C3B858dA2c310 | Keel | KEEL_PROXY | subproxy | [src/Ethereum.sol L53](https://github.com/ElodinLTD/keel-address-registry/blob/5871e2b7db3b6c34130043498c7590b5d7560a14/src/Ethereum.sol#L53) |
+| 0x1837505D104F7a6D8b7e19452610B0A3D652EF12 | Osero | OSERO_ADMINISTERED_AGENT | almProxy | [src/Ethereum.sol L17](https://github.com/osero-io/osero-address-registry/blob/62d5fe15537d70a3a64aa5bbd853cacf6471aecb/src/Ethereum.sol#L17) |
 | 0x6d370e359e9cbd0Fd35Bb38fAF705D84238CB884 | Osero | OSERO_ALM_PROXY | almProxy | [src/Ethereum.sol L14](https://github.com/osero-io/osero-address-registry/blob/62d5fe15537d70a3a64aa5bbd853cacf6471aecb/src/Ethereum.sol#L14) |
+| 0x24169Afb34fAe4D4356BC54Bd80319131e35ca38 | Osero | OSERO_CONTROLLER | almController | [src/Ethereum.sol L16](https://github.com/osero-io/osero-address-registry/blob/62d5fe15537d70a3a64aa5bbd853cacf6471aecb/src/Ethereum.sol#L16) |
 | 0x24fdcd3bFA5C2553e05B2f9AD0365EBC296278D3 | Osero | OSERO_PROXY | subproxy | [src/Ethereum.sol L5](https://github.com/osero-io/osero-address-registry/blob/62d5fe15537d70a3a64aa5bbd853cacf6471aecb/src/Ethereum.sol#L5) |
 | 0xE9a78f34fe497e2186f81B8c014cd93B308BC62a | Osero | OSERO_RATE_LIMITS | almRateLimits | [src/Ethereum.sol L15](https://github.com/osero-io/osero-address-registry/blob/62d5fe15537d70a3a64aa5bbd853cacf6471aecb/src/Ethereum.sol#L15) |
 | 0x08978E3700859E476201c1D7438B3427e3C81140 | Skybase | SKYBASE_PROXY | subproxy | [src/Ethereum.sol L50](https://github.com/skybase-foundation/skybase-address-registry/blob/2c43f2e375421795230e10651267fa125fe053fd/src/Ethereum.sol#L50) |
@@ -381,6 +387,7 @@ Morpho curator registry: 44 curators, read 2026-09-09
 | Address | Prime | Constant | Role | Source |
 |---|---|---|---|---|
 | 0xc4218C1127cB24a0D6c1e7D25dc34e10f2625f5A | Spark | AMB_EXECUTOR | executor | [src/Gnosis.sol L120](https://github.com/sparkdotfi/spark-address-registry/blob/ecea29bd2a1546bbbf4999e486b3c04f0e10b748/src/Gnosis.sol#L120) |
+| 0x8220096398c3Dc2644026E8864f5D80Ef613B437 | Spark | TREASURY_CONTROLLER | almController | [src/Gnosis.sol L28](https://github.com/sparkdotfi/spark-address-registry/blob/ecea29bd2a1546bbbf4999e486b3c04f0e10b748/src/Gnosis.sol#L28) |
 
 ### Multisigs
 

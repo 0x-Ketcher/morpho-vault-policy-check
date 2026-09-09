@@ -22,8 +22,12 @@ loadEnv();
 const policy = loadPolicy(), providers = loadProviders(), labels = loadLabels(policy);
 const api = new MorphoApi(providers.morphoApi);
 const check = process.argv.includes("--check");
-const CHAINS = policy.chains.accepted.map((c) => c.id);
 const reg = labels.data.registry?.entries ?? [];
+// every chain that has a Prime rate-limit contract, Morpho vaults, and a configured provider; accepted chains first
+const withRateLimits = [...new Set(reg.filter((e) => e.role === "almRateLimits").map((e) => e.chainId))];
+const CHAINS = [...new Set([...policy.chains.accepted.map((c) => c.id), ...withRateLimits])].filter((c) => providers.morphoChains.ids.includes(c) && providers.chains[String(c)]?.rpc?.length);
+const skipped = withRateLimits.filter((c) => !CHAINS.includes(c));
+if (skipped.length) console.log(`chains with a Prime rate-limit contract but no Morpho vaults or no provider, skipped: ${skipped.join(", ")}`);
 const chainName = (id: number) => providers.chains[String(id)]?.name ?? `chain ${id}`;
 
 export interface SkyVault {
@@ -77,7 +81,7 @@ for (const chainId of CHAINS) {
       if (d.maxAmount === 0n && d.lastUpdated === 0n) continue;
       const v = ensure(u); n++;
       v.allocatable.push({ prime: rl.prime, contract: rl.address, maxAmount: d.maxAmount.toString(), perDay: (d.slope * 86400n).toString() });
-      add(v, "allocatable", `${rl.prime} RateLimits ${rl.constant} (${rl.repo} ${rl.file} L${rl.line}) holds a LIMIT_4626_DEPOSIT key for this vault`);
+      add(v, "allocatable", `${rl.prime} ${rl.constant} (${rl.repo} ${rl.file} L${rl.line}) holds a LIMIT_4626_DEPOSIT key for this vault`);
     }
     console.log(`  ${rl.prime} ${rl.constant}: ${n} vaults allocatable (block ${reader.block})`);
   }

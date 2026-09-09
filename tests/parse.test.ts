@@ -16,8 +16,13 @@ describe("registry parser", () => {
     expect(roleFromConstant("SPARK_EXECUTOR")).toBe("executor");
     expect(roleFromConstant("ALM_PROXY_FREEZABLE")).toBe("almProxy");
     expect(roleFromConstant("ALM_RATE_LIMITS")).toBe("almRateLimits");
-    expect(roleFromConstant("PAU_RATE_LIMITS")).toBe("otherRateLimits");
+    expect(roleFromConstant("PAU_RATE_LIMITS")).toBe("almRateLimits");
     expect(roleFromConstant("OSERO_RATE_LIMITS")).toBe("almRateLimits");
+    expect(roleFromConstant("PAU_PROXY")).toBe("almProxy");
+    expect(roleFromConstant("OSERO_ALM_PROXY")).toBe("almProxy");
+    expect(roleFromConstant("PAU_ADMINISTERED_AGENT")).toBe("almProxy");
+    expect(roleFromConstant("PAU_ADMINISTERED_AGENT_FACTORY")).toBe("other");
+    expect(roleFromConstant("PAUSE_PROXY")).toBe("other");
     expect(roleFromConstant("MORPHO_GUARDIAN_MULTISIG")).toBe("morphoGuardian");
     expect(roleFromConstant("GROVE_X_STEAKHOUSE_USDC_HY_V2_MORPHO_VAULT")).toBe("morphoVault");
     expect(roleFromConstant("MORPHO_VAULT_V2_FACTORY")).toBe("morphoV2Factory");
