@@ -4,7 +4,7 @@ Generated from `labels/*.json` by `npm run gen:docs`. Every row cites the public
 
 Registries read at: grove-labs/grove-address-registry@5c7340f6, sparkdotfi/spark-address-registry@ecea29bd, osero-io/osero-address-registry@62d5fe15, skybase-foundation/skybase-address-registry@2c43f2e3, ElodinLTD/keel-address-registry@5871e2b7 (2026-09-08)
 Atlas read at: sky-ecosystem/next-gen-atlas@6f45abbe; 18 files, 647 address mentions
-Morpho curator registry: 44 curators, read 2026-09-08
+Morpho curator registry: 44 curators, read 2026-09-09
 
 ## Ethereum (1)
 
@@ -497,6 +497,7 @@ Morpho curator registry: 44 curators, read 2026-09-08
 | 0xb3CF59A5f12cA319861376C5e63Eef4790a42B44 | Clearstar | yes | - |
 | 0x75178137D3B4B9A0F771E0e149b00fB8167BA325 | Hyperithm | yes | - |
 | 0xEe7E9bb21D5589BF657b94083dB2fA349a3918C8 | Hyperithm | yes | - |
+| 0x060DB084bF41872861f175d83f3cb1B5566dfEA3 | K3 Capital | yes | - |
 | 0x0A0e559bc3b0950a7e448F0d4894db195b9cf8DD | Steakhouse Financial | yes | - |
 | 0x5D6563FB0364124c8ACa4bbbdefd2486e477dB11 | Steakhouse Financial | yes | - |
 | 0x827e86072B06674a077f592A531dcE4590aDeCdB | Steakhouse Financial | yes | - |
@@ -612,6 +613,8 @@ Morpho curator registry: 44 curators, read 2026-09-08
 
 | Address | Curator | Verified | Also in registries as |
 |---|---|---|---|
+| 0x370EC5d1809B27F1fB18e002cf79837c46F5134c | Api3 | yes | - |
+| 0x82B4a86c796d9508350D129BA150B5D625ec98A4 | Api3 | yes | - |
 | 0x337feFE49514fb901eB455A501b8Be76CDeF7660 | Steakhouse Financial | yes | - |
 | 0x9023FBD6A08C666491A2d1648737E400cF42D2Fb | Steakhouse Financial | yes | - |
 | 0xCa50D23F1c18C1Dfaff5d3cae3aa4B9dC5C8db73 | Steakhouse Financial | yes | - |
@@ -725,6 +728,7 @@ Morpho curator registry: 44 curators, read 2026-09-08
 | 0x5a4E19842e09000a582c20A4f524C26Fb48Dd4D0 | Gauntlet | yes | - |
 | 0x9E33faAE38ff641094fa68c65c2cE600b3410585 | Gauntlet | yes | - |
 | 0xCe3b5E1f18951054FA0A7e48aDb3A18A5E957F30 | Gauntlet | yes | - |
+| 0x060DB084bF41872861f175d83f3cb1B5566dfEA3 | K3 Capital | yes | - |
 | 0xB672Ea44A1EC692A9Baf851dC90a1Ee3DB25F1C4 | MEV Capital | yes | - |
 | 0x8b621804a7637b781e2BbD58e256a591F2dF7d51 | Moonwell | yes | - |
 | 0x9855475778aa3B492C14E4E12ca0d44c253C9884 | Pangolins | yes | - |
