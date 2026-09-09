@@ -20,7 +20,9 @@
     "gen:docs": "tsx scripts/gen-docs.ts",
     "record:fixtures": "tsx scripts/record-fixtures.ts",
     "read:safes": "tsx scripts/read-safes.ts",
-    "sync:vaults": "tsx scripts/sync-vaults.ts"
+    "sync:vaults": "tsx scripts/sync-vaults.ts",
+    "verify:rate-limits": "tsx scripts/verify-rate-limits.ts",
+    "update": "tsx scripts/update.ts"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",

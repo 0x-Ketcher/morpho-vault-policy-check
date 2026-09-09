@@ -6,13 +6,17 @@
 import { writeFileSync, existsSync, readFileSync } from "node:fs";
 import { getAddress, type Abi } from "viem";
 import { loadJson, loadPolicy, loadProviders, loadLabels, loadEnv, p } from "../src/node/load.ts";
-import { OnchainReader, httpEndpoint } from "../src/sources/onchain/client.ts";
 import { safeAbi } from "../src/sources/onchain/abis.ts";
+import { MorphoApi } from "../src/sources/morpho-api/client.ts";
+import { makeReader, ETHERSCAN_MORPHO_CHAINS } from "../src/pipeline.ts";
 import { fetchSafe } from "../src/sources/safe/service.ts";
 import type { SafeOwnersEntry } from "../src/sources/labels/index.ts";
 
 loadEnv();
 const policy = loadPolicy(), providers = loadProviders(), labels = loadLabels(policy);
+// the same reader the checks and the vault sync use: publicnode first, Etherscan as failover when a key is set
+const etherscanKey = process.env.ETHERSCAN_API_KEY;
+const deps = { policy, providers, labels, api: new MorphoApi(providers.morphoApi), etherscan: etherscanKey ? { base: providers.etherscan.api, apiKey: etherscanKey, chains: ETHERSCAN_MORPHO_CHAINS } : undefined };
 const CHAINS = [1, 8453, 4663];
 const candidates = new Map<string, Set<number>>();
 const add = (a: string, chainId?: number) => { const k = getAddress(a); if (!candidates.has(k)) candidates.set(k, new Set()); for (const c of chainId !== undefined ? [chainId] : CHAINS) candidates.get(k)!.add(c); };
@@ -25,8 +29,8 @@ for (const g of fx) for (const r of g.roles) for (const a of r.addresses) add(a,
 
 const entries: SafeOwnersEntry[] = [];
 for (const chainId of CHAINS) {
-  const cfg = providers.chains[String(chainId)];
-  const reader = new OnchainReader(chainId, cfg.name, cfg.rpc.map(httpEndpoint), providers.multicall3, { pinLag: cfg.pinLag });
+  const reader = makeReader(deps, chainId);
+  if (!reader) throw new Error(`no provider configured for chain ${chainId}`);
   await reader.pin();
   const addrs = [...candidates.entries()].filter(([, cs]) => cs.has(chainId)).map(([a]) => a as `0x${string}`);
   const code = await reader.getCode(addrs);
@@ -34,6 +38,10 @@ for (const chainId of CHAINS) {
   const r = await reader.read(contracts.flatMap((a) => [
     { key: `o:${a}`, address: a, abi: safeAbi as Abi, functionName: "getOwners" }, { key: `t:${a}`, address: a, abi: safeAbi as Abi, functionName: "getThreshold" }, { key: `v:${a}`, address: a, abi: safeAbi as Abi, functionName: "VERSION" },
   ]));
+  // a chunk that failed for a transport reason marks its calls failed with a message that is not a revert; a Safe
+  // that could not be read must not silently drop out of the table
+  const failedReads = contracts.filter((a) => !r[`o:${a}`]?.ok && !/revert|returned no data|execution reverted/i.test(r[`o:${a}`]?.error ?? ""));
+  if (failedReads.length) throw new Error(`chain ${chainId}: ${failedReads.length} of ${contracts.length} contracts could not be read (${r[`o:${failedReads[0]}`]?.error}); labels/safes.json left as is`);
   let safes = 0;
   for (const a of contracts) {
     if (!r[`o:${a}`]?.ok) continue;

@@ -1,9 +1,9 @@
-import { createPublicClient, http, defineChain, type Abi, type Address, type PublicClient, type Chain, type Transport } from "viem";
+import { createPublicClient, encodeFunctionData, http, defineChain, type Abi, type Address, type PublicClient, type Chain, type Transport } from "viem";
 import type { ProviderReport } from "../../core/types.ts";
 
 export interface Call { key: string; address: Address; abi: Abi; functionName: string; args?: readonly unknown[] }
 export interface CallResult { key: string; ok: boolean; value?: unknown; error?: string }
-export interface Endpoint { label: string; transport: Transport; /** max Multicall calldata per eth_call, bytes; small for URL-based transports */ maxCalldata?: number }
+export interface Endpoint { label: string; transport: Transport; /** budget for one Multicall's aggregate calldata, bytes; 2,600 measured safe for Etherscan's URL-based proxy, default 24,576 for JSON-RPC nodes */ maxCalldata?: number }
 
 
 export type EndpointConfig = string | { url: string; batch?: boolean };
@@ -42,7 +42,7 @@ export class OnchainReader {
     this.labels = endpoints.map((e) => e.label);
     const chain: Chain = defineChain({ id: chainId, name, nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 }, rpcUrls: { default: { http: [] } }, contracts: { multicall3: { address: multicall3 } } });
     this.clients = endpoints.map((e) => createPublicClient({ chain, transport: e.transport }));
-    this.maxCalldata = endpoints.map((e) => e.maxCalldata ?? 4096);
+    this.maxCalldata = endpoints.map((e) => e.maxCalldata ?? 24576);
   }
 
   get urls(): string[] { return this.labels; }
@@ -76,8 +76,22 @@ export class OnchainReader {
     if (calls.length === 0) return {};
     await this.pin();
     const contracts = calls.map((c) => ({ address: c.address, abi: c.abi, functionName: c.functionName, args: c.args ?? [] }));
+    // Chunk by the size of the aggregate3 calldata actually sent, not by the inner calldata viem's batchSize counts:
+    // each call costs about 128 bytes of encoding plus its padded calldata, so 4-byte calls would otherwise be packed
+    // 128 to a chunk and blow the URL limit of an HTTP-GET provider such as Etherscan.
+    const chunk = (subset: typeof contracts, budget: number) => {
+      const out: (typeof contracts)[] = [[]];
+      let used = 0;
+      for (const c of subset) {
+        const bytes = (encodeFunctionData({ abi: c.abi, functionName: c.functionName, args: c.args } as Parameters<typeof encodeFunctionData>[0]).length - 2) / 2;
+        const cost = 128 + Math.ceil(bytes / 32) * 32;
+        if (used + cost > budget && out[out.length - 1].length > 0) { out.push([]); used = 0; }
+        out[out.length - 1].push(c); used += cost;
+      }
+      return out;
+    };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mc = (subset: typeof contracts) => this.withFailover((c, idx) => c.multicall({ contracts: subset as any, allowFailure: true, blockNumber: this.block, batchSize: this.maxCalldata[idx] }));
+    const mc = (subset: typeof contracts) => this.withFailover(async (c, idx) => (await Promise.all(chunk(subset, this.maxCalldata[idx]).map((part) => c.multicall({ contracts: part as any, allowFailure: true, blockNumber: this.block, batchSize: 0 })))).flat());
     const res = [...(await mc(contracts))];
     this.calls += calls.length;
     // a chunk that failed for a transport reason (refused, rate-limited, timed out) is not a revert: retry those calls once

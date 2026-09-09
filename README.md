@@ -55,7 +55,8 @@ config/providers.json      RPC endpoints per chain, Morpho API, Safe service, Et
 config/registries.json     which GitHub repos are label sources and how file names map to chains
 config/sky-vaults.json     generated list of Sky vaults, grouped by Prime (see docs/VAULTS.md); rebuilt by npm run sync:vaults
 labels/                    generated label tables with provenance (registry, atlas, curators, safes)
-docs/                      POLICY.md, ADDRESS_BOOK.md, SAFES.md (generated); CHECKS.md, DATA_SOURCES.md, POLICY_MAPPING.md (written)
+docs/                      POLICY.md, ADDRESS_BOOK.md, SAFES.md, VAULTS.md (generated); CHECKS.md, DATA_SOURCES.md, POLICY_MAPPING.md, UPDATE.md (written)
+CLAUDE.md                  what an agent needs to know before touching the repo; points to docs/UPDATE.md
 abi/                       verified ABIs the human-readable fragments were checked against
 src/core/                  the pure part: types, checks (one file group per check), report assembly, renderers; no I/O
 src/sources/               readers: onchain (viem, Multicall3, failover), morpho-api, safe, etherscan transport, labels
@@ -63,7 +64,7 @@ src/pipeline.ts            find vault, read both methods, evaluate, report
 src/cli.ts                 check / batch / find
 src/web/                   the page (Vite + React), reads everything in the browser
 server/index.ts            production server: static files plus the key-holding Etherscan proxy
-scripts/                   sync-labels, read-safes, gen-docs, record-fixtures
+scripts/                   update (runs the next four in order), sync-labels, sync-vaults, read-safes, gen-docs; verify-rate-limits, record-fixtures
 tests/                     unit tests on synthetic snapshots, parser tests, regression on recorded snapshots, repository scrub
 ```
 
@@ -73,13 +74,15 @@ Change the policy in `config/policy.json` and regenerate `docs/POLICY.md` with `
 
 ## The Sky vault list
 
-`config/sky-vaults.json` is generated, not typed. `npm run sync:vaults` takes every Morpho vault on every chain that has a Prime rate-limit contract (about 4,100 vaults on six chains), asks each Prime rate-limit contract on-chain whether it holds a deposit rate limit for the vault, which is what lets a Prime agent allocate to it, and reads each Prime agent's positions. A vault is listed only if a Prime agent can allocate to it, a Prime agent holds a position in it, a scheduled spell is about to onboard it, or it is one of Skybase's own vaults, found through Sky Money's entry in Morpho's curator registry. Governance ownership, registry constants and Atlas mentions are recorded as sources but do not list a vault on their own, so superseded and test deployments never appear. `config/vault-overrides.json` is the one hand-maintained input: vaults a scheduled spell will onboard, each citing the spell proposal; the sync reports an entry as stale once the rate limit exists. The daily sync rebuilds the list; a membership change opens a pull request. The page refreshes exposure and TVL live; the file's numbers are a snapshot. Human-readable version: `docs/VAULTS.md`.
+`config/sky-vaults.json` is generated, not typed. `npm run sync:vaults` takes every Morpho vault on every chain that has a Prime rate-limit contract (about 4,100 vaults on six chains), asks each Prime rate-limit contract on-chain whether it holds a deposit rate limit with a non-zero maximum for the vault, which is what lets a Prime agent allocate to it (a limit zeroed by a later spell is an offboarding), and reads each Prime agent's positions. A vault is listed only if a Prime agent can allocate to it, a Prime agent holds a position in it, a scheduled spell is about to onboard it, or it is one of Skybase's own vaults, found through Sky Money's entry in Morpho's curator registry. Governance ownership, registry constants and Atlas mentions are recorded as sources but do not list a vault on their own, so superseded and test deployments never appear. `config/vault-overrides.json` is the one hand-maintained input: vaults a scheduled spell will onboard, each citing the spell proposal; the sync reports an entry as stale once the rate limit exists. The list is rebuilt by `npm run update`, run by an agent or a person following `docs/UPDATE.md`. The page refreshes exposure and TVL live; the file's numbers are a snapshot. Human-readable version: `docs/VAULTS.md`.
+
+`npm run verify:rate-limits` is the cross-check from the other direction. Instead of asking the contracts about vaults the API knows, it collects every rate-limit key each Prime contract ever set (from the contracts' own event logs), reads each key live, and matches the live keys against keys computed for every Morpho vault on every chain the API indexes, every registry address and every token or counterparty the Prime proxies ever transacted with, under every key prefix found in the controllers' verified source code and in each encoding the controllers use. A second vault universe comes from the Morpho factories' own creation events, confirmed by the factory contract, so a vault the API does not index cannot hide. A live deposit key for a Morpho vault the list does not carry fails the run (exit 1); keys nothing explains are printed for a human to look at; when an explorer could not serve a contract's logs the result line names it and the run exits 10. It is the optional second step of `docs/UPDATE.md`, about four minutes.
 
 ## Labels and freshness
 
 `npm run sync:labels` (set `GITHUB_TOKEN` to `gh auth token` to avoid the anonymous API limit) re-reads the registries at their branch heads, the whole Atlas `content/` folder and Morpho's curator registry, and rewrites `labels/*.json` only when something changed. `npm run read:safes` re-reads the owners of every known Safe on-chain and via the Safe service. `npm run gen:docs` rewrites the three generated tables. CI fails if the generated docs are stale.
 
-The daily `label-sync` workflow does the same on a schedule: a run that finds nothing changes nothing; a pin-only move is committed directly; a label change opens a pull request with the diff for review. The page compares the pinned commits with the current heads when it loads and shows a banner when a source has moved.
+`npm run update` runs all of that in order and prints a summary of what changed; `docs/UPDATE.md` is the runbook, written for an agent such as Claude Code or a person: when to run it, the forum step for pending spells (the forum serves JSON), what to look at in the diff, and how to push and deploy. `CLAUDE.md` at the root points an agent to it and states the repository rules. Nothing runs on a schedule. The page compares the pinned commits with the current heads when it loads and shows a banner when a source has moved, which is the signal that an update is due.
 
 ## Tests and CI
 
