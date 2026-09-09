@@ -8,11 +8,20 @@ import { custom, type Transport } from "viem";
 export function etherscanTransport(opts: { chainId: number; base: string; apiKey?: string; minIntervalMs?: number; fetchImpl?: typeof fetch }): Transport {
   const f = opts.fetchImpl ?? fetch;
   let last = 0;
+  let queue: Promise<unknown> = Promise.resolve();
   const gap = opts.minIntervalMs ?? 340; // this key's plan allows 3 calls per second
-  const call = async (params: Record<string, string>) => {
-    const wait = last + gap - Date.now();
-    if (wait > 0) await new Promise((r) => setTimeout(r, wait));
-    last = Date.now();
+  // calls are serialised through one queue so concurrent callers (Multicall chunks, getCode batches) cannot exceed the rate
+  const call = (params: Record<string, string>) => {
+    const run = queue.then(async () => {
+      const wait = last + gap - Date.now();
+      if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+      last = Date.now();
+      return callNow(params);
+    });
+    queue = run.catch(() => undefined);
+    return run;
+  };
+  const callNow = async (params: Record<string, string>) => {
     const q = new URLSearchParams({ chainid: String(opts.chainId), module: "proxy", ...params });
     if (opts.apiKey) q.set("apikey", opts.apiKey);
     const res = await f(`${opts.base}?${q.toString()}`);

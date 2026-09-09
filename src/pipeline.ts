@@ -36,7 +36,8 @@ export function normalizeAddress(input: string): Address {
 export function makeReader(deps: Deps, chainId: number): OnchainReader | null {
   const cfg = deps.providers.chains[String(chainId)];
   const endpoints: Endpoint[] = (cfg?.rpc ?? []).map(httpEndpoint);
-  if (deps.etherscan && deps.etherscan.chains.includes(chainId)) endpoints.push({ label: `etherscan${deps.etherscan.apiKey ? "" : " (via server proxy)"}`, transport: etherscanTransport({ chainId, base: deps.etherscan.base, apiKey: deps.etherscan.apiKey }) });
+  // Etherscan carries the call data in the URL; chunks of 512 bytes work, 1 KB is refused (measured 2026-09-09)
+  if (deps.etherscan && deps.etherscan.chains.includes(chainId)) endpoints.push({ label: `etherscan${deps.etherscan.apiKey ? "" : " (via server proxy)"}`, transport: etherscanTransport({ chainId, base: deps.etherscan.base, apiKey: deps.etherscan.apiKey }), maxCalldata: 512 });
   if (endpoints.length === 0) return null;
   return new OnchainReader(chainId, cfg?.name ?? `chain ${chainId}`, endpoints, deps.providers.multicall3, { pinLag: cfg?.pinLag });
 }

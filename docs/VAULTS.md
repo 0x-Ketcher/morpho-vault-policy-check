@@ -4,21 +4,19 @@ Generated from `config/sky-vaults.json` by `npm run gen:docs`; the list itself c
 
 Listed when a Prime's RateLimits contract holds a deposit rate limit for the vault (a Prime agent can allocate to it), a Prime ALM proxy holds shares in it, a Prime governance address owns it, a Prime registry or the Atlas lists it, or Sky Money (Morpho's curator registry) owns or curates it.
 
-33 vaults; snapshot of 2026-09-09 (the page refreshes exposure and TVL live).
+31 vaults; snapshot of 2026-09-09 (the page refreshes exposure and TVL live).
 
-## Spark (exposure $332.2M)
+## Spark (exposure $332.1M)
 
 | Vault | Chain | Version | Address | Exposure | TVL | Allocatable by | Status | Sources |
 |---|---|---|---|---|---|---|---|---|
 | Spark USDC Vault (sparkUSDC) | Base | v1.1 | 0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A | $284.3M | $289.8M | Spark | exposure | Spark ALM_RATE_LIMITS (sparkdotfi/spark-address-registry src/Base.sol L29) holds a LIMIT_4626_DEPOSIT key for this vault<br>Spark ALM_PROXY holds a position (Morpho API)<br>owned by Spark governance (SPARK_EXECUTOR)<br>curated by Spark's MORPHO_CURATOR_MULTISIG<br>Spark registry src/Base.sol L87 MORPHO_VAULT_SUSDC<br>Atlas A.6.1.1.1.2.6.1.3.2.1.1.2.2.1 (Spark) |
-| Spark Blue Chip USDT Vault (sparkUSDTbc) | Ethereum | v2 | 0xb0c424116172B55CbB6dD3136F5989F7959e5B91 | $35.3M | $35.5M | Spark | exposure | Spark ALM_RATE_LIMITS (sparkdotfi/spark-address-registry src/Ethereum.sol L29) holds a LIMIT_4626_DEPOSIT key for this vault<br>Spark ALM_PROXY holds a position (Morpho API)<br>owned by Spark governance (SPARK_PROXY)<br>curated by Spark's MORPHO_CURATOR_MULTISIG<br>Spark registry src/Ethereum.sol L154 MORPHO_VAULT_V2_USDT<br>Atlas A.6.1.1.1.2.6.1.3.1.5.2.2.2.1 (Spark) |
+| Spark Blue Chip USDT Vault (sparkUSDTbc) | Ethereum | v2 | 0xb0c424116172B55CbB6dD3136F5989F7959e5B91 | $35.2M | $35.5M | Spark | exposure | Spark ALM_RATE_LIMITS (sparkdotfi/spark-address-registry src/Ethereum.sol L29) holds a LIMIT_4626_DEPOSIT key for this vault<br>Spark ALM_PROXY holds a position (Morpho API)<br>owned by Spark governance (SPARK_PROXY)<br>curated by Spark's MORPHO_CURATOR_MULTISIG<br>Spark registry src/Ethereum.sol L154 MORPHO_VAULT_V2_USDT<br>Atlas A.6.1.1.1.2.6.1.3.1.5.2.2.2.1 (Spark) |
 | Spark Blue Chip USDC Vault (sparkUSDCbc) | Ethereum | v1.1 | 0x56A76b428244a50513ec81e225a293d128fd581D | $12.6M | $12.9M | Spark | exposure | Spark ALM_RATE_LIMITS (sparkdotfi/spark-address-registry src/Ethereum.sol L29) holds a LIMIT_4626_DEPOSIT key for this vault<br>Spark ALM_PROXY holds a position (Morpho API)<br>owned by Spark governance (SPARK_PROXY)<br>curated by Spark's MORPHO_CURATOR_MULTISIG<br>Spark registry src/Ethereum.sol L151 MORPHO_VAULT_USDC_BC<br>Atlas A.6.1.1.1.2.6.1.3.1.5.1.2.2.1 (Spark) |
 | Spark DAI Vault (spDAI) | Ethereum | v1.1 | 0x73e65DBD630f90604062f6E02fAb9138e713edD9 | $957 | $1K | Spark | exposure | Spark ALM_RATE_LIMITS (sparkdotfi/spark-address-registry src/Ethereum.sol L29) holds a LIMIT_4626_DEPOSIT key for this vault<br>Spark ALM_PROXY holds a position (Morpho API)<br>owned by Spark governance (SPARK_PROXY)<br>Spark registry src/Ethereum.sol L152 MORPHO_VAULT_DAI_1<br>Atlas A.6.1.1.1.2.6.1.4.3.1.2.2.2.1 (Spark) |
 | Spark USDS Vault (sparkUSDS) | Ethereum | v1.1 | 0xe41a0583334f0dc4E023Acd0bFef3667F6FE0597 | $22 | $1K | Spark | exposure | Spark ALM_RATE_LIMITS (sparkdotfi/spark-address-registry src/Ethereum.sol L29) holds a LIMIT_4626_DEPOSIT key for this vault<br>Spark ALM_PROXY holds a position (Morpho API)<br>owned by Spark governance (SPARK_PROXY)<br>curated by Spark's MORPHO_CURATOR_MULTISIG<br>Spark registry src/Ethereum.sol L153 MORPHO_VAULT_USDS<br>Atlas A.6.1.1.1.2.6.1.4.3.1.3.2.2.1 (Spark) |
-| Sentora x Spark RLUSD (sxsRLUSD) | Ethereum | v2 | 0x661eBF3f18d6Ed9a1adA581b1285cC90071798cB | - | $2 | - | governed, empty | owned by Spark governance (SPARK_PROXY) |
 | Spark Blue Chip USDT Vault (sparkUSDTbc) | Ethereum | v2 | 0x485E796E2BAc3c1834D1a6D936F166a8AB732031 | - | $1 | - | governed, empty | owned by Spark governance (SPARK_PROXY) |
-| Sentora x Spark RLUSD (sxsRLUSD) | Ethereum | v2 | 0x13179C1551F7364370295c3D4BDD6Ce794Af5A8d | - | - | - | governed, empty | owned by Spark governance (SPARK_PROXY) |
-| Sentora x Spark RLUSD (sxsRLUSD) | Ethereum | v2 | 0xFC8C624B6080a0a780583799f2A862DE936F6E22 | - | - | - | governed, empty | owned by Spark governance (SPARK_PROXY) |
+| Sentora x Spark RLUSD (sxsRLUSD) | Ethereum | v2 | 0xFC8C624B6080a0a780583799f2A862DE936F6E22 | - | - | - | pending spell | owned by Spark governance (SPARK_PROXY)<br>pending: Onboarding scheduled by the September 10, 2026 Spark spell: deposit limit 10M RLUSD refilling at 100M per day. (https://forum.skyeco.com/t/28208) |
 | Spark Blue Chip USDC Vault (sparkUSDCbc) | Ethereum | v1.1 | 0xfeaC08ffA38d95ec5Ed7C46c933C8891a44C5F26 | - | - | - | governed, empty | owned by Spark governance (SPARK_PROXY) |
 | Spark DAI Vault (spDAI) | Ethereum | v1.1 | 0xB8C7F2a4B3bF76CC04bd55Ebc259b33a67b3b36d | - | - | - | governed, empty | owned by Spark governance (SPARK_PROXY) |
 | Spark USDS Vault (sparkUSDS) | Ethereum | v1.1 | 0x515d0e660E02C2c149a025d47f352EE6cB236B93 | - | - | - | governed, empty | owned by Spark governance (SPARK_PROXY) |
@@ -53,4 +51,13 @@ Listed when a Prime's RateLimits contract holds a deposit rate limit for the vau
 | sky.money USDS Risk Capital (skyMoneyUsdsRiskCapital) | Ethereum | v2 | 0xf42bca228D9bd3e2F8EE65Fec3d21De1063882d4 | - | $1.1M | - | Skybase vault | Sky Money in Morpho's curator registry (verified) owns or curates it |
 | sky.money USDT Risk Capital (skyMoneyUsdtRiskCapital) | Ethereum | v2 | 0x2bD3A43863c07B6A01581FADa0E1614ca5DF0E3d | - | $550K | - | Skybase vault | Sky Money in Morpho's curator registry (verified) owns or curates it |
 | sky.money USDS Risk Capital (skyMoneyUsdsRiskCapital) | Ethereum | v2 | 0xAE57b2874673C7E0f5462B598220775017094E8f | - | $1 | - | Skybase vault | Sky Money in Morpho's curator registry (verified) owns or curates it |
+
+## Excluded by hand
+
+Deployments the chain cannot tell apart from the real vault, removed with a cited public document (`config/vault-overrides.json`).
+
+| Vault | Chain | Address | Reason | Source | Since |
+|---|---|---|---|---|---|
+| Sentora x Spark RLUSD | Ethereum | 0x13179C1551F7364370295c3D4BDD6Ce794Af5A8d | Superseded deployment of Sentora x Spark RLUSD (2026-08-31 20:35 UTC). The September 10, 2026 Spark spell proposal names 0xFC8C624B6080a0a780583799f2A862DE936F6E22 as the vault it onboards. | https://forum.skyeco.com/t/28208 | 2026-09-09 |
+| Sentora x Spark RLUSD | Ethereum | 0x661eBF3f18d6Ed9a1adA581b1285cC90071798cB | Test deployment of Sentora x Spark RLUSD (two-dollar deposit, two sentinels, timelocks below policy). The September 10, 2026 Spark spell proposal names 0xFC8C624B6080a0a780583799f2A862DE936F6E22 as the vault it onboards. | https://forum.skyeco.com/t/28208 | 2026-09-09 |
 

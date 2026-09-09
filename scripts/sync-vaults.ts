@@ -14,13 +14,16 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { getAddress, type Abi } from "viem";
 import { loadPolicy, loadProviders, loadLabels, loadEnv, p } from "../src/node/load.ts";
 import { MorphoApi } from "../src/sources/morpho-api/client.ts";
-import { OnchainReader, httpEndpoint } from "../src/sources/onchain/client.ts";
 import { rateLimitsAbi } from "../src/sources/onchain/abis.ts";
+import { makeReader, ETHERSCAN_MORPHO_CHAINS } from "../src/pipeline.ts";
 import { depositRateLimitKey } from "../src/sources/onchain/vault.ts";
 
 loadEnv();
 const policy = loadPolicy(), providers = loadProviders(), labels = loadLabels(policy);
 const api = new MorphoApi(providers.morphoApi);
+const etherscanKey = process.env.ETHERSCAN_API_KEY;
+// the same reader the pipeline uses: one public node per chain, Etherscan as failover when a key is present
+const deps = { policy, providers, labels, api, etherscan: etherscanKey ? { base: providers.etherscan.api, apiKey: etherscanKey, chains: ETHERSCAN_MORPHO_CHAINS } : undefined };
 const check = process.argv.includes("--check");
 const reg = labels.data.registry?.entries ?? [];
 // every chain that has a Prime rate-limit contract, Morpho vaults, and a configured provider; accepted chains first
@@ -64,26 +67,27 @@ const ensure = (u: U): SkyVault => {
 const add = (v: SkyVault, relation: string, source: string) => { if (!v.relations.includes(relation)) v.relations.push(relation); if (!v.sources.includes(source)) v.sources.push(source); };
 
 for (const chainId of CHAINS) {
-  const cfg = providers.chains[String(chainId)];
   const all = await universe(chainId);
   const byAddr = new Map(all.map((u) => [u.address.toLowerCase(), u]));
   console.log(`${chainName(chainId)}: ${all.length} Morpho vaults in the API universe`);
   // 1. allocatable: deposit rate limit on a Prime's RateLimits contract
-  const reader = new OnchainReader(chainId, cfg.name, cfg.rpc.map(httpEndpoint), providers.multicall3, { pinLag: cfg.pinLag });
+  const reader = makeReader(deps, chainId);
+  if (!reader) { console.log(`  no on-chain provider for chain ${chainId}; rate limits not scanned`); continue; }
   for (const rl of reg.filter((e) => e.role === "almRateLimits" && e.chainId === chainId)) {
     const calls = all.map((u) => ({ key: u.address.toLowerCase(), address: rl.address as `0x${string}`, abi: rateLimitsAbi as Abi, functionName: "getRateLimitData", args: [depositRateLimitKey(u.address as `0x${string}`)] }));
     const res = await reader.read(calls);
+    const failed = all.filter((u) => !res[u.address.toLowerCase()]?.ok).length;
+    if (failed > 0) throw new Error(`${chainName(chainId)} ${rl.prime} ${rl.constant}: ${failed} of ${all.length} rate-limit reads failed via ${reader.primaryLabel}; a failed read is not "no rate limit", list not written`);
     let n = 0;
     for (const u of all) {
       const r = res[u.address.toLowerCase()];
-      if (!r?.ok) continue;
       const d = r.value as { maxAmount: bigint; slope: bigint; lastUpdated: bigint };
       if (d.maxAmount === 0n && d.lastUpdated === 0n) continue;
       const v = ensure(u); n++;
       v.allocatable.push({ prime: rl.prime, contract: rl.address, maxAmount: d.maxAmount.toString(), perDay: (d.slope * 86400n).toString() });
       add(v, "allocatable", `${rl.prime} ${rl.constant} (${rl.repo} ${rl.file} L${rl.line}) holds a LIMIT_4626_DEPOSIT key for this vault`);
     }
-    console.log(`  ${rl.prime} ${rl.constant}: ${n} vaults allocatable (block ${reader.block})`);
+    console.log(`  ${rl.prime} ${rl.constant}: ${n} vaults allocatable (block ${reader.block} via ${reader.primaryLabel})`);
   }
   // 2. exposure: ALM proxy positions
   for (const pr of reg.filter((e) => e.role === "almProxy" && e.chainId === chainId)) {
@@ -114,6 +118,20 @@ for (const chainId of CHAINS) {
   for (const u of all) if ((u.owner && sky.has(u.owner.toLowerCase())) || (u.curator && sky.has(u.curator.toLowerCase()))) { const v = ensure(u); v.prime = "Skybase"; add(v, u.owner && sky.has(u.owner.toLowerCase()) ? "owner" : "curator", "Sky Money in Morpho's curator registry (verified) owns or curates it"); }
 }
 
+// hand-maintained exceptions, each citing a public document
+type Override = { chainId: number; address: string; action: "exclude" | "pending"; reason: string; source: string; date: string };
+const overrides = (existsSync(p("config/vault-overrides.json")) ? (JSON.parse(readFileSync(p("config/vault-overrides.json"), "utf8")) as { overrides: Override[] }).overrides : []);
+const excluded: (Override & { name?: string })[] = [];
+for (const o of overrides) {
+  const k = key(o.chainId, o.address); const v = vaults.get(k);
+  if (o.action === "exclude") { if (v) { excluded.push({ ...o, name: v.name }); vaults.delete(k); } else console.log(`override: ${o.address} is not in the generated list; the exclude entry can be removed`); }
+  else if (o.action === "pending") {
+    if (!v) { console.log(`override: pending vault ${o.address} is not in the generated list (no Prime relation yet); ignored`); continue; }
+    if (v.allocatable.length) { console.log(`override STALE: ${o.address} now holds a rate limit on-chain; remove its 'pending' entry`); continue; }
+    v.relations.push("pending"); v.sources.push(`pending: ${o.reason} (${o.source})`);
+  }
+}
+
 // primary Prime, exposure total, status
 for (const v of vaults.values()) {
   v.exposureUsd = Object.values(v.exposureByPrime).reduce((a, b) => a + b, 0);
@@ -122,16 +140,16 @@ for (const v of vaults.values()) {
     const src = (rel: string) => v.sources.find((s) => s.startsWith(rel))?.split(" ")[0];
     v.prime = byExp ?? v.allocatable[0]?.prime ?? (v.sources.find((s) => s.startsWith("owned by "))?.split(" ")[2]) ?? src("Grove") ?? src("Spark") ?? src("Osero") ?? v.sources[0]?.split(" ")[0] ?? "unknown";
   }
-  v.status = v.prime === "Skybase" ? "Skybase vault" : v.exposureUsd >= 1 ? "exposure" : v.allocatable.length ? "allocatable, no position" : v.relations.includes("owner") ? "governed, empty" : "listed only";
+  v.status = v.prime === "Skybase" ? "Skybase vault" : v.exposureUsd >= 1 ? "exposure" : v.allocatable.length ? "allocatable, no position" : v.relations.includes("pending") ? "pending spell" : v.relations.includes("owner") ? "governed, empty" : "listed only";
 }
 const primes = [...new Set([...vaults.values()].map((v) => v.prime))].sort((a, b) => (a === "Skybase" ? 1 : b === "Skybase" ? -1 : 0) || [...vaults.values()].filter((v) => v.prime === b).reduce((s, v) => s + v.exposureUsd, 0) - [...vaults.values()].filter((v) => v.prime === a).reduce((s, v) => s + v.exposureUsd, 0));
 const groups = primes.map((prime) => ({ prime, exposureUsd: [...vaults.values()].filter((v) => v.prime === prime).reduce((s, v) => s + v.exposureUsd, 0), vaults: [...vaults.values()].filter((v) => v.prime === prime).sort((a, b) => b.exposureUsd - a.exposureUsd || b.tvlUsd - a.tvlUsd) }));
 const out = {
   note: "Generated by npm run sync:vaults. Membership, status and sources are what the daily sync watches; tvlUsd and exposureUsd are a snapshot that the page refreshes live.",
   definition: "Listed when a Prime's RateLimits contract holds a deposit rate limit for the vault (a Prime agent can allocate to it), a Prime ALM proxy holds shares in it, a Prime governance address owns it, a Prime registry or the Atlas lists it, or Sky Money (Morpho's curator registry) owns or curates it.",
-  generatedAt: new Date().toISOString(), chains: CHAINS, count: vaults.size, groups,
+  generatedAt: new Date().toISOString(), chains: CHAINS, count: vaults.size, groups, excluded,
 };
-const material = (o: any) => JSON.stringify((o.groups as any[]).map((g) => ({ prime: g.prime, vaults: g.vaults.map((v: any) => ({ a: v.address, c: v.chainId, s: v.status, r: v.relations, src: v.sources, al: v.allocatable.map((x: any) => x.prime + x.contract) })) })));
+const material = (o: any) => JSON.stringify([(o.groups as any[]).map((g) => ({ prime: g.prime, vaults: g.vaults.map((v: any) => ({ a: v.address, c: v.chainId, s: v.status, r: v.relations, src: v.sources, al: v.allocatable.map((x: any) => x.prime + x.contract) })) })), (o.excluded ?? []).map((e: any) => `${e.chainId}:${e.address}:${e.reason}`)]);
 const prev = existsSync(p("config/sky-vaults.json")) ? JSON.parse(readFileSync(p("config/sky-vaults.json"), "utf8")) : null;
 const changed = !prev || material(prev) !== material(out);
 if (!check && (changed || !prev)) writeFileSync(p("config/sky-vaults.json"), JSON.stringify(out, null, 1) + "\n");

@@ -3,7 +3,7 @@ import type { ProviderReport } from "../../core/types.ts";
 
 export interface Call { key: string; address: Address; abi: Abi; functionName: string; args?: readonly unknown[] }
 export interface CallResult { key: string; ok: boolean; value?: unknown; error?: string }
-export interface Endpoint { label: string; transport: Transport }
+export interface Endpoint { label: string; transport: Transport; /** max Multicall calldata per eth_call, bytes; small for URL-based transports */ maxCalldata?: number }
 
 
 export type EndpointConfig = string | { url: string; batch?: boolean };
@@ -25,6 +25,7 @@ export class OnchainReader {
   readonly chainId: number;
   readonly labels: string[];
   private readonly clients: PublicClient[];
+  private readonly maxCalldata: number[];
   private primaryIdx = 0;
   block = 0n;
   blockTimestamp?: number;
@@ -41,16 +42,20 @@ export class OnchainReader {
     this.labels = endpoints.map((e) => e.label);
     const chain: Chain = defineChain({ id: chainId, name, nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 }, rpcUrls: { default: { http: [] } }, contracts: { multicall3: { address: multicall3 } } });
     this.clients = endpoints.map((e) => createPublicClient({ chain, transport: e.transport }));
+    this.maxCalldata = endpoints.map((e) => e.maxCalldata ?? 4096);
   }
 
   get urls(): string[] { return this.labels; }
   get primaryLabel(): string { return this.labels[this.primaryIdx]; }
 
-  private async withFailover<T>(fn: (c: PublicClient) => Promise<T>): Promise<T> {
+  /** Tries the current endpoint up to three times (a public node's refusal is often transient), then the next endpoints. */
+  private async withFailover<T>(fn: (c: PublicClient, idx: number) => Promise<T>): Promise<T> {
     let lastErr: unknown;
     for (let i = this.primaryIdx; i < this.clients.length; i++) {
-      try { const out = await fn(this.clients[i]); if (i !== this.primaryIdx) { this.failovers.push(`${this.labels[this.primaryIdx]} -> ${this.labels[i]}`); this.primaryIdx = i; } return out; }
-      catch (e) { lastErr = e; }
+      for (let attempt = 0; attempt < (i === this.primaryIdx ? 3 : 1); attempt++) {
+        try { const out = await fn(this.clients[i], i); if (i !== this.primaryIdx) { this.failovers.push(`${this.labels[this.primaryIdx]} -> ${this.labels[i]}`); this.primaryIdx = i; } return out; }
+        catch (e) { lastErr = e; if (attempt < 2 && i === this.primaryIdx) await new Promise((r) => setTimeout(r, 1500 * (attempt + 1))); }
+      }
     }
     throw lastErr instanceof Error ? lastErr : new Error(String(lastErr));
   }
@@ -72,8 +77,17 @@ export class OnchainReader {
     await this.pin();
     const contracts = calls.map((c) => ({ address: c.address, abi: c.abi, functionName: c.functionName, args: c.args ?? [] }));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const res = await this.withFailover((c) => c.multicall({ contracts: contracts as any, allowFailure: true, blockNumber: this.block, batchSize: 4096 }));
+    const mc = (subset: typeof contracts) => this.withFailover((c, idx) => c.multicall({ contracts: subset as any, allowFailure: true, blockNumber: this.block, batchSize: this.maxCalldata[idx] }));
+    const res = [...(await mc(contracts))];
     this.calls += calls.length;
+    // a chunk that failed for a transport reason (refused, rate-limited, timed out) is not a revert: retry those calls once
+    const transient = (e: unknown) => /HTTP request failed|rate limit|timed out|timeout|fetch|network|RPC error|unknown RPC|429|403|502|503/i.test(String((e as Error)?.message ?? e));
+    const retry = res.map((r, i) => (r.status === "failure" && transient(r.error) ? i : -1)).filter((i) => i >= 0);
+    if (retry.length > 0 && retry.length < calls.length + 1) {
+      await new Promise((r) => setTimeout(r, 1500));
+      const again = await mc(retry.map((i) => contracts[i]));
+      retry.forEach((i, j) => { res[i] = again[j]; });
+    }
     const out: Record<string, CallResult> = {};
     calls.forEach((c, i) => { const r = res[i]; out[c.key] = r.status === "success" ? { key: c.key, ok: true, value: r.result } : { key: c.key, ok: false, error: String(r.error?.message ?? r.error).slice(0, 160) }; });
     return out;

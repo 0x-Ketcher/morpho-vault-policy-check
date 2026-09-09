@@ -123,3 +123,5 @@ footer { margin-top: 28px; }
 .vpick-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .nums { flex: 0 0 auto; color: var(--accent); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .vpick-head .nums { text-transform: none; letter-spacing: 0; font-weight: 600; }
+.vpick-right { display: flex; align-items: baseline; gap: 10px; flex: 0 0 auto; }
+.vpick-status { color: var(--muted); font-size: 11px; }

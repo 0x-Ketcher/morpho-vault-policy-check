@@ -237,6 +237,8 @@ function Chip({ x }: { x: Citation }) {
   return x.url ? <a className={cls} href={x.url} target="_blank" rel="noreferrer" title={x.ref}>{text}</a> : <span className={cls} title={x.ref}>{text}</span>;
 }
 
+const statusWord = (s: string) => ({ "pending spell": "pending spell", "governed, empty": "not onboarded", "allocatable, no position": "no position", "listed only": "listed only" })[s] ?? "";
+
 /** Grouped vault list with the exposure / TVL figures as their own coloured column. A native select cannot colour part of an option. */
 function VaultPicker({ groups, disabled, onPick }: { groups: { prime: string; exposureUsd: number; vaults: SkyVault[] }[]; disabled: boolean; onPick: (v: SkyVault) => void }) {
   const [open, setOpen] = useState(false);
@@ -262,7 +264,7 @@ function VaultPicker({ groups, disabled, onPick }: { groups: { prime: string; ex
               {g.vaults.map((v) => (
                 <button type="button" key={`${v.chainId}:${v.address}`} className="vpick-row" role="option" onClick={() => { setOpen(false); onPick(v); }}>
                   <span className="vpick-name">{v.name} <span className="muted">· {v.chain.replace(" Chain", "")}{suffix(v)}</span></span>
-                  <span className="nums">{nums(v.exposureUsd, v.tvlUsd)}</span>
+                  <span className="vpick-right"><span className="vpick-status">{statusWord(v.status)}</span><span className="nums">{nums(v.exposureUsd, v.tvlUsd)}</span></span>
                 </button>
               ))}
             </div>

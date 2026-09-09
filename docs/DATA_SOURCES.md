@@ -37,7 +37,7 @@ Precedence when sources disagree on a label: registry over Atlas (the Atlas lags
 
 ## The Sky vault list
 
-Definition, in order of strength: a Prime's RateLimits contract holds a `LIMIT_4626_DEPOSIT` key for the vault, so a Prime agent can allocate to it; a Prime ALM proxy holds shares in it; a Prime governance address owns it; a Prime registry or the Atlas lists it; Sky Money, a verified entry in Morpho's curator registry, owns or curates it. The universe scanned is every vault the Morpho API indexes on the accepted chains, about 3,800 on 2026-09-09; the rate-limit question is one Multicall read per vault per Prime contract, a few seconds per chain on publicnode. RateLimits, ALM proxy and governance addresses come from the registries. Rebuilt by `scripts/sync-vaults.ts`; rendered as `docs/VAULTS.md`.
+Definition, in order of strength: a Prime's RateLimits contract holds a `LIMIT_4626_DEPOSIT` key for the vault, so a Prime agent can allocate to it; a Prime ALM proxy holds shares in it; a Prime governance address owns it; a Prime registry or the Atlas lists it; Sky Money, a verified entry in Morpho's curator registry, owns or curates it. The universe scanned is every vault the Morpho API indexes on the accepted chains, about 3,800 on 2026-09-09; the rate-limit question is one Multicall read per vault per Prime contract, a few seconds per chain on publicnode. RateLimits, ALM proxy and governance addresses come from the registries. Rebuilt by `scripts/sync-vaults.ts`; rendered as `docs/VAULTS.md`. Exceptions live in `config/vault-overrides.json`, each with a public source: superseded or test deployments are excluded, and a vault a scheduled spell will onboard is marked pending until the chain shows its rate limit.
 
 ## Keeping the tables fresh
 

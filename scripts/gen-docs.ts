@@ -116,6 +116,11 @@ function vaultsDoc(): string {
     for (const v of g.vaults) L.push(`| ${esc(v.name)} (${esc(v.symbol)}) | ${v.chain} | ${v.version} | ${v.address} | ${usd(v.exposureUsd)} | ${usd(v.tvlUsd)} | ${[...new Set(v.allocatable.map((a) => a.prime))].join(", ") || "-"} | ${v.status} | ${v.sources.map(esc).join("<br>")} |`);
     L.push("");
   }
+  if (sv.excluded?.length) {
+    L.push("## Excluded by hand", "", "Deployments the chain cannot tell apart from the real vault, removed with a cited public document (`config/vault-overrides.json`).", "", "| Vault | Chain | Address | Reason | Source | Since |", "|---|---|---|---|---|---|");
+    for (const e of sv.excluded) L.push(`| ${esc(e.name)} | ${chainName(e.chainId)} | ${e.address} | ${esc(e.reason)} | ${e.source} | ${e.date} |`);
+    L.push("");
+  }
   return L.join("\n");
 }
 
