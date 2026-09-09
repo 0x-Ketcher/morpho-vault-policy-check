@@ -112,13 +112,9 @@ function vaultsDoc(): string {
   const usd = (x: number) => (x >= 1e6 ? `$${(x / 1e6).toFixed(1)}M` : x >= 1e3 ? `$${(x / 1e3).toFixed(0)}K` : x > 0 ? `$${x.toFixed(0)}` : "-");
   const L: string[] = ["# Sky vaults", "", "Generated from `config/sky-vaults.json` by `npm run gen:docs`; the list itself comes from `npm run sync:vaults`.", "", sv.definition, "", `${sv.count} vaults; snapshot of ${sv.generatedAt.slice(0, 10)} (the page refreshes exposure and TVL live).`, ""];
   for (const g of sv.groups) {
-    L.push(`## ${g.prime}${g.prime === "Skybase" ? "" : ` (exposure ${usd(g.exposureUsd)})`}`, "", "| Vault | Chain | Version | Address | Exposure | TVL | Allocatable by | Status | Sources |", "|---|---|---|---|---|---|---|---|---|");
-    for (const v of g.vaults) L.push(`| ${esc(v.name)} (${esc(v.symbol)}) | ${v.chain} | ${v.version} | ${v.address} | ${usd(v.exposureUsd)} | ${usd(v.tvlUsd)} | ${[...new Set(v.allocatable.map((a) => a.prime))].join(", ") || "-"} | ${v.status} | ${v.sources.map(esc).join("<br>")} |`);
-    L.push("");
-  }
-  if (sv.excluded?.length) {
-    L.push("## Excluded by hand", "", "Deployments the chain cannot tell apart from the real vault, removed with a cited public document (`config/vault-overrides.json`).", "", "| Vault | Chain | Address | Reason | Source | Since |", "|---|---|---|---|---|---|");
-    for (const e of sv.excluded) L.push(`| ${esc(e.name)} | ${chainName(e.chainId)} | ${e.address} | ${esc(e.reason)} | ${e.source} | ${e.date} |`);
+    L.push(`## ${g.prime}${g.prime === "Skybase" ? "" : ` (exposure ${usd(g.exposureUsd)})`}`, "", "| Vault | Chain | Version | Address | Exposure | TVL | Deposit limit (per Prime, read on-chain) | Status | Sources |", "|---|---|---|---|---|---|---|---|---|");
+    const lim = (v: typeof g.vaults[number]) => v.allocatable.map((a) => { const d = v.decimals ?? 0; const f = (x: string) => { const n = Number(x) / 10 ** d; return n >= 1e12 ? "unlimited" : n >= 1e6 ? `${(n / 1e6).toFixed(0)}M` : n >= 1e3 ? `${(n / 1e3).toFixed(0)}K` : n.toFixed(0); }; return `${a.prime}: max ${f(a.maxAmount)}, ${f(a.perDay)}/day`; }).join("<br>") || "-";
+    for (const v of g.vaults) L.push(`| ${esc(v.name)} (${esc(v.symbol)}) | ${v.chain} | ${v.version} | ${v.address} | ${usd(v.exposureUsd)} | ${usd(v.tvlUsd)} | ${lim(v)} | ${v.status} | ${v.sources.map(esc).join("<br>")} |`);
     L.push("");
   }
   return L.join("\n");

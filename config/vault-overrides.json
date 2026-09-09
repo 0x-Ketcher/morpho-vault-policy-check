@@ -1,28 +1,20 @@
 {
-  "note": "Hand-maintained exceptions to the generated Sky vault list. Each entry cites a public document. 'exclude' removes a deployment the chain cannot tell apart from the real one (superseded or test deployments); 'pending' marks a vault that a scheduled spell will onboard. The sync reports a 'pending' entry as stale once the vault holds a rate limit on-chain, so the entry can be removed.",
-  "overrides": [
-    {
-      "chainId": 1,
-      "address": "0x13179C1551F7364370295c3D4BDD6Ce794Af5A8d",
-      "action": "exclude",
-      "reason": "Superseded deployment of Sentora x Spark RLUSD (2026-08-31 20:35 UTC). The September 10, 2026 Spark spell proposal names 0xFC8C624B6080a0a780583799f2A862DE936F6E22 as the vault it onboards.",
-      "source": "https://forum.skyeco.com/t/28208",
-      "date": "2026-09-09"
-    },
-    {
-      "chainId": 1,
-      "address": "0x661eBF3f18d6Ed9a1adA581b1285cC90071798cB",
-      "action": "exclude",
-      "reason": "Test deployment of Sentora x Spark RLUSD (two-dollar deposit, two sentinels, timelocks below policy). The September 10, 2026 Spark spell proposal names 0xFC8C624B6080a0a780583799f2A862DE936F6E22 as the vault it onboards.",
-      "source": "https://forum.skyeco.com/t/28208",
-      "date": "2026-09-09"
-    },
+  "note": "The one hand-maintained input to the generated Sky vault list: vaults that a scheduled spell will onboard, each citing the public spell proposal. The chain cannot know a spell before it executes. The sync reports an entry as stale once the vault holds a rate limit on-chain, after which it can be deleted; a forgotten entry changes nothing, the vault shows its real status.",
+  "pending": [
     {
       "chainId": 1,
       "address": "0xFC8C624B6080a0a780583799f2A862DE936F6E22",
-      "action": "pending",
-      "reason": "Onboarding scheduled by the September 10, 2026 Spark spell: deposit limit 10M RLUSD refilling at 100M per day.",
+      "prime": "Spark",
+      "reason": "September 10, 2026 Spark spell: onboard the Sentora-curated RLUSD Morpho Vaults V2 instance, deposit limit 10M RLUSD refilling at 100M per day.",
       "source": "https://forum.skyeco.com/t/28208",
+      "date": "2026-09-09"
+    },
+    {
+      "chainId": 1,
+      "address": "0xbeef05061FE51eA482BD1b68041353490b3a5934",
+      "prime": "Grove",
+      "reason": "September 10, 2026 Grove spell: onboard the Grove x Steakhouse USDG Morpho vault, deposit limit 50M max and 50M per day on the ALM RateLimits.",
+      "source": "https://forum.skyeco.com/t/28207",
       "date": "2026-09-09"
     }
   ]

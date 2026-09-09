@@ -1,10 +1,10 @@
 /**
- * Generates config/sky-vaults.json: every Morpho vault on the accepted chains that
- *   - a Prime agent can allocate to (the Prime's RateLimits contract holds a deposit rate limit for it), or
- *   - a Prime ALM proxy holds shares in, or
- *   - a Prime governance address owns, or
- *   - a Prime registry or the Atlas lists, or
+ * Generates config/sky-vaults.json: every Morpho vault, on every chain with a Prime rate-limit contract, that
+ *   - a Prime agent can allocate to (a Prime rate-limit contract holds a deposit rate limit for it), or
+ *   - a Prime agent holds shares in, or
+ *   - a scheduled spell is about to onboard (config/vault-overrides.json, citing the spell proposal), or
  *   - Sky Money (Morpho's curator registry) owns or curates (Skybase's own vaults).
+ * Governance ownership, registry constants and Atlas mentions are recorded as sources but do not list a vault on their own.
  * Sources: the Morpho API for the vault universe, positions and TVL; the registries for RateLimits, ALM proxies and
  * governance addresses; chain state for the rate limits; the Atlas and the curator registry for the rest.
  * The file is rewritten only when membership, status or sources change; TVL and exposure are a snapshot that the
@@ -58,6 +58,7 @@ async function universe(chainId: number): Promise<U[]> {
 }
 
 const vaults = new Map<string, SkyVault>();
+const universeAll = new Map<string, U>();
 const key = (c: number, a: string) => `${c}:${a.toLowerCase()}`;
 const ensure = (u: U): SkyVault => {
   const k = key(u.chainId, u.address);
@@ -68,6 +69,7 @@ const add = (v: SkyVault, relation: string, source: string) => { if (!v.relation
 
 for (const chainId of CHAINS) {
   const all = await universe(chainId);
+  for (const u of all) universeAll.set(key(chainId, u.address), u);
   const byAddr = new Map(all.map((u) => [u.address.toLowerCase(), u]));
   console.log(`${chainName(chainId)}: ${all.length} Morpho vaults in the API universe`);
   // 1. allocatable: deposit rate limit on a Prime's RateLimits contract
@@ -118,18 +120,24 @@ for (const chainId of CHAINS) {
   for (const u of all) if ((u.owner && sky.has(u.owner.toLowerCase())) || (u.curator && sky.has(u.curator.toLowerCase()))) { const v = ensure(u); v.prime = "Skybase"; add(v, u.owner && sky.has(u.owner.toLowerCase()) ? "owner" : "curator", "Sky Money in Morpho's curator registry (verified) owns or curates it"); }
 }
 
-// hand-maintained exceptions, each citing a public document
-type Override = { chainId: number; address: string; action: "exclude" | "pending"; reason: string; source: string; date: string };
-const overrides = (existsSync(p("config/vault-overrides.json")) ? (JSON.parse(readFileSync(p("config/vault-overrides.json"), "utf8")) as { overrides: Override[] }).overrides : []);
-const excluded: (Override & { name?: string })[] = [];
-for (const o of overrides) {
+// the one hand-maintained input: vaults a scheduled spell will onboard, each citing the proposal
+type Pending = { chainId: number; address: string; prime: string; reason: string; source: string; date: string };
+const pending = (existsSync(p("config/vault-overrides.json")) ? (JSON.parse(readFileSync(p("config/vault-overrides.json"), "utf8")) as { pending?: Pending[] }).pending ?? [] : []);
+const universeByKey = new Map<string, U>();
+for (const [k, v] of vaults) universeByKey.set(k, v as unknown as U);
+for (const o of pending) {
   const k = key(o.chainId, o.address); const v = vaults.get(k);
-  if (o.action === "exclude") { if (v) { excluded.push({ ...o, name: v.name }); vaults.delete(k); } else console.log(`override: ${o.address} is not in the generated list; the exclude entry can be removed`); }
-  else if (o.action === "pending") {
-    if (!v) { console.log(`override: pending vault ${o.address} is not in the generated list (no Prime relation yet); ignored`); continue; }
-    if (v.allocatable.length) { console.log(`override STALE: ${o.address} now holds a rate limit on-chain; remove its 'pending' entry`); continue; }
-    v.relations.push("pending"); v.sources.push(`pending: ${o.reason} (${o.source})`);
-  }
+  if (v && v.allocatable.length) { console.log(`override STALE: ${o.address} now holds a rate limit on-chain; delete its pending entry`); continue; }
+  if (!v) {
+    const u = universeAll.get(k);
+    if (!u) { console.log(`override: pending vault ${o.address} is not a Morpho vault the API knows on chain ${o.chainId}; ignored`); continue; }
+    const nv = ensure(u); nv.prime = o.prime; nv.relations.push("pending"); nv.sources.push(`pending: ${o.reason} (${o.source})`);
+  } else { v.relations.push("pending"); v.sources.push(`pending: ${o.reason} (${o.source})`); }
+}
+// inclusion rule: allocatable, or a position, or pending, or a Skybase vault; nothing else
+for (const [k, v] of [...vaults]) {
+  const keep = v.allocatable.length > 0 || Object.values(v.exposureByPrime).some((x) => x >= 1) || v.relations.includes("pending") || v.prime === "Skybase";
+  if (!keep) vaults.delete(k);
 }
 
 // primary Prime, exposure total, status
@@ -140,16 +148,16 @@ for (const v of vaults.values()) {
     const src = (rel: string) => v.sources.find((s) => s.startsWith(rel))?.split(" ")[0];
     v.prime = byExp ?? v.allocatable[0]?.prime ?? (v.sources.find((s) => s.startsWith("owned by "))?.split(" ")[2]) ?? src("Grove") ?? src("Spark") ?? src("Osero") ?? v.sources[0]?.split(" ")[0] ?? "unknown";
   }
-  v.status = v.prime === "Skybase" ? "Skybase vault" : v.exposureUsd >= 1 ? "exposure" : v.allocatable.length ? "allocatable, no position" : v.relations.includes("pending") ? "pending spell" : v.relations.includes("owner") ? "governed, empty" : "listed only";
+  v.status = v.prime === "Skybase" ? "Skybase vault" : v.exposureUsd >= 1 ? "exposure" : v.allocatable.length ? "no position" : "pending spell";
 }
 const primes = [...new Set([...vaults.values()].map((v) => v.prime))].sort((a, b) => (a === "Skybase" ? 1 : b === "Skybase" ? -1 : 0) || [...vaults.values()].filter((v) => v.prime === b).reduce((s, v) => s + v.exposureUsd, 0) - [...vaults.values()].filter((v) => v.prime === a).reduce((s, v) => s + v.exposureUsd, 0));
 const groups = primes.map((prime) => ({ prime, exposureUsd: [...vaults.values()].filter((v) => v.prime === prime).reduce((s, v) => s + v.exposureUsd, 0), vaults: [...vaults.values()].filter((v) => v.prime === prime).sort((a, b) => b.exposureUsd - a.exposureUsd || b.tvlUsd - a.tvlUsd) }));
 const out = {
   note: "Generated by npm run sync:vaults. Membership, status and sources are what the daily sync watches; tvlUsd and exposureUsd are a snapshot that the page refreshes live.",
-  definition: "Listed when a Prime's RateLimits contract holds a deposit rate limit for the vault (a Prime agent can allocate to it), a Prime ALM proxy holds shares in it, a Prime governance address owns it, a Prime registry or the Atlas lists it, or Sky Money (Morpho's curator registry) owns or curates it.",
-  generatedAt: new Date().toISOString(), chains: CHAINS, count: vaults.size, groups, excluded,
+  definition: "Listed when a Prime rate-limit contract holds a deposit rate limit for the vault (a Prime agent can allocate to it), a Prime agent holds shares in it, a scheduled spell is about to onboard it (cited in config/vault-overrides.json), or Sky Money (Morpho's curator registry) owns or curates it. Governance ownership, registry constants and Atlas mentions are recorded as sources but do not list a vault on their own.",
+  generatedAt: new Date().toISOString(), chains: CHAINS, count: vaults.size, groups,
 };
-const material = (o: any) => JSON.stringify([(o.groups as any[]).map((g) => ({ prime: g.prime, vaults: g.vaults.map((v: any) => ({ a: v.address, c: v.chainId, s: v.status, r: v.relations, src: v.sources, al: v.allocatable.map((x: any) => x.prime + x.contract) })) })), (o.excluded ?? []).map((e: any) => `${e.chainId}:${e.address}:${e.reason}`)]);
+const material = (o: any) => JSON.stringify((o.groups as any[]).map((g) => ({ prime: g.prime, vaults: g.vaults.map((v: any) => ({ a: v.address, c: v.chainId, s: v.status, r: v.relations, src: v.sources, al: v.allocatable.map((x: any) => x.prime + x.contract) })) })));
 const prev = existsSync(p("config/sky-vaults.json")) ? JSON.parse(readFileSync(p("config/sky-vaults.json"), "utf8")) : null;
 const changed = !prev || material(prev) !== material(out);
 if (!check && (changed || !prev)) writeFileSync(p("config/sky-vaults.json"), JSON.stringify(out, null, 1) + "\n");

@@ -237,7 +237,7 @@ function Chip({ x }: { x: Citation }) {
   return x.url ? <a className={cls} href={x.url} target="_blank" rel="noreferrer" title={x.ref}>{text}</a> : <span className={cls} title={x.ref}>{text}</span>;
 }
 
-const statusWord = (s: string) => ({ "pending spell": "pending spell", "governed, empty": "not onboarded", "allocatable, no position": "no position", "listed only": "listed only" })[s] ?? "";
+const statusWord = (s: string) => ({ "pending spell": "pending spell", "no position": "no position" })[s] ?? "";
 
 /** Grouped vault list with the exposure / TVL figures as their own coloured column. A native select cannot colour part of an option. */
 function VaultPicker({ groups, disabled, onPick }: { groups: { prime: string; exposureUsd: number; vaults: SkyVault[] }[]; disabled: boolean; onPick: (v: SkyVault) => void }) {
