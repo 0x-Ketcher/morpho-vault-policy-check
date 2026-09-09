@@ -46,7 +46,7 @@ for (const chainId of CHAINS) {
     safes++;
   }
   await reader.finish();
-  console.log(`chain ${chainId}: ${addrs.length} candidates, ${contracts.length} contracts, ${safes} Safes, block ${reader.block}, second provider ${reader.secondaryStatus}`);
+  console.log(`chain ${chainId}: ${addrs.length} candidates, ${contracts.length} contracts, ${safes} Safes, block ${reader.block}`);
 }
 entries.sort((x, y) => x.chainId - y.chainId || x.address.localeCompare(y.address));
 const material = (list: SafeOwnersEntry[]) => JSON.stringify(list.map(({ readAt: _r, block: _b, ...rest }) => rest));

@@ -25,7 +25,7 @@ Labels (who controls an address) come from public sources only. See `docs/DATA_S
 
 - PASS, WARN, FAIL: graded. INFO: reported, not graded. n/a: the check does not apply (idle vault, V2-only check on a v1.1 vault).
 - DISCREPANCY: the two methods disagree on a value this check depends on. Both values are listed. Usual causes: API indexing lag (a few blocks), a market the adapter cannot enumerate, or an actual data problem. A human decides; the tool does not.
-- single source: only one method can produce the value (adapter timelocks and rate limits are chain-only; the API-side factory confirmation is API-only).
+- one method only: only one method can produce the value (adapter timelocks and rate limits are chain-only; the API-side factory confirmation is API-only).
 - Every label line cites its source: registry file, constant and commit; Atlas article and line; Morpho curator registry entry; or "signer overlap with" a labeled Safe.
 
 ## Why inference cannot reach PASS

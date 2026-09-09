@@ -129,7 +129,6 @@ function Result({ r, onExport }: { r: Report; onExport: () => void }) {
           <summary className="muted small">Checked {utc(checkedAt)} · run details</summary>
           <ul className="small">
             <li>Chain state read at block {r.providers.block}{r.providers.blockTimestamp ? ` (${utc(new Date(r.providers.blockTimestamp * 1000).toISOString())})` : ""} via {r.providers.primary}; {r.providers.calls} reads.</li>
-            <li>Second chain provider: {r.providers.secondary ?? "none"}{r.providers.secondary ? `, ${r.providers.secondaryStatus}` : ""}.</li>
             <li>Morpho API read at {utc(r.snapshotB.meta.fetchedAt)}.</li>
             {r.providers.disagreements.map((d, i) => <li key={`p${i}`}>{d}</li>)}
             {(r.snapshotA?.meta.notes ?? []).map((n, i) => <li key={`a${i}`}>on-chain: {n}</li>)}

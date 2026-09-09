@@ -14,44 +14,38 @@
   "etherscan": {
     "api": "https://api.etherscan.io/v2/api",
     "chainlist": "https://api.etherscan.io/v2/chainlist",
-    "note": "Requires an API key. Used only as a third, fallback provider by the CLI, CI and the server-side proxy. Not available on Robinhood Chain (4663), Tempo (4217) or Arc (5042)."
+    "note": "Requires an API key. Failover only, behind the single public node, used by the CLI, CI and the server-side proxy. This key's plan allows 3 calls per second. Not available on Robinhood Chain (4663), Tempo (4217) or Arc (5042)."
   },
   "chains": {
     "1": {
       "name": "Ethereum",
       "rpc": [
-        "https://ethereum-rpc.publicnode.com",
-        {
-          "url": "https://1rpc.io/eth",
-          "batch": false
-        }
+        "https://ethereum-rpc.publicnode.com"
       ],
       "explorer": "https://etherscan.io",
       "blockscout": "https://eth.blockscout.com",
-      "verified": "2026-09-04: publicnode and 1RPC answer browser requests and eth_call at a pinned block; 1RPC rejects JSON-RPC batches, so batching is off for it; Merkle rate-limits real usage (429) and Cloudflare returned internal errors, both dropped",
+      "verified": "2026-09-09: publicnode chosen as the single provider after timing: 46 reads in 0.41 s median; answers browser requests, batches and Multicall3. 1RPC (0.55 s, batching off), Merkle (rate limits) and Cloudflare (internal errors) were dropped.",
       "pinLag": 2
     },
     "8453": {
       "name": "Base",
       "rpc": [
-        "https://base-rpc.publicnode.com",
-        "https://mainnet.base.org"
+        "https://base-rpc.publicnode.com"
       ],
       "explorer": "https://basescan.org",
       "blockscout": "https://base.blockscout.com",
-      "verified": "2026-09-04: both endpoints answer browser requests, batches and Multicall3",
+      "verified": "2026-09-09: publicnode as the single provider; the official Base node was the alternative and is no longer used.",
       "pinLag": 5
     },
     "4663": {
       "name": "Robinhood Chain",
       "rpc": [
-        "https://robinhood-rpc.publicnode.com",
-        "https://rpc.mainnet.chain.robinhood.com"
+        "https://robinhood-rpc.publicnode.com"
       ],
       "explorer": "https://robinhoodchain.blockscout.com",
       "blockscout": null,
-      "verified": "2026-09-04: both endpoints answer browser requests, batches and Multicall3; the Blockscout explorer sits behind a bot challenge and is not usable as an API; the official node lags publicnode by a few blocks, hence pinLag 20",
-      "pinLag": 20
+      "verified": "2026-09-09: publicnode as the single provider; the official Robinhood node lagged it by a few blocks and is no longer used. Etherscan does not cover this chain.",
+      "pinLag": 5
     },
     "42161": {
       "name": "Arbitrum One",
@@ -109,6 +103,6 @@
       747474
     ]
   },
-  "pinLagNote": "pinLag = how many blocks behind the latest block every read is pinned, so that a second provider that lags slightly still has the state. Ethereum 2 (~24 s), Base 5 (~10 s), Robinhood 20 (~5 s).",
-  "rpcEntryNote": "An rpc entry is a URL, or { url, batch: false } for nodes that reject JSON-RPC batch requests. The first healthy entry is the primary; the next one replays every batch at the same block for comparison; later ones are failover."
+  "pinLagNote": "pinLag = how many blocks behind the latest block every read is pinned, so that the whole run reads one consistent state. Ethereum 2, Base 5, Robinhood 5.",
+  "rpcEntryNote": "One public node per chain, publicnode everywhere it exists. An rpc entry is a URL, or { url, batch: false } for nodes that reject JSON-RPC batch requests. Etherscan is appended by the code as a failover only, never as a comparison."
 }

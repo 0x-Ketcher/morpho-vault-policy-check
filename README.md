@@ -6,7 +6,7 @@ Proof of concept for the AI team. It checks a Morpho vault against the BA Labs "
 - Output: one card per check with PASS / WARN / FAIL / info / n/a, the value each method found, the label sources cited, and a DISCREPANCY mark when the two methods disagree. Nothing is auto-resolved.
 - Sources: chain state through public JSON-RPC nodes (method A), the Morpho GraphQL API (method B), the Safe Transaction Service for Safe structure, and, for labels, the Prime address registries on GitHub, the Atlas and Morpho's curator registry.
 
-Live checks take about 15 seconds per vault (around 140 chain reads folded into a handful of Multicall3 calls, two providers, plus the API).
+Live checks take about 15 seconds per vault (around 140 chain reads folded into a handful of Multicall3 calls on one public node, plus the API).
 
 ## Run it
 
@@ -33,7 +33,7 @@ The page runs every read in the visitor's browser. It never contains a key. If t
 
 1. The address is looked up on every chain the Morpho API indexes (`vaultV2s` / `vaults` filtered by address). One hit gives the chain and the version (Vault V2 or MetaMorpho v1.1). Several hits ask for the chain. No hit: the tool tries to identify a vault from chain state and reports that the second method is unavailable.
 2. Method B reads the full vault state from the API and the Safe structure of every role address from the Safe Transaction Service, one level of nesting.
-3. Method A pins a block (latest minus a per-chain margin), then reads the vault, its adapters, the Morpho Blue markets, the caps, the timelocks, the Safes and the Prime positions through Multicall3 on the first public node, and replays every batch on the second node at the same block. Candidates that chain state cannot enumerate (sentinels, allocators, cap-only markets) come from method B and are confirmed one by one on-chain.
+3. Method A pins a block (latest minus a per-chain margin), then reads the vault, its adapters, the Morpho Blue markets, the caps, the timelocks, the Safes and the Prime positions through Multicall3 on one public node per chain, publicnode, with Etherscan as a failover. Candidates that chain state cannot enumerate (sentinels, allocators, cap-only markets) come from method B and are confirmed one by one on-chain.
 4. Both results are normalised into the same snapshot shape. Each check evaluates the on-chain snapshot and lists the API value next to it. If a value the check depends on differs, the card is marked DISCREPANCY with both values, block number and timestamp.
 5. Labels come from `labels/*.json`, generated from public sources with file, line, constant, article and commit for every entry. An unlabeled Safe that shares a signer with a labeled Safe is attributed "by signer overlap", which can lower a verdict but never raise it to PASS.
 

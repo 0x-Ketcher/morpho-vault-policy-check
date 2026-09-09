@@ -4,18 +4,16 @@ All public. No internal wallet trackers, no Notion, no private registries. Verif
 
 ## Chain state (method A)
 
-| Chain | Providers, in order | Notes |
+One public node per chain, publicnode on all three, chosen on 2026-09-09 after timing the candidates on a 46-read stage: publicnode 0.41 s median, 1RPC 0.55 s with batching off, Merkle rate-limited real use, Cloudflare returned internal errors. Etherscan's proxy is slower by construction: one call per HTTP request and, on this key's plan, three calls per second, so a full vault check would spend ten seconds in throttling alone. It stays configured as a failover behind the public node for Ethereum and Base; it does not cover Robinhood.
+
+| Chain | Provider | Notes |
 |---|---|---|
-| Ethereum (1) | publicnode, Merkle, 1RPC | all answer browser requests, JSON-RPC batches of 10 and `eth_call` at a pinned block; Cloudflare's endpoint returned internal errors and was dropped |
-| Base (8453) | publicnode, the official Base node | same |
-| Robinhood Chain (4663) | publicnode, the official Robinhood node | the official node lags a few blocks, so reads are pinned 20 blocks back; Etherscan does not cover this chain; the Blockscout explorer sits behind a bot challenge and is unusable as an API |
-| other Morpho chains | one publicnode endpoint where known, otherwise none | a vault on a chain without a provider is identified via the API and fails the chain check; every card shows "single source" |
+| Ethereum (1) | publicnode | answers browser requests, JSON-RPC batches of 10 and `eth_call` at a pinned block |
+| Base (8453) | publicnode | same |
+| Robinhood Chain (4663) | publicnode | same; reads pinned 5 blocks back; the Blockscout explorer sits behind a bot challenge and is unusable as an API |
+| other Morpho chains | one publicnode endpoint where known, otherwise none | a vault on a chain without a provider is identified via the API and fails the chain check; every card shows "one method only" |
 
-How reads work: every read in a run is pinned to one block (latest minus a per-chain margin), folded into Multicall3 `aggregate3` calls, and replayed on the second provider at the same block. The report states which provider served, the block, the timestamp, the read count and any provider disagreement. If the first provider fails mid-run the reader fails over to the next one at the same block.
-
-Etherscan (API v2, one key for 61 chains) is wired in as a third, failover provider behind the same reader, through a transport that maps JSON-RPC calls onto Etherscan's proxy module. It needs a key. The CLI and CI take it from the environment; the deployed page reaches it through the server's `/api/etherscan` route, which holds the key, forwards only `eth_call`, `eth_getCode`, `eth_blockNumber`, `eth_getBlockByNumber`, `eth_chainId`, `getabi` and `getsourcecode`, accepts same-origin requests only and rate-limits per client. The page itself never contains a key. A visitor can also paste their own key in the settings; it stays in their browser.
-
-Multicall3 is deployed at `0xcA11bde05977b3631167028862bE2a173976CA11` on all three accepted chains (verified).
+How reads work: every read in a run is pinned to one block (latest minus a per-chain margin) and folded into Multicall3 `aggregate3` calls, one `eth_call` per stage. The report states the provider, the block, the timestamp and the read count. If the node fails mid-run the reader fails over to the next configured endpoint at the same block. The two-method comparison the tool promises is chain state against the Morpho API; there is no node-against-node comparison.
 
 ## Morpho API (method B)
 

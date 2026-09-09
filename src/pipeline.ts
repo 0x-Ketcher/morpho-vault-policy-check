@@ -80,7 +80,7 @@ export async function checkVault(deps: Deps, address: string, chainId?: number):
       providerReport = reader.report();
     } catch (e) {
       log(`On-chain read failed: ${(e as Error).message}`);
-      providerReport = { ...reader.report(), secondaryStatus: "unavailable" as const, disagreements: [`on-chain read failed: ${(e as Error).message}`] };
+      providerReport = { ...reader.report(), disagreements: [`on-chain read failed: ${(e as Error).message}`] };
     }
   } else {
     providerReport = { chainId: f.chainId, block: 0, primary: "none", secondary: null, secondaryStatus: "not-configured" as const, disagreements: ["no on-chain provider configured for this chain: every value is API-only"], calls: 0 };

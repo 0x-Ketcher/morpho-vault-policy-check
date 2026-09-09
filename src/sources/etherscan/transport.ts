@@ -8,7 +8,7 @@ import { custom, type Transport } from "viem";
 export function etherscanTransport(opts: { chainId: number; base: string; apiKey?: string; minIntervalMs?: number; fetchImpl?: typeof fetch }): Transport {
   const f = opts.fetchImpl ?? fetch;
   let last = 0;
-  const gap = opts.minIntervalMs ?? 250; // free tier: 5 calls per second
+  const gap = opts.minIntervalMs ?? 340; // this key's plan allows 3 calls per second
   const call = async (params: Record<string, string>) => {
     const wait = last + gap - Date.now();
     if (wait > 0) await new Promise((r) => setTimeout(r, wait));
