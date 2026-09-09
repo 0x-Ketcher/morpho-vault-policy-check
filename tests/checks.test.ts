@@ -72,6 +72,10 @@ describe("C2 loan asset", () => {
     expect(status("C2", { asset: { address: A.eoa1, symbol: "USDC", decimals: 6 } })).toBe("FAIL");
     expect(status("C2", { asset: { address: A.eoa1, symbol: "FOO", decimals: 18 } })).toBe("FAIL");
   });
+  it("warns, never passes, for an asset the policy accepts on a chain where no address is published (USDS on Robinhood)", () => {
+    expect(status("C2", { chainId: 4663, asset: { address: A.eoa1, symbol: "USDS", decimals: 18 } })).toBe("WARN");
+    expect(status("C2", { chainId: 4663, asset: { address: A.eoa1, symbol: "FOO", decimals: 18 } })).toBe("FAIL");
+  });
 });
 
 describe("C3 collateral and LLTV", () => {

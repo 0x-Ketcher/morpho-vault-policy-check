@@ -1,6 +1,6 @@
 import type { Status } from "./types.ts";
 
-export interface AcceptedAsset { symbol: string; address: string; policyName?: string; maxLltv?: number; verified?: string; aliases?: string[] }
+export interface AcceptedAsset { symbol: string; /** absent when the policy accepts the asset on a chain where no public source publishes its address yet */ address?: string; policyName?: string; maxLltv?: number; verified?: string; aliases?: string[] }
 export interface TimelockFn { function: string; label: string; minDays?: number; abdicationSatisfies?: boolean; note?: string }
 
 export interface PolicyConfig {
