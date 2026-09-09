@@ -52,12 +52,22 @@ export const c11Fees: CheckDef = {
   id: "C11", title: "Fees",
   evaluate: (ctx) => {
     const v1 = ctx.b.version === "v1.1";
-    const fees = pick(ctx, "fees", (s) => (v1 ? { fee: s.fees.feeV1 ?? null, recipient: s.fees.feeRecipientV1 ?? null } : { performance: s.fees.performanceFee ?? null, management: s.fees.managementFee ?? null, perfRecipient: s.fees.performanceFeeRecipient ?? null, mgmtRecipient: s.fees.managementFeeRecipient ?? null }), (v) => JSON.stringify(v), { tolerance: (a, b) => JSON.stringify(a) === JSON.stringify(b) });
+    const pct = (x?: number | null) => (x === undefined || x === null ? "n/a" : `${(x * 100).toFixed(2)}%`);
+    const near = (a?: number | null, b?: number | null) => (a ?? 0) - (b ?? 0) < 1e-6 && (b ?? 0) - (a ?? 0) < 1e-6;
+    const addrEq = (a?: string | null, b?: string | null) => (a ?? "").toLowerCase() === (b ?? "").toLowerCase();
+    const picks = v1
+      ? [pick(ctx, "fee", (s) => s.fees.feeV1 ?? null, pct, { tolerance: near }), pick(ctx, "fee recipient", (s) => s.fees.feeRecipientV1 ?? null, (a) => a ?? "none", { tolerance: addrEq })]
+      : [
+        pick(ctx, "performance fee", (s) => s.fees.performanceFee ?? null, pct, { tolerance: near }),
+        pick(ctx, "management fee", (s) => s.fees.managementFee ?? null, pct, { tolerance: near }),
+        pick(ctx, "performance fee recipient", (s) => s.fees.performanceFeeRecipient ?? null, (a) => a ?? "none", { tolerance: addrEq }),
+        pick(ctx, "management fee recipient", (s) => s.fees.managementFeeRecipient ?? null, (a) => a ?? "none", { tolerance: addrEq }),
+      ];
     const src = ctx.a ?? ctx.b; const citations: Citation[] = []; const details: string[] = [];
     const who = (a?: string | null) => { if (!a || /^0x0{40}$/.test(a)) return "none"; const att = ctx.labels.attribute(a, ctx.b.chainId); citations.push(...att.citations); return `${a} (${describe(att)})`; };
-    if (v1) details.push(`fee: ${((src.fees.feeV1 ?? 0) * 100).toFixed(2)}% to ${who(src.fees.feeRecipientV1)}`, `skim recipient: ${who(src.fees.skimRecipient)}`);
-    else details.push(`performance fee: ${((src.fees.performanceFee ?? 0) * 100).toFixed(2)}% to ${who(src.fees.performanceFeeRecipient)}`, `management fee: ${((src.fees.managementFee ?? 0) * 100).toFixed(2)}% to ${who(src.fees.managementFeeRecipient)}`);
-    return result("C11", "Fees", `${ctx.policy.fees.source} Reported for information.`, ctx.policy.fees.status, details.join("; "), [fees], details, citations);
+    if (v1) details.push(`fee: ${pct(src.fees.feeV1)} to ${who(src.fees.feeRecipientV1)}`, `skim recipient: ${who(src.fees.skimRecipient)}`);
+    else details.push(`performance fee: ${pct(src.fees.performanceFee)} to ${who(src.fees.performanceFeeRecipient)}`, `management fee: ${pct(src.fees.managementFee)} to ${who(src.fees.managementFeeRecipient)}`);
+    return result("C11", "Fees", `${ctx.policy.fees.source} Reported for information.`, ctx.policy.fees.status, details.join("; "), picks, details, citations);
   },
 };
 

@@ -41,7 +41,8 @@ export function pick<T>(ctx: CheckContext, label: string, extract: (s: VaultSnap
 }
 
 export function result(id: string, title: string, requirement: string, status: Status, summary: string, picks: Picked<unknown>[], details: string[] = [], citations: Citation[] = [], extra: Partial<CheckResult> = {}): CheckResult {
-  const discrepancies = picks.filter((p) => p.discrepancy).map((p) => p.evidence.map((e) => `${e.method}: ${e.value}`).join(" | "));
+  const name = (m: string) => (m === "onchain" ? "on-chain" : m === "api" ? "API" : m);
+  const discrepancies = picks.filter((p) => p.discrepancy).map((p) => `${p.evidence[0]?.label ?? "value"}: ${p.evidence.map((e) => `${name(e.method)} ${e.value}`).join(" vs ")}`);
   return {
     id, title, requirement, status,
     discrepancy: discrepancies.length > 0, discrepancies,

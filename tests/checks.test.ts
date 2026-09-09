@@ -202,7 +202,7 @@ describe("discrepancies", () => {
     const r = run("C4", {}, { owner: A.steak });
     expect(r.status).toBe("PASS");
     expect(r.discrepancy).toBe(true);
-    expect(r.discrepancies[0]).toContain("onchain");
+    expect(r.discrepancies[0]).toMatch(/^owner\(\): on-chain 0x.* vs API 0x/);
   });
   it("marks single-source values when there is no on-chain snapshot", () => {
     const r = CHECKS.find((c) => c.id === "C4")!.evaluate({ policy, labels, a: null, b: snap({}, "api"), chainName: "Ethereum" });

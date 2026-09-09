@@ -147,7 +147,7 @@ function Result({ r, onExport }: { r: Report; onExport: () => void }) {
 }
 
 function Card({ c, compact = false }: { c: CheckResult; compact?: boolean }) {
-  const [open, setOpen] = useState(!compact && (c.status === "FAIL" || c.status === "WARN" || c.discrepancy));
+  const [open, setOpen] = useState(c.discrepancy || (!compact && (c.status === "FAIL" || c.status === "WARN")));
   const rule = policy.checkRules?.[c.id];
   return (
     <div id={c.id} className={`card check ${c.status} ${compact ? "compact" : ""}`}>
