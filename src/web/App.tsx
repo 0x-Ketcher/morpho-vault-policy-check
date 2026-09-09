@@ -183,12 +183,16 @@ function CheckTable({ t }: { t: CheckTableData }) {
   );
 }
 
-/** Silent when the methods agree; the two-row comparison appears only when they differ. */
+/** Silent when the methods agree. On a disagreement, only the values that differ are shown, one pair of rows each. */
 function EvidenceBlock({ evidence, discrepancy }: { evidence: Evidence[]; discrepancy: boolean }) {
   if (!discrepancy || evidence.length === 0) return null;
+  const byLabel = new Map<string, Evidence[]>();
+  for (const e of evidence) { const arr = byLabel.get(e.label) ?? []; arr.push(e); byLabel.set(e.label, arr); }
+  const differing = [...byLabel.values()].filter((es) => new Set(es.map((e) => e.value)).size > 1).flat();
+  if (differing.length === 0) return null;
   return (
     <table><thead><tr><th>method</th><th>value</th><th>read at</th></tr></thead><tbody>
-      {evidence.map((e, i) => <tr key={i}><td>{e.method}<br /><span className="muted small">{e.label}</span></td><td className="mono small">{e.value}</td><td className="small">{e.block ? `block ${e.block}` : e.source ?? ""}</td></tr>)}
+      {differing.map((e, i) => <tr key={i}><td>{e.method}<br /><span className="muted small">{e.label}</span></td><td className="mono small">{e.value}</td><td className="small">{e.block ? `block ${e.block}` : e.source ?? ""}</td></tr>)}
     </tbody></table>
   );
 }
