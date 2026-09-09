@@ -27,7 +27,7 @@ npm run dev          # Vite dev server on http://localhost:5173, keyless
 npm run build && npm start   # production: Express serves dist/ and the /api/etherscan proxy on $PORT (default 3000)
 ```
 
-The page runs every read in the visitor's browser. It never contains a key. If the server has `ETHERSCAN_API_KEY`, the page reaches Etherscan through the server's proxy route, which forwards only a short allow-list of read-only calls, accepts same-origin requests only and rate-limits per client. A visitor may also paste their own key in the settings; it stays in their browser.
+The page runs every read in the visitor's browser. It never contains a key. If the server has `ETHERSCAN_API_KEY`, the page reaches Etherscan through the server's proxy route, which forwards only a short allow-list of read-only calls, accepts same-origin requests only and rate-limits per client.
 
 ## How a check works
 

@@ -23,9 +23,6 @@ select { flex: 0 1 auto; max-width: 100%; }
 button { background: var(--accent); color: #fff; border-color: var(--accent); cursor: pointer; }
 button:disabled { opacity: .5; cursor: default; }
 button.ghost { background: #fff; color: var(--accent); }
-.settings { border-top: 1px solid var(--line); margin-top: 10px; padding-top: 10px; }
-.settings label { display: block; }
-.settings input { width: 100%; margin-top: 4px; }
 .fresh { margin: 10px 0 0; font-size: 12px; color: var(--muted); }
 .fresh.warn { color: var(--warn); }
 .log { list-style: none; padding: 0; margin: 0 0 16px; color: var(--muted); }

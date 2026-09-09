@@ -20,14 +20,13 @@ export function App() {
   const [log, setLog] = useState<string[]>([]);
   const [report, setReport] = useState<Report | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [ownKey, setOwnKey] = useState<string>(() => { try { return localStorage.getItem("etherscan-key") ?? ""; } catch { return ""; } });
-  const [showSettings, setShowSettings] = useState(false);
   const [proxyAvailable, setProxyAvailable] = useState<boolean | null>(null);
   const [freshness, setFreshness] = useState<Freshness[] | null>(null);
   const [groups, setGroups] = useState(skyVaults.groups);
 
   useEffect(() => {
     fetch("/api/health").then((r) => (r.ok ? r.json() : null)).then((d) => setProxyAvailable(!!d?.etherscan)).catch(() => setProxyAvailable(false));
+    try { localStorage.removeItem("etherscan-key"); } catch { /* an earlier version let a visitor store a key here; nothing reads it any more */ }
     checkFreshness().then(setFreshness).catch(() => setFreshness(null));
     refreshVaultNumbers(skyVaults.groups).then(setGroups).catch(() => {});
     const params = new URLSearchParams(location.search);
@@ -36,11 +35,10 @@ export function App() {
   }, []);
 
   const deps = useMemo<Deps>(() => {
-    const etherscan = ownKey
-      ? { base: providers.etherscan.api, apiKey: ownKey, chains: ETHERSCAN_MORPHO_CHAINS }
-      : proxyAvailable ? { base: `${location.origin}/api/etherscan`, chains: ETHERSCAN_MORPHO_CHAINS } : undefined;
+    // Etherscan is reachable only through the server's proxy route, which holds the key; the page never carries one
+    const etherscan = proxyAvailable ? { base: `${location.origin}/api/etherscan`, chains: ETHERSCAN_MORPHO_CHAINS } : undefined;
     return { policy, providers, labels, api: new MorphoApi(providers.morphoApi), etherscan, log: (m) => setLog((l) => [...l, m]) };
-  }, [ownKey, proxyAvailable]);
+  }, [proxyAvailable]);
 
   async function run(addr = address, chainId = chain) {
     setRunning(true); setError(null); setReport(null); setLog([]);
@@ -86,16 +84,7 @@ export function App() {
         </form>
         <div className="row">
           <VaultPicker groups={groups} disabled={running} onPick={(v) => { setAddress(v.address); setChain(String(v.chainId)); void run(v.address, String(v.chainId)); }} />
-          <button className="ghost" onClick={() => setShowSettings((s) => !s)}>settings</button>
         </div>
-        {showSettings && (
-          <div className="settings">
-            <label>Etherscan API key, optional, stays in this browser
-              <input value={ownKey} onChange={(e) => { setOwnKey(e.target.value); try { localStorage.setItem("etherscan-key", e.target.value); } catch { /* ignore */ } }} placeholder="not set" spellCheck={false} />
-            </label>
-            <p className="muted small">{proxyAvailable ? "The server also provides an Etherscan fallback." : "Public nodes only on this deployment."}</p>
-          </div>
-        )}
         {stale.length > 0 && <p className="stale">Address ownership data may be out of date: {stale.map((b) => b.repo.split("/")[1]).join(", ")} changed since the last update.</p>}
       </section>
 
