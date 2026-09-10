@@ -3,7 +3,7 @@
  *   - a Prime agent can allocate to (a Prime rate-limit contract holds a deposit rate limit for it), or
  *   - a Prime agent holds shares in, or
  *   - a scheduled spell is about to onboard (config/vault-overrides.json, citing the spell proposal), or
- *   - Sky Money (Morpho's curator registry) owns or curates (Skybase's own vaults).
+ *   - Sky Money (Morpho's curator registry) owns or curates it and Morpho lists it (Skybase's own vaults).
  * Governance ownership, registry constants and Atlas mentions are recorded as sources but do not list a vault on their own.
  * Sources: the Morpho API for the vault universe, positions and TVL; the registries for RateLimits, ALM proxies and
  * governance addresses; chain state for the rate limits; the Atlas and the curator registry for the rest.
@@ -39,16 +39,16 @@ export interface SkyVault {
   allocatable: { prime: string; contract: string; maxAmount: string; perDay: string }[];
   relations: string[]; sources: string[]; status: string;
 }
-type U = { address: string; chainId: number; version: "v2" | "v1.1"; name: string; symbol: string; asset?: string; decimals?: number; tvlUsd: number; owner?: string; curator?: string };
+type U = { address: string; chainId: number; version: "v2" | "v1.1"; name: string; symbol: string; asset?: string; decimals?: number; tvlUsd: number; owner?: string; curator?: string; listed?: boolean };
 
 async function universe(chainId: number): Promise<U[]> {
   const out: U[] = [];
   for (const [kind, q, pick] of [
-    ["v2", "vaultV2s", (v: any): U => ({ address: getAddress(v.address), chainId, version: "v2", name: v.name, symbol: v.symbol, asset: v.asset?.symbol, decimals: v.asset?.decimals, tvlUsd: Number(v.totalAssetsUsd ?? 0), owner: v.owner?.address, curator: v.curator?.address })],
-    ["v1.1", "vaults", (v: any): U => ({ address: getAddress(v.address), chainId, version: "v1.1", name: v.name, symbol: v.symbol, asset: v.asset?.symbol, decimals: v.asset?.decimals, tvlUsd: Number(v.state?.totalAssetsUsd ?? 0), owner: v.state?.owner, curator: v.state?.curator })],
+    ["v2", "vaultV2s", (v: any): U => ({ address: getAddress(v.address), chainId, version: "v2", name: v.name, symbol: v.symbol, asset: v.asset?.symbol, decimals: v.asset?.decimals, tvlUsd: Number(v.totalAssetsUsd ?? 0), owner: v.owner?.address, curator: v.curator?.address, listed: v.listed === true })],
+    ["v1.1", "vaults", (v: any): U => ({ address: getAddress(v.address), chainId, version: "v1.1", name: v.name, symbol: v.symbol, asset: v.asset?.symbol, decimals: v.asset?.decimals, tvlUsd: Number(v.state?.totalAssetsUsd ?? 0), owner: v.state?.owner, curator: v.state?.curator, listed: v.listed === true })],
   ] as const) {
     for (let skip = 0; ; skip += 500) {
-      const fields = kind === "v2" ? "address name symbol asset { symbol decimals } totalAssetsUsd owner { address } curator { address }" : "address name symbol asset { symbol decimals } state { totalAssetsUsd owner curator }";
+      const fields = kind === "v2" ? "address name symbol listed asset { symbol decimals } totalAssetsUsd owner { address } curator { address }" : "address name symbol listed asset { symbol decimals } state { totalAssetsUsd owner curator }";
       const d = await api.gql<any>(`query($c: [Int!], $skip: Int) { r: ${q}(where: { chainId_in: $c }, first: 500, skip: $skip) { items { ${fields} } pageInfo { countTotal } } }`, { c: [chainId], skip });
       for (const v of d.r.items) out.push(pick(v));
       if (skip + 500 >= d.r.pageInfo.countTotal) break;
@@ -117,7 +117,12 @@ for (const chainId of CHAINS) {
   for (const m of labels.data.atlas?.entries ?? []) { if (m.roleHint !== "token") continue; const u = byAddr.get(m.address.toLowerCase()); if (u) add(ensure(u), "atlas", `Atlas ${m.article} (${m.prime ?? "?"})`); }
   // 5. Skybase: Sky Money in Morpho's curator registry
   const sky = new Set((labels.data.curators?.entries ?? []).filter((c) => /sky money/i.test(c.name)).flatMap((c) => c.addresses.filter((a) => a.chainId === chainId).map((a) => a.address.toLowerCase())));
-  for (const u of all) if ((u.owner && sky.has(u.owner.toLowerCase())) || (u.curator && sky.has(u.curator.toLowerCase()))) { const v = ensure(u); v.prime = "Skybase"; add(v, u.owner && sky.has(u.owner.toLowerCase()) ? "owner" : "curator", "Sky Money in Morpho's curator registry (verified) owns or curates it"); }
+  // and Morpho itself lists the vault in its app (the API's `listed` flag): Sky Money's address also sits on an abandoned
+  // first deployment that Morpho never listed, which has no place in the picker
+  for (const u of all) if ((u.owner && sky.has(u.owner.toLowerCase())) || (u.curator && sky.has(u.curator.toLowerCase()))) {
+    if (!u.listed) { console.log(`  Skybase: Sky Money curates ${u.address} (${u.name}) but Morpho does not list it; skipped`); continue; }
+    const v = ensure(u); v.prime = "Skybase"; add(v, u.owner && sky.has(u.owner.toLowerCase()) ? "owner" : "curator", "Sky Money in Morpho's curator registry (verified) owns or curates it, and Morpho lists it");
+  }
 }
 
 // the one hand-maintained input: vaults a scheduled spell will onboard, each citing the proposal
@@ -154,7 +159,7 @@ const primes = [...new Set([...vaults.values()].map((v) => v.prime))].sort((a, b
 const groups = primes.map((prime) => ({ prime, exposureUsd: [...vaults.values()].filter((v) => v.prime === prime).reduce((s, v) => s + v.exposureUsd, 0), vaults: [...vaults.values()].filter((v) => v.prime === prime).sort((a, b) => b.exposureUsd - a.exposureUsd || b.tvlUsd - a.tvlUsd) }));
 const out = {
   note: "Generated by npm run sync:vaults. Membership, status and sources are what the update compares; tvlUsd and exposureUsd are a snapshot that the page refreshes live.",
-  definition: "Listed when a Prime rate-limit contract holds a deposit rate limit for the vault (a Prime agent can allocate to it), a Prime agent holds shares in it, a scheduled spell is about to onboard it (cited in config/vault-overrides.json), or Sky Money (Morpho's curator registry) owns or curates it. Governance ownership, registry constants and Atlas mentions are recorded as sources but do not list a vault on their own.",
+  definition: "Listed when a Prime rate-limit contract holds a deposit rate limit for the vault (a Prime agent can allocate to it), a Prime agent holds shares in it, a scheduled spell is about to onboard it (cited in config/vault-overrides.json), or Sky Money (Morpho's curator registry) owns or curates it and Morpho lists it in its app. Governance ownership, registry constants and Atlas mentions are recorded as sources but do not list a vault on their own.",
   generatedAt: new Date().toISOString(), chains: CHAINS, count: vaults.size, groups,
 };
 const material = (o: any) => JSON.stringify((o.groups as any[]).map((g) => ({ prime: g.prime, vaults: g.vaults.map((v: any) => ({ a: v.address, c: v.chainId, s: v.status, r: v.relations, src: v.sources, al: v.allocatable.map((x: any) => x.prime + x.contract) })) })));
