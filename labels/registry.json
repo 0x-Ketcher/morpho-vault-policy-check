@@ -1,15 +1,15 @@
 {
  "meta": {
-  "generatedAt": "2026-09-09T20:57:31.253Z",
+  "generatedAt": "2026-09-14T17:11:38.599Z",
   "commits": {
-   "grove-labs/grove-address-registry": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
+   "grove-labs/grove-address-registry": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
    "sparkdotfi/spark-address-registry": "ecea29bd2a1546bbbf4999e486b3c04f0e10b748",
    "osero-io/osero-address-registry": "62d5fe15537d70a3a64aa5bbd853cacf6471aecb",
    "skybase-foundation/skybase-address-registry": "2c43f2e375421795230e10651267fa125fe053fd",
    "ElodinLTD/keel-address-registry": "5871e2b7db3b6c34130043498c7590b5d7560a14"
   },
   "notes": [],
-  "count": 682
+  "count": 684
  },
  "entries": [
   {
@@ -21,8 +21,8 @@
    "file": "src/Avalanche.sol",
    "line": 10,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L10"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L10"
   },
   {
    "address": "0x86Ff09db814ac346a7C6FE2Cd648F27706D1D470",
@@ -33,8 +33,8 @@
    "file": "src/Avalanche.sol",
    "line": 11,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L11"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L11"
   },
   {
    "address": "0x6B25532e1060CE10cc3B0A99e5683b91BFDe6982",
@@ -45,8 +45,8 @@
    "file": "src/Avalanche.sol",
    "line": 17,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L17"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L17"
   },
   {
    "address": "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
@@ -57,8 +57,8 @@
    "file": "src/Avalanche.sol",
    "line": 18,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L18"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L18"
   },
   {
    "address": "0x4fec40719fD9a8AE3F8E20531669DEC5962D2619",
@@ -69,8 +69,8 @@
    "file": "src/Avalanche.sol",
    "line": 20,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L20"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L20"
   },
   {
    "address": "0x4236B772BEeEAFF57550Aa392A0f227C0b908Ce7",
@@ -81,8 +81,8 @@
    "file": "src/Avalanche.sol",
    "line": 26,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L26"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L26"
   },
   {
    "address": "0x7107DD8F56642327945294a18A4280C78e153644",
@@ -93,8 +93,8 @@
    "file": "src/Avalanche.sol",
    "line": 27,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L27"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L27"
   },
   {
    "address": "0x6ba2e6bCCe3d2A31F1e3e1d3e11CDffBaA002A21",
@@ -105,8 +105,8 @@
    "file": "src/Avalanche.sol",
    "line": 28,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L28"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L28"
   },
   {
    "address": "0xB0113804960345fd0a245788b3423319c86940e5",
@@ -117,8 +117,8 @@
    "file": "src/Avalanche.sol",
    "line": 30,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L30"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L30"
   },
   {
    "address": "0x0eEC86649E756a23CBc68d9EFEd756f16aD5F85f",
@@ -129,8 +129,8 @@
    "file": "src/Avalanche.sol",
    "line": 31,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L31"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L31"
   },
   {
    "address": "0x9187807e07112359C481870feB58f0c117a29179",
@@ -141,8 +141,8 @@
    "file": "src/Avalanche.sol",
    "line": 33,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L33"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L33"
   },
   {
    "address": "0x4b803781828b76EaBF21AaF02e5ce23596b4d60c",
@@ -153,8 +153,8 @@
    "file": "src/Avalanche.sol",
    "line": 39,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L39"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L39"
   },
   {
    "address": "0x26e9512547feC1906C55256e491DfB6673D8C23f",
@@ -165,8 +165,8 @@
    "file": "src/Avalanche.sol",
    "line": 40,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L40"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L40"
   },
   {
    "address": "0x8Ea8Dff8c29f568eA1E716E2C3AfbD003EB83cfA",
@@ -177,8 +177,8 @@
    "file": "src/Avalanche.sol",
    "line": 41,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L41"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L41"
   },
   {
    "address": "0x1121F4e21eD8B9BC1BB9A2952cDD8639aC897784",
@@ -189,8 +189,8 @@
    "file": "src/Avalanche.sol",
    "line": 47,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L47"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L47"
   },
   {
    "address": "0xFE6920eB6C421f1179cA8c8d4170530CDBdfd77A",
@@ -201,8 +201,8 @@
    "file": "src/Avalanche.sol",
    "line": 48,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L48"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L48"
   },
   {
    "address": "0x3Ef3D8bA38EBe18DB133cEc108f4D14CE00Dd9Ae",
@@ -213,8 +213,8 @@
    "file": "src/Avalanche.sol",
    "line": 54,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L54"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L54"
   },
   {
    "address": "0xA9d7d3D7e68a0cae89FB33c736199172f405C8D3",
@@ -225,8 +225,8 @@
    "file": "src/Avalanche.sol",
    "line": 60,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L60"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L60"
   },
   {
    "address": "0xbb00FF08d01D300023C629E8fFfFcb65A5a578cE",
@@ -237,8 +237,8 @@
    "file": "src/Avalanche.sol",
    "line": 66,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L66"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L66"
   },
   {
    "address": "0x655C406EBFa14EE2006250925e54ec43AD184f8B",
@@ -249,8 +249,8 @@
    "file": "src/Avalanche.sol",
    "line": 67,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Avalanche.sol#L67"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Avalanche.sol#L67"
   },
   {
    "address": "0x5875eEE11Cf8398102FdAd704C9E96607675467a",
@@ -261,8 +261,8 @@
    "file": "src/Base.sol",
    "line": 10,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L10"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L10"
   },
   {
    "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
@@ -273,8 +273,8 @@
    "file": "src/Base.sol",
    "line": 11,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L11"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L11"
   },
   {
    "address": "0x820C137fa70C8691f0e44Dc420a5e53c168921Dc",
@@ -285,8 +285,8 @@
    "file": "src/Base.sol",
    "line": 12,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L12"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L12"
   },
   {
    "address": "0x1682Ae6375C4E4A97e4B583BC394c861A46D8962",
@@ -297,8 +297,8 @@
    "file": "src/Base.sol",
    "line": 18,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L18"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L18"
   },
   {
    "address": "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
@@ -309,8 +309,8 @@
    "file": "src/Base.sol",
    "line": 19,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L19"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L19"
   },
   {
    "address": "0x1601843c5E9bC251A3272907010AFa41Fa18347E",
@@ -321,8 +321,8 @@
    "file": "src/Base.sol",
    "line": 25,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L25"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L25"
   },
   {
    "address": "0x7f8408eBbBC3504F83eeDa52910dd75Eba92C955",
@@ -333,8 +333,8 @@
    "file": "src/Base.sol",
    "line": 31,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L31"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L31"
   },
   {
    "address": "0x9B746dBC5269e1DF6e4193Bcb441C0FbBF1CeCEe",
@@ -345,8 +345,8 @@
    "file": "src/Base.sol",
    "line": 32,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L32"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L32"
   },
   {
    "address": "0xAc8BF0669223197ac8B94Cbb53E725e40B3919E8",
@@ -357,8 +357,8 @@
    "file": "src/Base.sol",
    "line": 33,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L33"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L33"
   },
   {
    "address": "0xB0113804960345fd0a245788b3423319c86940e5",
@@ -369,8 +369,8 @@
    "file": "src/Base.sol",
    "line": 35,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L35"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L35"
   },
   {
    "address": "0x0eEC86649E756a23CBc68d9EFEd756f16aD5F85f",
@@ -381,8 +381,8 @@
    "file": "src/Base.sol",
    "line": 36,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L36"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L36"
   },
   {
    "address": "0x9187807e07112359C481870feB58f0c117a29179",
@@ -393,8 +393,8 @@
    "file": "src/Base.sol",
    "line": 37,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L37"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L37"
   },
   {
    "address": "0x491EDFB0B8b608044e227225C715981a30F3A44E",
@@ -405,8 +405,8 @@
    "file": "src/Base.sol",
    "line": 43,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L43"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L43"
   },
   {
    "address": "0x5F5cfCB8a463868E37Ab27B5eFF3ba02112dF19a",
@@ -417,8 +417,8 @@
    "file": "src/Base.sol",
    "line": 44,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L44"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L44"
   },
   {
    "address": "0x3Ef3D8bA38EBe18DB133cEc108f4D14CE00Dd9Ae",
@@ -429,8 +429,8 @@
    "file": "src/Base.sol",
    "line": 50,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L50"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L50"
   },
   {
    "address": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
@@ -441,8 +441,8 @@
    "file": "src/Base.sol",
    "line": 56,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L56"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L56"
   },
   {
    "address": "0xBeEf2d50B428675a1921bC6bBF4bfb9D8cF1461A",
@@ -453,8 +453,8 @@
    "file": "src/Base.sol",
    "line": 58,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L58"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L58"
   },
   {
    "address": "0xbeef0e0834849aCC03f0089F01f4F1Eeb06873C9",
@@ -465,8 +465,8 @@
    "file": "src/Base.sol",
    "line": 59,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L59"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L59"
   },
   {
    "address": "0x888888888889758F76e7103c6CbF23ABbF58F946",
@@ -477,8 +477,8 @@
    "file": "src/Base.sol",
    "line": 65,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L65"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L65"
   },
   {
    "address": "0x2626664c2603336E57B271c5C0b26F421741e481",
@@ -489,8 +489,8 @@
    "file": "src/Base.sol",
    "line": 71,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L71"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L71"
   },
   {
    "address": "0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1",
@@ -501,8 +501,8 @@
    "file": "src/Base.sol",
    "line": 72,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Base.sol#L72"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Base.sol#L72"
   },
   {
    "address": "0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a",
@@ -513,8 +513,8 @@
    "file": "src/Ethereum.sol",
    "line": 10,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L10"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L10"
   },
   {
    "address": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
@@ -525,8 +525,8 @@
    "file": "src/Ethereum.sol",
    "line": 11,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L11"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L11"
   },
   {
    "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
@@ -537,8 +537,8 @@
    "file": "src/Ethereum.sol",
    "line": 12,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L12"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L12"
   },
   {
    "address": "0xbf5495Efe5DB9ce00f80364C8B423567e58d2110",
@@ -549,8 +549,8 @@
    "file": "src/Ethereum.sol",
    "line": 13,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L13"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L13"
   },
   {
    "address": "0x6810e776880C02933D47DB1b9fc05908e5386b96",
@@ -561,8 +561,8 @@
    "file": "src/Ethereum.sol",
    "line": 14,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L14"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L14"
   },
   {
    "address": "0x8236a87084f8B84306f72007F36F2618A5634494",
@@ -573,8 +573,8 @@
    "file": "src/Ethereum.sol",
    "line": 15,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L15"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L15"
   },
   {
    "address": "0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2",
@@ -585,8 +585,8 @@
    "file": "src/Ethereum.sol",
    "line": 16,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L16"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L16"
   },
   {
    "address": "0x6c3ea9036406852006290770BEdFcAbA0e23A0e8",
@@ -597,8 +597,8 @@
    "file": "src/Ethereum.sol",
    "line": 17,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L17"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L17"
   },
   {
    "address": "0xae78736Cd615f374D3085123A210448E74Fc6393",
@@ -609,8 +609,8 @@
    "file": "src/Ethereum.sol",
    "line": 18,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L18"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L18"
   },
   {
    "address": "0x8292Bb45bf1Ee4d140127049757C2E0fF06317eD",
@@ -621,8 +621,8 @@
    "file": "src/Ethereum.sol",
    "line": 19,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L19"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L19"
   },
   {
    "address": "0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7",
@@ -633,8 +633,8 @@
    "file": "src/Ethereum.sol",
    "line": 20,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L20"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L20"
   },
   {
    "address": "0x83F20F44975D03b1b09e64809B757c47f942BEeA",
@@ -645,8 +645,8 @@
    "file": "src/Ethereum.sol",
    "line": 21,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L21"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L21"
   },
   {
    "address": "0x99CD4Ec3f88A45940936F469E4bB72A2A701EEB9",
@@ -657,8 +657,8 @@
    "file": "src/Ethereum.sol",
    "line": 22,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L22"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L22"
   },
   {
    "address": "0xBc65ad17c5C0a2A4D159fa5a503f4992c7B545FE",
@@ -669,8 +669,8 @@
    "file": "src/Ethereum.sol",
    "line": 23,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L23"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L23"
   },
   {
    "address": "0x9D39A5DE30e57443BfF2A8307A4256c8797A3497",
@@ -681,8 +681,8 @@
    "file": "src/Ethereum.sol",
    "line": 24,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L24"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L24"
   },
   {
    "address": "0xa3931d71877C0E7a3148CB7Eb4463524FEc27fbD",
@@ -693,8 +693,8 @@
    "file": "src/Ethereum.sol",
    "line": 25,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L25"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L25"
   },
   {
    "address": "0x18084fbA666a33d37592fA2633fD49a74DD93a88",
@@ -705,8 +705,8 @@
    "file": "src/Ethereum.sol",
    "line": 26,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L26"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L26"
   },
   {
    "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
@@ -717,8 +717,8 @@
    "file": "src/Ethereum.sol",
    "line": 27,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L27"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L27"
   },
   {
    "address": "0x4c9EDD5852cd905f086C759E8383e09bff1E68B3",
@@ -729,8 +729,20 @@
    "file": "src/Ethereum.sol",
    "line": 28,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L28"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L28"
+  },
+  {
+   "address": "0xe343167631d89B6Ffc58B88d6b7fB0228795491D",
+   "chainId": 1,
+   "prime": "Grove",
+   "constant": "USDG",
+   "role": "token",
+   "file": "src/Ethereum.sol",
+   "line": 29,
+   "repo": "grove-labs/grove-address-registry",
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L29"
   },
   {
    "address": "0xdC035D45d973E3EC169d2276DDab16f1e407384F",
@@ -739,10 +751,10 @@
    "constant": "USDS",
    "role": "token",
    "file": "src/Ethereum.sol",
-   "line": 29,
+   "line": 30,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L29"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L30"
   },
   {
    "address": "0x14d60E7FDC0D71d8611742720E4C50E7a974020c",
@@ -751,10 +763,10 @@
    "constant": "USCC",
    "role": "token",
    "file": "src/Ethereum.sol",
-   "line": 30,
+   "line": 31,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L30"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L31"
   },
   {
    "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
@@ -763,10 +775,10 @@
    "constant": "USDT",
    "role": "token",
    "file": "src/Ethereum.sol",
-   "line": 31,
+   "line": 32,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L31"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L32"
   },
   {
    "address": "0x43415eB6ff9DB7E26A15b704e7A3eDCe97d31C4e",
@@ -775,10 +787,10 @@
    "constant": "USTB",
    "role": "token",
    "file": "src/Ethereum.sol",
-   "line": 32,
+   "line": 33,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L32"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L33"
   },
   {
    "address": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
@@ -787,10 +799,10 @@
    "constant": "WBTC",
    "role": "token",
    "file": "src/Ethereum.sol",
-   "line": 33,
+   "line": 34,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L33"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L34"
   },
   {
    "address": "0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee",
@@ -799,10 +811,10 @@
    "constant": "WEETH",
    "role": "token",
    "file": "src/Ethereum.sol",
-   "line": 34,
+   "line": 35,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L34"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L35"
   },
   {
    "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
@@ -811,10 +823,10 @@
    "constant": "WETH",
    "role": "token",
    "file": "src/Ethereum.sol",
-   "line": 35,
+   "line": 36,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L35"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L36"
   },
   {
    "address": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0",
@@ -823,10 +835,10 @@
    "constant": "WSTETH",
    "role": "token",
    "file": "src/Ethereum.sol",
-   "line": 36,
+   "line": 37,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L36"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L37"
   },
   {
    "address": "0xBd3fa81B58Ba92a82136038B25aDec7066af3155",
@@ -835,10 +847,10 @@
    "constant": "CCTP_TOKEN_MESSENGER",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 42,
+   "line": 43,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L42"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L43"
   },
   {
    "address": "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
@@ -847,10 +859,10 @@
    "constant": "CCTP_TOKEN_MESSENGER_V2",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 43,
+   "line": 44,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L43"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L44"
   },
   {
    "address": "0x1e1D42781FC170EF9da004Fb735f56F0276d01B8",
@@ -859,10 +871,10 @@
    "constant": "USDS_SKYLINK_OFT",
    "role": "token",
    "file": "src/Ethereum.sol",
-   "line": 45,
+   "line": 46,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L45"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L46"
   },
   {
    "address": "0xC7Bdd1F2B16447dcf3dE045C4a039A60EC2f0ba3",
@@ -871,10 +883,10 @@
    "constant": "AUTO_LINE",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 51,
+   "line": 52,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L51"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L52"
   },
   {
    "address": "0x0a3f6849f78076aefaDf113F5BED87720274dDC0",
@@ -883,10 +895,10 @@
    "constant": "CHIEF",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 52,
+   "line": 53,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L52"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L53"
   },
   {
    "address": "0x3225737a9Bbb6473CB4a45b7244ACa2BeFdB276A",
@@ -895,10 +907,10 @@
    "constant": "DAI_USDS",
    "role": "token",
    "file": "src/Ethereum.sol",
-   "line": 53,
+   "line": 54,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L53"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L54"
   },
   {
    "address": "0x19c0976f590D67707E62397C87829d896Dc0f1F1",
@@ -907,10 +919,10 @@
    "constant": "JUG",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 54,
+   "line": 55,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L54"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L55"
   },
   {
    "address": "0xBE8E3e3618f7474F8cB1d074A26afFef007E98FB",
@@ -919,10 +931,10 @@
    "constant": "PAUSE_PROXY",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 55,
+   "line": 56,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L55"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L56"
   },
   {
    "address": "0x197E90f9FAD81970bA7976f33CbD77088E5D7cf7",
@@ -931,10 +943,10 @@
    "constant": "POT",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 56,
+   "line": 57,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L56"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L57"
   },
   {
    "address": "0xf6e72Db5454dd049d0788e411b06CfAF16853042",
@@ -943,10 +955,10 @@
    "constant": "PSM",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 57,
+   "line": 58,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L57"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L58"
   },
   {
    "address": "0x35D1b3F3D7966A1DFe207aa4514C12a259A0492B",
@@ -955,10 +967,10 @@
    "constant": "VAT",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 58,
+   "line": 59,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L58"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L59"
   },
   {
    "address": "0xA188EEC8F81263234dA3622A406892F3D630f98c",
@@ -967,10 +979,10 @@
    "constant": "WRAPPER_USDS_LITE_PSM_USDC_A",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 60,
+   "line": 61,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L60"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L61"
   },
   {
    "address": "0x37305B1cD40574E4C5Ce33f8e8306Be057fD7341",
@@ -979,10 +991,10 @@
    "constant": "LITE_PSM_USDC_A_POCKET",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 61,
+   "line": 62,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L61"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L62"
   },
   {
    "address": "0xb7E61Df6CAb0A51E9A5dab1A7DD3f942dDe5b929",
@@ -991,10 +1003,10 @@
    "constant": "PAS_CONFIGURATOR",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 63,
+   "line": 64,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L63"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L64"
   },
   {
    "address": "0x1369f7b2b38c76B6478c0f0E66D94923421891Ba",
@@ -1003,10 +1015,10 @@
    "constant": "GROVE_PROXY",
    "role": "subproxy",
    "file": "src/Ethereum.sol",
-   "line": 69,
+   "line": 70,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L69"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L70"
   },
   {
    "address": "0xfc51CAa049E8894bEcFfB68c61095C3F3Ec8a880",
@@ -1015,10 +1027,10 @@
    "constant": "GROVE_STAR_GUARD",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 70,
+   "line": 71,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L70"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L71"
   },
   {
    "address": "0xB30FE1Cf884B48a22a50D22a9282004F2c5E9406",
@@ -1027,10 +1039,10 @@
    "constant": "GROVE_TOKEN",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 71,
+   "line": 72,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L71"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L72"
   },
   {
    "address": "0xF3Ddcaa3BD5D04ba08beC69cf34D9d9C9c112d14",
@@ -1039,10 +1051,10 @@
    "constant": "STAKED_GROVE",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 72,
+   "line": 73,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L72"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L73"
   },
   {
    "address": "0xE3EC4CC359E68c9dCE15Bf667b1aD37Df54a5a42",
@@ -1051,10 +1063,10 @@
    "constant": "GROVE_FOUNDATION",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 73,
+   "line": 74,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L73"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L74"
   },
   {
    "address": "0x4E41488C19cD35EB4de3083Fc3e204854c75c86a",
@@ -1063,10 +1075,10 @@
    "constant": "GROVE_FARM",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 74,
+   "line": 75,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L74"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L75"
   },
   {
    "address": "0xc7B91C401C02B73CBdF424dFaaa60950d5040dB7",
@@ -1075,10 +1087,10 @@
    "constant": "ALLOCATOR_ORACLE",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 80,
+   "line": 81,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L80"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L81"
   },
   {
    "address": "0xCdCFA95343DA7821fdD01dc4d0AeDA958051bB3B",
@@ -1087,10 +1099,10 @@
    "constant": "ALLOCATOR_REGISTRY",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 81,
+   "line": 82,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L81"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L82"
   },
   {
    "address": "0x9A865A710399cea85dbD9144b7a09C889e94E803",
@@ -1099,10 +1111,10 @@
    "constant": "ALLOCATOR_ROLES",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 82,
+   "line": 83,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L82"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L83"
   },
   {
    "address": "0x629aD4D779F46B8A1491D3f76f7E97Cb04D8b1Cd",
@@ -1111,10 +1123,10 @@
    "constant": "ALLOCATOR_BLOOM_A_BUFFER",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 84,
+   "line": 85,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L84"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L85"
   },
   {
    "address": "0x26512A41C8406800f21094a7a7A0f980f6e25d43",
@@ -1123,10 +1135,10 @@
    "constant": "ALLOCATOR_BLOOM_A_VAULT",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 85,
+   "line": 86,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L85"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L86"
   },
   {
    "address": "0x436DABce608f73BeA2b75fba35bffe72739697d5",
@@ -1135,10 +1147,10 @@
    "constant": "ALLOCATOR_GROVE_A_BUFFER",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 87,
+   "line": 88,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L87"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L88"
   },
   {
    "address": "0xf739a30c74927dc6cFA3B67E4933872a1FC5F4EB",
@@ -1147,10 +1159,10 @@
    "constant": "ALLOCATOR_GROVE_A_VAULT",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 88,
+   "line": 89,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L88"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L89"
   },
   {
    "address": "0xfd9dEA9a8D5B955649579Af482DB7198A392A9F5",
@@ -1159,10 +1171,10 @@
    "constant": "ALM_CONTROLLER",
    "role": "almController",
    "file": "src/Ethereum.sol",
-   "line": 94,
+   "line": 95,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L94"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L95"
   },
   {
    "address": "0x491EDFB0B8b608044e227225C715981a30F3A44E",
@@ -1171,10 +1183,10 @@
    "constant": "ALM_PROXY",
    "role": "almProxy",
    "file": "src/Ethereum.sol",
-   "line": 95,
+   "line": 96,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L95"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L96"
   },
   {
    "address": "0x5F5cfCB8a463868E37Ab27B5eFF3ba02112dF19a",
@@ -1183,10 +1195,10 @@
    "constant": "ALM_RATE_LIMITS",
    "role": "almRateLimits",
    "file": "src/Ethereum.sol",
-   "line": 96,
+   "line": 97,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L96"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L97"
   },
   {
    "address": "0xB0113804960345fd0a245788b3423319c86940e5",
@@ -1195,10 +1207,10 @@
    "constant": "ALM_FREEZER",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 98,
+   "line": 99,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L98"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L99"
   },
   {
    "address": "0x0eEC86649E756a23CBc68d9EFEd756f16aD5F85f",
@@ -1207,10 +1219,10 @@
    "constant": "ALM_RELAYER",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 99,
+   "line": 100,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L99"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L100"
   },
   {
    "address": "0x4364D17B578b0eD1c42Be9075D774D1d6AeAFe96",
@@ -1219,10 +1231,10 @@
    "constant": "GROVE_PRIMARY_RELAYER_OPERATOR",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 101,
+   "line": 102,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L101"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L102"
   },
   {
    "address": "0x9187807e07112359C481870feB58f0c117a29179",
@@ -1231,10 +1243,10 @@
    "constant": "GROVE_SECONDARY_RELAYER_OPERATOR",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 102,
+   "line": 103,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L102"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L103"
   },
   {
    "address": "0x0DcD9298e163dFD3c0B5b00F0d9093C36e40A153",
@@ -1243,10 +1255,10 @@
    "constant": "PAU_PROXY",
    "role": "almProxy",
    "file": "src/Ethereum.sol",
-   "line": 108,
+   "line": 109,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L108"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L109"
   },
   {
    "address": "0xbf83F5974B932c7D842254042717D6A2706CE5eE",
@@ -1255,10 +1267,10 @@
    "constant": "PAU_CONTROLLER",
    "role": "almController",
    "file": "src/Ethereum.sol",
-   "line": 109,
+   "line": 110,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L109"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L110"
   },
   {
    "address": "0x4F6d1704700cd494DD4cd9bF59c0C39DA1Bc9164",
@@ -1267,10 +1279,10 @@
    "constant": "PAU_ACCESS_CONTROLS",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 110,
+   "line": 111,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L110"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L111"
   },
   {
    "address": "0xE016Ae733A77Ba77E7907aAA749394Fc5e75C0e1",
@@ -1279,10 +1291,10 @@
    "constant": "PAU_RATE_LIMITS",
    "role": "almRateLimits",
    "file": "src/Ethereum.sol",
-   "line": 111,
+   "line": 112,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L111"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L112"
   },
   {
    "address": "0xdBD17832df0e57b1732cE1C84c652E820e549BAa",
@@ -1291,10 +1303,10 @@
    "constant": "PAU_ADMINISTERED_AGENT",
    "role": "almProxy",
    "file": "src/Ethereum.sol",
-   "line": 112,
+   "line": 113,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L112"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L113"
   },
   {
    "address": "0x829dC2b7E94B1954F0764E573f2E0d45Afa28199",
@@ -1303,10 +1315,10 @@
    "constant": "PAU_BEACON",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 114,
+   "line": 115,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L114"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L115"
   },
   {
    "address": "0x69A5d548830AC2A4Ba90A44a2C75BDA71f97fc66",
@@ -1315,10 +1327,10 @@
    "constant": "PAU_FACTORY",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 115,
+   "line": 116,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L115"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L116"
   },
   {
    "address": "0x2968c3b5478cF93B70aB1e24255d4EDBBd27a089",
@@ -1327,10 +1339,10 @@
    "constant": "PAU_ADMINISTERED_AGENT_FACTORY",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 116,
+   "line": 117,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L116"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L117"
   },
   {
    "address": "0xc812aAD3FaE2D3511C664374B601a9BeBFeCCa2E",
@@ -1339,10 +1351,10 @@
    "constant": "PAU_DEFAULT_ASSEMBLER",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 117,
+   "line": 118,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L117"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L118"
   },
   {
    "address": "0xC84825BCD13AEddc372400239499380376a44A39",
@@ -1351,10 +1363,10 @@
    "constant": "PAU_BASIN_FACET",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 119,
+   "line": 120,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L119"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L120"
   },
   {
    "address": "0xE4A5dAc768a310cc2316f258901b32E499653064",
@@ -1363,10 +1375,10 @@
    "constant": "PAU_PSM_FACET",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 120,
+   "line": 121,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L120"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L121"
   },
   {
    "address": "0x445D9Dc752F269Be48250f1A180CAC4c61cE4bab",
@@ -1375,10 +1387,10 @@
    "constant": "PAU_UNISWAP_V3_FACET",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 121,
+   "line": 122,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L121"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L122"
   },
   {
    "address": "0x1221CC4B85Ab260660aD21C2829e0EB516dffBc7",
@@ -1387,10 +1399,10 @@
    "constant": "PAU_USDS_FACET",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 122,
+   "line": 123,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L122"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L123"
   },
   {
    "address": "0xf08943f817e1F902dEbC884c7B19Ea5764594Ac9",
@@ -1399,10 +1411,10 @@
    "constant": "JTRSY_GROVE_BASIN",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 128,
+   "line": 129,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L128"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L129"
   },
   {
    "address": "0xCBa428fB052B365557DAf52b744DFfF20d5FbEdD",
@@ -1411,10 +1423,10 @@
    "constant": "BUIDL_GROVE_BASIN",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 129,
+   "line": 130,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L129"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L130"
   },
   {
    "address": "0x5C40DC1CcAA8CE64133D157ab838fa0c0f0d946f",
@@ -1423,10 +1435,10 @@
    "constant": "GROVE_PSM_VARIANT_1_ACTIONS",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 135,
+   "line": 136,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L135"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L136"
   },
   {
    "address": "0xe3490297a08d6fC8Da46Edb7B6142E4F461b62D3",
@@ -1435,10 +1447,10 @@
    "constant": "ETHENA_MINTER",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 141,
+   "line": 142,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L141"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L142"
   },
   {
    "address": "0x7712c34205737192402172409a8F7ccef8aA2AEc",
@@ -1447,10 +1459,10 @@
    "constant": "BUIDL",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 147,
+   "line": 148,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L147"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L148"
   },
   {
    "address": "0x31D3F59Ad4aAC0eeE2247c65EBE8Bf6E9E470a53",
@@ -1459,10 +1471,10 @@
    "constant": "BUIDL_REDEEM",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 148,
+   "line": 149,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L148"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L149"
   },
   {
    "address": "0x6a9DA2D710BB9B700acde7Cb81F10F1fF8C89041",
@@ -1471,10 +1483,10 @@
    "constant": "BUIDLI",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 149,
+   "line": 150,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L149"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L150"
   },
   {
    "address": "0xD1917664bE3FdAea377f6E8D5BF043ab5C3b1312",
@@ -1483,10 +1495,10 @@
    "constant": "BUIDLI_DEPOSIT",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 150,
+   "line": 151,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L150"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L151"
   },
   {
    "address": "0x8780Dd016171B91E4Df47075dA0a947959C34200",
@@ -1495,10 +1507,10 @@
    "constant": "BUIDLI_REDEEM",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 151,
+   "line": 152,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L151"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L152"
   },
   {
    "address": "0x51e4C4A356784D0B3b698BFB277C626b2b9fe178",
@@ -1507,10 +1519,10 @@
    "constant": "STAC_DEPOSIT",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 153,
+   "line": 154,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L153"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L154"
   },
   {
    "address": "0xbb543C77436645C8b95B64eEc39E3C0d48D4842b",
@@ -1519,10 +1531,10 @@
    "constant": "STAC_REDEEM",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 154,
+   "line": 155,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L154"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L155"
   },
   {
    "address": "0x51C2d74017390CbBd30550179A16A1c28F7210fc",
@@ -1531,10 +1543,10 @@
    "constant": "STAC",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 155,
+   "line": 156,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L155"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L156"
   },
   {
    "address": "0x74A739EA1Dc67c5a0179ebad665D1D3c4b80B712",
@@ -1543,10 +1555,10 @@
    "constant": "CENTRIFUGE_ACRDX_USDC",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 161,
+   "line": 162,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L161"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L162"
   },
   {
    "address": "0x4880799eE5200fC58DA299e965df644fBf46780B",
@@ -1555,10 +1567,10 @@
    "constant": "CENTRIFUGE_JAAA_USDC",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 162,
+   "line": 163,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L162"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L163"
   },
   {
    "address": "0xFE6920eB6C421f1179cA8c8d4170530CDBdfd77A",
@@ -1567,10 +1579,10 @@
    "constant": "CENTRIFUGE_JTRSY_USDC",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 163,
+   "line": 164,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L163"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L164"
   },
   {
    "address": "0x381f4F3B43C30B78C1f7777553236e57bB8AE9ff",
@@ -1579,10 +1591,10 @@
    "constant": "CENTRIFUGE_JTRSY_USDS",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 165,
+   "line": 166,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L165"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L166"
   },
   {
    "address": "0x2BBE31d63E6813E3AC858C04dae43FB2a72B0D11",
@@ -1591,10 +1603,10 @@
    "constant": "FLUID_SUSDS",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 171,
+   "line": 172,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L171"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L172"
   },
   {
    "address": "0x80ac24aA929eaF5013f6436cdA2a7ba190f5Cc0b",
@@ -1603,10 +1615,10 @@
    "constant": "MAPLE_SYRUP_USDC",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 177,
+   "line": 178,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L177"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L178"
   },
   {
    "address": "0x3Ef3D8bA38EBe18DB133cEc108f4D14CE00Dd9Ae",
@@ -1615,10 +1627,10 @@
    "constant": "MERKL_DISTRIBUTOR",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 183,
+   "line": 184,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L183"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L184"
   },
   {
    "address": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
@@ -1627,10 +1639,10 @@
    "constant": "MORPHO",
    "role": "morphoBlue",
    "file": "src/Ethereum.sol",
-   "line": 189,
+   "line": 190,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L189"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L190"
   },
   {
    "address": "0xBEEf2B5FD3D94469b7782aeBe6364E6e6FB1B709",
@@ -1639,10 +1651,10 @@
    "constant": "GROVE_X_STEAKHOUSE_USDC_MORPHO_VAULT",
    "role": "morphoVault",
    "file": "src/Ethereum.sol",
-   "line": 191,
+   "line": 192,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L191"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L192"
   },
   {
    "address": "0xBeefF08dF54897e7544aB01d0e86f013DA354111",
@@ -1651,10 +1663,10 @@
    "constant": "GROVE_X_STEAKHOUSE_USDC_HY_V2_MORPHO_VAULT",
    "role": "morphoVault",
    "file": "src/Ethereum.sol",
-   "line": 192,
+   "line": 193,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L192"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L193"
   },
   {
    "address": "0xBEEfF0d672ab7F5018dFB614c93981045D4aA98a",
@@ -1663,10 +1675,10 @@
    "constant": "GROVE_X_STEAKHOUSE_AUSD_V2_MORPHO_VAULT",
    "role": "morphoVault",
    "file": "src/Ethereum.sol",
-   "line": 193,
+   "line": 194,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L193"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L194"
   },
   {
    "address": "0xBeEff4fD39F8e48b6a6e475445D650cb11e9599F",
@@ -1675,10 +1687,22 @@
    "constant": "GROVE_X_STEAKHOUSE_RLUSD_V2_MORPHO_VAULT",
    "role": "morphoVault",
    "file": "src/Ethereum.sol",
-   "line": 194,
+   "line": 195,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L194"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L195"
+  },
+  {
+   "address": "0xbeef05061FE51eA482BD1b68041353490b3a5934",
+   "chainId": 1,
+   "prime": "Grove",
+   "constant": "GROVE_X_STEAKHOUSE_USDG_V2_MORPHO_VAULT",
+   "role": "morphoVault",
+   "file": "src/Ethereum.sol",
+   "line": 196,
+   "repo": "grove-labs/grove-address-registry",
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L196"
   },
   {
    "address": "0xd8A6511979D9C5D387c819E9F8ED9F3a5C6c5379",
@@ -1687,10 +1711,10 @@
    "constant": "STEAKHOUSE_PYUSD_MORPHO_VAULT",
    "role": "morphoVault",
    "file": "src/Ethereum.sol",
-   "line": 196,
+   "line": 198,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L196"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L198"
   },
   {
    "address": "0xb576765fB15505433aF24FEe2c0325895C559FB2",
@@ -1699,10 +1723,10 @@
    "constant": "SENTORA_PYUSD_MAIN_V2_MORPHO_VAULT",
    "role": "morphoVault",
    "file": "src/Ethereum.sol",
-   "line": 198,
+   "line": 200,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L198"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L200"
   },
   {
    "address": "0x6dC58a0FdfC8D694e571DC59B9A52EEEa780E6bf",
@@ -1711,10 +1735,10 @@
    "constant": "SENTORA_RLUSD_MAIN_V2_MORPHO_VAULT",
    "role": "morphoVault",
    "file": "src/Ethereum.sol",
-   "line": 199,
+   "line": 201,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L199"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L201"
   },
   {
    "address": "0x4c21B7577C8FE8b0B0669165ee7C8f67fa1454Cf",
@@ -1723,10 +1747,10 @@
    "constant": "SUPERSTATE_REDEMPTION",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 205,
+   "line": 207,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L205"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L207"
   },
   {
    "address": "0x888888888889758F76e7103c6CbF23ABbF58F946",
@@ -1735,10 +1759,10 @@
    "constant": "PENDLE_ROUTER",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 211,
+   "line": 213,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L211"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L213"
   },
   {
    "address": "0xD94F9ef3395BBE41C1f05ced3C9a7dc520D08036",
@@ -1747,10 +1771,10 @@
    "constant": "FALCON_X_DEPOSIT",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 217,
+   "line": 219,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L217"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L219"
   },
   {
    "address": "0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c",
@@ -1759,10 +1783,10 @@
    "constant": "AAVE_CORE_USDC",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 223,
+   "line": 225,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L223"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L225"
   },
   {
    "address": "0xFa82580c16A31D0c1bC632A36F82e83EfEF3Eec0",
@@ -1771,10 +1795,10 @@
    "constant": "AAVE_CORE_RLUSD",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 224,
+   "line": 226,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L224"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L226"
   },
   {
    "address": "0x68215B6533c47ff9f7125aC95adf00fE4a62f79e",
@@ -1783,10 +1807,10 @@
    "constant": "AAVE_HORIZON_USDC",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 225,
+   "line": 227,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L225"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L227"
   },
   {
    "address": "0xE3190143Eb552456F88464662f0c0C4aC67A77eB",
@@ -1795,10 +1819,10 @@
    "constant": "AAVE_HORIZON_RLUSD",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 226,
+   "line": 228,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L226"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L228"
   },
   {
    "address": "0xCca852Bc40e560adC3b1Cc58CA5b55638ce826c9",
@@ -1807,10 +1831,10 @@
    "constant": "AAVE_V4_CORE_HUB",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 232,
+   "line": 234,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L232"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L234"
   },
   {
    "address": "0x94e7A5dCbE816e498b89aB752661904E2F56c485",
@@ -1819,10 +1843,10 @@
    "constant": "AAVE_V4_MAIN_SPOKE",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 234,
+   "line": 236,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L234"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L236"
   },
   {
    "address": "0xD8B93635b8C6d0fF98CbE90b5988E3F2d1Cd9da1",
@@ -1831,10 +1855,10 @@
    "constant": "AAVE_V4_FOREX_SPOKE",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 235,
+   "line": 237,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L235"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L237"
   },
   {
    "address": "0xE79C1C7E24755574438A26D5e062Ad2626C04662",
@@ -1843,10 +1867,10 @@
    "constant": "CURVE_AUSD_USDC",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 241,
+   "line": 243,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L241"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L243"
   },
   {
    "address": "0xD001aE433f254283FeCE51d4ACcE8c53263aa186",
@@ -1855,10 +1879,10 @@
    "constant": "CURVE_RLUSD_USDC",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 242,
+   "line": 244,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L242"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L244"
   },
   {
    "address": "0xA632D59b9B804a956BfaA9b48Af3A1b74808FC1f",
@@ -1867,10 +1891,10 @@
    "constant": "CURVE_PYUSD_USDS",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 243,
+   "line": 245,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L243"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L245"
   },
   {
    "address": "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45",
@@ -1879,10 +1903,10 @@
    "constant": "UNISWAP_V3_SWAP_ROUTER_02",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 249,
+   "line": 251,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L249"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L251"
   },
   {
    "address": "0xC36442b4a4522E871399CD717aBDD847Ab11FE88",
@@ -1891,10 +1915,10 @@
    "constant": "UNISWAP_V3_POSITION_MANAGER",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 250,
+   "line": 252,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L250"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L252"
   },
   {
    "address": "0xbAFeAd7c60Ea473758ED6c6021505E8BBd7e8E5d",
@@ -1903,10 +1927,10 @@
    "constant": "UNISWAP_V3_AUSD_USDC",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 252,
+   "line": 254,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L252"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L254"
   },
   {
    "address": "0x2E3A11807B94E689387f60CD4BF52A56857f2eDC",
@@ -1915,10 +1939,10 @@
    "constant": "GALAXY_ARCH_CLO_DEPOSIT",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 258,
+   "line": 260,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L258"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L260"
   },
   {
    "address": "0x3E23311f9FF660E3c3d87E4b7c207b3c3D7e04f0",
@@ -1927,10 +1951,10 @@
    "constant": "GALAXY_WAREHOUSE_DEPOSIT",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 259,
+   "line": 261,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L259"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L261"
   },
   {
    "address": "0xD178a90C41ff3DcffbfDEF7De0BAF76Cbfe6a121",
@@ -1939,10 +1963,10 @@
    "constant": "RLUSD_MINT_BURN",
    "role": "token",
    "file": "src/Ethereum.sol",
-   "line": 265,
+   "line": 267,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L265"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L267"
   },
   {
    "address": "0x748b66a6b3666311F370218Bc2819c0bEe13677e",
@@ -1951,10 +1975,10 @@
    "constant": "AGORA_AUSD_MINT",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 271,
+   "line": 273,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L271"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L273"
   },
   {
    "address": "0xab8306d9FeFBE8183c3C59cA897A2E0Eb5beFE67",
@@ -1963,10 +1987,10 @@
    "constant": "AGORA_AUSD_REDEEM",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 272,
+   "line": 274,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L272"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L274"
   },
   {
    "address": "0x8C0A9E5939B97979f85d9aDA3d983C6E713Cc2dB",
@@ -1975,10 +1999,10 @@
    "constant": "PAXOS_USDC_DEPOSIT_WALLET",
    "role": "other",
    "file": "src/Ethereum.sol",
-   "line": 278,
+   "line": 280,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Ethereum.sol#L278"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Ethereum.sol#L280"
   },
   {
    "address": "0x222365EF19F7947e5484218551B56bb3965Aa7aF",
@@ -1989,8 +2013,8 @@
    "file": "src/Plume.sol",
    "line": 10,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Plume.sol#L10"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Plume.sol#L10"
   },
   {
    "address": "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
@@ -2001,8 +2025,8 @@
    "file": "src/Plume.sol",
    "line": 16,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Plume.sol#L16"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Plume.sol#L16"
   },
   {
    "address": "0x0C462Fff7Cc975bC9F2B0aEB8270febA5FD71e1B",
@@ -2013,8 +2037,8 @@
    "file": "src/Plume.sol",
    "line": 22,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Plume.sol#L22"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Plume.sol#L22"
   },
   {
    "address": "0x1DB91ad50446a671e2231f77e00948E68876F812",
@@ -2025,8 +2049,8 @@
    "file": "src/Plume.sol",
    "line": 23,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Plume.sol#L23"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Plume.sol#L23"
   },
   {
    "address": "0x7f8408eBbBC3504F83eeDa52910dd75Eba92C955",
@@ -2037,8 +2061,8 @@
    "file": "src/Plume.sol",
    "line": 24,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Plume.sol#L24"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Plume.sol#L24"
   },
   {
    "address": "0xB0113804960345fd0a245788b3423319c86940e5",
@@ -2049,8 +2073,8 @@
    "file": "src/Plume.sol",
    "line": 26,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Plume.sol#L26"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Plume.sol#L26"
   },
   {
    "address": "0x0eEC86649E756a23CBc68d9EFEd756f16aD5F85f",
@@ -2061,8 +2085,8 @@
    "file": "src/Plume.sol",
    "line": 27,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Plume.sol#L27"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Plume.sol#L27"
   },
   {
    "address": "0x3048386E09c72C20FB268a37d2B630D7f2Ee9138",
@@ -2073,8 +2097,8 @@
    "file": "src/Plume.sol",
    "line": 33,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Plume.sol#L33"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Plume.sol#L33"
   },
   {
    "address": "0x7D592085847558A97695DDC1CD6E8FEe818510E8",
@@ -2085,8 +2109,8 @@
    "file": "src/Plume.sol",
    "line": 34,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Plume.sol#L34"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Plume.sol#L34"
   },
   {
    "address": "0x354a9222571259457B2e98b2285B62e6a9bf4eD3",
@@ -2097,8 +2121,8 @@
    "file": "src/Plume.sol",
    "line": 40,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Plume.sol#L40"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Plume.sol#L40"
   },
   {
    "address": "0x818A3593340622c1D6A51B039e191F2f8C99A1F2",
@@ -2109,8 +2133,8 @@
    "file": "src/Plume.sol",
    "line": 41,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Plume.sol#L41"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Plume.sol#L41"
   },
   {
    "address": "0x3Ef3D8bA38EBe18DB133cEc108f4D14CE00Dd9Ae",
@@ -2121,8 +2145,8 @@
    "file": "src/Plume.sol",
    "line": 47,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Plume.sol#L47"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Plume.sol#L47"
   },
   {
    "address": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
@@ -2133,8 +2157,8 @@
    "file": "src/Robinhood.sol",
    "line": 10,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Robinhood.sol#L10"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Robinhood.sol#L10"
   },
   {
    "address": "0x2c10885ddec8d52ecF3Ad2B3833765bf36eD80cf",
@@ -2145,8 +2169,8 @@
    "file": "src/Robinhood.sol",
    "line": 16,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Robinhood.sol#L16"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Robinhood.sol#L16"
   },
   {
    "address": "0x29626c2d8Ca49A51E4dECEEc5499e52983c42BD5",
@@ -2157,8 +2181,8 @@
    "file": "src/Robinhood.sol",
    "line": 17,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Robinhood.sol#L17"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Robinhood.sol#L17"
   },
   {
    "address": "0xC13e5ff7993c5df911aE562a7736B0eBA12b2010",
@@ -2169,8 +2193,8 @@
    "file": "src/Robinhood.sol",
    "line": 18,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Robinhood.sol#L18"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Robinhood.sol#L18"
   },
   {
    "address": "0xB0113804960345fd0a245788b3423319c86940e5",
@@ -2181,8 +2205,8 @@
    "file": "src/Robinhood.sol",
    "line": 20,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Robinhood.sol#L20"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Robinhood.sol#L20"
   },
   {
    "address": "0x0eEC86649E756a23CBc68d9EFEd756f16aD5F85f",
@@ -2193,8 +2217,8 @@
    "file": "src/Robinhood.sol",
    "line": 21,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Robinhood.sol#L21"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Robinhood.sol#L21"
   },
   {
    "address": "0x9187807e07112359C481870feB58f0c117a29179",
@@ -2205,8 +2229,8 @@
    "file": "src/Robinhood.sol",
    "line": 23,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Robinhood.sol#L23"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Robinhood.sol#L23"
   },
   {
    "address": "0x5ff98717a18833de1A49e11B498866d6Fa1c9296",
@@ -2217,8 +2241,8 @@
    "file": "src/Robinhood.sol",
    "line": 29,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Robinhood.sol#L29"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Robinhood.sol#L29"
   },
   {
    "address": "0xa02eC279eEA9E56F4E14449a07C5ca5FDAAdc51d",
@@ -2229,8 +2253,8 @@
    "file": "src/Robinhood.sol",
    "line": 30,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Robinhood.sol#L30"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Robinhood.sol#L30"
   },
   {
    "address": "0xBEEff039907422219Fb367e525954DDC092854d9",
@@ -2241,8 +2265,8 @@
    "file": "src/Robinhood.sol",
    "line": 36,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Robinhood.sol#L36"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Robinhood.sol#L36"
   },
   {
    "address": "0xfC0a7Ed7C5146B26eB38FA92c71F434A7178b06e",
@@ -2253,8 +2277,8 @@
    "file": "src/Robinhood.sol",
    "line": 42,
    "repo": "grove-labs/grove-address-registry",
-   "commit": "5c7340f68ff27b07591ac4c6f02e6c36507bff3b",
-   "url": "https://github.com/grove-labs/grove-address-registry/blob/5c7340f68ff27b07591ac4c6f02e6c36507bff3b/src/Robinhood.sol#L42"
+   "commit": "1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e",
+   "url": "https://github.com/grove-labs/grove-address-registry/blob/1f4afd5bee6f5de542b050a4648c1f5f4e7efc5e/src/Robinhood.sol#L42"
   },
   {
    "address": "0x65d946e533748A998B1f0E430803e39A6388f7a1",

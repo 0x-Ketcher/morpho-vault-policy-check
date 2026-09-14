@@ -1,21 +1,4 @@
 {
   "note": "The one hand-maintained input to the generated Sky vault list: vaults that a scheduled spell will onboard, each citing the public spell proposal. The chain cannot know a spell before it executes. The sync reports an entry as stale once the vault holds a rate limit on-chain, after which it can be deleted; a forgotten entry changes nothing, the vault shows its real status.",
-  "pending": [
-    {
-      "chainId": 1,
-      "address": "0xFC8C624B6080a0a780583799f2A862DE936F6E22",
-      "prime": "Spark",
-      "reason": "September 10, 2026 Spark spell: onboard the Sentora-curated RLUSD Morpho Vaults V2 instance, deposit limit 10M RLUSD refilling at 100M per day.",
-      "source": "https://forum.skyeco.com/t/28208",
-      "date": "2026-09-09"
-    },
-    {
-      "chainId": 1,
-      "address": "0xbeef05061FE51eA482BD1b68041353490b3a5934",
-      "prime": "Grove",
-      "reason": "September 10, 2026 Grove spell: onboard the Grove x Steakhouse USDG Morpho vault, deposit limit 50M max and 50M per day on the ALM RateLimits.",
-      "source": "https://forum.skyeco.com/t/28207",
-      "date": "2026-09-09"
-    }
-  ]
+  "pending": []
 }
