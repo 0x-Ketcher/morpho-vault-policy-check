@@ -71,6 +71,10 @@ export function App() {
   return (
     <div className="page">
       <header>
+        <a className="brand" href="https://soterlabs.com" target="_blank" rel="noreferrer" title="Soter Labs">
+          <img className="brand-mark" src="/soter-labs.png" alt="" width="22" height="23" />
+          <span className="brand-name">Soter Labs</span>
+        </a>
         <div className="header-row">
           <h1>Morpho Vault Checker</h1>
           <div className="header-right">
