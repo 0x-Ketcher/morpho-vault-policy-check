@@ -293,8 +293,8 @@ function Deadline({ d }: { d: { date: string; text: string; consequence: string;
   const left = days > 1 ? `${days} days left` : days === 1 ? "1 day left" : days === 0 ? "today" : `passed ${-days} day${days === -1 ? "" : "s"} ago`;
   return (
     <div className={`deadline ${days < 0 ? "passed" : days <= 14 ? "soon" : ""}`} title={`${d.consequence} Source: ${d.source}. Policy snapshot ${policy.meta.snapshotDate}.`}>
-      <span className="deadline-label">{d.text}</span>
-      <span className="deadline-date">{when}{d.note ? ` (${d.note})` : ""} · {left}</span>
+      <span className="deadline-label">{d.text}: {when}</span>
+      <span className="deadline-date">{d.note ? `(${d.note}) · ` : ""}{left}</span>
     </div>
   );
 }
