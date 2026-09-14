@@ -72,7 +72,7 @@ export function App() {
     <div className="page">
       <header>
         <div className="header-row">
-          <h1>Morpho vault policy check</h1>
+          <h1>Morpho Vault Checker</h1>
           <div className="header-right">
             {policy.meta.deadline && <Deadline d={policy.meta.deadline} />}
             <button type="button" className="theme-toggle" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} title="Toggle theme" aria-label="Toggle theme">
