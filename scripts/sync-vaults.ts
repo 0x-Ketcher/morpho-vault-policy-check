@@ -103,7 +103,12 @@ for (const chainId of CHAINS) {
         v.exposureByPrime[pr.prime] = Math.round((v.exposureByPrime[pr.prime] ?? 0) + x.usd);
         add(v, "exposure", `${pr.prime} ${pr.constant} holds a position (Morpho API)`);
       }
-    } catch (e) { if (!/not found/i.test((e as Error).message)) console.error(`positions ${pr.prime} ${chainId}: ${(e as Error).message.slice(0, 80)}`); }
+    } catch (e) {
+      // "not found" is the API's answer for an address it has never seen: no positions. Anything else is a failed read,
+      // and a failed read is not "no position": stop here rather than write a list that silently drops a vault.
+      if (/not found/i.test((e as Error).message)) continue;
+      throw new Error(`positions of ${pr.prime} ${pr.constant} on chain ${chainId} could not be read (${(e as Error).message.slice(0, 120)}); list not written`);
+    }
   }
   // 3. governance and curation from the universe's own owner/curator fields
   const gov = new Map(reg.filter((e) => (e.role === "subproxy" || e.role === "executor") && e.chainId === chainId).map((e) => [e.address.toLowerCase(), e]));
