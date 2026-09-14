@@ -88,7 +88,7 @@ export function App() {
         {stale.length > 0 && <p className="stale">Address ownership data may be out of date: {stale.map((b) => b.repo.split("/")[1]).join(", ")} changed since the last update.</p>}
       </section>
 
-      {running && log.length > 0 && <p className="log">{log[log.length - 1]}</p>}
+      {running && <p className="log"><span className="spinner" aria-label="checking" /> {log[log.length - 1] ?? "Checking…"}</p>}
       {error && <div className="error">{error}</div>}
 
       {report && <Result r={report} onExport={() => exportReport(report)} />}

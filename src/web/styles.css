@@ -92,7 +92,10 @@ footer { margin-top: 28px; }
 .cite { font-size: 11px; padding: 2px 8px; border-radius: 999px; background: #eef1f5; color: var(--ink); text-decoration: none; border: 1px solid var(--line); }
 .cite.registry { background: #e8eef8; } .cite.atlas { background: #ece8f8; } .cite.morpho-curators { background: #e6f4ec; } .cite.safe-owners { background: #fff1e6; } .cite.nonpublic { background: #fff5f5; border-color: #fed7d7; }
 .stale { margin: 10px 0 0; padding: 8px 10px; border-radius: 8px; background: #fff7ed; border: 1px solid #fed7aa; color: #b45309; font-size: 12px; }
-.log { color: var(--muted); margin: 0 0 12px; }
+.log { color: var(--muted); margin: 0 0 12px; display: flex; align-items: center; gap: 10px; }
+/* the wheel: shown only while a check runs, so it is obvious the page is working */
+.spinner { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--accent, #1f4e9c); animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
 .foot { margin-top: 24px; text-align: right; font-size: 12px; }
 .vault h2 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .cid { color: var(--muted); font-weight: 500; font-size: 12px; margin-right: 4px; }
