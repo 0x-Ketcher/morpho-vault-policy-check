@@ -55,3 +55,16 @@ describe("atlas parser", () => {
     expect(atlasHints("`0x0f963A8A8c01042B69054e787E5763ABbB0646A3`", "A.x - Curator Role Address [Core]")).toEqual({ roleHint: "curator", entityHint: null });
   });
 });
+
+describe("atlas entity per address", () => {
+  it("names the holder closest before each address on a line that names several Safes", async () => {
+    const { entityHintFor } = await import("../src/sources/labels/parse.ts");
+    const line = "- Cancellation Authority: Sentinel role held by the Spark Foundation multisig at `0xf5748bBeFa17505b2F7222B23ae11584932C908B`, requiring a 3 of 5 signer approval threshold, together with a Soter Labs multisig at `0xb5bFd4883256089Dc58D962b80ab7068e71E7c80`, requiring a 2 of 3 signer approval threshold";
+    expect(entityHintFor(line, "0xf5748bBeFa17505b2F7222B23ae11584932C908B")).toBe("Spark Foundation");
+    expect(entityHintFor(line, "0xb5bFd4883256089Dc58D962b80ab7068e71E7c80")).toBe("Soter Labs");
+    expect(entityHintFor("- Curator: Soter Labs and Sentora, implemented via a Gnosis Safe multisig at `0xff070333654aaE76A0A77465E4F0fd101C57c03F`, requiring a 2 of 2 signer approval threshold", "0xff070333654aaE76A0A77465E4F0fd101C57c03F")).toBe("Soter Labs and Sentora");
+    expect(entityHintFor("- Allocator: Sentora, at `0x9e396dE3312D373b87F9BD8763fb48184b42aac0` and at `0xC4Ba4e822C420452fe2BAB93211208D3CcBd79D3`", "0xC4Ba4e822C420452fe2BAB93211208D3CcBd79D3")).toBe("Sentora");
+    expect(entityHintFor("The Relayer Multisig at `0x0eEC86649E756a23CBc68d9EFEd756f16aD5F85f` is controlled by Operational GovOps Soter Labs.", "0x0eEC86649E756a23CBc68d9EFEd756f16aD5F85f")).toBe("Operational GovOps Soter Labs");
+    expect(entityHintFor("`0xbeef05061FE51eA482BD1b68041353490b3a5934`", "0xbeef05061FE51eA482BD1b68041353490b3a5934")).toBeNull();
+  });
+});

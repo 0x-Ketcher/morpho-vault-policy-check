@@ -40,6 +40,24 @@ function classOf(ctx: CheckContext, addr: string): { cls: Class; att: ReturnType
   return { cls: att.side === "unknown" ? "unknown" : att.side, att };
 }
 
+/** A pair statement on the Safe itself ("Soter Labs and Sentora") that includes an OEA entity and the external curator. */
+function pairNamesOea(ctx: CheckContext, att: ReturnType<typeof attributeSafe>, external: string): { oea: string; source: string } | null {
+  const candidates = [att.entity, ...att.citations.map((c) => c.entity)].filter((x): x is string => !!x);
+  const ext = external.toLowerCase();
+  for (const text of candidates) {
+    const parts = text.split(/\s+(?:and|&|x|\+)\s+/i).map((x) => x.trim()).filter(Boolean);
+    if (parts.length < 2) continue;
+    const oea = parts.find((p) => ctx.labels.isOeaEntity(p));
+    const rest = parts.filter((p) => p !== oea);
+    const matchesExternal = rest.some((p) => ext.includes(p.toLowerCase()) || p.toLowerCase().includes(ext));
+    if (oea && matchesExternal) {
+      const cite = att.citations.find((c) => c.entity === text);
+      return { oea, source: cite?.source === "atlas" ? "the Atlas" : cite?.source === "registry" ? "the Prime registry" : cite?.source === "morpho-curators" ? "Morpho's curator registry" : "a public source" };
+    }
+  }
+  return null;
+}
+
 export const c06Curator: CheckDef = {
   id: "C5", title: "Curator",
   evaluate: (ctx) => {
@@ -60,10 +78,20 @@ export const c06Curator: CheckDef = {
       for (const c of classes) { citations.push(...c.att.citations); details.push(`  signer ${c.o}: ${safeShape(safe.ownerSafes?.[c.o.toLowerCase()])}; ${describe(c.att)}${c.att.via ? ` ${c.att.via}` : ""}`); }
       const E = classes.filter((c) => c.cls === "external"), P = classes.filter((c) => c.cls === "prime"), O = classes.filter((c) => c.cls === "oea"), U = classes.filter((c) => c.cls === "unknown");
       const two = safe.threshold === 2 && owners.length === 2;
+      // A public source may state the composition of the 2/2 as a pair ("Curator: Soter Labs and Sentora, … 2 of 2")
+      // without naming each half's address. One half labelled as the external curator plus such a statement attributes
+      // the other half to the OEA: the composition is public, the keys inside are not, and they never need to be.
+      const pair = two && E.length === 1 ? pairNamesOea(ctx, self.att, E[0].att.entity ?? "") : null;
+      const other = two && E.length === 1 ? classes.find((c) => c !== E[0]) : undefined;
       if (E.length + P.length + O.length > 0) {
         if (two && E.length === 1 && O.length === 1 && !O[0].att.via) { status = "PASS"; summary = `2/2 Safe between external curator ${E[0].att.entity} and the OEA (${O[0].att.entity}).`; }
-        else if (two && E.length === 1 && O.length === 1) { status = "WARN"; summary = `2/2 Safe between external curator ${E[0].att.entity} and ${short(O[0].o)}, attributed to the OEA (${O[0].att.entity}) only ${O[0].att.via}; a direct public label is needed for PASS.`; }
-        else if (two && E.length === 1 && U.length === 1) { status = "WARN"; summary = `2/2 Safe between external curator ${E[0].att.entity} and ${short(U[0].o)} (${safeShape(safe.ownerSafes?.[U[0].o.toLowerCase()])}), whose OEA identity no public source attests.`; }
+        else if (two && E.length === 1 && other && (U.length === 1 || O.length === 1) && pair) {
+          status = "PASS"; summary = `2/2 Safe between external curator ${E[0].att.entity} and the OEA (${pair.oea}), per ${pair.source}.`;
+          const i = details.findIndex((d) => d.startsWith(`  signer ${other.o}:`));
+          if (i >= 0) details[i] += `; the OEA's half per ${pair.source}, which names the pair; carries no label of its own`;
+        }
+        else if (two && E.length === 1 && O.length === 1) { status = "WARN"; summary = `2/2 Safe between external curator ${E[0].att.entity} and ${short(O[0].o)}, attributed to the OEA (${O[0].att.entity}) only ${O[0].att.via}; no public source names the pair or the Safe.`; }
+        else if (two && E.length === 1 && U.length === 1) { status = "WARN"; summary = `2/2 Safe between external curator ${E[0].att.entity} and ${short(U[0].o)} (${safeShape(safe.ownerSafes?.[U[0].o.toLowerCase()])}), a party no public source names.`; }
         else if (two && E.length === 1 && P.length === 1) { status = "WARN"; summary = `2/2 Safe between external curator ${E[0].att.entity} and ${P[0].att.prime} governance instead of the OEA; policy call open.`; }
         else if (E.length === 0) { status = "WARN"; summary = `Curator Safe ${safe.threshold}/${owners.length} is ${O.length ? "OEA" : "Prime"}-side only (${[...O, ...P].map((x) => x.att.entity).filter(Boolean).join(", ") || "labeled signers"}), not the 2/2 with an external curator; open question whether the 2/2 rule applies to Prime- or OEA-self-curated vaults.`; }
         else if (O.length + P.length === 0) { status = "FAIL"; summary = `Curator Safe ${safe.threshold}/${owners.length} has only external signers (${E.map((x) => x.att.entity).join(", ")}); no OEA or Prime participation.`; }

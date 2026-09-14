@@ -1,6 +1,6 @@
 {
  "meta": {
-  "generatedAt": "2026-09-14T17:11:45.353Z",
+  "generatedAt": "2026-09-14T18:57:14.744Z",
   "commits": {
    "sky-ecosystem/next-gen-atlas": "d64eca4800553d21cf61cccba3c5f5a436edd256"
   },
@@ -803,7 +803,7 @@
    "line": 4058,
    "text": "| Spark Liquidity Layer | `0x90D8c80C028B4C09C0d8dcAab9bbB057F0513431` | Two (2) of four (4) signing requirement, with signers controlled by Phoenix Labs and VoteWizard |",
    "roleHint": null,
-   "entityHint": "Phoenix",
+   "entityHint": null,
    "commit": "d64eca4800553d21cf61cccba3c5f5a436edd256",
    "url": "https://github.com/sky-ecosystem/next-gen-atlas/blob/d64eca4800553d21cf61cccba3c5f5a436edd256/content/A.2%20-%20The-Support-Scope.md#L4058"
   },
@@ -1363,7 +1363,7 @@
    "line": 1226,
    "text": "The Pause Proxy Contract, MCD_PAUSE_PROXY, at `0xbe8e3e3618f7474f8cb1d074a26affef007e98fb`, is under the direct control of Sky Governance. Sky Governance may take actions through Executive Votes to interact with the tokens held by the Pause",
    "roleHint": "proxy",
-   "entityHint": null,
+   "entityHint": "Pause Proxy",
    "commit": "d64eca4800553d21cf61cccba3c5f5a436edd256",
    "url": "https://github.com/sky-ecosystem/next-gen-atlas/blob/d64eca4800553d21cf61cccba3c5f5a436edd256/content/A.4%20-%20The-Protocol-Scope.md#L1226"
   },
@@ -5073,7 +5073,7 @@
    "line": 12189,
    "text": "- Cancellation Authority: Spark Foundation, implemented via a Gnosis Safe multisig at `0xf5748bBeFa17505b2F7222B23ae11584932C908B`, requiring a 3 of 5 signer approval threshold",
    "roleHint": "multisig",
-   "entityHint": null,
+   "entityHint": "Spark Foundation",
    "commit": "d64eca4800553d21cf61cccba3c5f5a436edd256",
    "url": "https://github.com/sky-ecosystem/next-gen-atlas/blob/d64eca4800553d21cf61cccba3c5f5a436edd256/content/A.6.1.1.1%20-%20Spark.md#L12189"
   },
@@ -5115,7 +5115,7 @@
    "line": 12199,
    "text": "- Cancellation Authority: Spark Foundation, implemented via a Gnosis Safe multisig at `0xf5748bBeFa17505b2F7222B23ae11584932C908B`, requiring a 3 of 5 signer approval threshold",
    "roleHint": "multisig",
-   "entityHint": null,
+   "entityHint": "Spark Foundation",
    "commit": "d64eca4800553d21cf61cccba3c5f5a436edd256",
    "url": "https://github.com/sky-ecosystem/next-gen-atlas/blob/d64eca4800553d21cf61cccba3c5f5a436edd256/content/A.6.1.1.1%20-%20Spark.md#L12199"
   },
@@ -5157,7 +5157,7 @@
    "line": 12209,
    "text": "- Cancellation Authority: Spark Foundation, implemented via a Gnosis Safe multisig at `0xf5748bBeFa17505b2F7222B23ae11584932C908B`, requiring a 3 of 5 signer approval threshold",
    "roleHint": "multisig",
-   "entityHint": null,
+   "entityHint": "Spark Foundation",
    "commit": "d64eca4800553d21cf61cccba3c5f5a436edd256",
    "url": "https://github.com/sky-ecosystem/next-gen-atlas/blob/d64eca4800553d21cf61cccba3c5f5a436edd256/content/A.6.1.1.1%20-%20Spark.md#L12209"
   },
@@ -5199,7 +5199,7 @@
    "line": 12219,
    "text": "- Cancellation Authority: Spark Foundation, implemented via a Gnosis Safe multisig at `0xf5748bBeFa17505b2F7222B23ae11584932C908B`, requiring a 3 of 5 signer approval threshold",
    "roleHint": "multisig",
-   "entityHint": null,
+   "entityHint": "Spark Foundation",
    "commit": "d64eca4800553d21cf61cccba3c5f5a436edd256",
    "url": "https://github.com/sky-ecosystem/next-gen-atlas/blob/d64eca4800553d21cf61cccba3c5f5a436edd256/content/A.6.1.1.1%20-%20Spark.md#L12219"
   },
@@ -5241,7 +5241,7 @@
    "line": 12229,
    "text": "- Cancellation Authority: Sentinel role held by the Spark Foundation multisig at `0xf5748bBeFa17505b2F7222B23ae11584932C908B`, requiring a 3 of 5 signer approval threshold, together with a Soter Labs multisig at `0xb5bFd4883256089Dc58D962b8",
    "roleHint": "sentinel",
-   "entityHint": null,
+   "entityHint": "Spark Foundation",
    "commit": "d64eca4800553d21cf61cccba3c5f5a436edd256",
    "url": "https://github.com/sky-ecosystem/next-gen-atlas/blob/d64eca4800553d21cf61cccba3c5f5a436edd256/content/A.6.1.1.1%20-%20Spark.md#L12229"
   },
@@ -5255,7 +5255,7 @@
    "line": 12229,
    "text": "- Cancellation Authority: Sentinel role held by the Spark Foundation multisig at `0xf5748bBeFa17505b2F7222B23ae11584932C908B`, requiring a 3 of 5 signer approval threshold, together with a Soter Labs multisig at `0xb5bFd4883256089Dc58D962b8",
    "roleHint": "sentinel",
-   "entityHint": null,
+   "entityHint": "Soter Labs",
    "commit": "d64eca4800553d21cf61cccba3c5f5a436edd256",
    "url": "https://github.com/sky-ecosystem/next-gen-atlas/blob/d64eca4800553d21cf61cccba3c5f5a436edd256/content/A.6.1.1.1%20-%20Spark.md#L12229"
   },
@@ -5269,7 +5269,7 @@
    "line": 12229,
    "text": "- Cancellation Authority: Sentinel role held by the Spark Foundation multisig at `0xf5748bBeFa17505b2F7222B23ae11584932C908B`, requiring a 3 of 5 signer approval threshold, together with a Soter Labs multisig at `0xb5bFd4883256089Dc58D962b8",
    "roleHint": "sentinel",
-   "entityHint": null,
+   "entityHint": "Sentora",
    "commit": "d64eca4800553d21cf61cccba3c5f5a436edd256",
    "url": "https://github.com/sky-ecosystem/next-gen-atlas/blob/d64eca4800553d21cf61cccba3c5f5a436edd256/content/A.6.1.1.1%20-%20Spark.md#L12229"
   },

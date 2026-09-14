@@ -138,6 +138,22 @@ describe("C5 curator", () => {
     const unknown = { ...s.safes, [A.unlabeled.toLowerCase()]: safe(A.unlabeled, 3, [A.eoa1, A.eoa2, A.eoa3]) };
     expect(status("C5", { curator: A.unlabeled, safes: unknown })).toBe("FAIL");
   });
+  it("passes a 2/2 whose pair a public source names, with the OEA half unlabeled (Atlas: 'Soter Labs and Steakhouse Financial')", () => {
+    const pairLabels = new LabelBook({
+      registry: { meta: {}, entries: [] },
+      curators: { meta: {}, entries: [{ id: "steak", name: "Steakhouse Financial", verified: true, addresses: [{ chainId: 1, address: A.steak }] }] },
+      atlas: { meta: {}, entries: [{ address: A.twoOfTwo, prime: "Grove", article: "A.6.1.1.2.9", title: "Grove x Steakhouse USDG Morpho Vault", uuid: null, file: "content/x.md", line: 1, text: "- Curator: Soter Labs and Steakhouse Financial, implemented via a Gnosis Safe multisig at …", roleHint: "curator", entityHint: "Soter Labs and Steakhouse Financial", commit: "abc", url: "" }] },
+    }, policy);
+    const c = CHECKS.find((c) => c.id === "C5")!.evaluate({ policy, labels: pairLabels, a: snap({ curator: A.twoOfTwo }), b: snap({ curator: A.twoOfTwo }, "api"), chainName: "Ethereum" });
+    expect(c.status).toBe("PASS");
+    expect(c.summary).toContain("per the Atlas");
+    expect(c.details.join("\n")).toContain("the OEA's half per the Atlas");
+  });
+  it("still warns, with the party named as unnamed, when nothing states the pair", () => {
+    const c = CHECKS.find((c) => c.id === "C5")!.evaluate(ctx({ curator: A.twoOfTwo, safes: { ...snap().safes, [A.twoOfTwo.toLowerCase()]: safe(A.twoOfTwo, 2, [A.steak, A.eoa1]) } }));
+    expect(c.status).toBe("WARN");
+    expect(c.summary).toContain("a party no public source names");
+  });
 });
 
 describe("C6 sentinel", () => {
