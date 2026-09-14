@@ -286,7 +286,7 @@ function VaultPicker({ groups, disabled, onPick }: { groups: { prime: string; ex
   );
 }
 
-function Deadline({ d }: { d: { date: string; text: string; consequence: string; source: string } }) {
+function Deadline({ d }: { d: { date: string; text: string; consequence: string; source: string; note?: string } }) {
   const due = new Date(`${d.date}T23:59:59Z`);
   const days = Math.ceil((due.getTime() - Date.now()) / 86_400_000);
   const when = due.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
@@ -294,7 +294,7 @@ function Deadline({ d }: { d: { date: string; text: string; consequence: string;
   return (
     <div className={`deadline ${days < 0 ? "passed" : days <= 14 ? "soon" : ""}`} title={`${d.consequence} Source: ${d.source}. Policy snapshot ${policy.meta.snapshotDate}.`}>
       <span className="deadline-label">{d.text}</span>
-      <span className="deadline-date">{when} · {left}</span>
+      <span className="deadline-date">{when}{d.note ? ` (${d.note})` : ""} · {left}</span>
     </div>
   );
 }
