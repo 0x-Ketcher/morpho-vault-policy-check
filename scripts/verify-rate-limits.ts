@@ -14,6 +14,7 @@
  * current values, the Morpho API for the vault universe, the registries for contracts and addresses.
  */
 import { keccak256, encodeAbiParameters, toHex, getAddress, parseAbi, type Abi } from "viem";
+import { RATE_LIMIT_SET_TOPIC, buildKeyTable, keysFromLogs, addressesFromCreationLogs, prefixesFromSource, classify, depositKey } from "../src/core/rate-limits.ts";
 import { loadPolicy, loadProviders, loadLabels, loadSkyVaults, loadEnv } from "../src/node/load.ts";
 import { MorphoApi } from "../src/sources/morpho-api/client.ts";
 import { rateLimitsAbi, vaultV2FactoryAbi, metaMorphoFactoryAbi } from "../src/sources/onchain/abis.ts";
@@ -26,7 +27,7 @@ const key = process.env.ETHERSCAN_API_KEY;
 if (!key) throw new Error("ETHERSCAN_API_KEY is needed for the logs and verified-source APIs");
 const deps = { policy, providers, labels, api, etherscan: { base: providers.etherscan.api, apiKey: key, chains: ETHERSCAN_MORPHO_CHAINS } };
 const reg = labels.data.registry!.entries;
-const TOPIC = keccak256(toHex("RateLimitDataSet(bytes32,uint256,uint256,uint256,uint256)"));
+const TOPIC = RATE_LIMIT_SET_TOPIC;
 /** Prefixes known from earlier controller versions; the verified sources below extend the set at run time. */
 const STATIC_PREFIXES = ["LIMIT_4626_DEPOSIT", "LIMIT_4626_WITHDRAW", "LIMIT_7540_DEPOSIT", "LIMIT_7540_REDEEM", "LIMIT_AAVE_DEPOSIT", "LIMIT_AAVE_WITHDRAW", "LIMIT_ASSET_TRANSFER", "LIMIT_USDS_MINT", "LIMIT_USDS_TO_USDC", "LIMIT_USDC_TO_CCTP", "LIMIT_USDC_TO_DOMAIN", "LIMIT_BUIDL_REDEEM_CIRCLE", "LIMIT_CURVE_DEPOSIT", "LIMIT_CURVE_SWAP", "LIMIT_CURVE_WITHDRAW", "LIMIT_MAPLE_REDEEM", "LIMIT_SUPERSTATE_REDEEM", "LIMIT_SUPERSTATE_SUBSCRIBE", "LIMIT_SUSDE_COOLDOWN", "LIMIT_USDE_BURN", "LIMIT_USDE_MINT", "LIMIT_LAYERZERO_TRANSFER", "LIMIT_PSM_DEPOSIT", "LIMIT_PSM_WITHDRAW", "LIMIT_SPARK_VAULT_TAKE", "LIMIT_CENTRIFUGE_DEPOSIT", "LIMIT_CENTRIFUGE_REDEEM", "LIMIT_CENTRIFUGE_TRANSFER", "LIMIT_FARM_DEPOSIT", "LIMIT_FARM_WITHDRAW", "LIMIT_UNISWAP_V3_DEPOSIT", "LIMIT_UNISWAP_V3_WITHDRAW", "LIMIT_UNISWAP_V3_SWAP", "LIMIT_PENDLE_DEPOSIT", "LIMIT_PENDLE_WITHDRAW", "LIMIT_PENDLE_PT_REDEEM", "LIMIT_ETHENA_DEPOSIT", "LIMIT_BLACKROCK_BUIDL_DEPOSIT", "LIMIT_BLACKROCK_BUIDL_REDEEM", "LIMIT_MORPHO_DEPOSIT", "LIMIT_MORPHO_WITHDRAW", "LIMIT_WEETH_REQUEST_WITHDRAW"];
 const MORPHO_CHAINS: number[] = providers.morphoChains.ids;
@@ -136,26 +137,16 @@ const prefixes = new Set(STATIC_PREFIXES);
 const discovered = new Set<string>();
 for (const c of reg.filter((e) => e.role === "almController" && EXPLORER_CHAINS.includes(e.chainId))) {
   try {
-    for (const p of await verifiedSource(c.chainId, c.address).then((s) => s.match(/LIMIT_[A-Z0-9_]+/g) ?? [])) { if (!prefixes.has(p)) discovered.add(p); prefixes.add(p); }
+    for (const p of prefixesFromSource(await verifiedSource(c.chainId, c.address))) { if (!prefixes.has(p)) discovered.add(p); prefixes.add(p); }
   } catch (err) { console.log(`verified source unavailable for ${c.prime} ${c.constant} chain ${c.chainId}: ${(err as Error).message.slice(0, 80)}`); }
 }
 console.log(`key prefixes: ${prefixes.size} (${discovered.size} found only in verified controller sources${discovered.size ? `: ${[...discovered].join(", ")}` : ""})`);
 
 // ---------------------------------------------------------------- key table in every encoding the controllers use
-const table = new Map<string, string>();
-const keyAddr = new Map<string, string>(); // key -> the candidate address encoded into it (same-named vaults never collide here)
-const enc = (ph: `0x${string}`, types: { type: string }[], values: unknown[]) => keccak256(encodeAbiParameters(types, [ph, ...values])).toLowerCase();
-const T = (...types: string[]) => [{ type: "bytes32" }, ...types.map((type) => ({ type }))];
 const pairAddrs = [...new Set([...reg.map((e) => lower(e.address)), ...counterparties])];
 const IDS = [...Array(100).keys(), ...Array.from({ length: 400 }, (_, i) => 30100 + i)]; // CCTP domains, Centrifuge ids, LayerZero endpoint ids
-for (const name of prefixes) {
-  const ph = keccak256(toHex(name));
-  table.set(ph.toLowerCase(), `${name} (plain)`);
-  for (const [a, desc] of candidates) { const k = enc(ph, T("address"), [getAddress(a)]); table.set(k, `${name} x ${desc}`); keyAddr.set(k, a); }
-  for (const d of IDS.slice(0, 64)) table.set(enc(ph, T("uint32"), [d]), `${name} x domain ${d}`);
-  if (name === "LIMIT_ASSET_TRANSFER") for (const a of pairAddrs) for (const b of pairAddrs) table.set(enc(ph, T("address", "address"), [getAddress(a), getAddress(b)]), `${name} x ${a.slice(0, 10)}… -> ${b.slice(0, 10)}…`);
-  if (/LAYERZERO|CENTRIFUGE_TRANSFER/.test(name)) for (const a of pairAddrs) for (const d of IDS) table.set(enc(ph, T("address", "uint32"), [getAddress(a), d]), `${name} x ${a.slice(0, 10)}… -> id ${d}`);
-}
+const keyTable = buildKeyTable({ prefixes, candidates, pairAddrs, ids: IDS, domains: 64 });
+const { table, keyAddr } = keyTable;
 console.log(`key table: ${table.size} computed keys\n`);
 
 // ---------------------------------------------------------------- every key each Prime rate-limit contract ever set
@@ -166,32 +157,20 @@ for (const rl of reg.filter((e) => e.role === "almRateLimits").sort((a, b) => a.
   if (!MORPHO_CHAINS.includes(rl.chainId)) { if (!only) console.log(`${rl.prime} ${rl.constant} on chain ${rl.chainId}: skipped, Morpho is not deployed there`); continue; }
   if (!inScope(rl.chainId)) continue;
   let keys: string[];
-  try { keys = [...new Set((await fetchLogs(rl.chainId, rl.address, TOPIC)).map((l) => lower(l.topics[1])))]; }
+  try { keys = keysFromLogs(await fetchLogs(rl.chainId, rl.address, TOPIC)); }
   catch (e) { console.log(`${rl.prime} ${rl.constant} chain ${rl.chainId}: logs unavailable (${(e as Error).message.slice(0, 80)})`); gaps.push(`${rl.prime} ${rl.constant} chain ${rl.chainId}`); continue; }
   const reader = makeReader(deps, rl.chainId)!;
   const res = await reader.read(keys.map((k) => ({ key: k, address: rl.address as `0x${string}`, abi: rateLimitsAbi as Abi, functionName: "getRateLimitData", args: [k as `0x${string}`] })));
   const failedReads = keys.filter((k) => !res[k]?.ok);
   if (failedReads.length) throw new Error(`${failedReads.length} rate-limit reads failed on chain ${rl.chainId}; a failed read is not "no limit"`);
-  const isVaultKey = (k: string) => (table.get(k) ?? "").startsWith("LIMIT_4626_DEPOSIT x Morpho vault");
-  const live = keys.filter((k) => (res[k].value as any).maxAmount > 0n); // a non-zero maximum is what lets the agent act
-  const zeroed = keys.filter((k) => (res[k].value as any).maxAmount === 0n && (res[k].value as any).lastUpdated > 0n); // set once, later zeroed: offboarded
-  for (const k of live) (liveByChain.get(rl.chainId) ?? liveByChain.set(rl.chainId, new Set()).get(rl.chainId)!).add(k);
-  const vaultKeys = live.filter(isVaultKey);
-  const unknown = live.filter((k) => !table.has(k));
-  console.log(`${rl.prime} ${rl.constant} on chain ${rl.chainId} (${rl.address}): ${keys.length} keys ever set, ${live.length} live, ${zeroed.length} zeroed, ${vaultKeys.length} live Morpho-vault deposit keys, ${unknown.length} live keys nothing explains`);
-  for (const k of zeroed.filter(isVaultKey)) console.log(`    zeroed   ${/"(.*)"/.exec(table.get(k)!)![1]} ${keyAddr.get(k)} (deposit limit set once, now 0: offboarded)`);
-  for (const k of live) {
-    const desc = table.get(k) ?? "UNEXPLAINED";
-    const m = /^LIMIT_4626_DEPOSIT x Morpho vault "(.*)" \(chain (\d+)\)$/.exec(desc);
-    if (m) {
-      const addr = keyAddr.get(k) ?? "?";
-      const inList = listed.has(`${rl.chainId}:${rl.prime}:${addr}`);
-      if (!inList) misses++;
-      console.log(`    ${inList ? "listed  " : "MISSING "} ${m[1]} ${addr} (vault chain ${m[2]})`);
-    } else if (desc === "UNEXPLAINED") { unexplained++; const v = res[k].value as any; console.log(`    UNEXPLAINED key ${k.slice(0, 18)}… max ${v.maxAmount} slope ${v.slope} lastUpdated ${v.lastUpdated}`); }
-  }
-  const nonVault = live.filter((k) => table.has(k) && !vaultKeys.includes(k)).map((k) => table.get(k)!.replace(/ \(chain \d+\)$/, ""));
-  if (nonVault.length) console.log(`    other live keys (${nonVault.length}): ${[...new Set(nonVault.map((d) => d.split(" x ")[0]))].join(", ")}`);
+  const values = Object.fromEntries(keys.map((k) => [k, res[k].value as { maxAmount: bigint; lastUpdated: bigint }]));
+  const c = classify({ keys, values, keyTable, listed, chainId: rl.chainId, prime: rl.prime });
+  for (const k of c.live) (liveByChain.get(rl.chainId) ?? liveByChain.set(rl.chainId, new Set()).get(rl.chainId)!).add(k);
+  console.log(`${rl.prime} ${rl.constant} on chain ${rl.chainId} (${rl.address}): ${keys.length} keys ever set, ${c.live.length} live, ${c.zeroed.length} zeroed, ${c.vaultKeys.length} live Morpho-vault deposit keys, ${c.unexplained.length} live keys nothing explains`);
+  for (const z of c.zeroedVaultKeys) console.log(`    zeroed   ${z.name} ${z.address} (deposit limit set once, now 0: offboarded)`);
+  for (const v of c.vaultKeys) { if (!v.inList) misses++; console.log(`    ${v.inList ? "listed  " : "MISSING "} ${v.name} ${v.address} (vault chain ${v.chainId})`); }
+  for (const k of c.unexplained) { unexplained++; const v = values[k]; console.log(`    UNEXPLAINED key ${k.slice(0, 18)}… max ${v.maxAmount} slope ${(res[k].value as any).slope} lastUpdated ${v.lastUpdated}`); }
+  if (c.otherPrefixes.length) console.log(`    other live keys: ${c.otherPrefixes.join(", ")}`);
 }
 
 // ---------------------------------------------------------------- vault universe from the factories, independent of the API's index
@@ -206,7 +185,7 @@ for (const chainId of [...liveByChain.keys()].sort((a, b) => a - b)) {
     try {
       const logs = await fetchLogs(chainId, f, null);
       events += logs.length;
-      for (const l of logs) for (const t of l.topics.slice(1)) if (/^0x0{24}[0-9a-f]{40}$/i.test(t)) seen.set(lower("0x" + t.slice(26)), kind);
+      for (const a of addressesFromCreationLogs(logs)) seen.set(a, kind);
     } catch (e) { failed.push(`${f.slice(0, 10)}… (${(e as Error).message.slice(0, 60)})`); gaps.push(`factory ${f.slice(0, 10)}… chain ${chainId}`); }
   }
   const unindexed = [...seen].filter(([a]) => !candidates.has(a) || !candidates.get(a)!.startsWith("Morpho vault"));
@@ -219,8 +198,7 @@ for (const chainId of [...liveByChain.keys()].sort((a, b) => a - b)) {
     for (const { a } of items) if (res[`${f}:${a}`]?.ok && res[`${f}:${a}`].value === true) confirmed.push(a);
   }
   const live = liveByChain.get(chainId)!;
-  const ph = keccak256(toHex("LIMIT_4626_DEPOSIT"));
-  const hits = confirmed.filter((a) => live.has(enc(ph, T("address"), [getAddress(a)])));
+  const hits = confirmed.filter((a) => live.has(depositKey(a)));
   unindexedHits += hits.length;
   // positions: the list reads Prime positions from the API, which cannot see these vaults; ask the vaults directly
   const proxies = reg.filter((e) => e.role === "almProxy" && e.chainId === chainId);

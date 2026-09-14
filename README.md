@@ -58,7 +58,7 @@ labels/                    generated label tables with provenance (registry, atl
 docs/                      POLICY.md, ADDRESS_BOOK.md, SAFES.md, VAULTS.md (generated); CHECKS.md, DATA_SOURCES.md, POLICY_MAPPING.md, UPDATE.md (written)
 CLAUDE.md                  what an agent needs to know before touching the repo; points to docs/UPDATE.md
 abi/                       verified ABIs the human-readable fragments were checked against
-src/core/                  the pure part: types, checks (one file group per check), report assembly, renderers; no I/O
+src/core/                  the pure part: types, checks (one file group per check), report assembly, renderers, rate-limit key logic; no I/O
 src/sources/               readers: onchain (viem, Multicall3, failover), morpho-api, safe, etherscan transport, labels
 src/pipeline.ts            find vault, read both methods, evaluate, report
 src/cli.ts                 check / batch / find
@@ -76,7 +76,7 @@ Change the policy in `config/policy.json` and regenerate `docs/POLICY.md` with `
 
 `config/sky-vaults.json` is generated, not typed. `npm run sync:vaults` takes every Morpho vault on every chain that has a Prime rate-limit contract (about 4,100 vaults on six chains), asks each Prime rate-limit contract on-chain whether it holds a deposit rate limit with a non-zero maximum for the vault, which is what lets a Prime agent allocate to it (a limit zeroed by a later spell is an offboarding), and reads each Prime agent's positions. A vault is listed only if a Prime agent can allocate to it, a Prime agent holds a position in it, a scheduled spell is about to onboard it, or it is one of Skybase's own vaults, found through Sky Money's entry in Morpho's curator registry and listed by Morpho in its app (Sky Money's address also sits on an abandoned first deployment that Morpho never listed). Governance ownership, registry constants and Atlas mentions are recorded as sources but do not list a vault on their own, so superseded and test deployments never appear. `config/vault-overrides.json` is the one hand-maintained input: vaults a scheduled spell will onboard, each citing the spell proposal; the sync reports an entry as stale once the rate limit exists. The list is rebuilt by `npm run update`, run by an agent or a person following `docs/UPDATE.md`. The page refreshes exposure and TVL live; the file's numbers are a snapshot. Human-readable version: `docs/VAULTS.md`.
 
-`npm run verify:rate-limits` is the cross-check from the other direction. Instead of asking the contracts about vaults the API knows, it collects every rate-limit key each Prime contract ever set (from the contracts' own event logs), reads each key live, and matches the live keys against keys computed for every Morpho vault on every chain the API indexes, every registry address and every token or counterparty the Prime proxies ever transacted with, under every key prefix found in the controllers' verified source code and in each encoding the controllers use. A second vault universe comes from the Morpho factories' own creation events, confirmed by the factory contract, so a vault the API does not index cannot hide. A live deposit key for a Morpho vault the list does not carry fails the run (exit 1); keys nothing explains are printed for a human to look at; when an explorer could not serve a contract's logs the result line names it and the run exits 10. It is the optional second step of `docs/UPDATE.md`, about four minutes.
+`npm run verify:rate-limits` is the cross-check from the other direction. Its decision logic (key derivation, the key table, what counts as live, zeroed, listed, missing or unexplained) lives in `src/core/rate-limits.ts` and is covered by `tests/rate-limits.test.ts`, including one key observed on-chain; only the fetching stays in the script. Instead of asking the contracts about vaults the API knows, it collects every rate-limit key each Prime contract ever set (from the contracts' own event logs), reads each key live, and matches the live keys against keys computed for every Morpho vault on every chain the API indexes, every registry address and every token or counterparty the Prime proxies ever transacted with, under every key prefix found in the controllers' verified source code and in each encoding the controllers use. A second vault universe comes from the Morpho factories' own creation events, confirmed by the factory contract, so a vault the API does not index cannot hide. A live deposit key for a Morpho vault the list does not carry fails the run (exit 1); keys nothing explains are printed for a human to look at; when an explorer could not serve a contract's logs the result line names it and the run exits 10. It is the optional second step of `docs/UPDATE.md`, about four minutes.
 
 ## Labels and freshness
 
@@ -88,7 +88,7 @@ Change the policy in `config/policy.json` and regenerate `docs/POLICY.md` with `
 
 ```bash
 npm run typecheck
-npm test                       # unit + parser + regression (recorded snapshots vs tests/fixtures/expected_verdicts.json) + scrub
+npm test                       # unit + parser + rate-limit keys + regression (recorded snapshots vs tests/fixtures/expected_verdicts.json) + scrub
 npm run gen:docs -- --check    # generated tables are current
 ```
 
