@@ -23,6 +23,11 @@ export function App() {
   const [proxyAvailable, setProxyAvailable] = useState<boolean | null>(null);
   const [freshness, setFreshness] = useState<Freshness[] | null>(null);
   const [groups, setGroups] = useState(skyVaults.groups);
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    try { const saved = localStorage.getItem("theme"); if (saved === "light" || saved === "dark") return saved; } catch { /* no storage */ }
+    return typeof matchMedia === "function" && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  });
+  useEffect(() => { document.documentElement.dataset.theme = theme; try { localStorage.setItem("theme", theme); } catch { /* ignore */ } }, [theme]);
 
   useEffect(() => {
     fetch("/api/health").then((r) => (r.ok ? r.json() : null)).then((d) => setProxyAvailable(!!d?.etherscan)).catch(() => setProxyAvailable(false));
@@ -68,7 +73,10 @@ export function App() {
       <header>
         <div className="header-row">
           <h1>Morpho vault policy check</h1>
-          {policy.meta.deadline && <Deadline d={policy.meta.deadline} />}
+          <div className="header-right">
+            {policy.meta.deadline && <Deadline d={policy.meta.deadline} />}
+            <button type="button" className="ghost theme-toggle" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} title="Switch between light and dark">{theme === "dark" ? "Light mode" : "Dark mode"}</button>
+          </div>
         </div>
         <p className="sub">Checks a Morpho vault against the <a href={policy.meta.policyUrl} target="_blank" rel="noreferrer">BA Labs Morpho Vaults v2 eligibility criteria</a>.</p>
       </header>
