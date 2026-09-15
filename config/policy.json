@@ -14,7 +14,7 @@
       "date": "2026-10-12",
       "text": "Deadline to resolve non-compliant vaults",
       "consequence": "After the deadline, all non-compliant Morpho vault allocations receive 100% CRR.",
-      "source": "Policy section 'Deadlines': Core Council, all current exposure migrated to compliant vaults or existing vaults upgraded within about six weeks from 2026-08-17, end of September 2026 as the latest date. Pending Atlas edit A.2.2.10.1.1.1.3.5: no later than the execution of the October 8, 2026 Executive Vote, expected on Monday October 12, 2026, which is the date shown (set by Sky GovOps 2026-09-15).",
+      "source": "Policy section 'Deadlines': about six weeks from 2026-08-17, end of September 2026 as the latest date. Pending Atlas edit A.2.2.10.1.1.1.3.5: no later than the execution of the October 8, 2026 Executive Vote; shown at its expected execution date.",
       "note": "execution of the October 8 spell"
     }
   },
@@ -37,7 +37,7 @@
     "severityWhenNotAccepted": "FAIL"
   },
   "loanAssets": {
-    "source": "Policy section 'Loan assets': per Atlas cash stablecoins USDC, USDT, pyUSD; also historically approved for Morpho: RLUSD, USDG. Any other loan asset: risk review + separate request. USDS added 2026-09-10 by Sky GovOps decision: the criteria document names neither its inclusion nor its exclusion, no public decision excludes it, and it is the loan asset of the Spark USDS Morpho vault (curated under BA Labs review since 2025), of the sky.money Vault V2 deployments, and of the Atlas Integration Boost for USDS in Morpho (A.6.1.1.4.2.5.2.2.3). Confirmation requested from BA Labs; DAI is not added.",
+    "source": "Policy section 'Loan assets': per Atlas cash stablecoins USDC, USDT, pyUSD; also historically approved for Morpho: RLUSD, USDG. Any other loan asset: risk review + separate request. USDS is accepted in this tool although the policy does not list it; BA Labs confirmation pending.",
     "severityWhenNotAccepted": "FAIL",
     "accepted": {
       "1": [
@@ -204,7 +204,7 @@
     }
   },
   "timelocks": {
-    "source": "Policy section 'Accepted timelocks per function (v2)' and 'Adapter timelocks (added Aug 31)'. Minimums; 'or abdicated' where the policy says '7d/Abdicated'. Rows with 'exactDays: 0' must carry no delay at all (criteria rows changed to 0 days on 2026-09-10 and 2026-09-14); a delay on those rows is FAIL (Sky GovOps decision 2026-09-15: the criteria are the criteria).",
+    "source": "Policy section 'Accepted timelocks per function (v2)' and 'Adapter timelocks (added Aug 31)'. Minimums; 'or abdicated' where the policy says '7d/Abdicated'. Rows with 'exactDays: 0' must carry no delay at all; a delay on those rows is FAIL.",
     "severityBelowMinimum": "FAIL",
     "vault": [
       {
@@ -236,7 +236,7 @@
         "function": "setIsAllocator(address,bool)",
         "label": "Add/Remove allocator",
         "exactDays": 0,
-        "note": "Criteria changed 2026-09-10 from a 3-day minimum to no delay: the same key grants and revokes allocator permission, and a compromised allocator must be removable at once (the pending Atlas edit: 'must not be subject to a timelock delay'). BA Labs, 2026-09-14: no action required now, set it to 0 down the line."
+        "note": "Policy row '0 days' (changed from 3 days on 2026-09-10, per the doc's comment): the same key grants and revokes allocator permission; removing the delay removes the risk from a compromised allocator."
       },
       {
         "function": "increaseTimelock(bytes4,uint256)",
@@ -267,7 +267,7 @@
         "function": "setForceDeallocatePenalty(address,uint256)",
         "label": "Set force deallocate penalty",
         "exactDays": 0,
-        "note": "Criteria changed 2026-09-14 from a 7-day minimum to no delay, following Morpho's recommendation, so a penalty can be introduced quickly against a griefing attack. BA Labs: no action required now, set it to 0 down the line."
+        "note": "Policy row '0 days' (changed from 7 days on 2026-09-14, per the doc's comment): following Morpho's recommendation, so a penalty can be introduced quickly if needed."
       },
       {
         "function": "setReceiveSharesGate(address)",
@@ -399,12 +399,12 @@
   "checkRules": {
     "note": "One-line rule per check shown on the page, reusing the BA document's own words. The full requirement text stays in each check result and in docs/POLICY.md. Numbering: graded checks C1-C7, context C8-C12 (renumbered 2026-09-08).",
     "C1": "Accepted chains: Ethereum, Base, Robinhood",
-    "C2": "Loan assets: USDC, USDT, pyUSD, RLUSD, USDG; USDS added by Sky GovOps 2026-09-10, BA Labs confirmation pending",
+    "C2": "Loan assets: USDC, USDT, pyUSD, RLUSD, USDG; USDS accepted pending BA Labs confirmation",
     "C3": "Collateral: ETH, cbBTC, stETH, WBTC at <= 86% LLTV; sUSDS <= 96.5%; Morpho Adaptive Curve IRM",
     "C4": "Owner = Prime SubProxy",
     "C5": "Curator = 2/2 msig between OEA and external msig",
     "C6": "Sentinel = OEA with separate set of signers (mandatory); extras: monitoring solution and/or prime-owned msig",
-    "C7": "Timelock minimums per function: 7d, 3d for fees; no delay allowed on add/remove allocator and force-deallocate penalty (since 2026-09-10/14); adapters included",
+    "C7": "Timelock minimums per function: 7d, 3d for fees; no delay on add/remove allocator and force-deallocate penalty; adapters included",
     "C8": "Vault V2, or MetaMorpho v1.1; deployed by the official factory",
     "C9": "Allocator = Prime Agent / external curator EOA / multisig",
     "C10": "Oracle: >= 3 sources; interim single-source Chainlink acceptable",
@@ -412,7 +412,7 @@
     "C12": "Context: after the deadline, non-compliant allocations receive 100% CRR"
   },
   "allocators": {
-    "source": "Criteria, Allocator line comment of 2026-09-10: the Morpho Public Allocator (the public allocator for Vault V2) is acceptable for addition; BA Labs recommends pairing any emergency safeguard with a transaction that sets its caps to 0. Addresses below are cited to a public source.",
+    "source": "Policy, Allocator line comment of 2026-09-10: the Blue Public Allocator (the Morpho Vault v2 public allocator) is acceptable for addition; BA Labs recommends including the transaction that sets its caps to 0 with any safeguard action. Addresses below are cited to a public source.",
     "accepted": []
   }
 }

@@ -47,7 +47,7 @@ export const c09Timelocks: CheckDef = {
       ...(passing.length ? [`${passing.length} as the criteria require`, ...passing.map((l) => `  ${l}`)] : []),
       ...unread,
     ];
-    const parts = [failing.length ? `${failing.length} of ${statuses.length} timelocks below the policy minimum` : "", delayed.length ? `${delayed.length} carry a delay the criteria do not allow (allocator changes and the force-deallocate penalty must be instant since 2026-09-10 and 2026-09-14)` : ""].filter(Boolean);
+    const parts = [failing.length ? `${failing.length} of ${statuses.length} timelocks below the policy minimum` : "", delayed.length ? `${delayed.length} carry a delay the criteria do not allow (no delay on allocator changes and the force-deallocate penalty)` : ""].filter(Boolean);
     const summary = status === "PASS" ? `All ${statuses.length} checked timelocks meet the criteria.` : parts.length ? `${parts.join("; ")}.` : "No timelocks readable.";
     return result("C7", "Timelocks", `Minimums per function (vault and adapter), abdication accepted where the policy says so; no delay allowed on add/remove allocator and the force-deallocate penalty. Below minimum = ${p.severityBelowMinimum}; a delay where none is allowed = ${p.severityWhenDelayExpectedZero ?? "FAIL"}. ${p.source}`, status, summary, picks, details);
   },
