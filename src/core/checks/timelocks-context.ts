@@ -11,10 +11,18 @@ export const c09Timelocks: CheckDef = {
       return result("C7", "Timelocks", `V2 per-function minimums do not apply to MetaMorpho v1.1, which has one vault-wide timelock. ${p.source}`, "INFO", `v1.1 vault-wide timelock: ${fmtDays(tl.value)} (no per-function policy minimum for v1.1; reported for context).`, [tl]);
     }
     const picks = p.vault.map((f) => pick(ctx, f.label, (s) => (s.timelocks[f.function] ? { seconds: s.timelocks[f.function].seconds, abdicated: s.timelocks[f.function].abdicated } : null), (v) => (v ? `${fmtDays(v.seconds)}${v.abdicated ? " (abdicated)" : ""}` : "n/a")));
-    const statuses: Status[] = []; const failing: string[] = []; const passing: string[] = []; const unread: string[] = [];
+    const statuses: Status[] = []; const failing: string[] = []; const passing: string[] = []; const unread: string[] = []; const delayed: string[] = [];
     p.vault.forEach((f, i) => {
-      const v = picks[i].value; const min = (f.minDays ?? 0) * 86400;
+      const v = picks[i].value;
       if (!v) { unread.push(`${f.label}: not readable`); return; }
+      if (f.exactDays !== undefined) {
+        // the criteria allow no delay here (allocator changes, force-deallocate penalty): a longer delay is graded, not failed, while BA Labs treats it as "no action required now"
+        const ok = v.seconds === f.exactDays * 86400;
+        statuses.push(ok ? "PASS" : (p.severityWhenDelayExpectedZero ?? "WARN"));
+        (ok ? passing : delayed).push(`${f.label}: ${fmtDays(v.seconds)} (${f.exactDays === 0 ? "no delay allowed" : `exactly ${f.exactDays}d`}${ok ? "" : "; tolerated for now, to be set to 0"})`);
+        return;
+      }
+      const min = (f.minDays ?? 0) * 86400;
       const ok = v.seconds >= min || (f.abdicationSatisfies && v.abdicated);
       statuses.push(ok ? "PASS" : p.severityBelowMinimum);
       (ok ? passing : failing).push(`${f.label}: ${fmtDays(v.seconds)}${v.abdicated ? ", abdicated" : ""} (minimum ${f.minDays}d${f.abdicationSatisfies ? " or abdicated" : ""})`);
@@ -33,9 +41,15 @@ export const c09Timelocks: CheckDef = {
       }
     }
     const status = statuses.length ? worst(statuses) : "NA";
-    const details = [...(failing.length ? [`${failing.length} below the minimum:`, ...failing.map((l) => `  ${l}`)] : []), ...(passing.length ? [`${passing.length} at or above the minimum`, ...passing.map((l) => `  ${l}`)] : []), ...unread];
-    const summary = status === "PASS" ? `All ${statuses.length} checked timelocks meet the policy minimums.` : failing.length ? `${failing.length} of ${statuses.length} timelocks below the policy minimum.` : "No timelocks readable.";
-    return result("C7", "Timelocks", `Minimums per function (vault and adapter), abdication accepted where the policy says so. Below minimum = ${p.severityBelowMinimum}. ${p.source}`, status, summary, picks, details);
+    const details = [
+      ...(failing.length ? [`${failing.length} below the minimum:`, ...failing.map((l) => `  ${l}`)] : []),
+      ...(delayed.length ? [`${delayed.length} with a delay the criteria no longer allow:`, ...delayed.map((l) => `  ${l}`)] : []),
+      ...(passing.length ? [`${passing.length} as the criteria require`, ...passing.map((l) => `  ${l}`)] : []),
+      ...unread,
+    ];
+    const parts = [failing.length ? `${failing.length} of ${statuses.length} timelocks below the policy minimum` : "", delayed.length ? `${delayed.length} carry a delay the criteria no longer allow (allocator changes and the force-deallocate penalty must be instant since 2026-09-10 and 2026-09-14; tolerated for now per BA Labs)` : ""].filter(Boolean);
+    const summary = status === "PASS" ? `All ${statuses.length} checked timelocks meet the criteria.` : parts.length ? `${parts.join("; ")}.` : "No timelocks readable.";
+    return result("C7", "Timelocks", `Minimums per function (vault and adapter), abdication accepted where the policy says so; no delay allowed on add/remove allocator and the force-deallocate penalty. Below minimum = ${p.severityBelowMinimum}; a delay where none is allowed = ${p.severityWhenDelayExpectedZero ?? "WARN"}. ${p.source}`, status, summary, picks, details);
   },
 };
 

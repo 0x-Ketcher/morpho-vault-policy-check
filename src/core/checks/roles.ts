@@ -164,7 +164,10 @@ export const c08Allocators: CheckDef = {
   evaluate: (ctx) => {
     const list = pick(ctx, "allocators", (s) => s.allocators.map((x) => x.toLowerCase()).sort(), (v) => (v.length ? v.join(", ") : "none"));
     const citations: Citation[] = []; const details: string[] = [];
+    const accepted = (ctx.policy.allocators?.accepted ?? []).filter((x) => x.chainId === ctx.b.chainId);
     for (const a of list.value) {
+      const known = accepted.find((x) => x.address.toLowerCase() === a);
+      if (known) { details.push(`${a}: ${safeShape(safeOf(ctx, a))}; ${known.name}, acceptable per the criteria (${known.verified})`); continue; }
       const att = attributeSafe(ctx, a, safeOf(ctx, a));
       citations.push(...att.citations);
       details.push(`${a}: ${safeShape(safeOf(ctx, a))}; ${describe(att)}${att.via ? ` ${att.via}` : ""}`);

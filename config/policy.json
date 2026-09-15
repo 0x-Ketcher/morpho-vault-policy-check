@@ -14,8 +14,8 @@
       "date": "2026-10-12",
       "text": "Deadline to resolve non-compliant vaults",
       "consequence": "After the deadline, all non-compliant Morpho vault allocations receive 100% CRR.",
-      "source": "Policy section 'Deadlines': Core Council, all current exposure migrated to compliant vaults or existing vaults upgraded within about six weeks from 2026-08-17, end of September 2026 as the latest date. Moved 2026-09-14 by Sky GovOps: the deadline is now the execution of the October 10, 2026 spell, expected on Monday October 12, 2026, which is the date shown.",
-      "note": "execution of the October 10 spell"
+      "source": "Policy section 'Deadlines': Core Council, all current exposure migrated to compliant vaults or existing vaults upgraded within about six weeks from 2026-08-17, end of September 2026 as the latest date. Pending Atlas edit A.2.2.10.1.1.1.3.5: no later than the execution of the October 8, 2026 Executive Vote, expected on Monday October 12, 2026, which is the date shown (set by Sky GovOps 2026-09-15).",
+      "note": "execution of the October 8 spell"
     }
   },
   "chains": {
@@ -204,7 +204,7 @@
     }
   },
   "timelocks": {
-    "source": "Policy section 'Accepted timelocks per function (v2)' and 'Adapter timelocks (added Aug 31)'. Minimums; 'or abdicated' where the policy says '7d/Abdicated'.",
+    "source": "Policy section 'Accepted timelocks per function (v2)' and 'Adapter timelocks (added Aug 31)'. Minimums; 'or abdicated' where the policy says '7d/Abdicated'. Rows with 'exactDays: 0' must carry no delay at all (criteria rows changed to 0 days on 2026-09-10 and 2026-09-14); a longer delay is graded WARN while BA Labs treats it as 'no action required now'.",
     "severityBelowMinimum": "FAIL",
     "vault": [
       {
@@ -235,7 +235,8 @@
       {
         "function": "setIsAllocator(address,bool)",
         "label": "Add/Remove allocator",
-        "minDays": 3
+        "exactDays": 0,
+        "note": "Criteria changed 2026-09-10 from a 3-day minimum to no delay: the same key grants and revokes allocator permission, and a compromised allocator must be removable at once (the pending Atlas edit: 'must not be subject to a timelock delay'). BA Labs, 2026-09-14: no action required now, set it to 0 down the line."
       },
       {
         "function": "increaseTimelock(bytes4,uint256)",
@@ -265,7 +266,8 @@
       {
         "function": "setForceDeallocatePenalty(address,uint256)",
         "label": "Set force deallocate penalty",
-        "minDays": 7
+        "exactDays": 0,
+        "note": "Criteria changed 2026-09-14 from a 7-day minimum to no delay, following Morpho's recommendation, so a penalty can be introduced quickly against a griefing attack. BA Labs: no action required now, set it to 0 down the line."
       },
       {
         "function": "setReceiveSharesGate(address)",
@@ -326,7 +328,8 @@
         "label": "Set max rate (no policy minimum)"
       }
     ],
-    "note": "Owner functions (setOwner, setCurator, setIsSentinel, setName, setSymbol) and every 'decrease' function are immediate by Vault V2 design and have no timelock to check."
+    "note": "Owner functions (setOwner, setCurator, setIsSentinel, setName, setSymbol) and every 'decrease' function are immediate by Vault V2 design and have no timelock to check.",
+    "severityWhenDelayExpectedZero": "WARN"
   },
   "oracle": {
     "source": "Policy section 'Collateral pricing / oracle': >= 3 sources (median of 3, average of 2, credible fallback if 1). INTERIM: single-source Chainlink acceptable for major collateral.",
@@ -401,11 +404,15 @@
     "C4": "Owner = Prime SubProxy",
     "C5": "Curator = 2/2 msig between OEA and external msig",
     "C6": "Sentinel = OEA with separate set of signers (mandatory); extras: monitoring solution and/or prime-owned msig",
-    "C7": "Timelock minimums per function: 7d, 3d for allocator and fees; adapters included",
+    "C7": "Timelock minimums per function: 7d, 3d for fees; no delay allowed on add/remove allocator and force-deallocate penalty (since 2026-09-10/14); adapters included",
     "C8": "Vault V2, or MetaMorpho v1.1; deployed by the official factory",
     "C9": "Allocator = Prime Agent / external curator EOA / multisig",
     "C10": "Oracle: >= 3 sources; interim single-source Chainlink acceptable",
     "C11": "Fees: TBD",
     "C12": "Context: after the deadline, non-compliant allocations receive 100% CRR"
+  },
+  "allocators": {
+    "source": "Criteria, Allocator line comment of 2026-09-10: the Morpho Public Allocator (the public allocator for Vault V2) is acceptable for addition; BA Labs recommends pairing any emergency safeguard with a transaction that sets its caps to 0. Addresses below are cited to a public source.",
+    "accepted": []
   }
 }

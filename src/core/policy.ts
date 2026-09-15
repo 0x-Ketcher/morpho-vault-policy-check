@@ -1,7 +1,7 @@
 import type { Status } from "./types.ts";
 
 export interface AcceptedAsset { symbol: string; address: string; policyName?: string; maxLltv?: number; verified?: string; aliases?: string[] }
-export interface TimelockFn { function: string; label: string; minDays?: number; abdicationSatisfies?: boolean; note?: string }
+export interface TimelockFn { function: string; label: string; minDays?: number; /** the delay must be exactly this many days (0: no delay allowed) */ exactDays?: number; abdicationSatisfies?: boolean; note?: string }
 
 export interface PolicyConfig {
   meta: { policy: string; policyUrl: string; snapshotDate: string; policyLastChanged: string; notes: string[]; deadline?: { date: string; text: string; consequence: string; source: string } };
@@ -15,7 +15,8 @@ export interface PolicyConfig {
   };
   irm: { source: string; severity: { notAcceptedWithAllocation: Status; notAcceptedCapOnly: Status }; accepted: Record<string, { name: string; address: string; verified?: string }[]> };
   roles: { source: string; owner: string; curator: string; sentinel: string; allocator: string; sentinelSeverity?: { curatorItself: Status; thirdPartyExtra: Status; note?: string } };
-  timelocks: { source: string; severityBelowMinimum: Status; vault: TimelockFn[]; adapter: TimelockFn[]; informational: TimelockFn[]; note: string };
+  timelocks: { source: string; severityBelowMinimum: Status; severityWhenDelayExpectedZero?: Status; vault: TimelockFn[]; adapter: TimelockFn[]; informational: TimelockFn[]; note: string };
+  allocators?: { source: string; accepted: { chainId: number; address: string; name: string; verified: string }[] };
   oracle: { source: string; status: Status };
   fees: { source: string; status: Status };
   exposure: { source: string; status: Status };

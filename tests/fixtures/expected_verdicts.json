@@ -91,10 +91,11 @@
         "C5": "WARN",
         "C6": "WARN",
         "C3": "PASS",
-        "C7": "PASS",
+        "C7": "WARN",
         "C2": "PASS",
         "C1": "PASS"
-      }
+      },
+      "note": "C7 re-baselined 2026-09-15: the criteria now allow no delay on add/remove allocator (changed 2026-09-10) and on the force-deallocate penalty (changed 2026-09-14); this vault still carries the earlier 3-day and 7-day delays, graded WARN while BA Labs treats it as 'no action required now'."
     },
     {
       "name": "grove-steakUSDC Base A",
@@ -105,8 +106,9 @@
         "C5": "WARN",
         "C6": "WARN",
         "C3": "PASS",
-        "C7": "PASS"
-      }
+        "C7": "WARN"
+      },
+      "note": "C7 re-baselined 2026-09-15: the criteria now allow no delay on add/remove allocator (changed 2026-09-10) and on the force-deallocate penalty (changed 2026-09-14); this vault still carries the earlier 3-day and 7-day delays, graded WARN while BA Labs treats it as 'no action required now'."
     },
     {
       "name": "grove-steakUSDC Base B",

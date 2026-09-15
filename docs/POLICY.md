@@ -6,7 +6,7 @@ Policy: BA Labs - Morpho Vaults v2 Eligibility Criteria
 Source: https://docs.google.com/document/d/1cUoOPQaY9BeE_b9W9peEx8fXSesfPyZQ1FlOOacstw8
 Snapshot: 2026-09-01; policy last changed: 2026-08-31
 
-Deadline: Deadline to resolve non-compliant vaults: 2026-10-12. After the deadline, all non-compliant Morpho vault allocations receive 100% CRR. Source: Policy section 'Deadlines': Core Council, all current exposure migrated to compliant vaults or existing vaults upgraded within about six weeks from 2026-08-17, end of September 2026 as the latest date. Moved 2026-09-14 by Sky GovOps: the deadline is now the execution of the October 10, 2026 spell, expected on Monday October 12, 2026, which is the date shown.
+Deadline: Deadline to resolve non-compliant vaults: 2026-10-12. After the deadline, all non-compliant Morpho vault allocations receive 100% CRR. Source: Policy section 'Deadlines': Core Council, all current exposure migrated to compliant vaults or existing vaults upgraded within about six weeks from 2026-08-17, end of September 2026 as the latest date. Pending Atlas edit A.2.2.10.1.1.1.3.5: no later than the execution of the October 8, 2026 Executive Vote, expected on Monday October 12, 2026, which is the date shown (set by Sky GovOps 2026-09-15).
 
 - Adapter timelocks were added to the policy on 2026-08-31.
 - The increase-timelock minimum was raised from 3 days to 7 days on 2026-08-31.
@@ -23,7 +23,7 @@ Deadline: Deadline to resolve non-compliant vaults: 2026-10-12. After the deadli
 | C4 | Owner | Owner = Prime SubProxy (Ethereum) or the Prime's governance executor (Base, Robinhood). An n-of-n Safe that includes the Prime governance address = WARN. Anything else = FAIL. | FAIL / WARN as stated | Policy section 'Morpho Vault v2 Setup - Proposal #11: Prime governance Owner with govops & external party as Curator'. |
 | C5 | Curator | Curator = 2/2 Safe between the OEA and the external curator's Safe. Prime- or OEA-only Safe (e.g. a 3/5) = WARN (policy call open: does the 2/2 rule apply to Prime-self-curated vaults). External-only = FAIL. | FAIL / WARN as stated | Policy section 'Morpho Vault v2 Setup - Proposal #11: Prime governance Owner with govops & external party as Curator'. |
 | C6 | Sentinel / Guardian | Exactly one sentinel is mandatory: an OEA Safe with a set of signers disjoint from the curator Safe's signers. The curator address itself may not hold a sentinel seat (FAIL). Every additional sentinel is classified: Prime-owned is allowed; any other party, whether the external curator, a signer of the curator Safe, a Safe sharing signers with the curator Safe, or an address no public source attributes (a monitoring solution would look like this), is WARN, because the BA document lists only the OEA, a monitoring solution and a Prime-owned multisig as sentinels and it is an open question whether other parties may hold a seat. No sentinel, or no OEA sentinel = FAIL. OEA-shaped Safe that no public source labels = WARN. On MetaMorpho v1.1 the Guardian is the sentinel-equivalent seat and the same rules apply. | FAIL / WARN as stated | Policy section 'Morpho Vault v2 Setup - Proposal #11: Prime governance Owner with govops & external party as Curator'. |
-| C7 | Timelocks | per-function minimums (below) | FAIL | Policy section 'Accepted timelocks per function (v2)' and 'Adapter timelocks (added Aug 31)'. Minimums; 'or abdicated' where the policy says '7d/Abdicated'. |
+| C7 | Timelocks | per-function rules (below) | FAIL | Policy section 'Accepted timelocks per function (v2)' and 'Adapter timelocks (added Aug 31)'. Minimums; 'or abdicated' where the policy says '7d/Abdicated'. Rows with 'exactDays: 0' must carry no delay at all (criteria rows changed to 0 days on 2026-09-10 and 2026-09-14); a longer delay is graded WARN while BA Labs treats it as 'no action required now'. |
 | C8 | Vault version and factory | Report only: Vault V2 or MetaMorpho v1.1; factory deployment confirmed | FAIL only if the factory denies the vault | Proposal #11 setup |
 | C9 | Allocators | Allocator = Prime agent (ALM proxy) / external curator EOA / multisig. Informational. | INFO | Policy section 'Morpho Vault v2 Setup - Proposal #11: Prime governance Owner with govops & external party as Curator'. |
 | C10 | Oracles | Policy section 'Collateral pricing / oracle': >= 3 sources (median of 3, average of 2, credible fallback if 1). INTERIM: single-source Chainlink acceptable for major collateral. | INFO | policy section 'Collateral pricing / oracle' |
@@ -73,29 +73,29 @@ Policy table 'Accepted Collateral and Market Parameters', IRM column: 'Morpho Ad
 
 ## Timelock minimums (Vault V2)
 
-| Scope | Function | Policy label | Minimum | Abdication satisfies | Note |
+| Scope | Function | Policy label | Rule | Abdication satisfies | Note |
 |---|---|---|---|---|---|
-| vault | `abdicate(bytes4)` | Abdicate | 7d | no |  |
-| vault | `addAdapter(address)` | Add adapter | 7d | no |  |
-| vault | `removeAdapter(address)` | Remove adapter | 7d | no |  |
-| vault | `increaseAbsoluteCap(bytes,uint256)` | Increase absolute cap | 7d | no |  |
-| vault | `increaseRelativeCap(bytes,uint256)` | Increase relative cap | 7d | no |  |
-| vault | `setIsAllocator(address,bool)` | Add/Remove allocator | 3d | no |  |
-| vault | `increaseTimelock(bytes4,uint256)` | Increase timelock duration | 7d | no |  |
-| vault | `setPerformanceFee(uint256)` | Set performance fee | 3d | no |  |
-| vault | `setManagementFee(uint256)` | Set management fee | 3d | no |  |
-| vault | `setPerformanceFeeRecipient(address)` | Set performance fee recipient | 3d | no |  |
-| vault | `setManagementFeeRecipient(address)` | Set management fee recipient | 3d | no |  |
-| vault | `setForceDeallocatePenalty(address,uint256)` | Set force deallocate penalty | 7d | no |  |
-| vault | `setReceiveSharesGate(address)` | Set receive shares gate | 7d | yes |  |
-| vault | `setSendSharesGate(address)` | Set send shares gate | 7d | yes |  |
-| vault | `setReceiveAssetsGate(address)` | Set receive assets gate | 7d | yes |  |
-| vault | `setSendAssetsGate(address)` | Set send assets gate | 7d | no | The policy lists this gate as 7d only, without '/Abdicated', unlike the other three gates; read literally, so abdication does not satisfy it. Every V2 vault checked on 2026-09-08 keeps this gate under a live timelock and abdicates the other three. |
-| vault | `setAdapterRegistry(address)` | Set adapter registry | 7d | yes |  |
-| adapter | `abdicate(bytes4)` | Adapter: Abdicate | 7d | no |  |
-| adapter | `burnShares(bytes32)` | Adapter: Burn shares | 3d | no |  |
-| adapter | `increaseTimelock(bytes4,uint256)` | Adapter: Increase timelock | 7d | no |  |
-| adapter | `setSkimRecipient(address)` | Adapter: Skim recipient | 3d | no |  |
+| vault | `abdicate(bytes4)` | Abdicate | at least 7d | no |  |
+| vault | `addAdapter(address)` | Add adapter | at least 7d | no |  |
+| vault | `removeAdapter(address)` | Remove adapter | at least 7d | no |  |
+| vault | `increaseAbsoluteCap(bytes,uint256)` | Increase absolute cap | at least 7d | no |  |
+| vault | `increaseRelativeCap(bytes,uint256)` | Increase relative cap | at least 7d | no |  |
+| vault | `setIsAllocator(address,bool)` | Add/Remove allocator | no delay allowed | no | Criteria changed 2026-09-10 from a 3-day minimum to no delay: the same key grants and revokes allocator permission, and a compromised allocator must be removable at once (the pending Atlas edit: 'must not be subject to a timelock delay'). BA Labs, 2026-09-14: no action required now, set it to 0 down the line. |
+| vault | `increaseTimelock(bytes4,uint256)` | Increase timelock duration | at least 7d | no |  |
+| vault | `setPerformanceFee(uint256)` | Set performance fee | at least 3d | no |  |
+| vault | `setManagementFee(uint256)` | Set management fee | at least 3d | no |  |
+| vault | `setPerformanceFeeRecipient(address)` | Set performance fee recipient | at least 3d | no |  |
+| vault | `setManagementFeeRecipient(address)` | Set management fee recipient | at least 3d | no |  |
+| vault | `setForceDeallocatePenalty(address,uint256)` | Set force deallocate penalty | no delay allowed | no | Criteria changed 2026-09-14 from a 7-day minimum to no delay, following Morpho's recommendation, so a penalty can be introduced quickly against a griefing attack. BA Labs: no action required now, set it to 0 down the line. |
+| vault | `setReceiveSharesGate(address)` | Set receive shares gate | at least 7d | yes |  |
+| vault | `setSendSharesGate(address)` | Set send shares gate | at least 7d | yes |  |
+| vault | `setReceiveAssetsGate(address)` | Set receive assets gate | at least 7d | yes |  |
+| vault | `setSendAssetsGate(address)` | Set send assets gate | at least 7d | no | The policy lists this gate as 7d only, without '/Abdicated', unlike the other three gates; read literally, so abdication does not satisfy it. Every V2 vault checked on 2026-09-08 keeps this gate under a live timelock and abdicates the other three. |
+| vault | `setAdapterRegistry(address)` | Set adapter registry | at least 7d | yes |  |
+| adapter | `abdicate(bytes4)` | Adapter: Abdicate | at least 7d | no |  |
+| adapter | `burnShares(bytes32)` | Adapter: Burn shares | at least 3d | no |  |
+| adapter | `increaseTimelock(bytes4,uint256)` | Adapter: Increase timelock | at least 7d | no |  |
+| adapter | `setSkimRecipient(address)` | Adapter: Skim recipient | at least 3d | no |  |
 | vault | `setMaxRate(uint256)` | Set max rate (no policy minimum) | none | - | informational |
 
 Owner functions (setOwner, setCurator, setIsSentinel, setName, setSymbol) and every 'decrease' function are immediate by Vault V2 design and have no timelock to check.

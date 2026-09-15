@@ -29,7 +29,7 @@ function policyDoc(): string {
   L.push(`| C4 | Owner | ${esc(policy.roles.owner)} | FAIL / WARN as stated | ${esc(policy.roles.source)} |`);
   L.push(`| C5 | Curator | ${esc(policy.roles.curator)} | FAIL / WARN as stated | ${esc(policy.roles.source)} |`);
   L.push(`| C6 | Sentinel / Guardian | ${esc(policy.roles.sentinel)} | FAIL / WARN as stated | ${esc(policy.roles.source)} |`);
-  L.push(`| C7 | Timelocks | per-function minimums (below) | ${policy.timelocks.severityBelowMinimum} | ${esc(policy.timelocks.source)} |`);
+  L.push(`| C7 | Timelocks | per-function rules (below) | ${policy.timelocks.severityBelowMinimum} | ${esc(policy.timelocks.source)} |`);
   L.push(`| C8 | Vault version and factory | Report only: Vault V2 or MetaMorpho v1.1; factory deployment confirmed | FAIL only if the factory denies the vault | Proposal #11 setup |`);
   L.push(`| C9 | Allocators | ${esc(policy.roles.allocator)} | INFO | ${esc(policy.roles.source)} |`);
   L.push(`| C10 | Oracles | ${esc(policy.oracle.source)} | ${policy.oracle.status} | policy section 'Collateral pricing / oracle' |`);
@@ -43,9 +43,10 @@ function policyDoc(): string {
   L.push("## Accepted interest rate model", "", policy.irm.source, "", "| Chain | Name | Address | Verified via |", "|---|---|---|---|");
   for (const [cid, list] of Object.entries(policy.irm.accepted)) for (const a of list) L.push(`| ${chainName(Number(cid))} | ${a.name} | ${a.address} | ${esc(a.verified)} |`);
   L.push("");
-  L.push("## Timelock minimums (Vault V2)", "", "| Scope | Function | Policy label | Minimum | Abdication satisfies | Note |", "|---|---|---|---|---|---|");
-  for (const f of policy.timelocks.vault) L.push(`| vault | \`${f.function}\` | ${f.label} | ${f.minDays}d | ${f.abdicationSatisfies ? "yes" : "no"} | ${esc(f.note)} |`);
-  for (const f of policy.timelocks.adapter) L.push(`| adapter | \`${f.function}\` | ${f.label} | ${f.minDays}d | ${f.abdicationSatisfies ? "yes" : "no"} | ${esc(f.note)} |`);
+  L.push("## Timelock minimums (Vault V2)", "", "| Scope | Function | Policy label | Rule | Abdication satisfies | Note |", "|---|---|---|---|---|---|");
+  const rule = (f: { minDays?: number; exactDays?: number }) => (f.exactDays !== undefined ? (f.exactDays === 0 ? "no delay allowed" : `exactly ${f.exactDays}d`) : `at least ${f.minDays}d`);
+  for (const f of policy.timelocks.vault) L.push(`| vault | \`${f.function}\` | ${f.label} | ${rule(f)} | ${f.abdicationSatisfies ? "yes" : "no"} | ${esc(f.note)} |`);
+  for (const f of policy.timelocks.adapter) L.push(`| adapter | \`${f.function}\` | ${f.label} | ${rule(f)} | ${f.abdicationSatisfies ? "yes" : "no"} | ${esc(f.note)} |`);
   for (const f of policy.timelocks.informational) L.push(`| vault | \`${f.function}\` | ${f.label} | none | - | informational |`);
   L.push("", policy.timelocks.note, "", "## OEA identity", "", policy.oea.note, "", `OEA entity names recognised in Atlas text: ${policy.oea.entities.join(", ")}.`, "", `Primes: ${policy.primes.names.join(", ")}. Morpho curator registry names treated as Prime-side: ${Object.entries(policy.primes.curatorRegistryAliases).map(([k, v]) => `${k} -> ${v}`).join(", ")}.`, "");
   return L.join("\n");
