@@ -16,10 +16,10 @@ export const c09Timelocks: CheckDef = {
       const v = picks[i].value;
       if (!v) { unread.push(`${f.label}: not readable`); return; }
       if (f.exactDays !== undefined) {
-        // the criteria allow no delay here (allocator changes, force-deallocate penalty): a longer delay is graded, not failed, while BA Labs treats it as "no action required now"
+        // the criteria allow no delay here (allocator changes, force-deallocate penalty); a longer delay fails the row
         const ok = v.seconds === f.exactDays * 86400;
-        statuses.push(ok ? "PASS" : (p.severityWhenDelayExpectedZero ?? "WARN"));
-        (ok ? passing : delayed).push(`${f.label}: ${fmtDays(v.seconds)} (${f.exactDays === 0 ? "no delay allowed" : `exactly ${f.exactDays}d`}${ok ? "" : "; tolerated for now, to be set to 0"})`);
+        statuses.push(ok ? "PASS" : (p.severityWhenDelayExpectedZero ?? "FAIL"));
+        (ok ? passing : delayed).push(`${f.label}: ${fmtDays(v.seconds)} (${f.exactDays === 0 ? "no delay allowed" : `exactly ${f.exactDays}d`})`);
         return;
       }
       const min = (f.minDays ?? 0) * 86400;
@@ -43,13 +43,13 @@ export const c09Timelocks: CheckDef = {
     const status = statuses.length ? worst(statuses) : "NA";
     const details = [
       ...(failing.length ? [`${failing.length} below the minimum:`, ...failing.map((l) => `  ${l}`)] : []),
-      ...(delayed.length ? [`${delayed.length} with a delay the criteria no longer allow:`, ...delayed.map((l) => `  ${l}`)] : []),
+      ...(delayed.length ? [`${delayed.length} with a delay the criteria do not allow:`, ...delayed.map((l) => `  ${l}`)] : []),
       ...(passing.length ? [`${passing.length} as the criteria require`, ...passing.map((l) => `  ${l}`)] : []),
       ...unread,
     ];
-    const parts = [failing.length ? `${failing.length} of ${statuses.length} timelocks below the policy minimum` : "", delayed.length ? `${delayed.length} carry a delay the criteria no longer allow (allocator changes and the force-deallocate penalty must be instant since 2026-09-10 and 2026-09-14; tolerated for now per BA Labs)` : ""].filter(Boolean);
+    const parts = [failing.length ? `${failing.length} of ${statuses.length} timelocks below the policy minimum` : "", delayed.length ? `${delayed.length} carry a delay the criteria do not allow (allocator changes and the force-deallocate penalty must be instant since 2026-09-10 and 2026-09-14)` : ""].filter(Boolean);
     const summary = status === "PASS" ? `All ${statuses.length} checked timelocks meet the criteria.` : parts.length ? `${parts.join("; ")}.` : "No timelocks readable.";
-    return result("C7", "Timelocks", `Minimums per function (vault and adapter), abdication accepted where the policy says so; no delay allowed on add/remove allocator and the force-deallocate penalty. Below minimum = ${p.severityBelowMinimum}; a delay where none is allowed = ${p.severityWhenDelayExpectedZero ?? "WARN"}. ${p.source}`, status, summary, picks, details);
+    return result("C7", "Timelocks", `Minimums per function (vault and adapter), abdication accepted where the policy says so; no delay allowed on add/remove allocator and the force-deallocate penalty. Below minimum = ${p.severityBelowMinimum}; a delay where none is allowed = ${p.severityWhenDelayExpectedZero ?? "FAIL"}. ${p.source}`, status, summary, picks, details);
   },
 };
 
