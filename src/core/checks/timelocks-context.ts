@@ -11,10 +11,13 @@ export const c09Timelocks: CheckDef = {
       return result("C7", "Timelocks", `V2 per-function minimums do not apply to MetaMorpho v1.1, which has one vault-wide timelock. ${p.source}`, "INFO", `v1.1 vault-wide timelock: ${fmtDays(tl.value)} (no per-function policy minimum for v1.1; reported for context).`, [tl]);
     }
     const picks = p.vault.map((f) => pick(ctx, f.label, (s) => (s.timelocks[f.function] ? { seconds: s.timelocks[f.function].seconds, abdicated: s.timelocks[f.function].abdicated } : null), (v) => (v ? `${fmtDays(v.seconds)}${v.abdicated ? " (abdicated)" : ""}` : "n/a")));
-    const statuses: Status[] = []; const failing: string[] = []; const passing: string[] = []; const unread: string[] = []; const delayed: string[] = [];
+    const statuses: Status[] = []; const failing: string[] = []; const passing: string[] = []; const unread: string[] = []; const delayed: string[] = []; const abdicatedRows: string[] = [];
+    const sevAbd = p.severityWhenAbdicated ?? "FAIL";
     p.vault.forEach((f, i) => {
       const v = picks[i].value;
       if (!v) { unread.push(`${f.label}: not readable`); return; }
+      // abdication permanently disables the function; the policy allows that only on the rows it marks "/Abdicated"
+      if (v.abdicated && !f.abdicationSatisfies) { statuses.push(sevAbd); abdicatedRows.push(`${f.label}: abdicated (the policy allows ${f.exactDays !== undefined ? "no delay" : `a timelock of at least ${f.minDays}d`}, not abdication)`); return; }
       if (f.exactDays !== undefined) {
         // the criteria allow no delay here (allocator changes, force-deallocate penalty); a longer delay fails the row
         const ok = v.seconds === f.exactDays * 86400;
@@ -35,6 +38,7 @@ export const c09Timelocks: CheckDef = {
       for (const f of p.adapter) {
         const s = ad.timelocks[f.function]; if (s === undefined) continue;
         const abd = ad.abdicated?.[f.function] ?? false; const min = (f.minDays ?? 0) * 86400;
+        if (abd && !f.abdicationSatisfies) { statuses.push(sevAbd); abdicatedRows.push(`${f.label.replace(/^Adapter: /, "")} on adapter ${short(ad.address)}: abdicated (the policy allows a timelock of at least ${f.minDays}d, not abdication), on-chain only`); continue; }
         const ok = s >= min || (f.abdicationSatisfies && abd);
         statuses.push(ok ? "PASS" : p.severityBelowMinimum);
         (ok ? passing : failing).push(`${f.label.replace(/^Adapter: /, "")} on adapter ${short(ad.address)}: ${fmtDays(s)}${abd ? ", abdicated" : ""} (minimum ${f.minDays}d), on-chain only`);
@@ -42,14 +46,15 @@ export const c09Timelocks: CheckDef = {
     }
     const status = statuses.length ? worst(statuses) : "NA";
     const details = [
+      ...(abdicatedRows.length ? [`${abdicatedRows.length} abdicated where the policy allows a timelock only:`, ...abdicatedRows.map((l) => `  ${l}`)] : []),
       ...(failing.length ? [`${failing.length} below the minimum:`, ...failing.map((l) => `  ${l}`)] : []),
       ...(delayed.length ? [`${delayed.length} with a delay the criteria do not allow:`, ...delayed.map((l) => `  ${l}`)] : []),
       ...(passing.length ? [`${passing.length} as the criteria require`, ...passing.map((l) => `  ${l}`)] : []),
       ...unread,
     ];
-    const parts = [failing.length ? `${failing.length} of ${statuses.length} timelocks below the policy minimum` : "", delayed.length ? `${delayed.length} carry a delay the criteria do not allow (no delay on allocator changes and the force-deallocate penalty)` : ""].filter(Boolean);
+    const parts = [abdicatedRows.length ? `${abdicatedRows.length} abdicated where the policy allows a timelock only` : "", failing.length ? `${failing.length} of ${statuses.length} timelocks below the policy minimum` : "", delayed.length ? `${delayed.length} carry a delay the criteria do not allow (no delay on allocator changes and the force-deallocate penalty)` : ""].filter(Boolean);
     const summary = status === "PASS" ? `All ${statuses.length} checked timelocks meet the criteria.` : parts.length ? `${parts.join("; ")}.` : "No timelocks readable.";
-    return result("C7", "Timelocks", `Minimums per function (vault and adapter), abdication accepted where the policy says so; no delay allowed on add/remove allocator and the force-deallocate penalty. Below minimum = ${p.severityBelowMinimum}; a delay where none is allowed = ${p.severityWhenDelayExpectedZero ?? "FAIL"}. ${p.source}`, status, summary, picks, details);
+    return result("C7", "Timelocks", `Minimums per function (vault and adapter); abdication accepted only where the policy says '/Abdicated' and ${sevAbd} elsewhere; no delay allowed on add/remove allocator and the force-deallocate penalty. Below minimum = ${p.severityBelowMinimum}; a delay where none is allowed = ${p.severityWhenDelayExpectedZero ?? "FAIL"}. ${p.source}`, status, summary, picks, details);
   },
 };
 

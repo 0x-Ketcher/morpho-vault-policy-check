@@ -208,6 +208,18 @@ describe("C7 timelocks", () => {
     const u = { ...snap().timelocks, "setSendAssetsGate(address)": { selector: "0x00000000" as const, seconds: 0, abdicated: true } };
     expect(status("C7", { timelocks: u })).toBe("FAIL");
   });
+  it("fails an abdicated function even when its timelock meets the minimum, unless the policy says '/Abdicated'", () => {
+    const gate7 = { ...snap().timelocks, "setSendAssetsGate(address)": { selector: "0x00000000" as const, seconds: 7 * 86400, abdicated: true } };
+    const c = run("C7", { timelocks: gate7 });
+    expect(c.status).toBe("FAIL");
+    expect(c.details.join("\n")).toContain("Set send assets gate: abdicated (the policy allows a timelock of at least 7d, not abdication)");
+    const adapter7 = { ...snap().timelocks, "addAdapter(address)": { selector: "0x00000000" as const, seconds: 7 * 86400, abdicated: true } };
+    expect(status("C7", { timelocks: adapter7 })).toBe("FAIL");
+    const allocator0 = { ...snap().timelocks, "setIsAllocator(address,bool)": { selector: "0x00000000" as const, seconds: 0, abdicated: true } };
+    expect(status("C7", { timelocks: allocator0 })).toBe("FAIL"); // 0 days is what the row asks for, but abdicated means allocators can never change
+    const receive7 = { ...snap().timelocks, "setReceiveAssetsGate(address)": { selector: "0x00000000" as const, seconds: 7 * 86400, abdicated: true } };
+    expect(status("C7", { timelocks: receive7 })).toBe("PASS");
+  });
   it("fails a 0-day adapter timelock", () => {
     expect(status("C7", { adapters: [{ address: A.eoa1, markets: [], timelocks: { "abdicate(bytes4)": 0, "burnShares(bytes32)": 3 * 86400, "increaseTimelock(bytes4,uint256)": 7 * 86400, "setSkimRecipient(address)": 3 * 86400 }, abdicated: {} }] })).toBe("FAIL");
   });

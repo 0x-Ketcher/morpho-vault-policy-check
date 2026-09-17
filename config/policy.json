@@ -204,7 +204,7 @@
     }
   },
   "timelocks": {
-    "source": "Policy section 'Accepted timelocks per function (v2)' and 'Adapter timelocks (added Aug 31)'. Minimums; 'or abdicated' where the policy says '7d/Abdicated'. Rows with 'exactDays: 0' must carry no delay at all; a delay on those rows is FAIL.",
+    "source": "Policy section 'Accepted timelocks per function (v2)' and 'Adapter timelocks (added Aug 31)'. Minimums; abdication accepted only where the policy says '7d/Abdicated', and it fails any other row. Rows with 'exactDays: 0' must carry no delay at all; a delay on those rows is FAIL.",
     "severityBelowMinimum": "FAIL",
     "vault": [
       {
@@ -291,7 +291,7 @@
         "function": "setSendAssetsGate(address)",
         "label": "Set send assets gate",
         "minDays": 7,
-        "note": "The policy lists this gate as 7d only, without '/Abdicated', unlike the other three gates; read literally, so abdication does not satisfy it. Every V2 vault checked on 2026-09-08 keeps this gate under a live timelock and abdicates the other three."
+        "note": "The policy lists this gate as '7 days' only, without '/Abdicated', unlike the other three gates: a live timelock of at least 7 days is required and abdication fails the row."
       },
       {
         "function": "setAdapterRegistry(address)",
@@ -329,7 +329,8 @@
       }
     ],
     "note": "Owner functions (setOwner, setCurator, setIsSentinel, setName, setSymbol) and every 'decrease' function are immediate by Vault V2 design and have no timelock to check.",
-    "severityWhenDelayExpectedZero": "FAIL"
+    "severityWhenDelayExpectedZero": "FAIL",
+    "severityWhenAbdicated": "FAIL"
   },
   "oracle": {
     "source": "Policy section 'Collateral pricing / oracle': >= 3 sources (median of 3, average of 2, credible fallback if 1). INTERIM: single-source Chainlink acceptable for major collateral.",
