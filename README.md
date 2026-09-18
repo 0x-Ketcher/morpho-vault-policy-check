@@ -47,10 +47,6 @@ All public. Nothing from internal wallet trackers or private notes.
 | The criteria document | the rules themselves | BA Labs' "Morpho Vaults v2 Eligibility Criteria", encoded as data in `config/policy.json` and rendered as `docs/POLICY.md`; the mapping from each line of the document to a check, with the open questions, is `docs/POLICY_MAPPING.md` |
 | The Sky forum | spells that will onboard a vault before the chain shows it | read by a person or agent during an update; entries go into `config/vault-overrides.json` with the proposal link |
 
-Label sources disagree occasionally. Precedence: a registry over the Atlas for addresses, since the Atlas lags the registries by weeks; the Atlas over a registry for policy text. Every citation names its source, so a reader can weigh it.
-
-Chains: Ethereum, Base and Robinhood Chain are the accepted ones. A vault on any other chain the API indexes is identified and fails the chain check; without a configured node every card there shows "one method only".
-
 ## Methodology
 
 ### Two methods for every value
@@ -64,7 +60,7 @@ When the two methods disagree on a value a check depends on, the card is tagged 
 
 ### Who controls an address
 
-An address is attributed to an entity when a public source says so: a registry constant, an Atlas line, or a curator-registry entry. That gives it a side: Prime, external curator, OEA, or unknown. Two extensions and one limit:
+An address is attributed to an entity when a public source says so: a registry constant, an Atlas line, or a curator-registry entry. That gives it a side: Prime, external curator, OEA, or unknown. When two sources disagree on an address, the registry wins over the Atlas, which lags it by weeks; every citation names its source so a reader can weigh it. Two extensions and one limit:
 
 - **Pair statements.** When the Atlas names the two parties of a 2/2 curator Safe and one half is already labelled as the external curator, the other half is attributed to the OEA. The composition is public even though the inner Safe is not named on its own.
 - **Signer overlap.** An unlabelled Safe that shares a signer with a labelled Safe is attributed "by signer overlap". That is evidence, not attestation: it can lower a verdict, for instance when a supposedly independent sentinel shares people with the curator, but it can never raise one to PASS.
@@ -101,9 +97,8 @@ An optional cross-check works from the other direction, because the Morpho API d
 
 - **Structure is provable; identity partly.** Safe thresholds, signer sets, signer disjointness, timelocks, caps and LLTVs come straight from the chain. Prime and external-curator identity comes from the registries, the Atlas and the curator registry. OEA identity is attested only where the Atlas states it, as it now does for Spark's instances; where it doesn't, as for the two new Grove vaults, the OEA seats grade WARN with the reason. Publishing those Safe addresses in the Atlas turns them PASS with no change to the tool.
 - **The Morpho API is incomplete by construction.** Several hundred factory-created vaults are not indexed, which is why the cross-check exists. One such vault held a live Spark deposit limit from March to July 2026.
-- **The IRM reference on Robinhood** comes from Morpho's API rather than a registry, and its bytecode differs in size from Ethereum's; a registry entry would settle it.
+- **The IRM reference on Robinhood.** Each market's IRM is read on-chain and checked on-chain for being enabled, on every chain. Which address counts as the Adaptive Curve IRM comes from the Spark registry on Ethereum and Base; on Robinhood no registry publishes it, so the reference comes from Morpho's API. A registry entry would settle it.
 - **Open questions for BA Labs**, listed with the tool's current reading in `docs/POLICY_MAPPING.md`: whether the 2/2 curator rule applies to Prime-self-curated vaults; whether a single key on the OEA side of the 2/2 is acceptable; whether third parties may hold extra sentinel seats; the severity of a timelock below minimum; and USDS, and DAI, as loan assets.
-- An operator can add non-public labels in a git-ignored `config/local-labels.json`; every use is marked NON-PUBLIC in the output.
 
 ## Run, update, deploy
 
@@ -136,7 +131,3 @@ scripts/                    update and its four steps, the cross-check, fixture 
 tests/                      the 67 tests
 CLAUDE.md                   what an agent needs to know before touching the repository
 ```
-
-## Conventions
-
-No personal names anywhere in the repository or its outputs; entities and roles only (BA Labs, Soter Labs, Grove, Spark, Steakhouse, Sentora). No secrets in the repository. Every rule change is a change to `config/policy.json`, cited to the criteria document.

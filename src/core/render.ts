@@ -33,7 +33,7 @@ function renderCheck(c: CheckResult): string[] {
     const txt = (x: string | { text: string }) => (typeof x === "string" ? x : x.text).replace(/\|/g, "/");
     L.push(`| ${c.table.columns.join(" | ")} |`, `|${c.table.columns.map(() => "---").join("|")}|`, ...c.table.rows.map((r) => `| ${r.map(txt).join(" | ")} |`), "");
   } else if (c.details.length) L.push("Details:", ...c.details.map((d) => `- ${d}`), "");
-  if (c.citations.length) L.push("Label sources:", ...c.citations.map((x) => `- ${x.source}: ${x.ref}${x.entity ? ` -> ${x.entity}` : ""}${x.url ? ` (${x.url})` : ""}${x.nonPublic ? " [NON-PUBLIC]" : ""}`), "");
+  if (c.citations.length) L.push("Label sources:", ...c.citations.map((x) => `- ${x.source}: ${x.ref}${x.entity ? ` -> ${x.entity}` : ""}${x.url ? ` (${x.url})` : ""}`), "");
   return L;
 }
 

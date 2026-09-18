@@ -128,7 +128,7 @@ footer { margin-top: 28px; }
 .signers ul { margin: 4px 0 0; padding-left: 16px; word-break: break-all; }
 .cites { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
 .cite { font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--surface); color: var(--ink); text-decoration: none; border: 1px solid var(--line); }
-.cite.registry { background: var(--cite-registry); } .cite.atlas { background: var(--cite-atlas); } .cite.morpho-curators { background: var(--cite-curators); } .cite.safe-owners { background: var(--cite-safe); } .cite.nonpublic { background: var(--danger-bg); border-color: var(--danger-line); }
+.cite.registry { background: var(--cite-registry); } .cite.atlas { background: var(--cite-atlas); } .cite.morpho-curators { background: var(--cite-curators); } .cite.safe-owners { background: var(--cite-safe); }
 .stale { margin: 10px 0 0; padding: 8px 10px; border-radius: 8px; background: var(--notice-bg); border: 1px solid var(--notice-line); color: var(--notice-ink); font-size: 12px; }
 .log { color: var(--muted); margin: 0 0 12px; display: flex; align-items: center; gap: 10px; }
 /* the wheel: shown only while a check runs, so it is obvious the page is working */

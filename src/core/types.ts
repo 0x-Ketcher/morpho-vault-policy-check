@@ -136,7 +136,7 @@ export interface VaultSnapshot {
   };
 }
 
-export type LabelSource = "registry" | "atlas" | "morpho-curators" | "safe-owners" | "local";
+export type LabelSource = "registry" | "atlas" | "morpho-curators" | "safe-owners";
 
 export interface Citation {
   source: LabelSource;
@@ -146,7 +146,6 @@ export interface Citation {
   ref: string;
   commit?: string;
   url?: string;
-  nonPublic?: boolean;
 }
 
 export interface Evidence {

@@ -252,10 +252,10 @@ function groupCitations(cites: Citation[]): ChipGroup[] {
       text = `Atlas ${article}`; key = `atlas|${article}`;
     } else if (x.source === "morpho-curators") { text = `Morpho curators · ${x.entity ?? ""}`; key = `curators|${text}`; }
     else if (x.source === "safe-owners") { text = `signer overlap${x.entity ? ` · ${x.entity}` : ""}`; key = `safe|${text}`; }
-    else { text = `non-public · ${x.entity ?? ""}`; key = `local|${text}`; }
+    else { text = `${x.source} · ${x.entity ?? ""}`; key = `${x.source}|${text}`; }
     const g = groups.get(key);
     if (g) { g.refs.push(x.ref); g.n++; g.url ??= x.url; }
-    else groups.set(key, { text, title: "", url: x.url, cls: `cite ${x.source}${x.nonPublic ? " nonpublic" : ""}`, refs: [x.ref], n: 1 });
+    else groups.set(key, { text, title: "", url: x.url, cls: `cite ${x.source}`, refs: [x.ref], n: 1 });
   }
   return [...groups.values()].map((g) => ({ text: g.n > 1 && g.cls.includes("atlas") ? `${g.text} · ${g.n} sections` : g.text, title: g.refs.join("\n"), url: g.url, cls: g.cls }));
 }

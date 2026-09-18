@@ -17,7 +17,7 @@ export const loadSkyVaults = () => loadJson<SkyVaultsFile>("config/sky-vaults.js
 
 export function loadLabelData(): LabelData {
   const opt = <T>(rel: string): T | undefined => (existsSync(p(rel)) ? loadJson<T>(rel) : undefined);
-  return { registry: opt("labels/registry.json"), atlas: opt("labels/atlas.json"), curators: opt("labels/curators.json"), safes: opt("labels/safes.json"), local: opt("config/local-labels.json") };
+  return { registry: opt("labels/registry.json"), atlas: opt("labels/atlas.json"), curators: opt("labels/curators.json"), safes: opt("labels/safes.json") };
 }
 export const loadLabels = (policy: PolicyConfig) => new LabelBook(loadLabelData(), policy);
 

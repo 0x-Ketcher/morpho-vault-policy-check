@@ -71,7 +71,7 @@ const ROLE_WORDS: Record<string, string> = {
   subproxy: "governance SubProxy", executor: "governance executor", almProxy: "ALM proxy", almRateLimits: "rate limits", almController: "ALM controller",
   morphoCurator: "curator multisig", morphoGuardian: "guardian multisig", morphoVault: "vault", multisig: "multisig", oeaOperator: "OEA operator", curatorRegistry: "external curator",
 };
-const SOURCE_WORDS: Record<string, string> = { registry: "Prime registry", atlas: "Atlas", "morpho-curators": "Morpho curator registry", "safe-owners": "signer overlap", local: "non-public label" };
+const SOURCE_WORDS: Record<string, string> = { registry: "Prime registry", atlas: "Atlas", "morpho-curators": "Morpho curator registry", "safe-owners": "signer overlap" };
 
 /** Plain-words attribution for prose: entity, role in words, source name. The exact citations are rendered separately. */
 export function describe(att: Attribution): string {

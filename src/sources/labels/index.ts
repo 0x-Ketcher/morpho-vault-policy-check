@@ -52,14 +52,6 @@ export interface SafeOwnersEntry {
   label?: string;
 }
 
-export interface LocalEntry {
-  address: string;
-  chainId?: number;
-  entity: string;
-  side: Side;
-  role?: string;
-  note?: string;
-}
 
 export interface LabelFile<T> {
   meta: Record<string, unknown>;
@@ -71,7 +63,6 @@ export interface LabelData {
   atlas?: LabelFile<AtlasEntry>;
   curators?: LabelFile<CuratorEntry>;
   safes?: LabelFile<SafeOwnersEntry>;
-  local?: LabelFile<LocalEntry>;
 }
 
 export interface LabelPolicy {
@@ -87,7 +78,6 @@ export interface Attribution {
   prime?: string;
   roles: string[];
   citations: Citation[];
-  nonPublic: boolean;
 }
 
 /** Registry constant name -> role. Kept simple and visible on purpose. */
@@ -122,14 +112,12 @@ export class LabelBook {
   private readonly atlas = new Map<string, AtlasEntry[]>();
   private readonly curators = new Map<string, { entry: CuratorEntry; chainId: number }[]>();
   private readonly safes = new Map<string, SafeOwnersEntry[]>();
-  private readonly local = new Map<string, LocalEntry[]>();
 
   constructor(public readonly data: LabelData, private readonly policy: LabelPolicy) {
     for (const e of data.registry?.entries ?? []) push(this.registry, lc(e.address), e);
     for (const e of data.atlas?.entries ?? []) push(this.atlas, lc(e.address), e);
     for (const c of data.curators?.entries ?? []) for (const a of c.addresses) push(this.curators, lc(a.address), { entry: c, chainId: a.chainId });
     for (const e of data.safes?.entries ?? []) push(this.safes, lc(e.address), e);
-    for (const e of data.local?.entries ?? []) push(this.local, lc(e.address), e);
   }
 
   meta(): Record<string, unknown> {
@@ -138,7 +126,6 @@ export class LabelBook {
       atlas: this.data.atlas?.meta ?? null,
       curators: this.data.curators?.meta ?? null,
       safes: this.data.safes?.meta ?? null,
-      local: this.data.local ? { entries: this.data.local.entries.length, nonPublic: true } : null,
     };
   }
 
@@ -181,7 +168,7 @@ export class LabelBook {
   attribute(address: string, chainId: number): Attribution {
     const citations: Citation[] = [];
     const roles = new Set<string>();
-    let oea = false, oeaEntity: string | undefined, prime: string | undefined, external: string | undefined, entity: string | undefined, nonPublic = false;
+    let oea = false, oeaEntity: string | undefined, prime: string | undefined, external: string | undefined, entity: string | undefined;
 
     for (const e of this.registryEntries(address, chainId)) {
       roles.add(e.role);
@@ -207,16 +194,8 @@ export class LabelBook {
         if (p) { prime ??= p; entity ??= e.entityHint; } else { external ??= e.entityHint; entity ??= e.entityHint; }
       }
     }
-    for (const e of (this.local.get(lc(address)) ?? []).filter((e) => e.chainId === undefined || e.chainId === chainId)) {
-      nonPublic = true;
-      citations.push({ source: "local", entity: e.entity, role: e.role, ref: `local (non-public) label: ${e.entity}${e.note ? " - " + e.note : ""}`, nonPublic: true });
-      if (e.side === "oea") { oea = true; oeaEntity ??= e.entity; }
-      else if (e.side === "prime") prime ??= this.primeOf(e.entity) ?? e.entity;
-      else if (e.side === "external") external ??= e.entity;
-      entity ??= e.entity;
-    }
     const side: Side = oea ? "oea" : prime ? "prime" : external ? "external" : "unknown";
-    return { address, chainId, side, entity: oea ? oeaEntity ?? entity : entity, prime, roles: [...roles], citations, nonPublic };
+    return { address, chainId, side, entity: oea ? oeaEntity ?? entity : entity, prime, roles: [...roles], citations };
   }
 }
 
