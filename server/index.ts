@@ -40,7 +40,7 @@ app.get("/api/health", (_req, res) => { res.json({ ok: true, etherscan: !!KEY, l
 
 // the methodology page: README plus the checks and sources documents, served as plain text from the repository itself
 app.get("/methodology", (_req, res) => {
-  const parts = ["README.md", "docs/CHECKS.md", "docs/DATA_SOURCES.md", "docs/POLICY_MAPPING.md"].filter((f) => existsSync(join(root, f))).map((f) => `# ${f}\n\n${readFileSync(join(root, f), "utf8")}`);
+  const parts = ["README.md", "docs/POLICY_MAPPING.md"].filter((f) => existsSync(join(root, f))).map((f) => `# ${f}\n\n${readFileSync(join(root, f), "utf8")}`);
   res.type("text/plain; charset=utf-8").send(parts.join("\n\n\n"));
 });
 
