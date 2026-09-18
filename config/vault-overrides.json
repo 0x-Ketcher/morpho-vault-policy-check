@@ -1,4 +1,21 @@
 {
   "note": "The one hand-maintained input to the generated Sky vault list: vaults that a scheduled spell will onboard, each citing the public spell proposal. The chain cannot know a spell before it executes. The sync reports an entry as stale once the vault holds a rate limit on-chain, after which it can be deleted; a forgotten entry changes nothing, the vault shows its real status.",
-  "pending": []
+  "pending": [
+    {
+      "chainId": 8453,
+      "address": "0xbeef0786756810478b88982DE00F3CD7fdB8e7c7",
+      "prime": "Grove",
+      "reason": "September 24, 2026 Grove spell: onboard the new Grove x Steakhouse USDC vault on Base, deposit limit 20M USDC max and 20M per day on the Base ALM RateLimits, replacing the vault Grove holds on Base today (0xBeEf2d50B428675a1921bC6bBF4bfb9D8cF1461A); BA Labs confirmed on September 14 that the vault is compliant with the Morpho Vaults v2 Eligibility Criteria.",
+      "source": "https://forum.skyeco.com/t/28229",
+      "date": "2026-09-18"
+    },
+    {
+      "chainId": 1,
+      "address": "0x802148D518A6De2aF866f9A61ffB5e5C39156dB2",
+      "prime": "Osero",
+      "reason": "Osero x Gauntlet USDC Prime, a Morpho Vault V2 deployed September 14, 2026 and owned by Osero governance (owner() reads the Osero SubProxy on-chain); no spell proposal names it yet, so it is entered ahead of one to appear in the picker.",
+      "source": "https://etherscan.io/address/0x802148D518A6De2aF866f9A61ffB5e5C39156dB2#readContract",
+      "date": "2026-09-18"
+    }
+  ]
 }
