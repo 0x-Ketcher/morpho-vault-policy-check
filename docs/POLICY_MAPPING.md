@@ -17,7 +17,7 @@ For BA Labs. Maps each line of the "Morpho Vaults v2 Eligibility Criteria" docum
 | Timelock minimums per function, vault and adapter | C7 | Selectors derived from the Vault V2 and adapter function signatures; "7d/Abdicated" accepted as abdicated for the receive shares, send shares and receive assets gates and the adapter registry. Abdication counts only on the rows marked '/Abdicated' and fails every other row regardless of the timelock value (adopted 2026-09-16 after BA Labs asked for abdicated send-assets gates to be flagged). The send assets gate is listed as "7d" only and is read literally: abdication does not satisfy it. Below minimum is FAIL. | Open question 3: severity of a timelock below minimum (FAIL assumed). If BA intends abdication to be acceptable for the send assets gate too, one config value changes. Since 2026-09-10 (allocator) and 2026-09-14 (force-deallocate penalty) the criteria allow no delay on those two functions; the tool grades a remaining delay FAIL (Sky GovOps decision of 2026-09-15); BA Labs' 'no action required now' is recorded in the policy notes but does not soften the grade. |
 | Oracle criteria, interim single-source Chainlink | C10 | Reported only. | Pending BA |
 | Fees TBD | C11 | Reported only. | Pending BA |
-| Deadline and 100% CRR on non-compliant allocations | C12 | Exposure and Liquidity Layer onboarding shown as context so a reader sees what a verdict means in money; not graded. | n/a |
+| Deadline and 100% CRR on non-compliant allocations | C12 | Exposure and Allocation System onboarding shown as context so a reader sees what a verdict means in money; not graded. | n/a |
 
 ## What public sources can and cannot prove
 

@@ -91,7 +91,7 @@ export const c11Fees: CheckDef = {
 };
 
 export const c12Exposure: CheckDef = {
-  id: "C12", title: "Sky exposure and Liquidity Layer onboarding",
+  id: "C12", title: "Sky exposure and Allocation System onboarding",
   evaluate: (ctx) => {
     const dec = ctx.b.asset.decimals, sym = ctx.b.asset.symbol;
     const positions = pick(ctx, "Prime ALM proxy positions (asset units)", (s) => s.exposure.map((e) => ({ prime: e.prime, proxy: e.almProxy.toLowerCase(), assets: e.assets })).sort((x, y) => x.proxy.localeCompare(y.proxy)), (v) => v.map((e) => `${e.prime} ${short(e.proxy)}: ${fmtUnits(e.assets, dec, sym)}`).join("; ") || "none", {
@@ -108,15 +108,15 @@ export const c12Exposure: CheckDef = {
       if (e.rateLimits) {
         const d = e.rateLimits.deposit;
         const perDay = d && dec !== undefined ? fmtUnits((BigInt(d.slope) * 86400n).toString(), dec, sym) : "n/a";
-        line += e.rateLimits.onboarded ? `; Liquidity Layer: onboarded (deposit limit max ${fmtUnits(d?.maxAmount, dec, sym)}, ${perDay}/day; ${e.rateLimits.label} ${short(e.rateLimits.contract)}) [on-chain only]` : `; Liquidity Layer: not onboarded (no deposit rate-limit key on ${e.rateLimits.label} ${short(e.rateLimits.contract)}) [on-chain only]`;
-      } else line += "; Liquidity Layer: rate limits not read by this method";
+        line += e.rateLimits.onboarded ? `; Allocation System: onboarded (deposit limit max ${fmtUnits(d?.maxAmount, dec, sym)}, ${perDay}/day; ${e.rateLimits.label} ${short(e.rateLimits.contract)}) [on-chain only]` : `; Allocation System: not onboarded (no deposit rate-limit key on ${e.rateLimits.label} ${short(e.rateLimits.contract)}) [on-chain only]`;
+      } else line += "; Allocation System: rate limits not read by this method";
       details.push(line);
     }
     const onboarded = src.exposure.some((e) => e.rateLimits?.onboarded);
-    const ll = onboarded ? "Onboarded on the Liquidity Layer." : "Not onboarded on the Liquidity Layer.";
+    const ll = onboarded ? "Onboarded on the Allocation System." : "Not onboarded on the Allocation System.";
     const summary = src.exposure.length === 0 ? "No Prime ALM proxy labeled for this chain; exposure not computed."
       : total >= 1 ? `Sky exposure ${fmtUsd(total)} across ${src.exposure.filter((e) => e.assets !== "0").length} Prime position${src.exposure.filter((e) => e.assets !== "0").length > 1 ? "s" : ""}. ${ll}`
       : total > 0 ? `No meaningful Sky position (dust, ${fmtUsd(total)}). ${ll}` : `No Sky position. ${ll}`;
-    return result("C12", "Sky exposure and Liquidity Layer onboarding", `${ctx.policy.exposure.source} Position = ALM proxy shares converted to assets; onboarding = LIMIT_4626_DEPOSIT rate-limit key for this vault on the Prime's RateLimits contract.`, ctx.policy.exposure.status, summary, [positions], details, citations);
+    return result("C12", "Sky exposure and Allocation System onboarding", `${ctx.policy.exposure.source} Position = ALM proxy shares converted to assets; onboarding = LIMIT_4626_DEPOSIT rate-limit key for this vault on the Prime's RateLimits contract.`, ctx.policy.exposure.status, summary, [positions], details, citations);
   },
 };

@@ -723,7 +723,7 @@
    "notes": [
     "The Morpho API only indexes vaults deployed by the official factories, so being listed here counts as the API-side factory confirmation.",
     "Adapter-level timelocks have no Morpho API field; they are on-chain only.",
-    "Rate limits (Liquidity Layer onboarding) have no Morpho API equivalent; that value is on-chain only."
+    "Rate limits (Allocation System onboarding) have no Morpho API equivalent; that value is on-chain only."
    ]
   },
   "name": "Sentora x Spark RLUSD",

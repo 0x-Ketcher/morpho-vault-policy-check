@@ -34,7 +34,7 @@ function policyDoc(): string {
   L.push(`| C9 | Allocators | ${esc(policy.roles.allocator)} | INFO | ${esc(policy.roles.source)} |`);
   L.push(`| C10 | Oracles | ${esc(policy.oracle.source)} | ${policy.oracle.status} | policy section 'Collateral pricing / oracle' |`);
   L.push(`| C11 | Fees | ${esc(policy.fees.source)} | ${policy.fees.status} | policy section 'Fees' |`);
-  L.push(`| C12 | Sky exposure and Liquidity Layer onboarding | ${esc(policy.exposure.source)} | ${policy.exposure.status} | context |`);
+  L.push(`| C12 | Sky exposure and Allocation System onboarding | ${esc(policy.exposure.source)} | ${policy.exposure.status} | context |`);
   L.push("", "## Accepted loan assets", "", "| Chain | Symbol | Address | Verified via |", "|---|---|---|---|");
   for (const [cid, list] of Object.entries(policy.loanAssets.accepted)) for (const a of list) L.push(`| ${chainName(Number(cid))} | ${a.symbol} | ${a.address} | ${esc(a.verified)} |`);
   L.push("", "## Accepted collateral", "", "| Chain | Symbol | Policy name | Max LLTV | Address | Verified via |", "|---|---|---|---|---|---|");

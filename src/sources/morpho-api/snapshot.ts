@@ -24,7 +24,7 @@ export async function buildApiSnapshot(api: MorphoApi, safeBase: string | undefi
     const pos = await api.position(p.address as Address, vault, chainId, version);
     snap.exposure.push({ prime: p.prime, almProxy: p.address as Address, almProxyLabel: p.constant, shares: pos?.shares ?? "0", assets: pos?.assets ?? "0", assetsUsd: pos?.assetsUsd ?? 0 });
   }
-  notes.push("Rate limits (Liquidity Layer onboarding) have no Morpho API equivalent; that value is on-chain only.");
+  notes.push("Rate limits (Allocation System onboarding) have no Morpho API equivalent; that value is on-chain only.");
 
   // Safe structure via the Safe Transaction Service, one level of nesting
   const roleAddrs = [...new Set([snap.owner, snap.curator, snap.guardian ?? ZERO, ...snap.sentinels, ...snap.allocators].filter((a) => a && a !== ZERO))] as Address[];

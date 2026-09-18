@@ -28,7 +28,7 @@ Deadline: Deadline to resolve non-compliant vaults: 2026-10-12. After the deadli
 | C9 | Allocators | Allocator = Prime agent (ALM proxy) / external curator EOA / multisig. Informational. | INFO | Policy section 'Morpho Vault v2 Setup - Proposal #11: Prime governance Owner with govops & external party as Curator'. |
 | C10 | Oracles | Policy section 'Collateral pricing / oracle': >= 3 sources (median of 3, average of 2, credible fallback if 1). INTERIM: single-source Chainlink acceptable for major collateral. | INFO | policy section 'Collateral pricing / oracle' |
 | C11 | Fees | Policy section 'Fees: TBD'. | INFO | policy section 'Fees' |
-| C12 | Sky exposure and Liquidity Layer onboarding | Context, not a policy criterion. After the deadline (about end of September 2026) all non-compliant Morpho allocations receive 100% CRR. | INFO | context |
+| C12 | Sky exposure and Allocation System onboarding | Context, not a policy criterion. After the deadline (about end of September 2026) all non-compliant Morpho allocations receive 100% CRR. | INFO | context |
 
 ## Accepted loan assets
 

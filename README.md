@@ -1,17 +1,36 @@
 # Morpho Vault Checker
 
-Checks a Morpho vault against the BA Labs "Morpho Vaults v2 Eligibility Criteria", the rules Sky's Core Council set for vaults that Sky's Prime agents may put money into. Give it a vault address; it returns one card per criterion with PASS, WARN or FAIL, the values it found, and where each fact came from.
+Live page: https://morpho-vault-policy-check-production.up.railway.app
+
+A proof of concept that checks a Morpho vault against the BA Labs "Morpho Vaults v2 Eligibility Criteria", the rules Sky's Core Council set for vaults that Sky's Prime agents may put money into. Give it a vault address; it returns one card per criterion with PASS, WARN or FAIL, the values it found, and where each fact came from.
 
 Two principles shape everything below. **Every fact is read twice, by two independent methods**, and the two are shown side by side; a disagreement is displayed, never resolved by the tool. **Every claim about who controls an address comes from a public source**, cited to the file and line, never from memory or private notes.
 
-Live page: https://morpho-vault-policy-check-production.up.railway.app. Built as a proof of concept for the AI team, as the template for criteria that are binary.
+## Glossary
 
-A few words used throughout, for readers new to this world:
-
-- A **vault** is a Morpho contract that takes deposits of one **loan asset** (a stablecoin such as USDC) and lends them into Morpho **markets**, each backed by one **collateral** asset at a maximum loan-to-value ratio (**LLTV**) with an interest rate model (**IRM**) and a price **oracle**. A Vault V2 reaches markets through **adapters**; the older MetaMorpho v1.1 reaches them directly.
-- A vault has roles: the **owner** (ultimate control), the **curator** (sets risk parameters, under delays), **allocators** (move funds between markets), and **sentinels**, called the **guardian** on v1.1 (can veto or revoke pending changes). A **timelock** is the delay between announcing a protected change and executing it. A curator can **abdicate** a function, disabling it forever.
-- A **Safe** is a multi-signature wallet: "2/3" means two of three signers must approve. Most roles are held by Safes.
-- Sky's **Primes** (Spark, Grove, Osero, Keel, Skybase) are the agents that allocate Sky's capital. The **OEA** is the Operational Executor Agent, Soter Labs, Sky's operations arm. The **Liquidity Layer** is the Prime machinery that moves funds; a Prime can allocate to a vault only if its **rate-limit contract** holds a deposit limit for it. A **spell** is an on-chain governance action that changes such settings. The **Atlas** is Sky's constitution, a public GitHub repository; the **address registries** are the Primes' public lists of their own contracts.
+| Term | Meaning |
+|---|---|
+| Vault | A Morpho contract that takes deposits of one asset and lends them into markets. Vault V2 is the current design; MetaMorpho v1.1 is the older one. |
+| Loan asset | The asset a vault accepts and lends, such as USDC. |
+| Market | A Morpho lending pool: one loan asset against one collateral asset. |
+| Collateral, LLTV | The asset borrowers pledge, and the maximum loan-to-value ratio the market allows. |
+| IRM | Interest rate model, the formula that sets a market's rate. |
+| Oracle | The price feed a market uses to value its collateral. |
+| Adapter | The contract through which a Vault V2 reaches its markets. |
+| Owner | The role with ultimate control of a vault. |
+| Curator | The role that sets a vault's risk parameters, under timelocks. |
+| Allocator | The role that moves a vault's funds between markets. |
+| Sentinel | The role that can veto or revoke pending changes; called the guardian on v1.1. |
+| Timelock | The delay between announcing a protected change and executing it. |
+| Abdicate | To disable a curator function permanently. |
+| Safe | A multi-signature wallet. "2/3" means two of three signers must approve. Most roles are held by Safes. |
+| Prime | One of Sky's capital-allocating agents: Spark, Grove, Osero, Keel, Skybase. |
+| OEA | The Operational Executor Agent, Sky's operations role. It co-signs the curator and holds a sentinel seat. |
+| Allocation System | The Prime machinery that moves funds. A Prime can allocate to a vault only if its rate-limit contract holds a deposit limit for that vault. |
+| Rate limit | The on-chain cap on how much, and how fast, a Prime may deposit into a vault. |
+| Spell | An on-chain governance action that changes such settings. |
+| Atlas | Sky's constitution, a public GitHub repository. |
+| Address registry | A Prime's public list of its own contract addresses, on GitHub. |
 
 ## Sources
 
@@ -47,15 +66,15 @@ When the two methods disagree on a value a check depends on, the card is tagged 
 
 An address is attributed to an entity when a public source says so: a registry constant, an Atlas line, or a curator-registry entry. That gives it a side: Prime, external curator, OEA, or unknown. Two extensions and one limit:
 
-- **Pair statements.** When the Atlas describes a 2/2 Safe as "Soter Labs and Sentora" and one half is labelled Sentora, the other half is attributed to the OEA. The composition is public even though the inner Safe is not named.
+- **Pair statements.** When the Atlas names the two parties of a 2/2 curator Safe and one half is already labelled as the external curator, the other half is attributed to the OEA. The composition is public even though the inner Safe is not named on its own.
 - **Signer overlap.** An unlabelled Safe that shares a signer with a labelled Safe is attributed "by signer overlap". That is evidence, not attestation: it can lower a verdict, for instance when a supposedly independent sentinel shares people with the curator, but it can never raise one to PASS.
 - **Keys are never identified.** The tool compares signer keys, for instance to confirm a sentinel's signers are separate from the curator's, but never asks who the people behind them are. Attribution stops at the Safe.
 
-### The checks
+### Criteria
 
-The verdict is graded on the on-chain value. Card colour: PASS, WARN, FAIL for the seven graded checks; INFO for the five context checks, which are reported but never graded. The card is the worst of its parts.
+The verdict is graded on the on-chain value. Card colour: PASS, WARN, FAIL for the seven graded criteria; INFO for the five context items, which are reported but never graded. The card is the worst of its parts.
 
-| # | Check | Rule |
+| # | Criterion | Rule |
 |---|---|---|
 | C1 | Chain | Ethereum, Base or Robinhood: PASS. Anything else: FAIL. |
 | C2 | Loan asset | The vault's asset must be on the per-chain list, matched by address: USDC, USDT, PYUSD, RLUSD, USDG. USDS is accepted in this tool although the document does not list it, pending BA Labs confirmation. Otherwise FAIL. |
@@ -70,7 +89,7 @@ The verdict is graded on the on-chain value. Card colour: PASS, WARN, FAIL for t
 | C11 | Fees | Performance and management fees and their recipients. Report-only, the document says "TBD". |
 | C12 | Sky exposure | Each Prime's position in the vault and whether its rate-limit contract allows deposits, with the limit. Context, not a criterion. |
 
-Exact reads behind each check, for anyone reproducing them: C2 `asset()` and the token's `symbol()`; C3 Morpho Blue `idToMarketParams`, `market`, `position` and `isIrmEnabled` for every market id, V2 ids from the adapter and the API's cap-only markets confirmed through `absoluteCap`, v1.1 ids from the queues; C4 to C6 the role getters plus Safe `getOwners`, `getThreshold` and `VERSION`, sentinels and allocators confirmed with `isSentinel` and `isAllocator`; C7 `timelock(bytes4)` and `abdicated(bytes4)` per function, selectors derived from the signatures, adapter timelocks on the adapter; C8 `isVaultV2` / `isMetaMorpho` on the factory; C12 `balanceOf` and `convertToAssets` per Prime ALM proxy and `getRateLimitData` on each Prime rate-limit contract with the key `keccak256(abi.encode(keccak256("LIMIT_4626_DEPOSIT"), vault))`. The API side uses `vaultV2ByAddress` / `vaultByAddress`, the position queries per proxy, and `curators`.
+Exact reads behind each criterion, for anyone reproducing them: C2 `asset()` and the token's `symbol()`; C3 Morpho Blue `idToMarketParams`, `market`, `position` and `isIrmEnabled` for every market id, V2 ids from the adapter and the API's cap-only markets confirmed through `absoluteCap`, v1.1 ids from the queues; C4 to C6 the role getters plus Safe `getOwners`, `getThreshold` and `VERSION`, sentinels and allocators confirmed with `isSentinel` and `isAllocator`; C7 `timelock(bytes4)` and `abdicated(bytes4)` per function, selectors derived from the signatures, adapter timelocks on the adapter; C8 `isVaultV2` / `isMetaMorpho` on the factory; C12 `balanceOf` and `convertToAssets` per Prime ALM proxy and `getRateLimitData` on each Prime rate-limit contract with the key `keccak256(abi.encode(keccak256("LIMIT_4626_DEPOSIT"), vault))`. The API side uses `vaultV2ByAddress` / `vaultByAddress`, the position queries per proxy, and `curators`.
 
 ### The Sky vault list
 
