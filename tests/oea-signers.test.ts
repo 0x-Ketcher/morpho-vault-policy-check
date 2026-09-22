@@ -6,9 +6,9 @@ import type { OeaSignersFile } from "../src/sources/labels/index.ts";
 /** The hand-maintained OEA signer table must stay small, well-formed and free of anything but keys. */
 describe("config/oea-signers.json", () => {
   const t = loadJson<OeaSignersFile>("config/oea-signers.json");
-  it("names the entity and links to itself", () => {
+  it("names the entity and carries no link (a repository URL would name the account that owns it)", () => {
     expect(t.entity).toBe("Operational Executor Agent");
-    expect(t.url).toMatch(/^https:\/\/github\.com\/.+\/config\/oea-signers\.json$/);
+    expect(t.url).toBeUndefined();
   });
   it("holds checksummed, unique keys with only address, role and since", () => {
     const seen = new Set<string>();
