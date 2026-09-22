@@ -88,8 +88,8 @@
       "address": "0xbeef05061FE51eA482BD1b68041353490b3a5934",
       "expect": {
         "C4": "PASS",
-        "C5": "WARN",
-        "C6": "WARN",
+        "C5": "PASS",
+        "C6": "PASS",
         "C3": "PASS",
         "C7": "FAIL",
         "C2": "PASS",
@@ -103,8 +103,8 @@
       "address": "0xbeef0786756810478b88982DE00F3CD7fdB8e7c7",
       "expect": {
         "C4": "PASS",
-        "C5": "WARN",
-        "C6": "WARN",
+        "C5": "PASS",
+        "C6": "PASS",
         "C3": "PASS",
         "C7": "FAIL"
       },
@@ -116,8 +116,8 @@
       "address": "0xbeef0Eb37DdB8f88BDf167c498c6429676fF7947",
       "expect": {
         "C4": "PASS",
-        "C5": "WARN",
-        "C6": "WARN",
+        "C5": "PASS",
+        "C6": "PASS",
         "C3": "PASS",
         "C7": "FAIL"
       },

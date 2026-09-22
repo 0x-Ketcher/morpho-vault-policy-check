@@ -86,14 +86,15 @@ export const c06Curator: CheckDef = {
       const pair = two && E.length === 1 ? pairNamesOea(ctx, self.att, E[0].att.entity ?? "") : null;
       const other = two && E.length === 1 ? classes.find((c) => c !== E[0]) : undefined;
       if (E.length + P.length + O.length > 0) {
-        if (two && E.length === 1 && O.length === 1 && !O[0].att.via) {
-          status = "PASS";
-          summary = `2/2 Safe between external curator ${E[0].att.entity} and the OEA${oeaTag(ctx, O[0].att)}.`;
-        }
-        else if (two && E.length === 1 && other && (U.length === 1 || O.length === 1) && pair) {
+        // a public statement naming the pair is cited first; a direct label on the OEA half (Atlas, registry or the signer table) passes on its own
+        if (two && E.length === 1 && other && (U.length === 1 || O.length === 1) && pair) {
           status = "PASS"; summary = `2/2 Safe between external curator ${E[0].att.entity} and the OEA (${pair.oea}), per ${pair.source}.`;
           const i = details.findIndex((d) => d.startsWith(`  signer ${other.o}:`));
-          if (i >= 0) details[i] += `; the OEA's half per ${pair.source}, which names the pair; carries no label of its own`;
+          if (i >= 0 && U.length === 1) details[i] += `; the OEA's half per ${pair.source}, which names the pair; carries no label of its own`;
+        }
+        else if (two && E.length === 1 && O.length === 1 && !O[0].att.via) {
+          status = "PASS";
+          summary = `2/2 Safe between external curator ${E[0].att.entity} and the OEA${oeaTag(ctx, O[0].att)}.`;
         }
         else if (two && E.length === 1 && O.length === 1) { status = "WARN"; summary = `2/2 Safe between external curator ${E[0].att.entity} and ${short(O[0].o)}, attributed to the OEA (${O[0].att.entity}) only ${O[0].att.via}; no public source names the pair or the Safe.`; }
         else if (two && E.length === 1 && U.length === 1) { status = "WARN"; summary = `2/2 Safe between external curator ${E[0].att.entity} and ${short(U[0].o)} (${safeShape(safe.ownerSafes?.[U[0].o.toLowerCase()])}), a party no public source names.`; }
