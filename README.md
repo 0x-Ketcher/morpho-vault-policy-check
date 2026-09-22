@@ -44,6 +44,7 @@ All public. Nothing from internal wallet trackers or private notes.
 | Prime address registries | who owns which contract: SubProxies, executors, ALM proxies, rate-limit contracts, curator and guardian Safes, tokens | GitHub: `grove-labs/grove-address-registry`, `sparkdotfi/spark-address-registry`, `osero-io/osero-address-registry`, `skybase-foundation/skybase-address-registry`, `ElodinLTD/keel-address-registry`; one Solidity file per chain, parsed at the branch head; every entry keeps file, line, constant and commit |
 | The Atlas | role addresses and their holders for Sky's Morpho instances, governance accounts | GitHub `sky-ecosystem/next-gen-atlas`, `content/` folder; every address is recorded with its section number, line and the entity named for it on that line |
 | Morpho curator registry | which addresses belong to which external curator (Steakhouse Financial, Sentora, Sky Money, and others) | the API's `curators` query |
+| OEA signer table | signer keys this repository identifies as controlled by the OEA; a Safe made only of listed keys is the OEA's | `config/oea-signers.json` in this repository, hand-maintained by pull request, public, addresses only |
 | The criteria document | the rules themselves | BA Labs' "Morpho Vaults v2 Eligibility Criteria", encoded as data in `config/policy.json` and rendered as `docs/POLICY.md`; the mapping from each line of the document to a check, with the open questions, is `docs/POLICY_MAPPING.md` |
 | The Sky forum | spells that will onboard a vault before the chain shows it | read by a person or agent during an update; entries go into `config/vault-overrides.json` with the proposal link |
 
@@ -60,10 +61,11 @@ When the two methods disagree on a value a check depends on, the card is tagged 
 
 ### Who controls an address
 
-An address is attributed to an entity when a public source says so: a registry constant, an Atlas line, or a curator-registry entry. That gives it a side: Prime, external curator, OEA, or unknown. When two sources disagree on an address, the registry wins over the Atlas, which lags it by weeks; every citation names its source so a reader can weigh it. Two extensions and one limit:
+An address is attributed to an entity when a public source says so: a registry constant, an Atlas line, a curator-registry entry, or an entry in this repository's OEA signer table (below). That gives it a side: Prime, external curator, OEA, or unknown. When two sources disagree on an address, the registry wins over the Atlas, which lags it by weeks, and both win over the signer table; every citation names its source so a reader can weigh it. Three extensions and one limit:
 
 - **Pair statements.** When the Atlas names the two parties of a 2/2 curator Safe and one half is already labelled as the external curator, the other half is attributed to the OEA. The composition is public even though the inner Safe is not named on its own.
 - **Signer overlap.** An unlabelled Safe that shares a signer with a labelled Safe is attributed "by signer overlap". That is evidence, not attestation: it can lower a verdict, for instance when a supposedly independent sentinel shares people with the curator, but it can never raise one to PASS.
+- **The OEA signer table.** This repository publishes a table of signer keys it identifies as controlled by the OEA (`config/oea-signers.json`, rendered as `docs/OEA_SIGNERS.md`). It is not an Atlas statement and not a registry the OEA maintains: it is the people who maintain this tool saying, in public and with no names, which keys are the OEA's. A listed key, or a Safe whose every signer is a listed key, is the OEA's, and the checks treat it exactly as they treat a Safe the Atlas names: as the OEA half of a curator 2/2, or as the OEA sentinel. The source chip on the card names the table. The table is edited by pull request and is meant to be superseded by Atlas entries.
 - **Keys are never identified.** The tool compares signer keys, for instance to confirm a sentinel's signers are separate from the curator's, but never asks who the people behind them are. Attribution stops at the Safe.
 
 ### Criteria
@@ -95,7 +97,7 @@ An optional cross-check works from the other direction, because the Morpho API d
 
 ## Limits and open questions
 
-- **Structure is provable; identity partly.** Safe thresholds, signer sets, signer disjointness, timelocks, caps and LLTVs come straight from the chain. Prime and external-curator identity comes from the registries, the Atlas and the curator registry. OEA identity is attested only where the Atlas states it, as it now does for Spark's instances; where it doesn't, as for the two new Grove vaults, the OEA seats grade WARN with the reason. Publishing those Safe addresses in the Atlas turns them PASS with no change to the tool.
+- **Structure is provable; identity partly.** Safe thresholds, signer sets, signer disjointness, timelocks, caps and LLTVs come straight from the chain. Prime and external-curator identity comes from the registries, the Atlas and the curator registry. OEA identity is attested where the Atlas states it, as it does for Spark's instances, or where this repository's OEA signer table lists every signer of a Safe; where neither does, as for the Grove and Osero vaults today, the OEA seats grade WARN with the reason. Publishing those Safe addresses in the Atlas turns them PASS with no change to the tool.
 - **The Morpho API is incomplete by construction.** Several hundred factory-created vaults are not indexed, which is why the cross-check exists. One such vault held a live Spark deposit limit from March to July 2026.
 - **The IRM reference on Robinhood.** Each market's IRM is read on-chain and checked on-chain for being enabled, on every chain. Which address counts as the Adaptive Curve IRM comes from the Spark registry on Ethereum and Base; on Robinhood no registry publishes it, so the reference comes from Morpho's API. A registry entry would settle it.
 - **Open questions for BA Labs**, listed with the tool's current reading in `docs/POLICY_MAPPING.md`: whether the 2/2 curator rule applies to Prime-self-curated vaults; whether a single key on the OEA side of the 2/2 is acceptable; whether third parties may hold extra sentinel seats; the severity of a timelock below minimum; and USDS, and DAI, as loan assets.
@@ -121,8 +123,9 @@ config/policy.json          the criteria as data: chains, assets, collateral and
 config/providers.json       nodes per chain, Morpho API, Safe service, Etherscan, block margins
 config/registries.json      which GitHub repositories are label sources and how files map to chains
 config/sky-vaults.json      the generated vault list; config/vault-overrides.json holds the pending spells
+config/oea-signers.json     the hand-maintained OEA signer table (keys only, no names), rendered as docs/OEA_SIGNERS.md
 labels/                     generated label tables with provenance: registry, atlas, curators, safes
-docs/                       POLICY_MAPPING.md and UPDATE.md (written); POLICY.md, ADDRESS_BOOK.md, SAFES.md, VAULTS.md (generated)
+docs/                       POLICY_MAPPING.md and UPDATE.md (written); POLICY.md, ADDRESS_BOOK.md, SAFES.md, VAULTS.md, OEA_SIGNERS.md (generated)
 src/core/                   the pure part: the checks, report assembly, rate-limit key logic; no I/O
 src/sources/                readers: chain (viem, Multicall3, failover), Morpho API, Safe service, labels
 src/pipeline.ts, src/cli.ts find the vault, read both methods, grade, report

@@ -252,3 +252,53 @@ describe("address input", () => {
     expect(() => normalizeAddress("")).toThrow("not an EVM address");
   });
 });
+
+describe("OEA signer table (config/oea-signers.json)", () => {
+  const FIVE = "0x5555555555555555555555555555555555555555" as Address;
+  const table = new LabelBook({
+    registry: { meta: {}, entries: [] },
+    curators: { meta: {}, entries: [{ id: "steak", name: "Steakhouse Financial", verified: true, addresses: [{ chainId: 1, address: A.steak }] }] },
+    atlas: { meta: {}, entries: [] },
+    oeaSigners: { entity: "Operational Executor Agent", url: "https://example.invalid/oea-signers.json", keys: [{ address: A.eoa1, role: "co-signer key", since: "2026-09-22" }, { address: A.eoa4 }, { address: FIVE }] },
+  }, policy);
+  const withTable = (a: Partial<VaultSnapshot>): CheckContext => ({ policy, labels: table, a: snap(a), b: snap(a, "api"), chainName: "Ethereum" });
+  const evalWith = (id: string, a: Partial<VaultSnapshot>) => CHECKS.find((c) => c.id === id)!.evaluate(withTable(a));
+  it("passes a 2/2 whose OEA half is a listed key, and says which source", () => {
+    const c = evalWith("C5", {}); // default curator 2/2 = Steakhouse Safe + eoa1
+    expect(c.status).toBe("PASS");
+    expect(c.summary).toBe("2/2 Safe between external curator Steakhouse Financial and the OEA.");
+    expect(c.citations.some((x) => x.source === "oea-signers")).toBe(true);
+  });
+  it("passes a 2/2 whose OEA half is a 1/2 Safe with every signer listed, warns when only one is", () => {
+    const half = "0x7777777777777777777777777777777777777777" as Address;
+    const base = snap().safes;
+    const listed = { ...base, [A.twoOfTwo.toLowerCase()]: safe(A.twoOfTwo, 2, [A.steak, half]), [half.toLowerCase()]: safe(half, 1, [A.eoa1, A.eoa4]) };
+    expect(evalWith("C5", { safes: listed }).status).toBe("PASS");
+    const partial = { ...base, [A.twoOfTwo.toLowerCase()]: safe(A.twoOfTwo, 2, [A.steak, half]), [half.toLowerCase()]: safe(half, 1, [A.eoa1, A.eoa3]) };
+    expect(evalWith("C5", { safes: partial }).status).toBe("WARN");
+  });
+  it("passes a sentinel Safe made only of listed keys, warns when a signer is missing from the table", () => {
+    const c = evalWith("C6", {}); // default sentinel = oeaSafe 2/2 of eoa4 + 0x5555, no Atlas label in this book
+    expect(c.status).toBe("PASS");
+    expect(c.summary).toContain("OEA sentinel with separate signers in place");
+    expect(c.details.join("\n")).toContain("OEA Safe, Safe 2/2, signers disjoint from the curator's");
+    expect(c.citations.some((x) => x.source === "oea-signers")).toBe(true);
+    const stranger = "0x6666666666666666666666666666666666666666" as Address; // not listed, not a curator signer
+    const missing = { ...snap().safes, [A.oeaSafe.toLowerCase()]: safe(A.oeaSafe, 2, [A.eoa4, stranger]) };
+    expect(evalWith("C6", { safes: missing }).status).toBe("WARN");
+  });
+  it("never relabels a Safe that a registry, the Atlas or the curator registry already names", () => {
+    // Steakhouse's registered Safe stays Steakhouse's even if every signer were a listed OEA key; the table cannot turn it into a PASS
+    const steakOfListed = { ...snap().safes, [A.steak.toLowerCase()]: safe(A.steak, 2, [A.eoa1, A.eoa4]) };
+    const c = evalWith("C5", { curator: A.steak, safes: steakOfListed });
+    expect(c.status).not.toBe("PASS");
+    expect(c.details[0]).toContain("Steakhouse Financial, external curator");
+    expect(c.summary).not.toContain("per the OEA signer table");
+  });
+  it("changes nothing when the table is empty", () => {
+    const empty = new LabelBook({ registry: { meta: {}, entries: [] }, curators: { meta: {}, entries: [{ id: "steak", name: "Steakhouse Financial", verified: true, addresses: [{ chainId: 1, address: A.steak }] }] }, atlas: { meta: {}, entries: [] }, oeaSigners: { entity: "Operational Executor Agent", keys: [] } }, policy);
+    const c = CHECKS.find((c) => c.id === "C5")!.evaluate({ policy, labels: empty, a: snap(), b: snap({}, "api"), chainName: "Ethereum" });
+    expect(c.status).toBe("WARN");
+    expect(c.summary).toContain("a party no public source names");
+  });
+});

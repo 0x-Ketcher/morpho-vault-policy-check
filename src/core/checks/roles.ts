@@ -35,6 +35,8 @@ export const c05Owner: CheckDef = {
 };
 
 type Class = "external" | "prime" | "oea" | "unknown";
+/** "(Soter Labs)" when a source names the OEA entity; nothing when the attribution is the generic OEA of the signer table. */
+const oeaTag = (ctx: CheckContext, att: { entity?: string }) => (att.entity && att.entity !== ctx.labels.oeaSignerTable()?.entity ? ` (${att.entity})` : "");
 function classOf(ctx: CheckContext, addr: string): { cls: Class; att: ReturnType<typeof attributeSafe> } {
   const att = attributeSafe(ctx, addr, safeOf(ctx, addr));
   return { cls: att.side === "unknown" ? "unknown" : att.side, att };
@@ -84,7 +86,10 @@ export const c06Curator: CheckDef = {
       const pair = two && E.length === 1 ? pairNamesOea(ctx, self.att, E[0].att.entity ?? "") : null;
       const other = two && E.length === 1 ? classes.find((c) => c !== E[0]) : undefined;
       if (E.length + P.length + O.length > 0) {
-        if (two && E.length === 1 && O.length === 1 && !O[0].att.via) { status = "PASS"; summary = `2/2 Safe between external curator ${E[0].att.entity} and the OEA (${O[0].att.entity}).`; }
+        if (two && E.length === 1 && O.length === 1 && !O[0].att.via) {
+          status = "PASS";
+          summary = `2/2 Safe between external curator ${E[0].att.entity} and the OEA${oeaTag(ctx, O[0].att)}.`;
+        }
         else if (two && E.length === 1 && other && (U.length === 1 || O.length === 1) && pair) {
           status = "PASS"; summary = `2/2 Safe between external curator ${E[0].att.entity} and the OEA (${pair.oea}), per ${pair.source}.`;
           const i = details.findIndex((d) => d.startsWith(`  signer ${other.o}:`));
@@ -135,7 +140,7 @@ export const c07Sentinel: CheckDef = {
       else if (curatorOwners.has(s)) row = { addr: s, kind: "third-party-extra", status: sev.thirdPartyExtra, why: `is a signer of the curator Safe (${label}, ${shape}); a third party in a ${seat} seat, open policy question` };
       else if (att.side === "external") row = { addr: s, kind: "third-party-extra", status: sev.thirdPartyExtra, why: `is the external curator's address (${label}, ${shape}); a third party in a ${seat} seat, open policy question` };
       else if (safe?.isSafe && att.side !== "oea" && shared.length > 0) row = { addr: s, kind: "third-party-extra", status: sev.thirdPartyExtra, why: `${shape} sharing ${shared.length} signer(s) with the curator Safe (${label}); a curator-linked third party in a ${seat} seat, open policy question` };
-      else if (safe?.isSafe && att.side === "oea" && !att.via && shared.length === 0) row = { addr: s, kind: "oea", status: "PASS", why: `OEA Safe (${label}), ${shape}, signers disjoint from the curator's` };
+      else if (safe?.isSafe && att.side === "oea" && !att.via && shared.length === 0) row = { addr: s, kind: "oea", status: "PASS", why: `OEA Safe${oeaTag(ctx, att)}, ${shape}, signers disjoint from the curator's` };
       else if (safe?.isSafe && att.side === "oea" && shared.length === 0) row = { addr: s, kind: "oea-candidate", status: "WARN", why: `${shape} attributed to the OEA (${label}); signers disjoint from the curator's; a direct public label is needed for PASS` };
       else if (safe?.isSafe && att.side === "oea") row = { addr: s, kind: "oea-candidate", status: "WARN", why: `OEA Safe (${label}), ${shape}, but shares ${shared.length} signer(s) with the curator Safe; the policy requires a separate signer set` };
       else if (att.side === "prime") row = { addr: s, kind: "prime-extra", status: null, why: `Prime-owned (${label}), ${shape}; allowed as an additional ${seat}` };

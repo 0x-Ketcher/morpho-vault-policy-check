@@ -70,8 +70,9 @@ export const fmtUnits = (raw: string | undefined, decimals?: number, symbol?: st
 const ROLE_WORDS: Record<string, string> = {
   subproxy: "governance SubProxy", executor: "governance executor", almProxy: "ALM proxy", almRateLimits: "rate limits", almController: "ALM controller",
   morphoCurator: "curator multisig", morphoGuardian: "guardian multisig", morphoVault: "vault", multisig: "multisig", oeaOperator: "OEA operator", curatorRegistry: "external curator",
+  oeaSigner: "signer key", oeaSafe: "OEA-controlled Safe",
 };
-const SOURCE_WORDS: Record<string, string> = { registry: "Prime registry", atlas: "Atlas", "morpho-curators": "Morpho curator registry", "safe-owners": "signer overlap" };
+const SOURCE_WORDS: Record<string, string> = { registry: "Prime registry", atlas: "Atlas", "morpho-curators": "Morpho curator registry", "safe-owners": "signer overlap", "oea-signers": "OEA signer table" };
 
 /** Plain-words attribution for prose: entity, role in words, source name. The exact citations are rendered separately. */
 export function describe(att: Attribution): string {
@@ -101,6 +102,15 @@ export function attributeSafe(ctx: CheckContext, address: string, safe: SafeInfo
   const chainId = ctx.b.chainId;
   const direct = ctx.labels.attribute(address, chainId);
   if (direct.side !== "unknown" || !safe?.isSafe) return direct;
+  // A Safe whose every signer is a key the OEA signer table lists is the OEA's, like a Safe the Atlas names.
+  const owners = safe.owners ?? [];
+  const table = ctx.labels.oeaSignerTable();
+  if (table && owners.length > 0 && owners.every((o) => ctx.labels.oeaKey(o))) {
+    return {
+      ...direct, side: "oea", entity: table.entity, roles: [...direct.roles, "oeaSafe"],
+      citations: [...direct.citations, { source: "oea-signers", entity: table.entity, role: "Safe", ref: `OEA signer table: every signer of ${short(address)} is listed`, url: table.url }],
+    };
+  }
   const mine = leafSigners(safe);
   if (mine.size === 0) return direct;
   let best: { side: Side; label: string; shared: number; entity?: string; prime?: string } | undefined;

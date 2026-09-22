@@ -252,6 +252,7 @@ function groupCitations(cites: Citation[]): ChipGroup[] {
       text = `Atlas ${article}`; key = `atlas|${article}`;
     } else if (x.source === "morpho-curators") { text = `Morpho curators · ${x.entity ?? ""}`; key = `curators|${text}`; }
     else if (x.source === "safe-owners") { text = `signer overlap${x.entity ? ` · ${x.entity}` : ""}`; key = `safe|${text}`; }
+    else if (x.source === "oea-signers") { text = "OEA signer table"; key = "oea-signers|table"; }
     else { text = `${x.source} · ${x.entity ?? ""}`; key = `${x.source}|${text}`; }
     const g = groups.get(key);
     if (g) { g.refs.push(x.ref); g.n++; g.url ??= x.url; }

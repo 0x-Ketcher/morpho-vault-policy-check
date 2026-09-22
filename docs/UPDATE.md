@@ -10,8 +10,11 @@ change only through this runbook:
 1. The label tables: the Prime address registries, the Atlas, Morpho's curator registry, and the Safe-signer table
    used to recognise who is behind an address (`labels/*.json`).
 2. The Sky vault list in the picker, with each vault's status (`config/sky-vaults.json`).
-3. The human-readable tables generated from those files (`docs/POLICY.md`, `ADDRESS_BOOK.md`, `SAFES.md`, `VAULTS.md`).
+3. The human-readable tables generated from those files (`docs/POLICY.md`, `ADDRESS_BOOK.md`, `SAFES.md`, `VAULTS.md`,
+   `OEA_SIGNERS.md`).
 4. The pending-spell entries (`config/vault-overrides.json`), which come from the forum, step 1 below.
+5. The OEA signer table (`config/oea-signers.json`): signer keys this repository identifies as OEA-controlled. It is
+   edited by pull request, never by the update; the update only re-renders it as `docs/OEA_SIGNERS.md`.
 
 ## When to run it
 

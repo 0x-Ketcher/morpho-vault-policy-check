@@ -53,6 +53,19 @@ export interface SafeOwnersEntry {
 }
 
 
+/** Hand-maintained, public table of signer keys this repository identifies as controlled by the OEA (config/oea-signers.json). */
+export interface OeaSignerEntry {
+  address: string;
+  role?: string;
+  since?: string;
+}
+export interface OeaSignersFile {
+  note?: string;
+  entity: string;
+  url?: string;
+  keys: OeaSignerEntry[];
+}
+
 export interface LabelFile<T> {
   meta: Record<string, unknown>;
   entries: T[];
@@ -63,6 +76,7 @@ export interface LabelData {
   atlas?: LabelFile<AtlasEntry>;
   curators?: LabelFile<CuratorEntry>;
   safes?: LabelFile<SafeOwnersEntry>;
+  oeaSigners?: OeaSignersFile;
 }
 
 export interface LabelPolicy {
@@ -112,8 +126,10 @@ export class LabelBook {
   private readonly atlas = new Map<string, AtlasEntry[]>();
   private readonly curators = new Map<string, { entry: CuratorEntry; chainId: number }[]>();
   private readonly safes = new Map<string, SafeOwnersEntry[]>();
+  private readonly oeaKeys = new Map<string, OeaSignerEntry>();
 
   constructor(public readonly data: LabelData, private readonly policy: LabelPolicy) {
+    for (const k of data.oeaSigners?.keys ?? []) this.oeaKeys.set(lc(k.address), k);
     for (const e of data.registry?.entries ?? []) push(this.registry, lc(e.address), e);
     for (const e of data.atlas?.entries ?? []) push(this.atlas, lc(e.address), e);
     for (const c of data.curators?.entries ?? []) for (const a of c.addresses) push(this.curators, lc(a.address), { entry: c, chainId: a.chainId });
@@ -126,6 +142,7 @@ export class LabelBook {
       atlas: this.data.atlas?.meta ?? null,
       curators: this.data.curators?.meta ?? null,
       safes: this.data.safes?.meta ?? null,
+      oeaSigners: this.data.oeaSigners ? { entity: this.data.oeaSigners.entity, keys: this.data.oeaSigners.keys.length, url: this.data.oeaSigners.url ?? null } : null,
     };
   }
 
@@ -143,6 +160,14 @@ export class LabelBook {
   }
   allSafeOwners(): SafeOwnersEntry[] {
     return this.data.safes?.entries ?? [];
+  }
+  /** A key the OEA signer table lists, or undefined. */
+  oeaKey(address: string): OeaSignerEntry | undefined {
+    return this.oeaKeys.get(lc(address));
+  }
+  oeaSignerTable(): { entity: string; url?: string } | undefined {
+    const t = this.data.oeaSigners;
+    return t ? { entity: t.entity, url: t.url } : undefined;
   }
   byRole(role: string, chainId: number): RegistryEntry[] {
     return (this.data.registry?.entries ?? []).filter((e) => e.role === role && e.chainId === chainId);
@@ -193,6 +218,14 @@ export class LabelBook {
         const p = this.primeOf(e.entityHint);
         if (p) { prime ??= p; entity ??= e.entityHint; } else { external ??= e.entityHint; entity ??= e.entityHint; }
       }
+    }
+    // the OEA signer table applies only to a key no registry, Atlas line or curator entry attributes to someone else
+    const key = this.oeaKey(address);
+    if (key && !prime && !external) {
+      const t = this.data.oeaSigners!;
+      roles.add("oeaSigner");
+      citations.push({ source: "oea-signers", entity: t.entity, role: "signer key", ref: `OEA signer table config/oea-signers.json: ${key.role ?? "signer key"}${key.since ? `, since ${key.since}` : ""}`, url: t.url });
+      oea = true; oeaEntity ??= t.entity;
     }
     const side: Side = oea ? "oea" : prime ? "prime" : external ? "external" : "unknown";
     return { address, chainId, side, entity: oea ? oeaEntity ?? entity : entity, prime, roles: [...roles], citations };

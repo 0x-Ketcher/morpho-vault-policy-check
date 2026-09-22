@@ -7,7 +7,7 @@
   --danger-bg: #fff5f5; --danger-line: #fed7d7;
   --notice-bg: #fff7ed; --notice-line: #fed7aa; --notice-ink: #b45309;
   --ok-bg: #e6f4ec;
-  --cite-registry: #e8eef8; --cite-atlas: #ece8f8; --cite-curators: #e6f4ec; --cite-safe: #fff1e6;
+  --cite-registry: #e8eef8; --cite-atlas: #ece8f8; --cite-curators: #e6f4ec; --cite-safe: #fff1e6; --cite-oea: #e6f0f4;
   --cell-pass-bg: #e9f6ee; --cell-pass-ink: #1e6b3d; --cell-pass-line: #bfe3cc;
   --cell-warn-bg: #fff4e0; --cell-warn-ink: #8a5a00; --cell-warn-line: #f3d9a4;
   --cell-fail-bg: #fdeaea; --cell-fail-ink: #9b2c2c; --cell-fail-line: #f5c2c2;
@@ -23,7 +23,7 @@
     --danger-bg: #2c1b1b; --danger-line: #5a2f2f;
     --notice-bg: #2c2418; --notice-line: #5a4426; --notice-ink: #e9b56a;
     --ok-bg: #1b2f24;
-    --cite-registry: #232c3d; --cite-atlas: #2a2540; --cite-curators: #1b2f24; --cite-safe: #33271c;
+    --cite-registry: #232c3d; --cite-atlas: #2a2540; --cite-curators: #1b2f24; --cite-safe: #33271c; --cite-oea: #1c2b33;
     --cell-pass-bg: #1b2f24; --cell-pass-ink: #7fd39e; --cell-pass-line: #2f5a3f;
     --cell-warn-bg: #33291a; --cell-warn-ink: #e9c07a; --cell-warn-line: #5f4a24;
     --cell-fail-bg: #331d1d; --cell-fail-ink: #f09a9a; --cell-fail-line: #6a3030;
@@ -128,7 +128,7 @@ footer { margin-top: 28px; }
 .signers ul { margin: 4px 0 0; padding-left: 16px; word-break: break-all; }
 .cites { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
 .cite { font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--surface); color: var(--ink); text-decoration: none; border: 1px solid var(--line); }
-.cite.registry { background: var(--cite-registry); } .cite.atlas { background: var(--cite-atlas); } .cite.morpho-curators { background: var(--cite-curators); } .cite.safe-owners { background: var(--cite-safe); }
+.cite.registry { background: var(--cite-registry); } .cite.atlas { background: var(--cite-atlas); } .cite.morpho-curators { background: var(--cite-curators); } .cite.safe-owners { background: var(--cite-safe); } .cite.oea-signers { background: var(--cite-oea); }
 .stale { margin: 10px 0 0; padding: 8px 10px; border-radius: 8px; background: var(--notice-bg); border: 1px solid var(--notice-line); color: var(--notice-ink); font-size: 12px; }
 .log { color: var(--muted); margin: 0 0 12px; display: flex; align-items: center; gap: 10px; }
 /* the wheel: shown only while a check runs, so it is obvious the page is working */

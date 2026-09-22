@@ -3,6 +3,7 @@
  *   docs/POLICY.md        <- config/policy.json
  *   docs/ADDRESS_BOOK.md  <- labels/registry.json + labels/atlas.json + labels/curators.json
  *   docs/SAFES.md         <- labels/safes.json (owners and thresholds as read on-chain, cross-checked with the Safe service)
+ *   docs/OEA_SIGNERS.md   <- config/oea-signers.json (the hand-maintained OEA signer table) + which recorded Safes it covers
  * `--check` exits 1 if a committed file differs from what would be generated (used by CI).
  */
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
@@ -108,6 +109,25 @@ function safesDoc(): string {
   return L.join("\n");
 }
 
+function oeaSignersDoc(): string {
+  const t = labels.data.oeaSigners;
+  const L: string[] = ["# OEA signer table", "", "Generated from `config/oea-signers.json` by `npm run gen:docs`. The table itself is edited by pull request, never by the update.", ""];
+  L.push(t?.note ?? "", "", `Entity: ${t?.entity ?? "-"}. ${t?.keys.length ?? 0} key${t?.keys.length === 1 ? "" : "s"} listed.`, "");
+  L.push("| Key | Role | Since |", "|---|---|---|");
+  for (const k of t?.keys ?? []) L.push(`| ${k.address} | ${esc(k.role) || "-"} | ${k.since ?? "-"} |`);
+  if (!t?.keys.length) L.push("| - | - | - |");
+  L.push("", "## Safes this table attributes to the OEA", "", "Safes in `labels/safes.json` whose every signer is listed above.", "");
+  L.push("| Chain | Safe | Threshold |", "|---|---|---|");
+  let n = 0;
+  for (const e of labels.allSafeOwners()) {
+    if (!e.isSafe || !e.owners?.length || !e.owners.every((o) => labels.oeaKey(o))) continue;
+    n++;
+    L.push(`| ${chainName(e.chainId)} | ${e.address} | ${e.threshold}/${e.owners.length} |`);
+  }
+  if (n === 0) L.push("| - | - | - |");
+  return L.join("\n");
+}
+
 function vaultsDoc(): string {
   const sv = loadSkyVaults();
   const usd = (x: number) => (x >= 1e6 ? `$${(x / 1e6).toFixed(1)}M` : x >= 1e3 ? `$${(x / 1e3).toFixed(0)}K` : x > 0 ? `$${x.toFixed(0)}` : "-");
@@ -121,7 +141,7 @@ function vaultsDoc(): string {
   return L.join("\n");
 }
 
-const outputs: [string, string][] = [["docs/POLICY.md", policyDoc()], ["docs/ADDRESS_BOOK.md", addressBook()], ["docs/SAFES.md", safesDoc()], ["docs/VAULTS.md", vaultsDoc()]];
+const outputs: [string, string][] = [["docs/POLICY.md", policyDoc()], ["docs/ADDRESS_BOOK.md", addressBook()], ["docs/SAFES.md", safesDoc()], ["docs/VAULTS.md", vaultsDoc()], ["docs/OEA_SIGNERS.md", oeaSignersDoc()]];
 let stale = false;
 for (const [rel, content] of outputs) {
   const prev = existsSync(p(rel)) ? readFileSync(p(rel), "utf8") : "";

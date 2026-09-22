@@ -136,7 +136,7 @@ export interface VaultSnapshot {
   };
 }
 
-export type LabelSource = "registry" | "atlas" | "morpho-curators" | "safe-owners";
+export type LabelSource = "registry" | "atlas" | "morpho-curators" | "safe-owners" | "oea-signers";
 
 export interface Citation {
   source: LabelSource;
