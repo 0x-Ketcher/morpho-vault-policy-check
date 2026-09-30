@@ -1,8 +1,8 @@
 {
  "meta": {
-  "generatedAt": "2026-09-18T17:26:58.087Z",
+  "generatedAt": "2026-09-30T14:55:20.876Z",
   "source": "https://blue-api.morpho.org/graphql",
-  "count": 44
+  "count": 45
  },
  "entries": [
   {
@@ -395,6 +395,14 @@
      "address": "0x4BE1d3D4db67962286b0886D5C238b13E56ea494"
     },
     {
+     "chainId": 10,
+     "address": "0x36BA7c92Cd68051fB304Bd4580C4A51c1d376532"
+    },
+    {
+     "chainId": 10,
+     "address": "0x4BE1d3D4db67962286b0886D5C238b13E56ea494"
+    },
+    {
      "chainId": 5042,
      "address": "0x36BA7c92Cd68051fB304Bd4580C4A51c1d376532"
     },
@@ -718,6 +726,10 @@
    "addresses": [
     {
      "chainId": 1,
+     "address": "0x060DB084bF41872861f175d83f3cb1B5566dfEA3"
+    },
+    {
+     "chainId": 1,
      "address": "0xdD84A24eeddE63F10Ec3e928f1c8302A47538b6B"
     },
     {
@@ -734,6 +746,10 @@
     },
     {
      "chainId": 8453,
+     "address": "0x060DB084bF41872861f175d83f3cb1B5566dfEA3"
+    },
+    {
+     "chainId": 42161,
      "address": "0x060DB084bF41872861f175d83f3cb1B5566dfEA3"
     }
    ]
@@ -784,6 +800,10 @@
     },
     {
      "chainId": 1,
+     "address": "0x8b884f80B3B839F52b6cE168f133e7a5D1f0A537"
+    },
+    {
+     "chainId": 1,
      "address": "0xb3E0fe1ac9AcaBC64132171CD88A91312Da71C25"
     },
     {
@@ -819,8 +839,20 @@
      "address": "0x8b884f80B3B839F52b6cE168f133e7a5D1f0A537"
     },
     {
+     "chainId": 8453,
+     "address": "0x58C83Ce55164537F9C73d5B65C426691bC26Ffa0"
+    },
+    {
+     "chainId": 8453,
+     "address": "0x8b884f80B3B839F52b6cE168f133e7a5D1f0A537"
+    },
+    {
      "chainId": 42161,
      "address": "0x354C92aF243d53A24feb3dFF20372Af7b7c47478"
+    },
+    {
+     "chainId": 42161,
+     "address": "0x8b884f80B3B839F52b6cE168f133e7a5D1f0A537"
     },
     {
      "chainId": 42161,
@@ -955,6 +987,10 @@
    "addresses": [
     {
      "chainId": 1,
+     "address": "0xa58f41ddFD3E8e601349DbF5ac0213F614150f0f"
+    },
+    {
+     "chainId": 1,
      "address": "0xE86399fE6d7007FdEcb08A2ee1434Ee677a04433"
     },
     {
@@ -1044,6 +1080,14 @@
     },
     {
      "chainId": 1,
+     "address": "0x73fceD2CB2432ff354ab29E9dDc1FbDB203D8fDA"
+    },
+    {
+     "chainId": 143,
+     "address": "0x07A1eC352EF67BB5b8b75A7fF9540b27f9a53d71"
+    },
+    {
+     "chainId": 143,
      "address": "0x73fceD2CB2432ff354ab29E9dDc1FbDB203D8fDA"
     }
    ]
@@ -1475,6 +1519,21 @@
    ]
   },
   {
+   "id": "y10k-capital",
+   "name": "Y10k Capital",
+   "verified": true,
+   "addresses": [
+    {
+     "chainId": 143,
+     "address": "0x9FD682F8a12A7829b91eAB9D83eCeB7146ba303C"
+    },
+    {
+     "chainId": 143,
+     "address": "0xbBacDCFB9691DFA1066aB29edfcc4A73f6DEf918"
+    }
+   ]
+  },
+  {
    "id": "yearn",
    "name": "Yearn",
    "verified": true,
@@ -1486,6 +1545,14 @@
     {
      "chainId": 1,
      "address": "0xe5e2Baf96198c56380dDD5E992D7d1ADa0e989c0"
+    },
+    {
+     "chainId": 4663,
+     "address": "0x518C21DC88D9780c0A1Be566433c571461A70149"
+    },
+    {
+     "chainId": 4663,
+     "address": "0x90D0f26025571295D18a6c041E47450B81886B51"
     },
     {
      "chainId": 8453,

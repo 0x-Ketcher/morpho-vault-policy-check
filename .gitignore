@@ -8,3 +8,15 @@ tmp/
 *.log
 .DS_Store
 .claude/
+
+# Project deliverables live in the parent folder ("Externally Curated Vaults"), never in this repo.
+# Guard against accidental copies of handoffs, update rounds, sheet blocks and drafts.
+*_HANDOFF_*.md
+*_UPDATE_ROUND_*.md
+*_CONTEXT_*.md
+*_STATUS_*.md
+*_REVIEW_*.md
+Morpho_signing_process_DRAFT_*.md
+sheet_blocks/
+*.xlsx
+*.tsv
