@@ -34,4 +34,6 @@ Safes in `labels/safes.json` whose every signer is listed above.
 |---|---|---|
 | Ethereum | 0xB597026150552bB3F6092aC685A2241C5FA77Ed0 | 2/3 |
 | Ethereum | 0xb5bFd4883256089Dc58D962b80ab7068e71E7c80 | 2/3 |
+| Ethereum | 0xf51A112fB2cB63E3CB3eeB7feA8c7c58625868C7 | 2/3 |
+| Robinhood Chain | 0xB597026150552bB3F6092aC685A2241C5FA77Ed0 | 2/3 |
 | Base | 0xB597026150552bB3F6092aC685A2241C5FA77Ed0 | 2/3 |

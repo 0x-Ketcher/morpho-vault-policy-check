@@ -1,12 +1,12 @@
 {
  "meta": {
-  "generatedAt": "2026-09-30T14:57:19.182Z",
+  "generatedAt": "2026-10-06T02:42:13.776Z",
   "chains": [
    1,
    8453,
    4663
   ],
-  "count": 159
+  "count": 166
  },
  "entries": [
   {
@@ -24,8 +24,8 @@
     "0xcC771952fdE840E30C6802734e5ad20479c2959f"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:36.443Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:24.264Z",
    "serviceAgrees": true
   },
   {
@@ -41,8 +41,8 @@
     "0x85AF4b64A0d98fd9A0ef9b473dD50008F8624b8A"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:37.527Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:25.802Z",
    "serviceAgrees": true,
    "label": "Touchstone (curatorRegistry)"
   },
@@ -56,8 +56,8 @@
     "0xaA10A4d3fC764F8d0A7cE9E2Adf54aA4D36251c7"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:24.113Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:07.556Z",
    "serviceAgrees": true,
    "label": "K3 Capital (curatorRegistry)"
   },
@@ -74,8 +74,8 @@
     "0xE8a31Cda649EFEEF42283f0c9B42FAA5F0857724"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:10.282Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:50.051Z",
    "serviceAgrees": true,
    "label": "Spark (multisig)"
   },
@@ -97,8 +97,8 @@
     "0x86Bd534A95Fb2Cc36D526ba149464c4477315C32"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:34.109Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:20.764Z",
    "serviceAgrees": true,
    "label": "Steakhouse Financial (curatorRegistry)"
   },
@@ -115,8 +115,8 @@
     "0x7De4BB4Fc0E55b7beeAe238Dbe665f8475451F63"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:07.069Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:46.456Z",
    "serviceAgrees": true,
    "label": "Soter Labs (morphoCurator, curatorRegistry, atlas:curator)"
   },
@@ -133,8 +133,8 @@
     "0x2507F9d6fc3d40bB4C58Aff91E016CD624d34549"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:38.325Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:26.887Z",
    "serviceAgrees": true,
    "label": "UltraYield (curatorRegistry)"
   },
@@ -152,8 +152,8 @@
     "0x5bfd2c8Ca7F2DC96542E5760D922eD3C9c0Ce7Fa"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:41.476Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:30.996Z",
    "serviceAgrees": true
   },
   {
@@ -166,8 +166,8 @@
     "0x88B3e82A55c5215d0499Da4bBd63fc3e43F26232"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:45.069Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:36.494Z",
    "serviceAgrees": true
   },
   {
@@ -182,8 +182,8 @@
     "0xEA57703D4CF9554353bF889A161754a1D806C5A7"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:21.470Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:04.051Z",
    "serviceAgrees": true,
    "label": "Flowmark (curatorRegistry)"
   },
@@ -201,8 +201,8 @@
     "0xA2bA845c0b954CD1Ea7976fA53465a57D6505ad7"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:42.728Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:33.682Z",
    "serviceAgrees": true
   },
   {
@@ -220,8 +220,8 @@
     "0x0046D43b16a085ceCf3fde33F5a77C19D8f6af90"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:12.958Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:53.551Z",
    "serviceAgrees": true,
    "label": "9Summits (curatorRegistry)"
   },
@@ -236,8 +236,8 @@
     "0x7579d64361312A2794D3E5E7e6966aeA5Fd7B01C"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:23.021Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:06.052Z",
    "serviceAgrees": true,
    "label": "Hakutora (curatorRegistry)"
   },
@@ -254,8 +254,8 @@
     "0x8c1BBc91af8860630A51b3C38C157756C3B57296"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:15.221Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:56.049Z",
    "serviceAgrees": true,
    "label": "Api3 (curatorRegistry)"
   },
@@ -271,10 +271,24 @@
     "0x387Cde8598E1CBb297FDc5bAEbA5E5c5c2735344"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:34.421Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:21.270Z",
    "serviceAgrees": true,
    "label": "Steakhouse Financial (curatorRegistry)"
+  },
+  {
+   "address": "0x256DaC8fad2788F4182A42cE8F26029F0DEd7cf9",
+   "chainId": 1,
+   "isSafe": true,
+   "threshold": 2,
+   "owners": [
+    "0x9E33faAE38ff641094fa68c65c2cE600b3410585",
+    "0x037A8456FB92dB66590C0060eE4174cC6812f518"
+   ],
+   "version": "1.4.1",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:38.492Z",
+   "serviceAgrees": true
   },
   {
    "address": "0x259c444b50e3Ab173c4f850BB40d85A9EA0230F3",
@@ -289,8 +303,8 @@
     "0xE92A0fF06F1fb5DB55D65e0697E9E1BB1B13Ad39"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:36.750Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:24.965Z",
    "serviceAgrees": true,
    "label": "Swissborg (curatorRegistry)"
   },
@@ -307,8 +321,8 @@
     "0x8A714DA4cd3ad43442a092227dB52860329E0742"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:06.294Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:45.470Z",
    "serviceAgrees": true,
    "label": "Spark (multisig, atlas:guardian, atlas:proxy, atlas:executor)"
   },
@@ -328,8 +342,8 @@
     "0x7c615e12D1163fc0DdDAA01B51922587034F5C93"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:13.466Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:54.072Z",
    "serviceAgrees": true,
    "label": "9Summits (curatorRegistry)"
   },
@@ -344,8 +358,8 @@
     "0xFaa5BE08244F265eF596c0df4f303a7CadB35835"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:23.329Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:06.558Z",
    "serviceAgrees": true,
    "label": "Hakutora (curatorRegistry)"
   },
@@ -365,8 +379,8 @@
     "0xC4105307f2F09cF5d08e0a565783FfDF365b7343"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:24.873Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:08.657Z",
    "serviceAgrees": true,
    "label": "KPK (curatorRegistry)"
   },
@@ -383,8 +397,8 @@
     "0xb060a431573716949607760159Be84C263e98801"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:19.139Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:01.183Z",
    "serviceAgrees": true,
    "label": "Dialectic Meccanico (curatorRegistry)"
   },
@@ -400,8 +414,8 @@
     "0x52bE6aF7903AA4D6a28f9Ee9987714Fb5b4Ea079"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:43.030Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:33.986Z",
    "serviceAgrees": true
   },
   {
@@ -417,8 +431,8 @@
     "0x382547A89309e686C69D1a578d649e508b4E1e33"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:29.674Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:15.333Z",
    "serviceAgrees": true,
    "label": "MEV Capital (curatorRegistry)"
   },
@@ -433,8 +447,8 @@
     "0xBfe42B182B8248fda3062761e54e2372Ff374d4B"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:11.880Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:52.056Z",
    "serviceAgrees": true,
    "label": "OEA (Soter operator per registry) (oeaOperator, atlas:relayer)"
   },
@@ -449,8 +463,8 @@
     "0xD731e32f50ebb32dF54cB95326B93ef7475F1d92"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:32.828Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:19.326Z",
    "serviceAgrees": true,
    "label": "Sky Money (curatorRegistry, atlas:multisig)"
   },
@@ -465,8 +479,8 @@
     "0x01fe098A1B9783a8544233738B4F03BCD572f19A"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:42.249Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:32.026Z",
    "serviceAgrees": true
   },
   {
@@ -479,8 +493,8 @@
     "0x6eB7dA612a84DE44743Aca22EB0059ca71adC753"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:34.885Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:21.785Z",
    "serviceAgrees": true,
    "label": "Steakhouse Financial (curatorRegistry)"
   },
@@ -497,8 +511,8 @@
     "0x52A8305f29f85bEc5fa6eE78B87Ddd2218d8E12E"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:11.374Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:51.577Z",
    "serviceAgrees": true,
    "label": "Spark (multisig, atlas:multisig)"
   },
@@ -515,8 +529,8 @@
     "0x51464d67Ead940040023e28B5AFDaa1764DE329D"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:16.780Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:58.048Z",
    "serviceAgrees": true,
    "label": "Armitage by Wintermute (curatorRegistry)"
   },
@@ -533,8 +547,8 @@
     "0xaCa96Cc5e4C3Db40E069FbE5C7ebeac70DeFee5E"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:09.816Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:49.548Z",
    "serviceAgrees": true,
    "label": "Spark (multisig)"
   },
@@ -551,10 +565,10 @@
     "0x8A714DA4cd3ad43442a092227dB52860329E0742"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:08.150Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:44.457Z",
    "serviceAgrees": true,
-   "label": "Spark (multisig)"
+   "label": "Spark (multisig, atlas:multisig)"
   },
   {
    "address": "0x4BE1d3D4db67962286b0886D5C238b13E56ea494",
@@ -569,8 +583,8 @@
     "0xfE804AfD31d173665dB7A6eca16c763f2763F1c8"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:19.445Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:01.613Z",
    "serviceAgrees": true,
    "label": "Dialectic Meccanico (curatorRegistry)"
   },
@@ -585,8 +599,8 @@
     "0xEA228caF98b22De75f4C34a2D762dfFFe958d98B"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:18.361Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:00.052Z",
    "serviceAgrees": true,
    "label": "Clearstar (curatorRegistry)"
   },
@@ -601,8 +615,8 @@
     "0xdE2c363aa0740a4C0fCbE5114E54Ff46c1C76186"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:12.646Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:53.044Z",
    "serviceAgrees": true,
    "label": "Skybase (multisig, atlas:multisig)"
   },
@@ -617,8 +631,8 @@
     "0x20E2dAF049524070821f902ECc6e172ba711fd22"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:41.169Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:30.677Z",
    "serviceAgrees": true
   },
   {
@@ -631,9 +645,10 @@
     "0xbCc126c3b6E2EbF0C895bb38c96D8afbEC126Ab3"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:46.144Z",
-   "serviceAgrees": true
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:22.261Z",
+   "serviceAgrees": true,
+   "label": "Steakhouse Financial (curatorRegistry, atlas:curator)"
   },
   {
    "address": "0x66d702C8f95A2E5A2A018e1Cb0edc4aea4E58A27",
@@ -647,8 +662,8 @@
     "0x4c4b670F410Fb65f65b2a10F720913468fe2818D"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:20.686Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:03.173Z",
    "serviceAgrees": true,
    "label": "Feather (curatorRegistry)"
   },
@@ -667,8 +682,8 @@
     "0x981BdCFB1c98654BEF839C78E19E81C0D183A9e5"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:10.585Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:50.553Z",
    "serviceAgrees": true,
    "label": "Spark (multisig)"
   },
@@ -685,8 +700,8 @@
     "0x17f35c2A89dE7E4df8bb32eB5D5666045266e991"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:39.117Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:27.803Z",
    "serviceAgrees": true,
    "label": "Unified Labs (curatorRegistry)"
   },
@@ -703,8 +718,8 @@
     "0xf01D0A6F78180C4c9583a848192DD2F250ef4b8f"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:07.848Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:47.747Z",
    "serviceAgrees": true,
    "label": "Spark (multisig)"
   },
@@ -723,8 +738,8 @@
     "0x52A8305f29f85bEc5fa6eE78B87Ddd2218d8E12E"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:06.600Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:46.042Z",
    "serviceAgrees": true,
    "label": "Spark (multisig)"
   },
@@ -741,8 +756,8 @@
     "0x7F99CF4919CcDf311C12EE22540e2C05B6aB5fA1"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:25.340Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:09.051Z",
    "serviceAgrees": true,
    "label": "KPK (curatorRegistry)"
   },
@@ -759,8 +774,8 @@
     "0x8b884f80B3B839F52b6cE168f133e7a5D1f0A537"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:25.641Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:09.598Z",
    "serviceAgrees": true,
    "label": "KPK (curatorRegistry)"
   },
@@ -775,8 +790,8 @@
     "0x52A8305f29f85bEc5fa6eE78B87Ddd2218d8E12E"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:08.723Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:48.049Z",
    "serviceAgrees": true,
    "label": "Spark (multisig)"
   },
@@ -794,8 +809,8 @@
     "0x904e6DE8075547D4b3F7a823BeD94C19A25B37E8"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:21.004Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:03.553Z",
    "serviceAgrees": true,
    "label": "Feather (curatorRegistry)"
   },
@@ -813,8 +828,8 @@
     "0xaC412b86bF26B10D31F531eF1cb80Ef2276f86f2"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:17.585Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:59.048Z",
    "serviceAgrees": true,
    "label": "Avantgarde (curatorRegistry)"
   },
@@ -833,8 +848,8 @@
     "0xE3fCEE6B6cd564E073346f71394f60eC9aDf5120"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:35.184Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:22.766Z",
    "serviceAgrees": true,
    "label": "Steakhouse Financial (curatorRegistry)"
   },
@@ -851,8 +866,8 @@
     "0x7F99CF4919CcDf311C12EE22540e2C05B6aB5fA1"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:26.108Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:10.057Z",
    "serviceAgrees": true,
    "label": "KPK (curatorRegistry)"
   },
@@ -870,8 +885,8 @@
     "0x6A108334E4b334467FCe499783505F145b2F700C"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:43.818Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:34.982Z",
    "serviceAgrees": true
   },
   {
@@ -884,10 +899,10 @@
     "0x52A8305f29f85bEc5fa6eE78B87Ddd2218d8E12E"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:05.474Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:43.953Z",
    "serviceAgrees": true,
-   "label": "Spark (multisig, atlas:freezer, atlas:relayer)"
+   "label": "Spark (multisig, atlas:freezer, atlas:relayer, atlas:allocator)"
   },
   {
    "address": "0x8b884f80B3B839F52b6cE168f133e7a5D1f0A537",
@@ -905,8 +920,8 @@
     "0xC4105307f2F09cF5d08e0a565783FfDF365b7343"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:26.415Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:10.624Z",
    "serviceAgrees": true,
    "label": "KPK (curatorRegistry)"
   },
@@ -923,8 +938,8 @@
     "0x51a9f9c3485CF88674ef825825076268b7B7ffBc"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:04.482Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:42.955Z",
    "serviceAgrees": true,
    "label": "Spark (multisig, atlas:relayer)"
   },
@@ -939,8 +954,8 @@
     "0x4504393bAafAc7a23270E9a59253422E243d5543"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:39.932Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:28.808Z",
    "serviceAgrees": true,
    "label": "Yearn (curatorRegistry)"
   },
@@ -956,8 +971,8 @@
     "0xACD204885E9eA069C1CD3e4b12a75cE478De6f1D"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:04.984Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:43.453Z",
    "serviceAgrees": true,
    "label": "Spark (multisig, atlas:relayer, atlas:freezer)"
   },
@@ -973,8 +988,8 @@
     "0x080001dBE12fA46A1d7C03fa0Cbf1839E367F155"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:45.838Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:37.987Z",
    "serviceAgrees": true,
    "label": "Anemoy (atlas:owner)"
   },
@@ -989,8 +1004,8 @@
     "0x5aCFA0401d1670d01BCd5Cf4Fe307EE2B4785bDA"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:41.950Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:31.488Z",
    "serviceAgrees": true
   },
   {
@@ -1006,8 +1021,8 @@
     "0x1172a59c7C96dE47aC7b58d31328b9417362Ad80"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:09.507Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:49.049Z",
    "serviceAgrees": true,
    "label": "Spark (multisig)"
   },
@@ -1022,8 +1037,8 @@
     "0x9C3022D522Bc9473e09E7111AfB613a05b363890"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:30.152Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:15.751Z",
    "serviceAgrees": true,
    "label": "Pangolins (curatorRegistry)"
   },
@@ -1041,8 +1056,8 @@
     "0x0022b30a000f03820d7cf2E2D89cf32A08484384"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:13.874Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:54.549Z",
    "serviceAgrees": true,
    "label": "9Summits (curatorRegistry)"
   },
@@ -1060,8 +1075,8 @@
     "0x1D8e0b8F4CEd9262C9ac0c0870BF8B45D74ad9D9"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:22.243Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:05.044Z",
    "serviceAgrees": true,
    "label": "Gauntlet (curatorRegistry)"
   },
@@ -1074,8 +1089,8 @@
     "0x992592e073AA9b98daeD79eE05C4Af832e1D0ABE"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:31.718Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:17.760Z",
    "serviceAgrees": true,
    "label": "Sentora (curatorRegistry, atlas:allocator, atlas:sentinel)"
   },
@@ -1092,8 +1107,8 @@
     "0xaC412b86bF26B10D31F531eF1cb80Ef2276f86f2"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:17.894Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:59.558Z",
    "serviceAgrees": true,
    "label": "Avantgarde (curatorRegistry)"
   },
@@ -1112,8 +1127,8 @@
     "0x69E2281BeBC9B5e070F6885167937B510Fc09BcB"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:37.224Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:25.498Z",
    "serviceAgrees": true,
    "label": "Swissborg (curatorRegistry)"
   },
@@ -1131,8 +1146,8 @@
     "0x7D9a3328EdB7B05c097AdbFe6Ac65612A141CBD9"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:38.014Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:26.302Z",
    "serviceAgrees": true,
    "label": "Touchstone (curatorRegistry)"
   },
@@ -1149,8 +1164,8 @@
     "0x07c2D0E24530199e2c9A15bfeD4496d8E3798003"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:33.290Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:19.766Z",
    "serviceAgrees": true,
    "label": "Stake DAO (curatorRegistry)"
   },
@@ -1168,8 +1183,8 @@
     "0x22965d7c0877BaC81Ca48A7eF80cDcbda0e8171A"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:18.660Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:00.555Z",
    "serviceAgrees": true,
    "label": "Clearstar (curatorRegistry)"
   },
@@ -1186,8 +1201,8 @@
     "0x331D9C769185AE25233314859d53c2b9203a1204"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:26.904Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:11.940Z",
    "serviceAgrees": true,
    "label": "KPK (curatorRegistry)"
   },
@@ -1202,8 +1217,8 @@
     "0x691096ef8D3A5C2D625f1C71133374739A5d76E1"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:46.653Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:37.552Z",
    "serviceAgrees": true
   },
   {
@@ -1217,8 +1232,8 @@
     "0x5FdAE753a5C293F7897Ca1a537203dF452467ebc"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:45.367Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:36.989Z",
    "serviceAgrees": true,
    "label": "Soter Labs (atlas:sentinel)"
   },
@@ -1237,8 +1252,8 @@
     "0x7c615e12D1163fc0DdDAA01B51922587034F5C93"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:14.391Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:55.055Z",
    "serviceAgrees": true,
    "label": "9Summits (curatorRegistry)"
   },
@@ -1256,8 +1271,8 @@
     "0xd512CF03ACf13125eD49CB90e30cc9BeAa9Af2Ea"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:17.104Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:58.557Z",
    "serviceAgrees": true,
    "label": "Armitage by Wintermute (curatorRegistry)"
   },
@@ -1272,8 +1287,8 @@
     "0x3452baF47787A3faD21032dF4E04669740E69D4d"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:44.592Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:35.988Z",
    "serviceAgrees": true
   },
   {
@@ -1289,12 +1304,11 @@
     "0xd680500657B9c844900F092191C6737d1bc4ebFA",
     "0x3546521BA516DCF55c64B64534F2C92F3b944530",
     "0x734CC4964b434fB75e2142B927Eb1842a0AfdDf3",
-    "0x991e61a1c2Cb2062c3E7de9F3aa2e197f0519cc7",
     "0xb4389ED07968F740bC3672385cBD299816f17071"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:31.254Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:17.268Z",
    "serviceAgrees": true,
    "label": "RockawayX (curatorRegistry)"
   },
@@ -1311,8 +1325,8 @@
     "0xBF0e96198628382A4644A985eA63AE19d53264D9"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:15.534Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:56.553Z",
    "serviceAgrees": true,
    "label": "Api3 (curatorRegistry)"
   },
@@ -1329,8 +1343,8 @@
     "0x0D61C8b6CA9669A36F351De3AE335e9689dd9C5b"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:35.669Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:23.264Z",
    "serviceAgrees": true,
    "label": "Steakhouse Financial (curatorRegistry)"
   },
@@ -1347,8 +1361,8 @@
     "0x8b884f80B3B839F52b6cE168f133e7a5D1f0A537"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:27.206Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:12.259Z",
    "serviceAgrees": true,
    "label": "KPK (curatorRegistry)"
   },
@@ -1367,8 +1381,8 @@
     "0xfc615395336aADe67fd853a0157001a215Ea1279"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:19.918Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:02.053Z",
    "serviceAgrees": true,
    "label": "Waterline (curatorRegistry)"
   },
@@ -1387,8 +1401,8 @@
     "0xd0644E17C6Ad2B34932cB6D8Dc6026000DA5FF2e"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:22.548Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:05.550Z",
    "serviceAgrees": true,
    "label": "Gauntlet (curatorRegistry)"
   },
@@ -1406,8 +1420,8 @@
     "0x0022b30a000f03820d7cf2E2D89cf32A08484384"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:14.759Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:55.544Z",
    "serviceAgrees": true,
    "label": "9Summits (curatorRegistry)"
   },
@@ -1422,8 +1436,8 @@
     "0x0F01e9688B181B424FDFA0c18301c9AEdc6Ea454"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:16.004Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:57.047Z",
    "serviceAgrees": true,
    "label": "Apostro (curatorRegistry)"
   },
@@ -1441,8 +1455,8 @@
     "0xf1E7F0861916e033D89648106ad1E0E3634532B8"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:40.712Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:29.802Z",
    "serviceAgrees": true
   },
   {
@@ -1458,8 +1472,8 @@
     "0x2507F9d6fc3d40bB4C58Aff91E016CD624d34549"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:38.811Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:27.302Z",
    "serviceAgrees": true,
    "label": "UltraYield (curatorRegistry)"
   },
@@ -1476,8 +1490,8 @@
     "0x331D9C769185AE25233314859d53c2b9203a1204"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:27.670Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:12.773Z",
    "serviceAgrees": true,
    "label": "KPK (curatorRegistry)"
   },
@@ -1499,8 +1513,8 @@
     "0x86Bd534A95Fb2Cc36D526ba149464c4477315C32"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:20.220Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:02.556Z",
    "serviceAgrees": true,
    "label": "Waterline (curatorRegistry)"
   },
@@ -1514,8 +1528,8 @@
     "0x1369f7b2b38c76B6478c0f0E66D94923421891Ba"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:35.976Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:23.765Z",
    "serviceAgrees": true,
    "label": "Steakhouse Financial (curatorRegistry)"
   },
@@ -1530,8 +1544,8 @@
     "0xe34A3fb26B3121F4E68bE89Ea553BaC2149F975d"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:24.567Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:08.049Z",
    "serviceAgrees": true,
    "label": "K3 Capital (curatorRegistry)"
   },
@@ -1546,8 +1560,8 @@
     "0x241271E71dDbfB73A8fE9E12791BB574e3C6C159"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:44.292Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:35.498Z",
    "serviceAgrees": true
   },
   {
@@ -1565,8 +1579,8 @@
     "0xb11006632debfb0CbD7496A741Da88D2FD8049b3"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:43.503Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:34.491Z",
    "serviceAgrees": true
   },
   {
@@ -1582,8 +1596,8 @@
     "0x8b884f80B3B839F52b6cE168f133e7a5D1f0A537"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:27.979Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:13.241Z",
    "serviceAgrees": true,
    "label": "KPK (curatorRegistry)"
   },
@@ -1602,8 +1616,8 @@
     "0x80c9aC867b2D36B7e8D74646E074c460a008C0cb"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:40.404Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:29.362Z",
    "serviceAgrees": true,
    "label": "Yearn (curatorRegistry)"
   },
@@ -1619,8 +1633,8 @@
     "0x16336E6023034E2c48EBd46839127B42D61B333b"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:21.771Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:04.549Z",
    "serviceAgrees": true,
    "label": "Flowmark (curatorRegistry)"
   },
@@ -1637,8 +1651,8 @@
     "0x17f35c2A89dE7E4df8bb32eB5D5666045266e991"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:39.603Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:28.339Z",
    "serviceAgrees": true,
    "label": "Unified Labs (curatorRegistry)"
   },
@@ -1654,8 +1668,8 @@
     "0x93db2e90F8B2b073010B425f9350202330bd923E"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:30.939Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:16.959Z",
    "serviceAgrees": true,
    "label": "RE7 Labs (curatorRegistry)"
   },
@@ -1668,8 +1682,8 @@
     "0x295Df6B70f4Ed2bE704Bd802a4D805fE700Bd7E9"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:32.015Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:18.305Z",
    "serviceAgrees": true,
    "label": "Sentora (curatorRegistry)"
   },
@@ -1684,8 +1698,8 @@
     "0x51a9f9c3485CF88674ef825825076268b7B7ffBc"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:09.036Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:48.554Z",
    "serviceAgrees": true,
    "label": "Spark (multisig)"
   },
@@ -1702,8 +1716,8 @@
     "0x331D9C769185AE25233314859d53c2b9203a1204"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:28.449Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:13.744Z",
    "serviceAgrees": true,
    "label": "KPK (curatorRegistry)"
   },
@@ -1718,8 +1732,8 @@
     "0x065C24B9508b82f465500256949799684e823FB0"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:23.807Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:07.049Z",
    "serviceAgrees": true,
    "label": "Hyperithm (curatorRegistry)"
   },
@@ -1736,10 +1750,25 @@
     "0xE8a31Cda649EFEEF42283f0c9B42FAA5F0857724"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:11.065Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:51.052Z",
    "serviceAgrees": true,
    "label": "Spark (multisig)"
+  },
+  {
+   "address": "0xf51A112fB2cB63E3CB3eeB7feA8c7c58625868C7",
+   "chainId": 1,
+   "isSafe": true,
+   "threshold": 2,
+   "owners": [
+    "0x266bfCBa63f4481Cb8179B5D9F7F67bf0310CF5e",
+    "0xA3fAB845Cb2e8265E5747693B3f698770cDaB2F8",
+    "0xDbD26872Aac9fbE8e8D8d941F83db965612Bd00D"
+   ],
+   "version": "1.4.1",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:38.993Z",
+   "serviceAgrees": true
   },
   {
    "address": "0xf5748bBeFa17505b2F7222B23ae11584932C908B",
@@ -1754,8 +1783,8 @@
     "0x3126c94C032A1D9Be9294cF5be2da99255b00cc8"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:07.373Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:46.971Z",
    "serviceAgrees": true,
    "label": "Spark (morphoGuardian, atlas:guardian, atlas:multisig, atlas:sentinel)"
   },
@@ -1770,8 +1799,8 @@
     "0xd222408eb42589Db5D2e0bE3CEE6a4aaf2952c1A"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:30.467Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:16.252Z",
    "serviceAgrees": true,
    "label": "Pangolins (curatorRegistry)"
   },
@@ -1788,8 +1817,8 @@
     "0xa71657b776d01A35dEbe9D64d9fa23dBC5676696"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:12.186Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:52.605Z",
    "serviceAgrees": true,
    "label": "OEA (Soter operator per registry) (oeaOperator, atlas:freezer)"
   },
@@ -1804,8 +1833,8 @@
     "0x981BdCFB1c98654BEF839C78E19E81C0D183A9e5"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:05.802Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:45.006Z",
    "serviceAgrees": true,
    "label": "Spark (multisig)"
   },
@@ -1820,8 +1849,8 @@
     "0x7063d2BB154C640c5fDc81767C2cCD1b96132865"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:16.307Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:40:57.551Z",
    "serviceAgrees": true,
    "label": "Apostro (curatorRegistry)"
   },
@@ -1838,8 +1867,8 @@
     "0xF0Cf1e3Ec6264b03241826f5b2aBda17B4352A75"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:28.761Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:14.256Z",
    "serviceAgrees": true,
    "label": "KPK (curatorRegistry)"
   },
@@ -1856,8 +1885,8 @@
     "0xEb9F416fA098697D95E70B20439F19097EB741ED"
    ],
    "version": "1.3.0",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:33.646Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:20.270Z",
    "serviceAgrees": true,
    "label": "Stake DAO (curatorRegistry)"
   },
@@ -1871,8 +1900,8 @@
     "0xAB5710211458FC8d7E0Be628202F47DdbD3F38Eb"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:32.526Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:18.767Z",
    "serviceAgrees": true,
    "label": "Soter Labs and Sentora (curatorRegistry, atlas:curator)"
   },
@@ -1889,8 +1918,8 @@
     "0x331D9C769185AE25233314859d53c2b9203a1204"
    ],
    "version": "1.4.1",
-   "block": 26091028,
-   "readAt": "2026-09-30T14:56:29.331Z",
+   "block": 26130406,
+   "readAt": "2026-10-06T02:41:14.743Z",
    "serviceAgrees": true,
    "label": "KPK (curatorRegistry)"
   },
@@ -1904,10 +1933,26 @@
     "0x52A8305f29f85bEc5fa6eE78B87Ddd2218d8E12E"
    ],
    "version": "1.4.1",
-   "block": 76604266,
-   "readAt": "2026-09-30T14:57:15.622Z",
+   "block": 81288108,
+   "readAt": "2026-10-06T02:42:08.110Z",
    "serviceAgrees": true,
    "label": "Spark (multisig, atlas:relayer)"
+  },
+  {
+   "address": "0x1B6EaFf09bE2c263B9848708DD08809C44AF09EE",
+   "chainId": 4663,
+   "isSafe": true,
+   "threshold": 2,
+   "owners": [
+    "0xb9E913157fb2AA18175982fB7792316999dc49De",
+    "0x382547A89309e686C69D1a578d649e508b4E1e33",
+    "0x82362918071eC32823Cd0144257663F52f022b47"
+   ],
+   "version": "1.4.1",
+   "block": 81288108,
+   "readAt": "2026-10-06T02:42:09.915Z",
+   "serviceAgrees": true,
+   "label": "MEV Capital (curatorRegistry)"
   },
   {
    "address": "0x2d5Aa449FB8C5646C81BC3C1D2034c2d37F17099",
@@ -1921,8 +1966,8 @@
     "0xACD204885E9eA069C1CD3e4b12a75cE478De6f1D"
    ],
    "version": "1.4.1",
-   "block": 76604266,
-   "readAt": "2026-09-30T14:57:15.004Z",
+   "block": 81288108,
+   "readAt": "2026-10-06T02:42:07.493Z",
    "serviceAgrees": true,
    "label": "Spark (multisig, atlas:freezer)"
   },
@@ -1939,10 +1984,27 @@
     "0xBd0F73257D6b96c06F0064b00c52BeA971EBE2cC"
    ],
    "version": "1.4.1",
-   "block": 76604266,
-   "readAt": "2026-09-30T14:57:16.039Z",
+   "block": 81288108,
+   "readAt": "2026-10-06T02:42:08.515Z",
    "serviceAgrees": true,
    "label": "Api3 (curatorRegistry)"
+  },
+  {
+   "address": "0x4B61A0E48dd1e300f64090C60F414c1aC6CbC514",
+   "chainId": 4663,
+   "isSafe": true,
+   "threshold": 3,
+   "owners": [
+    "0xACD204885E9eA069C1CD3e4b12a75cE478De6f1D",
+    "0x3126c94C032A1D9Be9294cF5be2da99255b00cc8",
+    "0x52A8305f29f85bEc5fa6eE78B87Ddd2218d8E12E",
+    "0xf01D0A6F78180C4c9583a848192DD2F250ef4b8f",
+    "0x8A714DA4cd3ad43442a092227dB52860329E0742"
+   ],
+   "version": "1.4.1",
+   "block": 81288108,
+   "readAt": "2026-10-06T02:42:06.480Z",
+   "serviceAgrees": true
   },
   {
    "address": "0x518C21DC88D9780c0A1Be566433c571461A70149",
@@ -1959,8 +2021,8 @@
     "0x80c9aC867b2D36B7e8D74646E074c460a008C0cb"
    ],
    "version": "1.4.1",
-   "block": 76604266,
-   "readAt": "2026-09-30T14:57:18.138Z",
+   "block": 81288108,
+   "readAt": "2026-10-06T02:42:11.965Z",
    "serviceAgrees": true,
    "label": "Yearn (curatorRegistry)"
   },
@@ -1977,8 +2039,8 @@
     "0x51a9f9c3485CF88674ef825825076268b7B7ffBc"
    ],
    "version": "1.4.1",
-   "block": 76604266,
-   "readAt": "2026-09-30T14:57:14.489Z",
+   "block": 81288108,
+   "readAt": "2026-10-06T02:42:07.090Z",
    "serviceAgrees": true,
    "label": "Spark (multisig)"
   },
@@ -1997,8 +2059,8 @@
     "0xfc615395336aADe67fd853a0157001a215Ea1279"
    ],
    "version": "1.4.1",
-   "block": 76604266,
-   "readAt": "2026-09-30T14:57:18.660Z",
+   "block": 81288108,
+   "readAt": "2026-10-06T02:42:12.983Z",
    "serviceAgrees": true
   },
   {
@@ -2014,9 +2076,24 @@
     "0xACD204885E9eA069C1CD3e4b12a75cE478De6f1D"
    ],
    "version": "1.4.1",
-   "block": 76604266,
-   "readAt": "2026-09-30T14:57:19.163Z",
+   "block": 81288108,
+   "readAt": "2026-10-06T02:42:13.761Z",
    "serviceAgrees": true
+  },
+  {
+   "address": "0x622E19d6903BD4507cfc70b31d5B99535114C0FC",
+   "chainId": 4663,
+   "isSafe": true,
+   "threshold": 2,
+   "owners": [
+    "0x827e86072B06674a077f592A531dcE4590aDeCdB",
+    "0xbCc126c3b6E2EbF0C895bb38c96D8afbEC126Ab3"
+   ],
+   "version": "1.4.1",
+   "block": 81288108,
+   "readAt": "2026-10-06T02:42:10.521Z",
+   "serviceAgrees": true,
+   "label": "Steakhouse Financial (curatorRegistry, atlas:curator)"
   },
   {
    "address": "0x82B4a86c796d9508350D129BA150B5D625ec98A4",
@@ -2031,8 +2108,8 @@
     "0xBF0e96198628382A4644A985eA63AE19d53264D9"
    ],
    "version": "1.4.1",
-   "block": 76604266,
-   "readAt": "2026-09-30T14:57:16.667Z",
+   "block": 81288108,
+   "readAt": "2026-10-06T02:42:09.509Z",
    "serviceAgrees": true,
    "label": "Api3 (curatorRegistry)"
   },
@@ -2051,8 +2128,8 @@
     "0xfc615395336aADe67fd853a0157001a215Ea1279"
    ],
    "version": "1.4.1",
-   "block": 76604266,
-   "readAt": "2026-09-30T14:57:17.139Z",
+   "block": 81288108,
+   "readAt": "2026-10-06T02:42:10.931Z",
    "serviceAgrees": true,
    "label": "Steakhouse Financial (curatorRegistry)"
   },
@@ -2067,10 +2144,25 @@
     "0x4504393bAafAc7a23270E9a59253422E243d5543"
    ],
    "version": "1.4.1",
-   "block": 76604266,
-   "readAt": "2026-09-30T14:57:17.734Z",
+   "block": 81288108,
+   "readAt": "2026-10-06T02:42:11.556Z",
    "serviceAgrees": true,
    "label": "Yearn (curatorRegistry)"
+  },
+  {
+   "address": "0xB597026150552bB3F6092aC685A2241C5FA77Ed0",
+   "chainId": 4663,
+   "isSafe": true,
+   "threshold": 2,
+   "owners": [
+    "0xCdE311E0FdE74f3D201ab4D2dC49E2C99D57DE92",
+    "0x83707d6A7694924fE62F8e684d8033F1Eab22f34",
+    "0x691096ef8D3A5C2D625f1C71133374739A5d76E1"
+   ],
+   "version": "1.4.1",
+   "block": 81288108,
+   "readAt": "2026-10-06T02:42:12.589Z",
+   "serviceAgrees": true
   },
   {
    "address": "0x0000aeB716a0DF7A9A1AAd119b772644Bc089dA8",
@@ -2086,8 +2178,8 @@
     "0xcC771952fdE840E30C6802734e5ad20479c2959f"
    ],
    "version": "1.3.0",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:08.750Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:42:01.515Z",
    "serviceAgrees": true,
    "label": "Steakhouse Financial (curatorRegistry)"
   },
@@ -2107,8 +2199,8 @@
     "0x36557BcBb81FAd375d8b5405bf19AA8A8cB0de94"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:09.804Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:42:02.641Z",
    "serviceAgrees": true,
    "label": "Unified Labs (curatorRegistry)"
   },
@@ -2121,8 +2213,8 @@
     "0xaA10A4d3fC764F8d0A7cE9E2Adf54aA4D36251c7"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:02.174Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:55.206Z",
    "serviceAgrees": true,
    "label": "K3 Capital (curatorRegistry)"
   },
@@ -2138,8 +2230,8 @@
     "0x2f7a1faceeC3C5D58c6b7c00ad8d3824471666A3"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:53.986Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:48.103Z",
    "serviceAgrees": true,
    "label": "Anthias Labs (curatorRegistry)"
   },
@@ -2161,8 +2253,8 @@
     "0x86Bd534A95Fb2Cc36D526ba149464c4477315C32"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:07.713Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:42:00.077Z",
    "serviceAgrees": true,
    "label": "Steakhouse Financial (curatorRegistry)"
   },
@@ -2179,8 +2271,8 @@
     "0x7De4BB4Fc0E55b7beeAe238Dbe665f8475451F63"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:52.416Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:46.509Z",
    "serviceAgrees": true,
    "label": "Soter Labs (morphoCurator, curatorRegistry, atlas:curator)"
   },
@@ -2197,8 +2289,8 @@
     "0x2507F9d6fc3d40bB4C58Aff91E016CD624d34549"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:09.204Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:42:02.192Z",
    "serviceAgrees": true,
    "label": "UltraYield (curatorRegistry)"
   },
@@ -2217,8 +2309,8 @@
     "0x7e557bE7AF3050e61882e1c3f29331c456d9d15E"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:56.552Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:50.661Z",
    "serviceAgrees": true,
    "label": "Architect (curatorRegistry)"
   },
@@ -2236,8 +2328,8 @@
     "0xFAdA4E437339eb772A18BBfA2f7F3A254E587185"
    ],
    "version": "1.3.0",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:53.396Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:47.516Z",
    "serviceAgrees": true,
    "label": "9Summits (curatorRegistry)"
   },
@@ -2254,8 +2346,8 @@
     "0xBF0e96198628382A4644A985eA63AE19d53264D9"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:54.401Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:48.457Z",
    "serviceAgrees": true,
    "label": "Api3 (curatorRegistry)"
   },
@@ -2271,9 +2363,27 @@
     "0x8A714DA4cd3ad43442a092227dB52860329E0742"
    ],
    "version": "1.3.0",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:51.994Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:46.172Z",
    "serviceAgrees": true
+  },
+  {
+   "address": "0x4B61A0E48dd1e300f64090C60F414c1aC6CbC514",
+   "chainId": 8453,
+   "isSafe": true,
+   "threshold": 3,
+   "owners": [
+    "0xACD204885E9eA069C1CD3e4b12a75cE478De6f1D",
+    "0x3126c94C032A1D9Be9294cF5be2da99255b00cc8",
+    "0x52A8305f29f85bEc5fa6eE78B87Ddd2218d8E12E",
+    "0xf01D0A6F78180C4c9583a848192DD2F250ef4b8f",
+    "0x8A714DA4cd3ad43442a092227dB52860329E0742"
+   ],
+   "version": "1.4.1",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:45.124Z",
+   "serviceAgrees": true,
+   "label": "Spark (multisig, atlas:multisig)"
   },
   {
    "address": "0x5634520dd1C044fD8E589A7113C2d8f8f279fc24",
@@ -2286,8 +2396,8 @@
     "0xEA228caF98b22De75f4C34a2D762dfFFe958d98B"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:59.813Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:53.323Z",
    "serviceAgrees": true,
    "label": "Clearstar (curatorRegistry)"
   },
@@ -2304,8 +2414,8 @@
     "0x331D9C769185AE25233314859d53c2b9203a1204"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:03.258Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:56.325Z",
    "serviceAgrees": true,
    "label": "KPK (curatorRegistry)"
   },
@@ -2324,8 +2434,8 @@
     "0xA0895eF86B766aFd455Fdb129A830A1C6CE054A1"
    ],
    "version": "1.3.0",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:01.754Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:54.855Z",
    "serviceAgrees": true,
    "label": "Gauntlet (curatorRegistry)"
   },
@@ -2339,9 +2449,10 @@
     "0xbCc126c3b6E2EbF0C895bb38c96D8afbEC126Ab3"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:12.089Z",
-   "serviceAgrees": true
+   "block": 52232571,
+   "readAt": "2026-10-06T02:42:00.418Z",
+   "serviceAgrees": true,
+   "label": "Steakhouse Financial (curatorRegistry, atlas:curator)"
   },
   {
    "address": "0x7D02b68dEb9956F211083dA811f4856C901884C9",
@@ -2356,8 +2467,8 @@
     "0x8c1BBc91af8860630A51b3C38C157756C3B57296"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:55.003Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:49.093Z",
    "serviceAgrees": true,
    "label": "Api3 (curatorRegistry)"
   },
@@ -2375,8 +2486,8 @@
     "0x59aC378c9607bCc0a233bE42b6F78FF975D80a3b"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:57.656Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:51.533Z",
    "serviceAgrees": true,
    "label": "Avantgarde (curatorRegistry)"
   },
@@ -2394,8 +2505,8 @@
     "0xE3fCEE6B6cd564E073346f71394f60eC9aDf5120"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:08.141Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:42:01.006Z",
    "serviceAgrees": true,
    "label": "Steakhouse Financial (curatorRegistry)"
   },
@@ -2409,10 +2520,10 @@
     "0x52A8305f29f85bEc5fa6eE78B87Ddd2218d8E12E"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:51.017Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:44.577Z",
    "serviceAgrees": true,
-   "label": "Spark (multisig, atlas:freezer, atlas:relayer)"
+   "label": "Spark (multisig, atlas:freezer, atlas:relayer, atlas:allocator)"
   },
   {
    "address": "0x8b884f80B3B839F52b6cE168f133e7a5D1f0A537",
@@ -2430,8 +2541,8 @@
     "0xC4105307f2F09cF5d08e0a565783FfDF365b7343"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:02.799Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:55.867Z",
    "serviceAgrees": true,
    "label": "KPK (curatorRegistry)"
   },
@@ -2448,8 +2559,8 @@
     "0x51a9f9c3485CF88674ef825825076268b7B7ffBc"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:49.968Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:42.940Z",
    "serviceAgrees": true,
    "label": "Spark (multisig, atlas:relayer)"
   },
@@ -2464,8 +2575,8 @@
     "0x4504393bAafAc7a23270E9a59253422E243d5543"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:11.106Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:42:03.584Z",
    "serviceAgrees": true,
    "label": "Yearn (curatorRegistry)"
   },
@@ -2481,8 +2592,8 @@
     "0xACD204885E9eA069C1CD3e4b12a75cE478De6f1D"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:50.392Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:44.243Z",
    "serviceAgrees": true,
    "label": "Spark (multisig, atlas:relayer, atlas:freezer)"
   },
@@ -2497,8 +2608,8 @@
     "0x9C3022D522Bc9473e09E7111AfB613a05b363890"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:04.509Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:57.378Z",
    "serviceAgrees": true,
    "label": "Pangolins (curatorRegistry)"
   },
@@ -2517,8 +2628,8 @@
     "0xA0895eF86B766aFd455Fdb129A830A1C6CE054A1"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:00.987Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:54.201Z",
    "serviceAgrees": true,
    "label": "Gauntlet (curatorRegistry)"
   },
@@ -2535,8 +2646,8 @@
     "0xaC412b86bF26B10D31F531eF1cb80Ef2276f86f2"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:58.248Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:52.074Z",
    "serviceAgrees": true,
    "label": "Avantgarde (curatorRegistry)"
   },
@@ -2553,8 +2664,8 @@
     "0x4046B37Ffc36B0C723d7Fc64e0C763B698D81934"
    ],
    "version": "1.3.0",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:07.103Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:59.531Z",
    "serviceAgrees": true,
    "label": "Stake DAO (curatorRegistry)"
   },
@@ -2572,8 +2683,8 @@
     "0x22965d7c0877BaC81Ca48A7eF80cDcbda0e8171A"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:00.487Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:53.873Z",
    "serviceAgrees": true,
    "label": "Clearstar (curatorRegistry)"
   },
@@ -2588,8 +2699,8 @@
     "0x691096ef8D3A5C2D625f1C71133374739A5d76E1"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:12.498Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:42:04.456Z",
    "serviceAgrees": true
   },
   {
@@ -2601,8 +2712,8 @@
     "0x82362918071eC32823Cd0144257663F52f022b47"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:03.837Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:57.014Z",
    "serviceAgrees": true,
    "label": "MEV Capital (curatorRegistry)"
   },
@@ -2621,8 +2732,8 @@
     "0xb4389ED07968F740bC3672385cBD299816f17071"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:06.623Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:59.035Z",
    "serviceAgrees": true,
    "label": "RockawayX (curatorRegistry)"
   },
@@ -2639,8 +2750,8 @@
     "0x9908f80251f0861f2b6e7fa1F90F516f082eD1cE"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:58.743Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:52.400Z",
    "serviceAgrees": true,
    "label": "Birch Hill (curatorRegistry)"
   },
@@ -2659,8 +2770,8 @@
     "0x8852fE9926906938F19569b8c3062b3Dc548f8d8"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:57.172Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:51.206Z",
    "serviceAgrees": true,
    "label": "Architect (curatorRegistry)"
   },
@@ -2675,8 +2786,8 @@
     "0x0F01e9688B181B424FDFA0c18301c9AEdc6Ea454"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:55.456Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:49.603Z",
    "serviceAgrees": true,
    "label": "Apostro (curatorRegistry)"
   },
@@ -2692,8 +2803,8 @@
     "0x93db2e90F8B2b073010B425f9350202330bd923E"
    ],
    "version": "1.3.0",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:05.942Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:58.473Z",
    "serviceAgrees": true,
    "label": "RE7 Labs (curatorRegistry)"
   },
@@ -2708,8 +2819,8 @@
     "0x9908f80251f0861f2b6e7fa1F90F516f082eD1cE"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:59.366Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:52.975Z",
    "serviceAgrees": true,
    "label": "Birch Hill (curatorRegistry)"
   },
@@ -2726,8 +2837,8 @@
     "0x3126c94C032A1D9Be9294cF5be2da99255b00cc8"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:52.987Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:47.156Z",
    "serviceAgrees": true,
    "label": "Spark (morphoGuardian, atlas:guardian, atlas:multisig, atlas:sentinel)"
   },
@@ -2742,8 +2853,8 @@
     "0xd222408eb42589Db5D2e0bE3CEE6a4aaf2952c1A"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:05.266Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:58.034Z",
    "serviceAgrees": true,
    "label": "Pangolins (curatorRegistry)"
   },
@@ -2760,8 +2871,8 @@
     "0x5810D3591b18217695FCBf593Cc7908dCe00322A"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:10.543Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:42:03.224Z",
    "serviceAgrees": true,
    "label": "Unified Labs (curatorRegistry)"
   },
@@ -2776,8 +2887,8 @@
     "0x981BdCFB1c98654BEF839C78E19E81C0D183A9e5"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:51.425Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:45.588Z",
    "serviceAgrees": true,
    "label": "Spark (multisig)"
   },
@@ -2792,8 +2903,8 @@
     "0x7063d2BB154C640c5fDc81767C2cCD1b96132865"
    ],
    "version": "1.3.0",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:56:56.042Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:41:50.239Z",
    "serviceAgrees": true,
    "label": "Apostro (curatorRegistry)"
   },
@@ -2812,8 +2923,8 @@
     "0xB865AAf1f9f60630934739595f183C4900f65ed9"
    ],
    "version": "1.4.1",
-   "block": 51995424,
-   "readAt": "2026-09-30T14:57:11.515Z",
+   "block": 52232571,
+   "readAt": "2026-10-06T02:42:04.118Z",
    "serviceAgrees": true,
    "label": "Yearn (curatorRegistry)"
   }

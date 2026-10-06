@@ -1,6 +1,6 @@
 {
  "meta": {
-  "generatedAt": "2026-09-30T14:55:20.876Z",
+  "generatedAt": "2026-10-06T02:39:51.772Z",
   "source": "https://blue-api.morpho.org/graphql",
   "count": 45
  },
@@ -894,6 +894,10 @@
      "address": "0xb830B8B1A41c38603dBC6E4b562Ff599eDB415C4"
     },
     {
+     "chainId": 4663,
+     "address": "0x1B6EaFf09bE2c263B9848708DD08809C44AF09EE"
+    },
+    {
      "chainId": 8453,
      "address": "0xB672Ea44A1EC692A9Baf851dC90a1Ee3DB25F1C4"
     },
@@ -1195,6 +1199,10 @@
     },
     {
      "chainId": 1,
+     "address": "0x1369f7b2b38c76B6478c0f0E66D94923421891Ba"
+    },
+    {
+     "chainId": 1,
      "address": "0x255c7705e8BB334DfCae438197f7C4297988085a"
     },
     {
@@ -1216,6 +1224,10 @@
     {
      "chainId": 1,
      "address": "0x51B6FBE8Ab2501BeedB767eb1852E179D29f7a58"
+    },
+    {
+     "chainId": 1,
+     "address": "0x622E19d6903BD4507cfc70b31d5B99535114C0FC"
     },
     {
      "chainId": 1,
@@ -1303,6 +1315,14 @@
     },
     {
      "chainId": 4663,
+     "address": "0x5ff98717a18833de1A49e11B498866d6Fa1c9296"
+    },
+    {
+     "chainId": 4663,
+     "address": "0x622E19d6903BD4507cfc70b31d5B99535114C0FC"
+    },
+    {
+     "chainId": 4663,
      "address": "0x9023FBD6A08C666491A2d1648737E400cF42D2Fb"
     },
     {
@@ -1335,11 +1355,19 @@
     },
     {
      "chainId": 8453,
+     "address": "0x491EDFB0B8b608044e227225C715981a30F3A44E"
+    },
+    {
+     "chainId": 8453,
      "address": "0x4e3e778bE779Cd55484A4A405f35C7d66b748e4e"
     },
     {
      "chainId": 8453,
      "address": "0x59f7d7D34dB803961ce5882BbA168fD711292392"
+    },
+    {
+     "chainId": 8453,
+     "address": "0x622E19d6903BD4507cfc70b31d5B99535114C0FC"
     },
     {
      "chainId": 8453,
