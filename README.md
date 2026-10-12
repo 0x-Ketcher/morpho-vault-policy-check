@@ -132,6 +132,6 @@ src/sources/                readers: chain (viem, Multicall3, failover), Morpho 
 src/pipeline.ts, src/cli.ts find the vault, read both methods, grade, report
 src/web/, server/           the page, and the server that serves it with the Etherscan proxy
 scripts/                    update and its four steps, the cross-check, fixture recording
-tests/                      the 67 tests
+tests/                      the 82 tests
 CLAUDE.md                   what an agent needs to know before touching the repository
 ```
