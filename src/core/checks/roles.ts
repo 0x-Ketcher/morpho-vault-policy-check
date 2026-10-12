@@ -115,12 +115,24 @@ export const c06Curator: CheckDef = {
   },
 };
 
-/** The vault's external curator: the external entity a public source names on the curator Safe or on one of its signers. */
-function externalCuratorOf(ctx: CheckContext): string | undefined {
+/**
+ * The vault's external curator: every external entity a public source names on the curator Safe or on one of its signers
+ * (the Safe itself may carry one name and its external half another, as when the half is attributed by signer overlap),
+ * plus the addresses of the curator Safe's external signers themselves.
+ */
+function externalCuratorOf(ctx: CheckContext): { names: string[]; addresses: Set<string> } {
   const src = ctx.a ?? ctx.b;
   const safe = safeOf(ctx, src.curator);
-  const atts = [attributeSafe(ctx, src.curator, safe), ...(safe?.owners ?? []).map((o) => attributeSafe(ctx, o, safeOf(ctx, o)))];
-  return atts.find((a) => a.side === "external")?.entity;
+  const names = new Set<string>(); const addresses = new Set<string>();
+  const self = attributeSafe(ctx, src.curator, safe);
+  if (self.side === "external" && self.entity) names.add(self.entity);
+  for (const o of safe?.owners ?? []) {
+    const att = attributeSafe(ctx, o, safeOf(ctx, o));
+    if (att.side !== "external") continue;
+    addresses.add(o.toLowerCase());
+    if (att.entity) names.add(att.entity);
+  }
+  return { names: [...names], addresses };
 }
 const sameEntity = (a: string | undefined, b: string | undefined) => !!a && !!b && (a.toLowerCase().includes(b.toLowerCase()) || b.toLowerCase().includes(a.toLowerCase()));
 
@@ -137,10 +149,11 @@ export const c07Sentinel: CheckDef = {
     const curatorSafe = safeOf(ctx, curatorAddr);
     const curatorOwners = new Set((curatorSafe?.owners ?? []).map((o) => o.toLowerCase()));
     const curatorSigners = leafSigners(curatorSafe);
-    const extCurator = externalCuratorOf(ctx);
+    const ext = externalCuratorOf(ctx);
+    const isExternalCurator = (addr: string, att: { side: string; entity?: string }) => ext.addresses.has(addr) || (att.side === "external" && ext.names.some((n) => sameEntity(att.entity, n)));
     const citations: Citation[] = []; const details: string[] = [];
     type Kind = "oea" | "oea-candidate" | "prime-extra" | "curator-extra" | "curator-itself" | "third-party-extra";
-    const rows: { addr: string; kind: Kind; status: Status | null; why: string }[] = [];
+    const rows: { addr: string; kind: Kind; status: Status | null; why: string; entity?: string }[] = [];
     for (const s of list.value) {
       const safe = safeOf(ctx, s);
       const att = attributeSafe(ctx, s, safe);
@@ -148,10 +161,10 @@ export const c07Sentinel: CheckDef = {
       const shape = safeShape(safe);
       const shared = [...leafSigners(safe)].filter((x) => curatorSigners.has(x));
       const label = att.entity ? `${att.entity}${att.via ? `, ${att.via}` : ""}` : "unlabeled";
-      let row: { addr: string; kind: Kind; status: Status | null; why: string };
+      let row: { addr: string; kind: Kind; status: Status | null; why: string; entity?: string };
       if (s === curatorAddr) row = { addr: s, kind: "curator-itself", status: sev.curatorItself, why: `is the curator address itself (${shape}); the curator may not hold a ${seat} seat` };
       // the curator rule names the Prime or an external curator next to the OEA; the same two may hold an additional sentinel seat
-      else if (att.side === "external" && sameEntity(att.entity, extCurator)) row = { addr: s, kind: "curator-extra", status: null, why: v1 ? `the external curator's (${label}), ${shape}; a v1.1 vault has one guardian seat and it must be the OEA's` : `the external curator's (${label}), ${shape}; allowed as an additional sentinel next to the OEA's` };
+      else if (isExternalCurator(s, att)) row = { addr: s, kind: "curator-extra", status: null, entity: att.entity, why: v1 ? `the external curator's (${label}), ${shape}; a v1.1 vault has one guardian seat and it must be the OEA's` : `the external curator's (${label}), ${shape}; allowed as an additional sentinel next to the OEA's` };
       else if (curatorOwners.has(s)) row = { addr: s, kind: "third-party-extra", status: sev.thirdPartyExtra, why: `is a signer of the curator Safe (${label}, ${shape}); a third party in a ${seat} seat, open policy question` };
       else if (att.side === "external") row = { addr: s, kind: "third-party-extra", status: sev.thirdPartyExtra, why: `is an external party's address (${label}, ${shape}), not this vault's curator; a third party in a ${seat} seat, open policy question` };
       else if (safe?.isSafe && att.side !== "oea" && shared.length > 0) row = { addr: s, kind: "third-party-extra", status: sev.thirdPartyExtra, why: `${shape} sharing ${shared.length} signer(s) with the curator Safe (${label}); a curator-linked third party in a ${seat} seat, open policy question` };
@@ -181,10 +194,10 @@ export const c07Sentinel: CheckDef = {
       else parts.push(`Prime-owned sentinel${primes.length > 1 ? "s" : ""} ${who}: allowed only in addition to an OEA sentinel.`);
     }
     if (curs.length) {
-      const who = curs.map((r) => short(r.addr)).join(", ");
-      if (v1) parts.push(`The one guardian seat is held by the external curator (${extCurator}, ${who}); it must be the OEA's.`);
-      else if (mandatory === "PASS") parts.push(`External curator sentinel${curs.length > 1 ? "s" : ""} ${who} (${extCurator}): allowed in addition to the OEA sentinel.`);
-      else parts.push(`External curator sentinel${curs.length > 1 ? "s" : ""} ${who} (${extCurator}): allowed only in addition to an OEA sentinel.`);
+      const who = curs.map((r) => `${short(r.addr)}${r.entity ? ` (${r.entity})` : ""}`).join(", ");
+      if (v1) parts.push(`The one guardian seat is held by the external curator (${who}); it must be the OEA's.`);
+      else if (mandatory === "PASS") parts.push(`External curator sentinel${curs.length > 1 ? "s" : ""} ${who}: allowed in addition to the OEA sentinel.`);
+      else parts.push(`External curator sentinel${curs.length > 1 ? "s" : ""} ${who}: allowed only in addition to an OEA sentinel.`);
     }
     return result("C6", "Sentinel / Guardian", ctx.policy.roles.sentinel, status, parts.filter(Boolean).join(" "), [list, ...structures], details, citations);
   },

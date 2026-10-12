@@ -191,7 +191,7 @@ describe("C6 sentinel", () => {
     expect(alone.summary).toContain("allowed only in addition to an OEA sentinel");
     const v1 = run("C6", { version: "v1.1", sentinels: [], guardian: A.steak });
     expect(v1.status).toBe("FAIL");
-    expect(v1.summary).toContain("The one guardian seat is held by the external curator (Steakhouse Financial, 0x827e…ecdb); it must be the OEA's.");
+    expect(v1.summary).toContain("The one guardian seat is held by the external curator (0x827e…ecdb (Steakhouse Financial)); it must be the OEA's.");
   });
   it("warns on a third party in an extra seat: another external party, or an unattributed contract", () => {
     const r = run("C6", { sentinels: [A.oeaSafe, A.gauntlet] });
