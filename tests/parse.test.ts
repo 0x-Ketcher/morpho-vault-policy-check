@@ -68,4 +68,13 @@ describe("atlas entity per address", () => {
     expect(entityHintFor("The Relayer Multisig at `0x0eEC86649E756a23CBc68d9EFEd756f16aD5F85f` is controlled by Operational GovOps Soter Labs.", "0x0eEC86649E756a23CBc68d9EFEd756f16aD5F85f")).toBe("Operational GovOps Soter Labs");
     expect(entityHintFor("`0xbeef05061FE51eA482BD1b68041353490b3a5934`", "0xbeef05061FE51eA482BD1b68041353490b3a5934")).toBeNull();
   });
+  it("reads the entity before a role word and the noun address or Multisig; a role word alone names nobody", async () => {
+    const { entityHintFor } = await import("../src/sources/labels/parse.ts");
+    const sentinel = "The Sentinel role is held by the Gauntlet Sentinel address `0x6a0dC94d80429dd4B03E8838CE8d6BEE725bE39B` and the Soter Labs Vault Sentinel Multisig `0xf51A112fB2cB63E3CB3eeB7feA8c7c58625868C7`.";
+    expect(entityHintFor(sentinel, "0x6a0dC94d80429dd4B03E8838CE8d6BEE725bE39B")).toBe("Gauntlet");
+    expect(entityHintFor(sentinel, "0xf51A112fB2cB63E3CB3eeB7feA8c7c58625868C7")).toBe("Soter Labs");
+    const allocator = "The Allocator role is held by the Gauntlet Allocator address `0x6939A35d32E9bE623e08aA0bceD96D4baC170bB3` and the Vault Curator Multisig `0x256DaC8fad2788F4182A42cE8F26029F0DEd7cf9`.";
+    expect(entityHintFor(allocator, "0x6939A35d32E9bE623e08aA0bceD96D4baC170bB3")).toBe("Gauntlet");
+    expect(entityHintFor(allocator, "0x256DaC8fad2788F4182A42cE8F26029F0DEd7cf9")).toBeNull();
+  });
 });

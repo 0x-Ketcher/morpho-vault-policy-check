@@ -1,6 +1,6 @@
 {
  "meta": {
-  "generatedAt": "2026-10-12T18:20:57.378Z",
+  "generatedAt": "2026-10-12T19:04:38.435Z",
   "commits": {
    "sky-ecosystem/next-gen-atlas": "1eae57d302161b055256960f9e004d8ff5bed662"
   },
@@ -10810,7 +10810,7 @@
    "line": 1721,
    "text": "The Allocator role is held by the Gauntlet Allocator address `0x6939A35d32E9bE623e08aA0bceD96D4baC170bB3` and the Vault Curator Multisig `0x256DaC8fad2788F4182A42cE8F26029F0DEd7cf9`.",
    "roleHint": "curator",
-   "entityHint": null,
+   "entityHint": "Gauntlet",
    "threshold": null,
    "commit": "1eae57d302161b055256960f9e004d8ff5bed662",
    "url": "https://github.com/sky-ecosystem/next-gen-atlas/blob/1eae57d302161b055256960f9e004d8ff5bed662/content/A.6.1.1.7%20-%20Osero.md#L1721"
@@ -10840,7 +10840,7 @@
    "line": 1725,
    "text": "The Sentinel role is held by the Gauntlet Sentinel address `0x6a0dC94d80429dd4B03E8838CE8d6BEE725bE39B` and the Soter Labs Vault Sentinel Multisig `0xf51A112fB2cB63E3CB3eeB7feA8c7c58625868C7`.",
    "roleHint": "sentinel",
-   "entityHint": null,
+   "entityHint": "Gauntlet",
    "threshold": null,
    "commit": "1eae57d302161b055256960f9e004d8ff5bed662",
    "url": "https://github.com/sky-ecosystem/next-gen-atlas/blob/1eae57d302161b055256960f9e004d8ff5bed662/content/A.6.1.1.7%20-%20Osero.md#L1725"
@@ -10855,7 +10855,7 @@
    "line": 1725,
    "text": "The Sentinel role is held by the Gauntlet Sentinel address `0x6a0dC94d80429dd4B03E8838CE8d6BEE725bE39B` and the Soter Labs Vault Sentinel Multisig `0xf51A112fB2cB63E3CB3eeB7feA8c7c58625868C7`.",
    "roleHint": "sentinel",
-   "entityHint": null,
+   "entityHint": "Soter Labs",
    "threshold": null,
    "commit": "1eae57d302161b055256960f9e004d8ff5bed662",
    "url": "https://github.com/sky-ecosystem/next-gen-atlas/blob/1eae57d302161b055256960f9e004d8ff5bed662/content/A.6.1.1.7%20-%20Osero.md#L1725"

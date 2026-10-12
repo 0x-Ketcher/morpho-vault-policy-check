@@ -11,6 +11,7 @@ const A = {
   subproxy: "0x1369f7b2b38c76B6478c0f0E66D94923421891Ba" as Address,
   alm: "0x491EDFB0B8b608044e227225C715981a30F3A44E" as Address,
   steak: "0x827e86072B06674a077f592A531dcE4590aDeCdB" as Address,   // external curator Safe
+  gauntlet: "0x7777777777777777777777777777777777777777" as Address, // another external curator, not this vault's
   oeaSafe: "0xB597026150552bB3F6092aC685A2241C5FA77Ed0" as Address, // labeled OEA in this synthetic label set
   sparkCur: "0x0f963A8A8c01042B69054e787E5763ABbB0646A3" as Address, // registry: Spark MORPHO_CURATOR_MULTISIG
   twoOfTwo: "0x622E19d6903BD4507cfc70b31d5B99535114C0FC" as Address,
@@ -31,7 +32,10 @@ const labels = new LabelBook({
     { address: A.alm, chainId: 1, prime: "Grove", constant: "ALM_PROXY", role: "almProxy", file: "src/Ethereum.sol", line: 2, repo: "grove", commit: "abc", url: "" },
     { address: A.sparkCur, chainId: 1, prime: "Spark", constant: "MORPHO_CURATOR_MULTISIG", role: "morphoCurator", file: "src/Ethereum.sol", line: 3, repo: "spark", commit: "abc", url: "" },
   ] },
-  curators: { meta: {}, entries: [{ id: "steak", name: "Steakhouse Financial", verified: true, addresses: [{ chainId: 1, address: A.steak }] }] },
+  curators: { meta: {}, entries: [
+    { id: "steak", name: "Steakhouse Financial", verified: true, addresses: [{ chainId: 1, address: A.steak }] },
+    { id: "gauntlet", name: "Gauntlet", verified: true, addresses: [{ chainId: 1, address: A.gauntlet }] },
+  ] },
   atlas: { meta: {}, entries: [{ address: A.oeaSafe, prime: "OEA Ozone", article: "A.6.1.2.2", title: "OEA Safes", uuid: null, file: "content/x.md", line: 1, text: "- Sentinel: Soter Labs, Safe at …", roleHint: "sentinel", entityHint: "Soter Labs", commit: "abc", url: "" }] },
 }, policy);
 
@@ -178,11 +182,23 @@ describe("C6 sentinel", () => {
     expect(r.status).toBe("FAIL");
     expect(r.summary).toContain("Curator in a sentinel seat");
   });
-  it("warns on a third party in an extra seat: the external curator's Safe, or an unattributed contract", () => {
+  it("allows the vault's external curator in an extra seat, like the curator rule", () => {
     const r = run("C6", { sentinels: [A.oeaSafe, A.steak] });
+    expect(r.status).toBe("PASS");
+    expect(r.summary).toContain("External curator sentinel 0x827e…ecdb (Steakhouse Financial): allowed in addition to the OEA sentinel.");
+    const alone = run("C6", { sentinels: [A.steak] });
+    expect(alone.status).toBe("FAIL");
+    expect(alone.summary).toContain("allowed only in addition to an OEA sentinel");
+    const v1 = run("C6", { version: "v1.1", sentinels: [], guardian: A.steak });
+    expect(v1.status).toBe("FAIL");
+    expect(v1.summary).toContain("The one guardian seat is held by the external curator (Steakhouse Financial, 0x827e…ecdb); it must be the OEA's.");
+  });
+  it("warns on a third party in an extra seat: another external party, or an unattributed contract", () => {
+    const r = run("C6", { sentinels: [A.oeaSafe, A.gauntlet] });
     expect(r.status).toBe("WARN");
     expect(r.summary).toContain("Third-party sentinel");
     expect(r.summary).toContain("open policy question");
+    expect(r.details.join(" ")).toContain("not this vault's curator");
     const s = snap();
     const withContract = { ...s.safes, [A.unlabeled.toLowerCase()]: { address: A.unlabeled, isContract: true, isSafe: false, source: "onchain" as const } };
     const r2 = run("C6", { sentinels: [A.oeaSafe, A.unlabeled], safes: withContract });

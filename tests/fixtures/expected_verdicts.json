@@ -130,10 +130,10 @@
       "expect": {
         "C4": "PASS",
         "C5": "PASS",
-        "C6": "WARN",
+        "C6": "PASS",
         "C3": "PASS"
       },
-      "note": "OEA sentinel 0xb5bF… attributed only by a shared signer with the Spark curator Safe (WARN); the Sentora Safe, a signer of the curator 2/2, also holds a seat: third party in an extra seat = WARN pending BA (rule adopted 2026-09-08) C5 re-baselined 2026-09-14: the Atlas names the curator 2/2 as Soter Labs and Sentora; a public pair statement now attributes the unlabeled half to the OEA (rule adopted 2026-09-14). C6 stays WARN only for the Sentora seat."
+      "note": "OEA sentinel 0xb5bF… attributed only by a shared signer with the Spark curator Safe (WARN); the Sentora Safe, a signer of the curator 2/2, also holds a seat: third party in an extra seat = WARN pending BA (rule adopted 2026-09-08) C5 re-baselined 2026-09-14: the Atlas names the curator 2/2 as Soter Labs and Sentora; a public pair statement now attributes the unlabeled half to the OEA (rule adopted 2026-09-14). C6 re-baselined 2026-10-12: the Sentora seat is the vault's external curator, allowed next to the OEA sentinel like the Prime (rule adopted 2026-10-12); the OEA seat is a listed Safe per the OEA signer table."
     },
     {
       "name": "sxsRLUSD B (weaker timelocks)",
@@ -155,10 +155,10 @@
       "expect": {
         "C4": "PASS",
         "C5": "PASS",
-        "C6": "WARN",
+        "C6": "PASS",
         "C3": "PASS"
       },
-      "note": "OEA sentinel 0xb5bF… attributed only by a shared signer with the Spark curator Safe (WARN); the Sentora Safe, a signer of the curator 2/2, also holds a seat: third party in an extra seat = WARN pending BA (rule adopted 2026-09-08) C5 re-baselined 2026-09-14: the Atlas names the curator 2/2 as Soter Labs and Sentora; a public pair statement now attributes the unlabeled half to the OEA (rule adopted 2026-09-14). C6 stays WARN only for the Sentora seat."
+      "note": "OEA sentinel 0xb5bF… attributed only by a shared signer with the Spark curator Safe (WARN); the Sentora Safe, a signer of the curator 2/2, also holds a seat: third party in an extra seat = WARN pending BA (rule adopted 2026-09-08) C5 re-baselined 2026-09-14: the Atlas names the curator 2/2 as Soter Labs and Sentora; a public pair statement now attributes the unlabeled half to the OEA (rule adopted 2026-09-14). C6 re-baselined 2026-10-12: the Sentora seat is the vault's external curator, allowed next to the OEA sentinel like the Prime (rule adopted 2026-10-12); the OEA seat is a listed Safe per the OEA signer table."
     }
   ]
 }

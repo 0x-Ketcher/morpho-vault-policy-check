@@ -36,9 +36,15 @@ const ROLE_WORDS: [RegExp, string][] = [
 const ENTITY = "([A-Z][A-Za-z0-9 .&'-]{1,40}?)";
 /** "Curator: Soter Labs, implemented via …", "Cancellation Authority: Spark Foundation, implemented via …" */
 const LINE_PREFIX_RE = new RegExp(`^\\s*-?\\s*(?:Curator|Guardian|Owner|Sentinel|Allocator|Relayer|Freezer|Cancellation Authority)[^:]*:\\s*${ENTITY},\\s`);
+/** Capitalised words only, one to four: the entity in "the Gauntlet Sentinel address" or "the Soter Labs Vault Sentinel Multisig" */
+const ENTITY_WORDS = "([A-Z][A-Za-z0-9&'-]*(?:\\s+[A-Z][A-Za-z0-9&'-]*){0,3}?)";
+/** Role words that may sit between the entity and the noun; never an entity on their own ("the Vault Curator Multisig" names nobody) */
+const ROLE_WORD = "(?:Vault|Sentinel|Allocator|Curator|Owner|Guardian|Relayer|Freezer)";
 /** Phrases that name the holder of the multisig whose address follows: "held by the Spark Foundation multisig at", "together with a Soter Labs multisig at", "controlled by Grove" */
 const SEGMENT_RES = [
   new RegExp(`(?:held by|controlled by|together with|and|with)\\s+(?:the |a |an )?${ENTITY}\\s+(?:multisig|Gnosis Safe multisig|Safe)\\b`),
+  // "held by the Gauntlet Sentinel address `0x…`", "and the Soter Labs Vault Sentinel Multisig `0x…`": entity, role words, the noun, then the address itself
+  new RegExp(`\\b(?:held by|controlled by|together with|and|with)\\s+(?:the |a |an )?(?!${ROLE_WORD}\\b)${ENTITY_WORDS}(?:\\s+${ROLE_WORD})*\\s+(?:address|[Mm]ultisig|Safe)\\s*(?:at\\s*)?[\`(:]?\\s*$`),
   new RegExp(`held by ${ENTITY} at`),
   new RegExp(`controlled by ${ENTITY}[.,( ]`),
 ];
