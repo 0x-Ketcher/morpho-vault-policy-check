@@ -98,16 +98,16 @@ export const c06Curator: CheckDef = {
         }
         else if (two && E.length === 1 && O.length === 1) { status = "WARN"; summary = `2/2 Safe between external curator ${E[0].att.entity} and ${short(O[0].o)}, attributed to the OEA (${O[0].att.entity}) only ${O[0].att.via}; no public source names the pair or the Safe.`; }
         else if (two && E.length === 1 && U.length === 1) { status = "WARN"; summary = `2/2 Safe between external curator ${E[0].att.entity} and ${short(U[0].o)} (${safeShape(safe.ownerSafes?.[U[0].o.toLowerCase()])}), a party no public source names.`; }
-        else if (two && E.length === 1 && P.length === 1) { status = "WARN"; summary = `2/2 Safe between external curator ${E[0].att.entity} and ${P[0].att.prime} governance instead of the OEA; policy call open.`; }
+        else if (two && E.length === 1 && P.length === 1) { status = "WARN"; summary = `2/2 Safe between external curator ${E[0].att.entity} and ${P[0].att.prime} governance instead of the OEA.`; }
         // the Framework allows the Prime in place of an external curator: "jointly controlled by the OEA and either the relevant Prime Agent or an external curator"
         else if (two && P.length === 1 && O.length === 1 && !O[0].att.via) { status = "PASS"; summary = `2/2 Safe between ${P[0].att.prime} and the OEA${oeaTag(ctx, O[0].att)}.`; }
-        else if (E.length === 0) { status = "WARN"; summary = `Curator Safe ${safe.threshold}/${owners.length} is ${O.length ? "OEA" : "Prime"}-side only (${[...O, ...P].map((x) => x.att.entity).filter(Boolean).join(", ") || "labeled signers"}), not the 2/2 with an external curator; open question whether the 2/2 rule applies to Prime- or OEA-self-curated vaults.`; }
+        else if (E.length === 0) { status = "WARN"; summary = `Curator Safe ${safe.threshold}/${owners.length} is ${O.length ? "OEA" : "Prime"}-side only (${[...O, ...P].map((x) => x.att.entity).filter(Boolean).join(", ") || "labeled signers"}), not the 2/2 with an external curator or Prime.`; }
         else if (O.length + P.length === 0) { status = "FAIL"; summary = `Curator Safe ${safe.threshold}/${owners.length} has only external signers (${E.map((x) => x.att.entity).join(", ")}); no OEA or Prime participation.`; }
         else { status = "WARN"; summary = `Curator Safe ${safe.threshold}/${owners.length} mixes external (${E.length}), Prime (${P.length}), OEA (${O.length}) and unlabeled (${U.length}) signers; structure differs from the 2/2 model.`; }
       } else {
         // every signer unlabeled: fall back to what public sources say about the Safe itself
         if (self.cls === "external") { status = "FAIL"; summary = `Curator is ${self.att.entity}'s own ${safeShape(safe)}${self.att.via ? ` (${self.att.via})` : ""}: the external party alone, no OEA co-signer.`; }
-        else if (self.cls === "oea" || self.cls === "prime") { status = "WARN"; summary = `Curator is a ${safeShape(safe)} controlled by ${self.cls === "oea" ? `the OEA, ${self.att.entity}${self.att.prime ? `, also listed as ${self.att.prime}'s curator multisig` : ""}` : self.att.entity ?? "the Prime"}${self.att.via ? ` (${self.att.via})` : ""}: self-curated rather than the 2/2 with an external curator; policy call open.`; }
+        else if (self.cls === "oea" || self.cls === "prime") { status = "WARN"; summary = `Curator is a ${safeShape(safe)} controlled by ${self.cls === "oea" ? `the OEA, ${self.att.entity}${self.att.prime ? `, also listed as ${self.att.prime}'s curator multisig` : ""}` : self.att.entity ?? "the Prime"}${self.att.via ? ` (${self.att.via})` : ""}: self-curated rather than the 2/2 with an external curator or Prime.`; }
         else { status = "FAIL"; summary = `Curator is a ${safeShape(safe)} that no public source attributes and whose signers are all unlabeled; no attested OEA or Prime participation.`; }
       }
     }
@@ -146,7 +146,7 @@ export const c07Sentinel: CheckDef = {
       else if (safe?.isSafe && att.side === "oea" && !att.via && shared.length === 0) row = { addr: s, kind: "oea", status: "PASS", why: `OEA Safe${oeaTag(ctx, att)}, ${shape}, signers disjoint from the curator's` };
       else if (safe?.isSafe && att.side === "oea" && shared.length === 0) row = { addr: s, kind: "oea-candidate", status: "WARN", why: `${shape} attributed to the OEA (${label}); signers disjoint from the curator's; a direct public label is needed for PASS` };
       else if (safe?.isSafe && att.side === "oea") row = { addr: s, kind: "oea-candidate", status: "WARN", why: `OEA Safe (${label}), ${shape}, but shares ${shared.length} signer(s) with the curator Safe; the policy requires a separate signer set` };
-      else if (att.side === "prime") row = { addr: s, kind: "prime-extra", status: null, why: `Prime-owned (${label}), ${shape}; allowed as an additional ${seat}` };
+      else if (att.side === "prime") row = { addr: s, kind: "prime-extra", status: null, why: v1 ? `Prime-owned (${label}), ${shape}; a v1.1 vault has one guardian seat and it must be the OEA's` : `Prime-owned (${label}), ${shape}; allowed as an additional sentinel next to the OEA's` };
       else if (safe?.isSafe) row = { addr: s, kind: "oea-candidate", status: "WARN", why: `${shape} with signers disjoint from the curator's and from every labeled Safe: OEA-shaped, identity not publicly attested` };
       else row = { addr: s, kind: "third-party-extra", status: sev.thirdPartyExtra, why: `${shape} that no public source attributes; a monitoring solution would look like this, a public label is needed` };
       rows.push(row);
@@ -159,11 +159,16 @@ export const c07Sentinel: CheckDef = {
     const violations = rows.filter((r) => r.kind === "curator-itself"), extras = rows.filter((r) => r.kind === "third-party-extra"), primes = rows.filter((r) => r.kind === "prime-extra");
     const status = worst([mandatory, ...violations.map((r) => r.status!), ...extras.map((r) => r.status!)]);
     const parts: string[] = [];
-    parts.push(rows.length === 0 ? `No ${seat} set; the OEA ${seat} is mandatory.` : mandatory === "PASS" ? `OEA ${seat} with separate signers in place (${short(oea[0].addr)}).` : mandatory === "WARN" ? `OEA ${seat} not publicly attested: ${candidates.map((r) => `${short(r.addr)} ${r.why}`).join("; ")}.` : `No OEA ${seat}.`);
+    parts.push(rows.length === 0 ? `No ${seat} set; the OEA ${seat} is mandatory.` : mandatory === "PASS" ? `OEA ${seat} with separate signers in place (${short(oea[0].addr)}).` : mandatory === "WARN" ? `OEA ${seat} not publicly attested: ${candidates.map((r) => `${short(r.addr)} ${r.why}`).join("; ")}.` : v1 && primes.length ? "" : `No OEA ${seat}.`);
     if (violations.length) parts.push(`Curator in a ${seat} seat: ${violations.map((r) => short(r.addr)).join(", ")}.`);
     if (extras.length) parts.push(`Third-party ${seat}${extras.length > 1 ? "s" : ""} ${extras.map((r) => short(r.addr)).join(", ")}: open policy question, see below.`);
-    if (primes.length) parts.push(`Prime-owned ${seat}${primes.length > 1 ? "s" : ""} ${primes.map((r) => short(r.addr)).join(", ")}: allowed.`);
-    return result("C6", "Sentinel / Guardian", ctx.policy.roles.sentinel, status, parts.join(" "), [list, ...structures], details, citations);
+    if (primes.length) {
+      const who = primes.map((r) => short(r.addr)).join(", ");
+      if (v1) parts.push(`The one guardian seat is held by a Prime-owned Safe (${who}); it must be the OEA's.`);
+      else if (mandatory === "PASS") parts.push(`Prime-owned sentinel${primes.length > 1 ? "s" : ""} ${who}: allowed in addition to the OEA sentinel.`);
+      else parts.push(`Prime-owned sentinel${primes.length > 1 ? "s" : ""} ${who}: allowed only in addition to an OEA sentinel.`);
+    }
+    return result("C6", "Sentinel / Guardian", ctx.policy.roles.sentinel, status, parts.filter(Boolean).join(" "), [list, ...structures], details, citations);
   },
 };
 
