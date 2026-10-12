@@ -48,8 +48,9 @@ describe("atlas parser", () => {
     const out = parseAtlasMarkdown(md, "A.6.1.1.1", "content/A.6.1.1.1 - Spark.md");
     expect(out).toHaveLength(3);
     expect(out[0]).toMatchObject({ address: "0x0f963A8A8c01042B69054e787E5763ABbB0646A3", article: "A.6.1.1.1.3.9.7.2.1", uuid: "3e8ed24b-da4a-4c3f-8c0a-000000000000", line: 3, roleHint: "curator", entityHint: "Soter Labs" });
-    expect(out[1]).toMatchObject({ roleHint: "guardian", entityHint: "Spark Foundation" });
-    expect(out[2]).toMatchObject({ article: "A.6.1.1.2.2.6.1.3.1.14.1.4.2.1.1", roleHint: "owner", entityHint: "Anemoy" });
+    expect(out[1]).toMatchObject({ roleHint: "guardian", entityHint: "Spark Foundation", threshold: { n: 3, m: 5 } });
+    expect(out[0].threshold).toEqual({ n: 3, m: 5 });
+    expect(out[2]).toMatchObject({ article: "A.6.1.1.2.2.6.1.3.1.14.1.4.2.1.1", roleHint: "owner", entityHint: "Anemoy", threshold: null });
   });
   it("uses the heading when the line has no role word", () => {
     expect(atlasHints("`0x0f963A8A8c01042B69054e787E5763ABbB0646A3`", "A.x - Curator Role Address [Core]")).toEqual({ roleHint: "curator", entityHint: null });

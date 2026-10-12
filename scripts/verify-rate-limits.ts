@@ -14,7 +14,7 @@
  * current values, the Morpho API for the vault universe, the registries for contracts and addresses.
  */
 import { keccak256, encodeAbiParameters, toHex, getAddress, parseAbi, type Abi } from "viem";
-import { RATE_LIMIT_SET_TOPIC, buildKeyTable, keysFromLogs, addressesFromCreationLogs, prefixesFromSource, classify, depositKey } from "../src/core/rate-limits.ts";
+import { RATE_LIMIT_SET_TOPIC, buildKeyTable, keysFromLogs, addressesFromCreationLogs, prefixesFromSource, classify, depositKey, pauDepositKey } from "../src/core/rate-limits.ts";
 import { loadPolicy, loadProviders, loadLabels, loadSkyVaults, loadEnv } from "../src/node/load.ts";
 import { MorphoApi } from "../src/sources/morpho-api/client.ts";
 import { rateLimitsAbi, vaultV2FactoryAbi, metaMorphoFactoryAbi } from "../src/sources/onchain/abis.ts";
@@ -37,7 +37,7 @@ const gaps: string[] = []; // contracts whose keys could not be enumerated: the 
 const EXPLORER_CHAINS = [1, 8453, 10, 130, 42161]; // chains with a logs, token-transfer and verified-source API used here
 const ETHERSCAN_CHAINS = [1, 130, 42161]; // Etherscan serves logs and token transfers here on the free plan; Base and Optimism go through Blockscout
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-const erc4626Abi = parseAbi(["function balanceOf(address) view returns (uint256)", "function name() view returns (string)", "function decimals() view returns (uint8)"]);
+const erc4626Abi = parseAbi(["function balanceOf(address) view returns (uint256)", "function name() view returns (string)", "function decimals() view returns (uint8)", "function asset() view returns (address)"]);
 const lower = (a: string) => a.toLowerCase();
 
 // ---------------------------------------------------------------- explorer access
@@ -105,13 +105,15 @@ async function verifiedSource(chainId: number, address: string): Promise<string>
 
 // ---------------------------------------------------------------- candidate addresses
 const candidates = new Map<string, string>(); // address -> description
+const assets = new Map<string, string>(); // Morpho vault -> its asset, for the Diamond PAU key form
 const factories = new Map<number, Map<string, "v1" | "v2">>(); // chain -> factory -> kind
 for (const chainId of MORPHO_CHAINS) {
   for (const [q, kind] of [["vaultV2s", "v2"], ["vaults", "v1"]] as const) {
     for (let skip = 0; ; skip += 500) {
-      const d = await api.gql<any>(`query($c: [Int!], $skip: Int) { r: ${q}(where: { chainId_in: $c }, first: 500, skip: $skip) { items { address name chain { id } factory { address } } pageInfo { countTotal } } }`, { c: [chainId], skip });
+      const d = await api.gql<any>(`query($c: [Int!], $skip: Int) { r: ${q}(where: { chainId_in: $c }, first: 500, skip: $skip) { items { address name chain { id } factory { address } asset { address } } pageInfo { countTotal } } }`, { c: [chainId], skip });
       for (const v of d.r.items) {
         candidates.set(lower(v.address), `Morpho vault "${v.name}" (chain ${v.chain.id})`);
+        if (v.asset?.address) assets.set(lower(v.address), v.asset.address);
         if (v.factory?.address) (factories.get(chainId) ?? factories.set(chainId, new Map()).get(chainId)!).set(lower(v.factory.address), kind);
       }
       if (skip + 500 >= d.r.pageInfo.countTotal) break;
@@ -145,7 +147,7 @@ console.log(`key prefixes: ${prefixes.size} (${discovered.size} found only in ve
 // ---------------------------------------------------------------- key table in every encoding the controllers use
 const pairAddrs = [...new Set([...reg.map((e) => lower(e.address)), ...counterparties])];
 const IDS = [...Array(100).keys(), ...Array.from({ length: 400 }, (_, i) => 30100 + i)]; // CCTP domains, Centrifuge ids, LayerZero endpoint ids
-const keyTable = buildKeyTable({ prefixes, candidates, pairAddrs, ids: IDS, domains: 64 });
+const keyTable = buildKeyTable({ prefixes, candidates, pairAddrs, ids: IDS, domains: 64, assets });
 const { table, keyAddr } = keyTable;
 console.log(`key table: ${table.size} computed keys\n`);
 
@@ -198,7 +200,9 @@ for (const chainId of [...liveByChain.keys()].sort((a, b) => a - b)) {
     for (const { a } of items) if (res[`${f}:${a}`]?.ok && res[`${f}:${a}`].value === true) confirmed.push(a);
   }
   const live = liveByChain.get(chainId)!;
-  const hits = confirmed.filter((a) => live.has(depositKey(a)));
+  // an unindexed vault's asset is read from the vault itself so the Diamond PAU key form can be checked too
+  const assetRes = confirmed.length ? await reader.read(confirmed.map((a) => ({ key: `${a}:asset`, address: getAddress(a), abi: erc4626Abi as Abi, functionName: "asset", args: [] }))) : {};
+  const hits = confirmed.filter((a) => live.has(depositKey(a)) || (assetRes[`${a}:asset`]?.ok && live.has(pauDepositKey(a, assetRes[`${a}:asset`].value as string))));
   unindexedHits += hits.length;
   // positions: the list reads Prime positions from the API, which cannot see these vaults; ask the vaults directly
   const proxies = reg.filter((e) => e.role === "almProxy" && e.chainId === chainId);

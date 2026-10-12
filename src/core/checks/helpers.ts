@@ -100,7 +100,7 @@ export interface SideCall extends Attribution { via?: string }
 /** Attribution with a fallback: an unlabeled Safe inherits the side of a labeled Safe it shares signers with. */
 export function attributeSafe(ctx: CheckContext, address: string, safe: SafeInfo | undefined): SideCall {
   const chainId = ctx.b.chainId;
-  const direct = ctx.labels.attribute(address, chainId);
+  const direct = ctx.labels.attribute(address, chainId, safe?.isSafe ? { threshold: safe.threshold, owners: safe.owners } : undefined);
   if (direct.side !== "unknown" || !safe?.isSafe) return direct;
   // A Safe whose every signer is a key the OEA signer table lists is the OEA's, like a Safe the Atlas names.
   const owners = safe.owners ?? [];
@@ -118,7 +118,7 @@ export function attributeSafe(ctx: CheckContext, address: string, safe: SafeInfo
     if (!e.isSafe || !e.owners?.length || e.address.toLowerCase() === address.toLowerCase()) continue;
     const shared = e.owners.filter((o) => mine.has(o.toLowerCase())).length;
     if (shared === 0) continue;
-    const att = ctx.labels.attribute(e.address, e.chainId);
+    const att = ctx.labels.attribute(e.address, e.chainId, { threshold: e.threshold, owners: e.owners }); // same threshold guard as for a direct label
     if (att.side === "unknown") continue;
     const rank = (s: Side) => (s === "oea" ? 3 : s === "prime" ? 2 : 1);
     if (!best || rank(att.side) > rank(best.side) || (rank(att.side) === rank(best.side) && shared > best.shared)) {

@@ -23,6 +23,9 @@ const V2 = vaultV2Abi as Abi, ADP = adapterAbi as Abi, MM = metaMorphoAbi as Abi
 
 export const depositRateLimitKey = (vault: Address): Hex =>
   keccak256(encodeAbiParameters([{ type: "bytes32" }, { type: "address" }], [keccak256(toHex("LIMIT_4626_DEPOSIT")), vault]));
+/** Diamond PAU form of the deposit key: the ERC-4626 facet hashes the prefix with the asset, then the vault. */
+export const pauDepositRateLimitKey = (vault: Address, asset: Address): Hex =>
+  keccak256(encodeAbiParameters([{ type: "bytes32" }, { type: "address" }, { type: "address" }], [keccak256(toHex("LIMIT_4626_DEPOSIT")), asset, vault]));
 export const withdrawRateLimitKey = (vault: Address): Hex =>
   keccak256(encodeAbiParameters([{ type: "bytes32" }, { type: "address" }], [keccak256(toHex("LIMIT_4626_WITHDRAW")), vault]));
 
@@ -123,6 +126,7 @@ async function readV2(reader: OnchainReader, vault: Address, hints: OnchainHints
     ...almProxies.map((p) => c(`assets:${p.address.toLowerCase()}`, "convertToAssets", [v<bigint>(`bal:${p.address.toLowerCase()}`) ?? 0n])),
     ...rlContracts.flatMap((rl) => [
       c(`rl:dep:${rl.address.toLowerCase()}`, "getRateLimitData", [depositRateLimitKey(vault)], rl.address as Address, RL),
+      c(`rl:deppau:${rl.address.toLowerCase()}`, "getRateLimitData", [pauDepositRateLimitKey(vault, snap.asset.address)], rl.address as Address, RL),
       c(`rl:wd:${rl.address.toLowerCase()}`, "getRateLimitData", [withdrawRateLimitKey(vault)], rl.address as Address, RL),
     ]),
   ];
@@ -130,7 +134,7 @@ async function readV2(reader: OnchainReader, vault: Address, hints: OnchainHints
   const v2 = <T>(k: string): T | undefined => (r2[k]?.ok ? (r2[k].value as T) : undefined);
   snap.asset.symbol = v2<string>("assetSymbol"); snap.asset.decimals = v2<number>("assetDecimals");
   const adapters = Array.from({ length: n }, (_, i) => v2<Address>(`adapter:${i}`)).filter((a): a is Address => !!a);
-  snap.exposure = buildExposure(vault, almProxies, rlContracts, (p) => v<bigint>(`bal:${p}`), (p) => v2<bigint>(`assets:${p}`), (k) => v2<{ maxAmount: bigint; slope: bigint; lastAmount: bigint; lastUpdated: bigint }>(k), snap.asset.decimals, hints.assetPriceUsd, notes);
+  snap.exposure = buildExposure(vault, almProxies, rlContracts, (p) => v<bigint>(`bal:${p}`), (p) => v2<bigint>(`assets:${p}`), (k) => v2<{ maxAmount: bigint; slope: bigint; lastAmount: bigint; lastUpdated: bigint }>(k), snap.asset.decimals, hints.assetPriceUsd, notes, snap.asset.address);
 
   // Stage 3: per adapter: market ids, morpho, timelocks, skim recipient; force-deallocate penalty on the vault
   const stage3: Call[] = adapters.flatMap((a) => [
@@ -258,13 +262,14 @@ async function readV1(reader: OnchainReader, vault: Address, hints: OnchainHints
     ...almProxies.map((p) => c(`assets:${p.address.toLowerCase()}`, "convertToAssets", [v<bigint>(`bal:${p.address.toLowerCase()}`) ?? 0n])),
     ...rlContracts.flatMap((rl) => [
       c(`rl:dep:${rl.address.toLowerCase()}`, "getRateLimitData", [depositRateLimitKey(vault)], rl.address as Address, RL),
+      c(`rl:deppau:${rl.address.toLowerCase()}`, "getRateLimitData", [pauDepositRateLimitKey(vault, snap.asset.address)], rl.address as Address, RL),
       c(`rl:wd:${rl.address.toLowerCase()}`, "getRateLimitData", [withdrawRateLimitKey(vault)], rl.address as Address, RL),
     ]),
   ];
   const r2 = await reader.read(stage2);
   const v2 = <T>(k: string): T | undefined => (r2[k]?.ok ? (r2[k].value as T) : undefined);
   snap.asset.symbol = v2<string>("assetSymbol"); snap.asset.decimals = v2<number>("assetDecimals");
-  snap.exposure = buildExposure(vault, almProxies, rlContracts, (p) => v<bigint>(`bal:${p}`), (p) => v2<bigint>(`assets:${p}`), (k) => v2<{ maxAmount: bigint; slope: bigint; lastAmount: bigint; lastUpdated: bigint }>(k), snap.asset.decimals, hints.assetPriceUsd, notes);
+  snap.exposure = buildExposure(vault, almProxies, rlContracts, (p) => v<bigint>(`bal:${p}`), (p) => v2<bigint>(`assets:${p}`), (k) => v2<{ maxAmount: bigint; slope: bigint; lastAmount: bigint; lastUpdated: bigint }>(k), snap.asset.decimals, hints.assetPriceUsd, notes, snap.asset.address);
   const ids = [...new Set([...Array.from({ length: sq }, (_, i) => v2<Hex>(`sq:${i}`)), ...Array.from({ length: wq }, (_, i) => v2<Hex>(`wq:${i}`))].filter((x): x is Hex => !!x))];
   if (!blue) { notes.push("MORPHO() did not answer; market data unavailable on-chain."); return; }
   const stage3: Call[] = ids.flatMap((id) => [
@@ -302,7 +307,7 @@ async function readV1(reader: OnchainReader, vault: Address, hints: OnchainHints
 function buildExposure(
   vault: Address, almProxies: { prime: string; address: string; constant: string }[], rlContracts: { prime: string; address: string; constant: string }[],
   bal: (p: string) => bigint | undefined, assets: (p: string) => bigint | undefined, rl: (k: string) => { maxAmount: bigint; slope: bigint; lastAmount: bigint; lastUpdated: bigint } | undefined,
-  decimals: number | undefined, priceUsd: number | undefined, notes: string[],
+  decimals: number | undefined, priceUsd: number | undefined, notes: string[], asset: Address = ZERO,
 ): ExposureInfo[] {
   const out: ExposureInfo[] = [];
   for (const p of almProxies) {
@@ -311,10 +316,14 @@ function buildExposure(
     const e: ExposureInfo = { prime: p.prime, almProxy: p.address as Address, almProxyLabel: p.constant, shares: shares.toString(), assets: a.toString(), assetsUsd: toUsd(a, decimals, priceUsd) };
     const rlc = rlContracts.find((r) => r.prime === p.prime);
     if (rlc) {
-      const dep = rl(`rl:dep:${rlc.address.toLowerCase()}`), wd = rl(`rl:wd:${rlc.address.toLowerCase()}`);
+      // two key forms are in use: ALM contracts hash (prefix, vault), Diamond PAU contracts hash (prefix, asset, vault); use whichever is set
+      const isSet = (x?: { maxAmount: bigint; lastUpdated: bigint }) => !!x && (x.maxAmount !== 0n || x.lastUpdated !== 0n);
+      const depAlm = rl(`rl:dep:${rlc.address.toLowerCase()}`), depPau = rl(`rl:deppau:${rlc.address.toLowerCase()}`);
+      const pau = !isSet(depAlm) && isSet(depPau);
+      const dep = pau ? depPau : depAlm, wd = rl(`rl:wd:${rlc.address.toLowerCase()}`);
       const conv = (d?: { maxAmount: bigint; slope: bigint; lastAmount: bigint; lastUpdated: bigint }): RateLimitData | null => d ? { maxAmount: d.maxAmount.toString(), slope: d.slope.toString(), lastAmount: d.lastAmount.toString(), lastUpdated: Number(d.lastUpdated) } : null;
       const d = conv(dep), w = conv(wd);
-      e.rateLimits = { contract: rlc.address as Address, label: rlc.constant, depositKey: depositRateLimitKey(vault), deposit: d, withdrawKey: withdrawRateLimitKey(vault), withdraw: w, onboarded: !!d && (d.maxAmount !== "0" || d.lastUpdated > 0) };
+      e.rateLimits = { contract: rlc.address as Address, label: rlc.constant, depositKey: pau ? pauDepositRateLimitKey(vault, asset) : depositRateLimitKey(vault), deposit: d, withdrawKey: withdrawRateLimitKey(vault), withdraw: w, onboarded: !!d && (d.maxAmount !== "0" || d.lastUpdated > 0) };
     }
     out.push(e);
   }

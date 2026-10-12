@@ -302,3 +302,36 @@ describe("OEA signer table (config/oea-signers.json)", () => {
     expect(c.summary).toContain("a party no public source names");
   });
 });
+
+describe("Atlas threshold guard", () => {
+  const book = (n: number, m: number) => new LabelBook({
+    registry: { meta: {}, entries: [] },
+    curators: { meta: {}, entries: [{ id: "steak", name: "Steakhouse Financial", verified: true, addresses: [{ chainId: 1, address: A.steak }] }] },
+    atlas: { meta: {}, entries: [{ address: A.oeaSafe, prime: "Spark", article: "A.6.1.1.1.3.9.7.2.1", title: "Spark USDS Morpho Vault", uuid: null, file: "content/x.md", line: 1, text: `- Cancellation Authority: Operational GovOps Soter Labs, implemented via a Gnosis Safe multisig at ${A.oeaSafe}, requiring a ${n} of ${m} signer approval threshold`, roleHint: "sentinel", entityHint: "Operational GovOps Soter Labs", threshold: { n, m }, commit: "abc", url: "" }] },
+  }, policy);
+  const evalWith = (labels: LabelBook, id: string, a: Partial<VaultSnapshot>) => CHECKS.find((c) => c.id === id)!.evaluate({ policy, labels, a: snap(a), b: snap(a, "api"), chainName: "Ethereum" });
+  it("applies an Atlas line whose stated threshold matches the chain", () => {
+    const c = evalWith(book(2, 2), "C6", {}); // the fixture sentinel Safe is 2/2
+    expect(c.status).toBe("PASS");
+  });
+  it("does not apply an Atlas line whose stated threshold the chain contradicts, and says so", () => {
+    const c = evalWith(book(2, 3), "C6", {});
+    expect(c.status).toBe("WARN");
+    expect(c.summary).toContain("not publicly attested");
+    expect(c.citations.some((x) => x.source === "atlas" && /states a 2 of 3 threshold; the chain shows 2\/2/.test(x.ref))).toBe(true);
+  });
+});
+
+describe("C5 curator: the Prime in place of an external curator", () => {
+  const table = new LabelBook({
+    registry: { meta: {}, entries: [{ address: A.subproxy, chainId: 1, prime: "Grove", constant: "GROVE_PROXY", role: "subproxy", file: "src/Ethereum.sol", line: 1, repo: "grove", commit: "abc", url: "" }] },
+    curators: { meta: {}, entries: [] }, atlas: { meta: {}, entries: [] },
+    oeaSigners: { entity: "Operational Executor Agent", keys: [{ address: A.eoa1 }] },
+  }, policy);
+  it("passes a 2/2 of the Prime's governance address and a listed OEA key", () => {
+    const s = snap(); const safes = { ...s.safes, [A.twoOfTwo.toLowerCase()]: safe(A.twoOfTwo, 2, [A.subproxy, A.eoa1]) };
+    const c = CHECKS.find((c) => c.id === "C5")!.evaluate({ policy, labels: table, a: snap({ safes }), b: snap({ safes }, "api"), chainName: "Ethereum" });
+    expect(c.status).toBe("PASS");
+    expect(c.summary).toBe("2/2 Safe between Grove and the OEA.");
+  });
+});

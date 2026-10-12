@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { getAddress } from "viem";
-import { RATE_LIMIT_SET_TOPIC, prefixHash, keyFor, depositKey, buildKeyTable, keysFromLogs, addressesFromCreationLogs, prefixesFromSource, classify } from "../src/core/rate-limits.ts";
+import { RATE_LIMIT_SET_TOPIC, prefixHash, keyFor, depositKey, pauDepositKey, buildKeyTable, keysFromLogs, addressesFromCreationLogs, prefixesFromSource, classify } from "../src/core/rate-limits.ts";
 import { depositRateLimitKey } from "../src/sources/onchain/vault.ts";
 
 // A key observed on-chain: Spark ALM_RATE_LIMITS emitted RateLimitDataSet for it three times (2026-03-02, 2026-04-13,
@@ -90,5 +90,23 @@ describe("log and source parsing", () => {
   it("finds every LIMIT_ prefix in a verified source once", () => {
     const src = 'bytes32 public constant LIMIT_4626_DEPOSIT = keccak256("LIMIT_4626_DEPOSIT"); LIMIT_OTC_SWAP LIMIT_UNISWAP_V4_SWAP; limit_lower';
     expect(prefixesFromSource(src)).toEqual(["LIMIT_4626_DEPOSIT", "LIMIT_OTC_SWAP", "LIMIT_UNISWAP_V4_SWAP"]);
+  });
+});
+
+describe("Diamond PAU deposit key", () => {
+  // Observed on-chain 2026-10-12: Osero's ERC4626Facet.getDepositRateLimitKey(vault, USDC) for the Osero x Gauntlet USDC Prime vault,
+  // the key the October 8 Osero spell set to 5,000,000 USDC with no refill. The facet hashes (prefix, asset, vault).
+  const OSERO = "0x802148D518A6De2aF866f9A61ffB5e5C39156dB2", USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
+  const OSERO_KEY = "0xfc26a91cf7b79b531d45dcc431ee59e4f2504f51cb33e2b67960808a104c92ef";
+  it("hashes prefix, asset, vault in that order", () => {
+    expect(pauDepositKey(OSERO, USDC)).toBe(OSERO_KEY);
+    expect(pauDepositKey(OSERO, USDC)).not.toBe(depositKey(OSERO));
+    expect(keyFor("LIMIT_4626_DEPOSIT", ["address", "address"], [getAddress(OSERO), getAddress(USDC)])).not.toBe(OSERO_KEY); // the other order is a different key
+  });
+  it("lands in the key table under the vault's own description when the asset is known", () => {
+    const { table, keyAddr } = buildKeyTable({ prefixes: ["LIMIT_4626_DEPOSIT"], candidates: new Map([[OSERO.toLowerCase(), 'Morpho vault "Osero x Gauntlet USDC Prime" (chain 1)']]), assets: new Map([[OSERO.toLowerCase(), USDC]]) });
+    expect(table.get(OSERO_KEY)).toBe('LIMIT_4626_DEPOSIT x Morpho vault "Osero x Gauntlet USDC Prime" (chain 1)');
+    expect(keyAddr.get(OSERO_KEY)).toBe(OSERO.toLowerCase());
+    expect(table.has(depositKey(OSERO))).toBe(true);
   });
 });

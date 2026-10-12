@@ -15,6 +15,8 @@ export function keyFor(prefix: string, types: string[], values: unknown[]): stri
   return keccak256(encodeAbiParameters([{ type: "bytes32" }, ...types.map((type) => ({ type }))], [prefixHash(prefix), ...values])).toLowerCase();
 }
 export const depositKey = (vault: string) => keyFor("LIMIT_4626_DEPOSIT", ["address"], [getAddress(vault)]);
+/** Diamond PAU contracts hash the prefix with the asset, then the vault (ERC4626Facet.getDepositRateLimitKey). */
+export const pauDepositKey = (vault: string, asset: string) => keyFor("LIMIT_4626_DEPOSIT", ["address", "address"], [getAddress(asset), getAddress(vault)]);
 
 export interface KeyTable { table: Map<string, string>; keyAddr: Map<string, string> }
 
@@ -23,12 +25,14 @@ export interface KeyTable { table: Map<string, string>; keyAddr: Map<string, str
  * `keyAddr` maps key -> the candidate address encoded into it, so two candidates with the same description
  * (same-named vaults) never collide.
  */
-export function buildKeyTable(opts: { prefixes: Iterable<string>; candidates: Map<string, string>; pairAddrs?: string[]; ids?: number[]; domains?: number }): KeyTable {
+export function buildKeyTable(opts: { prefixes: Iterable<string>; candidates: Map<string, string>; pairAddrs?: string[]; ids?: number[]; domains?: number; assets?: Map<string, string> }): KeyTable {
   const table = new Map<string, string>(), keyAddr = new Map<string, string>();
   const pairAddrs = opts.pairAddrs ?? [], ids = opts.ids ?? [], domains = opts.domains ?? 64;
   for (const name of opts.prefixes) {
     table.set(prefixHash(name).toLowerCase(), `${name} (plain)`);
     for (const [a, desc] of opts.candidates) { const k = keyFor(name, ["address"], [getAddress(a)]); table.set(k, `${name} x ${desc}`); keyAddr.set(k, lower(a)); }
+    // Diamond PAU form: prefix, asset, vault (the same description, so the classifier treats both forms alike)
+    if (/4626_DEPOSIT$/.test(name)) for (const [a, asset] of opts.assets ?? []) { const desc = opts.candidates.get(lower(a)); if (!desc) continue; const k = keyFor(name, ["address", "address"], [getAddress(asset), getAddress(a)]); table.set(k, `${name} x ${desc}`); keyAddr.set(k, lower(a)); }
     for (let d = 0; d < domains; d++) table.set(keyFor(name, ["uint32"], [d]), `${name} x domain ${d}`);
     if (name === "LIMIT_ASSET_TRANSFER") for (const a of pairAddrs) for (const b of pairAddrs) table.set(keyFor(name, ["address", "address"], [getAddress(a), getAddress(b)]), `${name} x ${a.slice(0, 10)}… -> ${b.slice(0, 10)}…`);
     if (/LAYERZERO|CENTRIFUGE_TRANSFER/.test(name)) for (const a of pairAddrs) for (const d of ids) table.set(keyFor(name, ["address", "uint32"], [getAddress(a), d]), `${name} x ${a.slice(0, 10)}… -> id ${d}`);

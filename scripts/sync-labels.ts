@@ -59,7 +59,7 @@ async function syncAtlas() {
     const fileArticle = /^content\/(A(?:\.\d+)+)\s+-\s+/.exec(f.path)?.[1] ?? null;
     const prime = fileArticle ? Object.entries(cfg.primeArticles).find(([k]) => fileArticle === k || fileArticle.startsWith(k + "."))?.[1] ?? null : null;
     for (const m of parseAtlasMarkdown(text, fileArticle, f.path)) {
-      entries.push({ address: getAddress(m.address), prime, article: m.article, title: m.title, uuid: m.uuid, file: f.path, line: m.line, text: m.text, roleHint: m.roleHint, entityHint: m.entityHint, commit: head.sha, url: `https://github.com/${cfg.atlas.repo}/blob/${head.sha}/${f.path.split("/").map(encodeURIComponent).join("/")}#L${m.line}` });
+      entries.push({ address: getAddress(m.address), prime, article: m.article, title: m.title, uuid: m.uuid, file: f.path, line: m.line, text: m.text, roleHint: m.roleHint, entityHint: m.entityHint, threshold: m.threshold, commit: head.sha, url: `https://github.com/${cfg.atlas.repo}/blob/${head.sha}/${f.path.split("/").map(encodeURIComponent).join("/")}#L${m.line}` });
     }
   }
   console.log(`atlas ${cfg.atlas.repo}@${head.sha.slice(0, 8)} (${head.commit.committer.date.slice(0, 10)}): ${files.length} files, ${(bytes / 1e6).toFixed(1)} MB, ${entries.length} address mentions, ${new Set(entries.map((e) => e.address)).size} distinct addresses`);

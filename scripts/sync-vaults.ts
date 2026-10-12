@@ -16,7 +16,7 @@ import { loadPolicy, loadProviders, loadLabels, loadEnv, p } from "../src/node/l
 import { MorphoApi } from "../src/sources/morpho-api/client.ts";
 import { rateLimitsAbi } from "../src/sources/onchain/abis.ts";
 import { makeReader, ETHERSCAN_MORPHO_CHAINS } from "../src/pipeline.ts";
-import { depositRateLimitKey } from "../src/sources/onchain/vault.ts";
+import { depositRateLimitKey, pauDepositRateLimitKey } from "../src/sources/onchain/vault.ts";
 
 loadEnv();
 const policy = loadPolicy(), providers = loadProviders(), labels = loadLabels(policy);
@@ -39,16 +39,16 @@ export interface SkyVault {
   allocatable: { prime: string; contract: string; maxAmount: string; perDay: string }[];
   relations: string[]; sources: string[]; status: string;
 }
-type U = { address: string; chainId: number; version: "v2" | "v1.1"; name: string; symbol: string; asset?: string; decimals?: number; tvlUsd: number; owner?: string; curator?: string; listed?: boolean };
+type U = { address: string; chainId: number; version: "v2" | "v1.1"; name: string; symbol: string; asset?: string; assetAddress?: string; decimals?: number; tvlUsd: number; owner?: string; curator?: string; listed?: boolean };
 
 async function universe(chainId: number): Promise<U[]> {
   const out: U[] = [];
   for (const [kind, q, pick] of [
-    ["v2", "vaultV2s", (v: any): U => ({ address: getAddress(v.address), chainId, version: "v2", name: v.name, symbol: v.symbol, asset: v.asset?.symbol, decimals: v.asset?.decimals, tvlUsd: Number(v.totalAssetsUsd ?? 0), owner: v.owner?.address, curator: v.curator?.address, listed: v.listed === true })],
-    ["v1.1", "vaults", (v: any): U => ({ address: getAddress(v.address), chainId, version: "v1.1", name: v.name, symbol: v.symbol, asset: v.asset?.symbol, decimals: v.asset?.decimals, tvlUsd: Number(v.state?.totalAssetsUsd ?? 0), owner: v.state?.owner, curator: v.state?.curator, listed: v.listed === true })],
+    ["v2", "vaultV2s", (v: any): U => ({ address: getAddress(v.address), chainId, version: "v2", name: v.name, symbol: v.symbol, asset: v.asset?.symbol, assetAddress: v.asset?.address, decimals: v.asset?.decimals, tvlUsd: Number(v.totalAssetsUsd ?? 0), owner: v.owner?.address, curator: v.curator?.address, listed: v.listed === true })],
+    ["v1.1", "vaults", (v: any): U => ({ address: getAddress(v.address), chainId, version: "v1.1", name: v.name, symbol: v.symbol, asset: v.asset?.symbol, assetAddress: v.asset?.address, decimals: v.asset?.decimals, tvlUsd: Number(v.state?.totalAssetsUsd ?? 0), owner: v.state?.owner, curator: v.state?.curator, listed: v.listed === true })],
   ] as const) {
     for (let skip = 0; ; skip += 500) {
-      const fields = kind === "v2" ? "address name symbol listed asset { symbol decimals } totalAssetsUsd owner { address } curator { address }" : "address name symbol listed asset { symbol decimals } state { totalAssetsUsd owner curator }";
+      const fields = kind === "v2" ? "address name symbol listed asset { address symbol decimals } totalAssetsUsd owner { address } curator { address }" : "address name symbol listed asset { address symbol decimals } state { totalAssetsUsd owner curator }";
       const d = await api.gql<any>(`query($c: [Int!], $skip: Int) { r: ${q}(where: { chainId_in: $c }, first: 500, skip: $skip) { items { ${fields} } pageInfo { countTotal } } }`, { c: [chainId], skip });
       for (const v of d.r.items) out.push(pick(v));
       if (skip + 500 >= d.r.pageInfo.countTotal) break;
@@ -76,18 +76,23 @@ for (const chainId of CHAINS) {
   const reader = makeReader(deps, chainId);
   if (!reader) { console.log(`  no on-chain provider for chain ${chainId}; rate limits not scanned`); continue; }
   for (const rl of reg.filter((e) => e.role === "almRateLimits" && e.chainId === chainId)) {
-    const calls = all.map((u) => ({ key: u.address.toLowerCase(), address: rl.address as `0x${string}`, abi: rateLimitsAbi as Abi, functionName: "getRateLimitData", args: [depositRateLimitKey(u.address as `0x${string}`)] }));
+    // two key forms are in use: the ALM contracts hash (prefix, vault); the Diamond PAU contracts hash (prefix, asset, vault)
+    const calls = all.flatMap((u) => [
+      { key: `${u.address.toLowerCase()}|alm`, address: rl.address as `0x${string}`, abi: rateLimitsAbi as Abi, functionName: "getRateLimitData", args: [depositRateLimitKey(u.address as `0x${string}`)] },
+      ...(u.assetAddress ? [{ key: `${u.address.toLowerCase()}|pau`, address: rl.address as `0x${string}`, abi: rateLimitsAbi as Abi, functionName: "getRateLimitData", args: [pauDepositRateLimitKey(u.address as `0x${string}`, getAddress(u.assetAddress))] }] : []),
+    ]);
     const res = await reader.read(calls);
-    const failed = all.filter((u) => !res[u.address.toLowerCase()]?.ok).length;
-    if (failed > 0) throw new Error(`${chainName(chainId)} ${rl.prime} ${rl.constant}: ${failed} of ${all.length} rate-limit reads failed via ${reader.primaryLabel}; a failed read is not "no rate limit", list not written`);
+    const failed = calls.filter((c) => !res[c.key]?.ok).length;
+    if (failed > 0) throw new Error(`${chainName(chainId)} ${rl.prime} ${rl.constant}: ${failed} of ${calls.length} rate-limit reads failed via ${reader.primaryLabel}; a failed read is not "no rate limit", list not written`);
     let n = 0;
     for (const u of all) {
-      const r = res[u.address.toLowerCase()];
-      const d = r.value as { maxAmount: bigint; slope: bigint; lastUpdated: bigint };
-      if (d.maxAmount === 0n) continue; // never set, or set once and zeroed by a later spell (offboarded): the agent cannot deposit either way
+      const forms = [["alm", "LIMIT_4626_DEPOSIT key"], ["pau", "LIMIT_4626_DEPOSIT key in the Diamond PAU form (prefix, asset, vault)"]] as const;
+      const hit = forms.map(([f, label]) => ({ label, d: res[`${u.address.toLowerCase()}|${f}`]?.value as { maxAmount: bigint; slope: bigint; lastUpdated: bigint } | undefined })).find((x) => x.d && x.d.maxAmount > 0n);
+      if (!hit) continue; // never set, or set once and zeroed by a later spell (offboarded): the agent cannot deposit either way
+      const d = hit.d!;
       const v = ensure(u); n++;
       v.allocatable.push({ prime: rl.prime, contract: rl.address, maxAmount: d.maxAmount.toString(), perDay: (d.slope * 86400n).toString() });
-      add(v, "allocatable", `${rl.prime} ${rl.constant} (${rl.repo} ${rl.file} L${rl.line}) holds a LIMIT_4626_DEPOSIT key for this vault`);
+      add(v, "allocatable", `${rl.prime} ${rl.constant} (${rl.repo} ${rl.file} L${rl.line}) holds a ${hit.label} for this vault`);
     }
     console.log(`  ${rl.prime} ${rl.constant}: ${n} vaults allocatable (block ${reader.block} via ${reader.primaryLabel})`);
   }

@@ -1,21 +1,4 @@
 {
   "note": "The one hand-maintained input to the generated Sky vault list: vaults that a scheduled spell will onboard, each citing the public spell proposal. The chain cannot know a spell before it executes. The sync reports an entry as stale once the vault holds a rate limit on-chain, after which it can be deleted; a forgotten entry changes nothing, the vault shows its real status.",
-  "pending": [
-    {
-      "chainId": 1,
-      "address": "0x802148D518A6De2aF866f9A61ffB5e5C39156dB2",
-      "prime": "Osero",
-      "reason": "October 8, 2026 Osero spell: onboard the Osero x Gauntlet USDC Prime vault, deposit limit 5M USDC max with no refill on the Osero ALM RateLimits, withdrawals unlimited; BA Labs reviewed the configuration on September 28 and states the vault complies.",
-      "source": "https://forum.skyeco.com/t/28253",
-      "date": "2026-09-30"
-    },
-    {
-      "chainId": 1,
-      "address": "0xbeef08Db223ad823164A4B13CBD6bd8b5d507b41",
-      "prime": "Grove",
-      "reason": "October 8, 2026 Grove spell: onboard the Grove x Steakhouse PYUSD Morpho Vault V2, deposit limit 20M PYUSD max and 20M per day on the Grove ALM RateLimits, withdrawals unlimited, replacing the Steakhouse PYUSD vault; BA Labs reviewed it against the Framework on September 28 and supports the proposed rate limit.",
-      "source": "https://forum.skyeco.com/t/28255",
-      "date": "2026-09-30"
-    }
-  ]
+  "pending": []
 }

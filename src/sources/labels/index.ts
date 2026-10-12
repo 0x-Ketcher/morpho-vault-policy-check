@@ -28,6 +28,8 @@ export interface AtlasEntry {
   text: string;
   roleHint: string | null;
   entityHint: string | null;
+  /** a signer threshold the line states for this address ("requiring a 2 of 3 signer approval threshold"), when it does */
+  threshold?: { n: number; m: number } | null;
   commit: string;
   url: string;
 }
@@ -189,8 +191,12 @@ export class LabelBook {
     return this.policy.primes.names.find((n) => x.includes(n.toLowerCase()));
   }
 
-  /** Everything public sources say about an address on a chain, folded into one attribution. */
-  attribute(address: string, chainId: number): Attribution {
+  /**
+   * Everything public sources say about an address on a chain, folded into one attribution. When the Safe's structure is
+   * known, an Atlas line that states a different signer threshold is not applied: the Atlas sometimes records a planned
+   * rotation before it executes, and identity must not run ahead of the chain. The disagreement is kept as a citation.
+   */
+  attribute(address: string, chainId: number, safe?: { threshold?: number; owners?: string[] }): Attribution {
     const citations: Citation[] = [];
     const roles = new Set<string>();
     let oea = false, oeaEntity: string | undefined, prime: string | undefined, external: string | undefined, entity: string | undefined;
@@ -211,6 +217,10 @@ export class LabelBook {
       roles.add("curatorRegistry");
     }
     for (const e of this.atlasEntries(address)) {
+      if (e.threshold && safe?.threshold !== undefined && safe.owners && (e.threshold.n !== safe.threshold || e.threshold.m !== safe.owners.length)) {
+        citations.push({ source: "atlas", entity: e.entityHint ?? undefined, role: "not applied", ref: `Atlas ${e.article} - ${e.title} (L${e.line}) states a ${e.threshold.n} of ${e.threshold.m} threshold; the chain shows ${safe.threshold}/${safe.owners.length}, so the line is not applied`, commit: e.commit, url: e.url });
+        continue;
+      }
       citations.push({ source: "atlas", entity: e.entityHint ?? undefined, role: e.roleHint ?? undefined, ref: `Atlas ${e.article} - ${e.title} (L${e.line})`, commit: e.commit, url: e.url });
       if (e.roleHint) roles.add(`atlas:${e.roleHint}`);
       if (this.isOeaEntity(e.entityHint)) { oea = true; oeaEntity ??= e.entityHint ?? undefined; }

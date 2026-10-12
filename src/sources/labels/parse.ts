@@ -15,7 +15,17 @@ export function parseRegistrySol(text: string): RegistryConstant[] {
   return out;
 }
 
-export interface AtlasMention { address: string; article: string; title: string; uuid: string | null; line: number; text: string; roleHint: string | null; entityHint: string | null }
+export interface AtlasMention { address: string; article: string; title: string; uuid: string | null; line: number; text: string; roleHint: string | null; entityHint: string | null; threshold: { n: number; m: number } | null }
+
+/** "requiring a 2 of 3 signer approval threshold" stated for this address on the line, up to the next address. */
+export function thresholdFor(line: string, address: string): { n: number; m: number } | null {
+  const at = line.indexOf(address);
+  if (at < 0) return null;
+  const rest = line.slice(at + 42);
+  const next = rest.search(/0x[0-9a-fA-F]{40}/);
+  const m = /requiring an? (\d+)[ -]of[ -](\d+) signer/i.exec(next >= 0 ? rest.slice(0, next) : rest);
+  return m ? { n: Number(m[1]), m: Number(m[2]) } : null;
+}
 
 const ROLE_WORDS: [RegExp, string][] = [
   [/curator/i, "curator"], [/guardian/i, "guardian"], [/sentinel/i, "sentinel"], [/allocator/i, "allocator"], [/owner/i, "owner"],
@@ -76,7 +86,7 @@ export function parseAtlasMarkdown(text: string, fileArticle: string | null, fil
     const found = line.match(ADDRESS_RE);
     if (!found) return;
     const { roleHint } = atlasHints(line, heading.title);
-    for (const a of new Set(found)) out.push({ address: a, article: heading.article, title: heading.title, uuid: heading.uuid, line: i + 1, text: line.trim().slice(0, 240), roleHint, entityHint: entityHintFor(line, a) });
+    for (const a of new Set(found)) out.push({ address: a, article: heading.article, title: heading.title, uuid: heading.uuid, line: i + 1, text: line.trim().slice(0, 240), roleHint, entityHint: entityHintFor(line, a), threshold: thresholdFor(line, a) });
   });
   return out;
 }

@@ -1,8 +1,8 @@
 {
  "meta": {
-  "generatedAt": "2026-10-06T02:39:51.772Z",
+  "generatedAt": "2026-10-12T14:10:47.821Z",
   "source": "https://blue-api.morpho.org/graphql",
-  "count": 45
+  "count": 46
  },
  "entries": [
   {
@@ -537,6 +537,14 @@
      "address": "0xA13094eCEd689b7419BAbA12851374424c1486f1"
     },
     {
+     "chainId": 4663,
+     "address": "0x42D510eDeb9257f8D920d5B9f5109D95cB22419d"
+    },
+    {
+     "chainId": 4663,
+     "address": "0xA13094eCEd689b7419BAbA12851374424c1486f1"
+    },
+    {
      "chainId": 5042,
      "address": "0x032a292DE0127FdEf849EfF31b5b4DF7E5f069C0"
     },
@@ -559,6 +567,10 @@
    "name": "Gauntlet",
    "verified": true,
    "addresses": [
+    {
+     "chainId": 1,
+     "address": "0x256DaC8fad2788F4182A42cE8F26029F0DEd7cf9"
+    },
     {
      "chainId": 1,
      "address": "0x9E33faAE38ff641094fa68c65c2cE600b3410585"
@@ -856,6 +868,10 @@
     },
     {
      "chainId": 42161,
+     "address": "0xb3E0fe1ac9AcaBC64132171CD88A91312Da71C25"
+    },
+    {
+     "chainId": 42161,
      "address": "0xE8bED28828f4DD93FB98232F8e85c8880D1f7e1d"
     }
    ]
@@ -923,6 +939,17 @@
     {
      "chainId": 8453,
      "address": "0x8b621804a7637b781e2BbD58e256a591F2dF7d51"
+    }
+   ]
+  },
+  {
+   "id": "osero",
+   "name": "Osero",
+   "verified": true,
+   "addresses": [
+    {
+     "chainId": 1,
+     "address": "0x24fdcd3bFA5C2553e05B2f9AD0365EBC296278D3"
     }
    ]
   },
@@ -1038,6 +1065,10 @@
    "addresses": [
     {
      "chainId": 1,
+     "address": "0xbBacDCFB9691DFA1066aB29edfcc4A73f6DEf918"
+    },
+    {
+     "chainId": 143,
      "address": "0xbBacDCFB9691DFA1066aB29edfcc4A73f6DEf918"
     },
     {
@@ -1554,10 +1585,6 @@
     {
      "chainId": 143,
      "address": "0x9FD682F8a12A7829b91eAB9D83eCeB7146ba303C"
-    },
-    {
-     "chainId": 143,
-     "address": "0xbBacDCFB9691DFA1066aB29edfcc4A73f6DEf918"
     }
    ]
   },
