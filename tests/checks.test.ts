@@ -206,6 +206,16 @@ describe("C6 sentinel", () => {
     expect(r2.details.join(" ")).toContain("monitoring solution");
   });
   it("allows a Prime-owned extra", () => { expect(status("C6", { sentinels: [A.oeaSafe, A.subproxy] })).toBe("PASS"); });
+  it("keeps a registry-labelled Prime Safe Prime-owned when it shares a signer with the curator Safe", () => {
+    const s = snap();
+    const safes = { ...s.safes, [A.sparkCur.toLowerCase()]: safe(A.sparkCur, 2, [A.eoa1, A.eoa4]) }; // eoa1 also signs the curator 2/2
+    const r = run("C6", { sentinels: [A.oeaSafe, A.sparkCur], safes });
+    expect(r.status).toBe("PASS");
+    expect(r.summary).toContain("Prime-owned sentinel 0x0f96…46a3: allowed in addition to the OEA sentinel.");
+    const v1 = run("C6", { version: "v1.1", sentinels: [], guardian: A.sparkCur, safes });
+    expect(v1.status).toBe("FAIL");
+    expect(v1.summary).toContain("The one guardian seat is held by a Prime-owned Safe (0x0f96…46a3); it must be the OEA's.");
+  });
   it("uses the guardian on v1.1", () => {
     expect(status("C6", { version: "v1.1", sentinels: [], guardian: A.oeaSafe })).toBe("PASS");
     expect(status("C6", { version: "v1.1", sentinels: [], guardian: A.subproxy })).toBe("FAIL");

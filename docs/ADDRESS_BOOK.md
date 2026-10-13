@@ -4,7 +4,7 @@ Generated from `labels/*.json` by `npm run gen:docs`. Every row cites the public
 
 Registries read at: grove-labs/grove-address-registry@622981e8, sparkdotfi/spark-address-registry@98091964, osero-io/osero-address-registry@62d5fe15, skybase-foundation/skybase-address-registry@2c43f2e3, ElodinLTD/keel-address-registry@5871e2b7 (2026-10-12)
 Atlas read at: sky-ecosystem/next-gen-atlas@1eae57d3; 18 files, 725 address mentions
-Morpho curator registry: 46 curators, read 2026-10-12
+Morpho curator registry: 46 curators, read 2026-10-13
 
 ## Ethereum (1)
 
@@ -277,6 +277,7 @@ Morpho curator registry: 46 curators, read 2026-10-12
 | 0x7E43Df1c1c5A2245858b60D4655fDA83704e4171 | KPK | yes | - |
 | 0x834e1c1ea40173B82106F9177646b66d96AE7De8 | KPK | yes | - |
 | 0x8b884f80B3B839F52b6cE168f133e7a5D1f0A537 | KPK | yes | - |
+| 0xA2AE32ab472BBc1ceF8d5A6F0712c652E414FF62 | KPK | yes | - |
 | 0xb3E0fe1ac9AcaBC64132171CD88A91312Da71C25 | KPK | yes | - |
 | 0xC266b1181A80E84EDC2c6596718E88E8115c1eaa | KPK | yes | - |
 | 0xd15f11B334e1e233127302E5F759C17DA1260df5 | KPK | yes | - |

@@ -1,6 +1,6 @@
 {
  "meta": {
-  "generatedAt": "2026-10-12T14:10:47.821Z",
+  "generatedAt": "2026-10-13T13:34:06.422Z",
   "source": "https://blue-api.morpho.org/graphql",
   "count": 46
  },
@@ -813,6 +813,10 @@
     {
      "chainId": 1,
      "address": "0x8b884f80B3B839F52b6cE168f133e7a5D1f0A537"
+    },
+    {
+     "chainId": 1,
+     "address": "0xA2AE32ab472BBc1ceF8d5A6F0712c652E414FF62"
     },
     {
      "chainId": 1,
